@@ -1,0 +1,7 @@
+{
+  "resources/js/spotlight/spotlight.js": {
+    "file": "js/pxlrbt/filament-spotlight/spotlight-js.js",
+    "isEntry": true,
+    "src": "resources/js/spotlight/spotlight.js"
+  }
+}

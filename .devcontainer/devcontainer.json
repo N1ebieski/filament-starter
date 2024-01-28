@@ -1,0 +1,48 @@
+{
+    "name": "Laradock Filament Starter",
+    "dockerComposeFile": "../../laradock-filament-starter/docker-compose.yml",
+    "remoteUser": "laradock",
+    "runServices": [     
+        "nginx",
+        "mysql",
+        "redis",
+	    "php-fpm",
+        "docker-in-docker",
+    ],
+    "service": "workspace",
+    "workspaceFolder": "/var/www/filament-starter.test",
+    "shutdownAction": "stopCompose",
+    "postCreateCommand": "uname -a",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "amiralizadeh9480.laravel-extra-intellisense",
+                "austenc.laravel-blade-spacer",
+                "bmewburn.vscode-intelephense-client",
+                "calebporzio.better-phpunit",
+                "codingyu.laravel-goto-view",
+                "dbaeumer.vscode-eslint",
+                "eamodio.gitlens",
+                "GitHub.vscode-pull-request-github",
+                "kotfire.php-add-property",
+                "MehediDracula.php-namespace-resolver",
+                "cvergne.vscode-php-getters-setters-cv",
+                "recca0120.vscode-phpunit",
+                "redhat.vscode-yaml",
+                "Tyriar.lorem-ipsum",
+                "valeryanm.vscode-phpsab",
+                "xdebug.php-debug",
+                "amirmarmul.laravel-blade-vscode",
+                "sanderronde.phpstan-vscode",
+                "pcbowers.alpine-intellisense",
+                "cierra.livewire-vscode",
+                "m4tr1ck.livewire-goto-updated-3",
+                "naoray.laravel-goto-components",
+                "formulahendry.auto-close-tag",
+                "esbenp.prettier-vscode",
+                "ms-vscode.test-adapter-converter",
+                "hbenl.vscode-test-explorer"
+            ]
+        }
+    }  
+}
