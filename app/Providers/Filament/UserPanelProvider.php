@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Providers\Filament;
 
-use Filament\Pages;
 use Filament\Panel;
-use Filament\Widgets;
 use App\Models\Tenant\Tenant;
+use Filament\Pages\Dashboard;
+use Filament\Widgets\AccountWidget;
 use Illuminate\Support\Facades\Lang;
+use Filament\Widgets\FilamentInfoWidget;
 use App\Http\Middleware\Filament\VerifyEmail;
 use App\Http\Middleware\Filament\Authenticate;
 use App\Http\Middleware\Filament\MustTwoFactor;
@@ -25,16 +26,16 @@ final class UserPanelProvider extends PanelProvider
             ->id(self::ID)
             ->path(self::ID)
             ->homeUrl('/' . self::ID)
-            ->brandName(Lang::get('user.pages.index.title'))
+            ->brandName(Lang::get('user.pages.panel.title'))
             ->discoverResources(in: app_path('Filament/Resources/User'), for: 'App\\Filament\\Resources\\User')
             ->discoverPages(in: app_path('Filament/Pages/User'), for: 'App\\Filament\\Pages\\User')
             ->pages([
-                Pages\Dashboard::class,
+                Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets/User'), for: 'App\\Filament\\Widgets\\User')
             ->widgets([
-                Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
+                AccountWidget::class,
+                FilamentInfoWidget::class,
             ])
             ->authMiddleware([
                 Authenticate::class,

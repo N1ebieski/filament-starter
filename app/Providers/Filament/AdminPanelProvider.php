@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Providers\Filament;
 
-use Filament\Pages;
 use Filament\Panel;
-use Filament\Widgets;
+use Filament\Pages\Dashboard;
+use Filament\Widgets\AccountWidget;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Blade;
+use Filament\Widgets\FilamentInfoWidget;
 use Filament\Support\Facades\FilamentView;
 use App\Http\Middleware\Filament\VerifyEmail;
 use App\Http\Middleware\Filament\Authenticate;
@@ -29,12 +30,12 @@ final class AdminPanelProvider extends PanelProvider
             ->discoverResources(in: app_path('Filament/Resources/Admin'), for: 'App\\Filament\\Resources\\Admin')
             ->discoverPages(in: app_path('Filament/Pages/Admin'), for: 'App\\Filament\\Pages\\Admin')
             ->pages([
-                Pages\Dashboard::class,
+                Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets/Admin'), for: 'App\\Filament\\Widgets\\Admin')
             ->widgets([
-                Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
+                AccountWidget::class,
+                FilamentInfoWidget::class,
             ])
             ->authMiddleware([
                 Authenticate::class,

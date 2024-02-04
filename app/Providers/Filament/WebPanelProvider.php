@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Providers\Filament;
 
-use Filament\Pages;
 use Filament\Panel;
-use Filament\Widgets;
-use App\Filament\Http\Middleware;
+use Filament\Pages\Dashboard;
 use Illuminate\Support\Facades\Blade;
+use Filament\Widgets\FilamentInfoWidget;
 use Filament\Support\Facades\FilamentView;
 use App\Extends\Jeffgreco13\FilamentBreezy\BreezyCore;
+use App\Http\Middleware\Filament\EnsureEmailIsVerified;
 
 final class WebPanelProvider extends PanelProvider
 {
@@ -26,16 +26,16 @@ final class WebPanelProvider extends PanelProvider
             ->discoverResources(in: app_path('Filament/Resources/Web'), for: 'App\\Filament\\Resources\\Web')
             ->discoverPages(in: app_path('Filament/Pages/Web'), for: 'App\\Filament\\Pages\\Web')
             ->pages([
-                Pages\Dashboard::class,
+                Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets/Web'), for: 'App\\Filament\\Widgets\\Web')
             ->widgets([
-                Widgets\FilamentInfoWidget::class,
+                FilamentInfoWidget::class,
             ])
             ->login()
             ->emailVerification()
             ->emailVerifiedMiddlewareName(
-                Middleware\EnsureEmailIsVerified::class
+                EnsureEmailIsVerified::class
             )
             ->registration()
             ->passwordReset()
