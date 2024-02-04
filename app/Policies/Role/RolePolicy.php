@@ -10,26 +10,26 @@ use App\ValueObjects\Role\DefaultName;
 
 final class RolePolicy
 {
+    public function viewAny(User $user): bool
+    {
+        return $user->can('admin.role.view');
+    }
+
     public function create(User $user): bool
     {
         return $user->hasRole(DefaultName::SUPER_ADMIN->value);
     }
 
-    public function update(User $user, Role $role): bool
+    public function update(User $user, Role $record): bool
     {
         return $user->hasRole(DefaultName::SUPER_ADMIN->value)
-            && !$role->name->isAdmin();
+            && !$record->name->isAdmin();
     }
 
-    public function delete(User $user, Role $role): bool
+    public function delete(User $user, Role $record): bool
     {
         return $user->hasRole(DefaultName::SUPER_ADMIN->value)
-            && !$role->name->isDefault();
-    }
-
-    public function viewAny(User $user): bool
-    {
-        return $user->can('admin.role.view');
+            && !$record->name->isDefault();
     }
 
     public function deleteAny(User $user): bool

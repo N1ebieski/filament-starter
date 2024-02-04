@@ -9,29 +9,34 @@ use App\ValueObjects\Role\DefaultName;
 
 final class UserPolicy
 {
-    public function create(User $authUser): bool
+    public function viewAny(User $user): bool
     {
-        return $authUser->hasRole(DefaultName::SUPER_ADMIN->value);
+        return $user->can('admin.user.view');
     }
 
-    public function update(User $authUser, User $user): bool
+    public function create(User $user): bool
     {
-        return $authUser->hasRole(DefaultName::SUPER_ADMIN->value) && ($authUser->id !== $user->id);
+        return $user->hasRole(DefaultName::SUPER_ADMIN->value);
     }
 
-    public function delete(User $authUser, User $user): bool
+    public function update(User $user, User $record): bool
     {
-        return $authUser->hasRole(DefaultName::SUPER_ADMIN->value) && ($authUser->id !== $user->id);
+        return $user->hasRole(DefaultName::SUPER_ADMIN->value) && ($user->id !== $record->id);
     }
 
-    public function deleteAny(User $authUser): bool
+    public function delete(User $user, User $record): bool
     {
-        return $authUser->hasRole(DefaultName::SUPER_ADMIN->value);
+        return $user->hasRole(DefaultName::SUPER_ADMIN->value) && ($user->id !== $record->id);
+    }
+
+    public function deleteAny(User $user): bool
+    {
+        return $user->hasRole(DefaultName::SUPER_ADMIN->value);
         ;
     }
 
-    public function toggleStatusEmail(User $authUser, User $user): bool
+    public function toggleStatusEmail(User $user, User $record): bool
     {
-        return $authUser->hasRole(DefaultName::SUPER_ADMIN->value) && ($authUser->id !== $user->id);
+        return $user->hasRole(DefaultName::SUPER_ADMIN->value) && ($user->id !== $record->id);
     }
 }
