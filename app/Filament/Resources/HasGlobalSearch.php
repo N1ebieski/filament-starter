@@ -20,7 +20,7 @@ trait HasGlobalSearch
     protected static function getSearch(?string $search): ?Search
     {
         return !is_null($search) && mb_strlen($search) > 2 ?
-            static::getSearchFactory()->getSearch($search, App::make(static::getModel())) : null;
+            static::getSearchFactory()->make($search, App::make(static::getModel())) : null;
     }
 
     abstract public static function getModel(): string;

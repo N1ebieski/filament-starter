@@ -67,7 +67,7 @@ final class ManageRoles extends ManageRecords implements PageMetaInterface
     private function getSearch(?string $search): ?Search
     {
         return !is_null($search) && mb_strlen($search) > 2 ?
-            $this->searchFactory->getSearch($search, $this->role) : null;
+            $this->searchFactory->make($search, $this->role) : null;
     }
 
     protected function getHeaderActions(): array

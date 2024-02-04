@@ -85,7 +85,7 @@ final class ManageUsers extends ManageRecords implements PageMetaInterface
     private function getSearch(?string $search): ?Search
     {
         return !is_null($search) && mb_strlen($search) > 2 ?
-            $this->searchFactory->getSearch($search, $this->user) : null;
+            $this->searchFactory->make($search, $this->user) : null;
     }
 
     protected function getHeaderActions(): array
