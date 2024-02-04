@@ -9,9 +9,9 @@ use Filament\Panel;
 use Filament\Widgets;
 use App\Models\Tenant\Tenant;
 use Illuminate\Support\Facades\Lang;
-use App\Filament\Http\Middleware\VerifyEmail;
-use App\Filament\Http\Middleware\Authenticate;
-use App\Filament\Http\Middleware\MustTwoFactor;
+use App\Http\Middleware\Filament\VerifyEmail;
+use App\Http\Middleware\Filament\Authenticate;
+use App\Http\Middleware\Filament\MustTwoFactor;
 use App\Filament\Pages\User\Tenancy\RegisterTeam;
 use App\Extends\Jeffgreco13\FilamentBreezy\BreezyCore;
 

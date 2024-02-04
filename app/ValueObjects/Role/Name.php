@@ -14,7 +14,7 @@ final class Name extends ValueObject
 
     public function isAdmin(): bool
     {
-        foreach ([DefaultName::SUPER_ADMIN, DefaultName::ADMIN] as $name) {
+        foreach ([DefaultName::SuperAdmin, DefaultName::Admin] as $name) {
             if ($this->isEquals(new self($name->value))) {
                 return true;
             }

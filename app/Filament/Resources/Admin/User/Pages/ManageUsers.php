@@ -36,7 +36,7 @@ use App\Filament\Resources\Admin\User\Actions\CreateUser;
 use App\Filament\Resources\Admin\User\Actions\DeleteUser;
 use App\Filament\Pages\MetaInterface as PageMetaInterface;
 use App\Commands\User\EditStatusEmail\EditStatusEmailCommand;
-use App\Filament\Resources\Admin\User\BulkActions\DeleteUsers;
+use App\Filament\Resources\Admin\User\Actions\DeleteUsers;
 
 final class ManageUsers extends ManageRecords implements PageMetaInterface
 {
@@ -93,7 +93,7 @@ final class ManageUsers extends ManageRecords implements PageMetaInterface
         return [
             CreateUser::make(
                 $this->role->newQuery()
-                    ->where('name', new Name(DefaultName::USER->value))
+                    ->where('name', new Name(DefaultName::User->value))
                     ->when(!empty($this->getTableFilterState('roles')['values']), function (Builder $query): Builder {
                         return $query->orWhereIn('id', $this->getTableFilterState('roles')['values']);
                     })
@@ -206,7 +206,7 @@ final class ManageUsers extends ManageRecords implements PageMetaInterface
             ->recordUrl(null)
             ->recordAction(null)
             ->defaultSort(function (Builder|User $query): Builder {
-                return $query->filterOrderBy(new OrderBy('id', Order::DESC));
+                return $query->filterOrderBy(new OrderBy('id', Order::Desc));
             });
     }
 }

@@ -17,23 +17,23 @@ final class RolePolicy
 
     public function create(User $user): bool
     {
-        return $user->hasRole(DefaultName::SUPER_ADMIN->value);
+        return $user->hasRole(DefaultName::SuperAdmin->value);
     }
 
     public function update(User $user, Role $record): bool
     {
-        return $user->hasRole(DefaultName::SUPER_ADMIN->value)
+        return $user->hasRole(DefaultName::SuperAdmin->value)
             && !$record->name->isAdmin();
     }
 
     public function delete(User $user, Role $record): bool
     {
-        return $user->hasRole(DefaultName::SUPER_ADMIN->value)
+        return $user->hasRole(DefaultName::SuperAdmin->value)
             && !$record->name->isDefault();
     }
 
     public function deleteAny(User $user): bool
     {
-        return $user->hasRole(DefaultName::SUPER_ADMIN->value);
+        return $user->hasRole(DefaultName::SuperAdmin->value);
     }
 }

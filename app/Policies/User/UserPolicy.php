@@ -16,26 +16,26 @@ final class UserPolicy
 
     public function create(User $user): bool
     {
-        return $user->hasRole(DefaultName::SUPER_ADMIN->value);
+        return $user->hasRole(DefaultName::SuperAdmin->value);
     }
 
     public function update(User $user, User $record): bool
     {
-        return $user->hasRole(DefaultName::SUPER_ADMIN->value) && ($user->id !== $record->id);
+        return $user->hasRole(DefaultName::SuperAdmin->value) && ($user->id !== $record->id);
     }
 
     public function delete(User $user, User $record): bool
     {
-        return $user->hasRole(DefaultName::SUPER_ADMIN->value) && ($user->id !== $record->id);
+        return $user->hasRole(DefaultName::SuperAdmin->value) && ($user->id !== $record->id);
     }
 
     public function deleteAny(User $user): bool
     {
-        return $user->hasRole(DefaultName::SUPER_ADMIN->value);
+        return $user->hasRole(DefaultName::SuperAdmin->value);
     }
 
     public function toggleStatusEmail(User $user, User $record): bool
     {
-        return $user->hasRole(DefaultName::SUPER_ADMIN->value) && ($user->id !== $record->id);
+        return $user->hasRole(DefaultName::SuperAdmin->value) && ($user->id !== $record->id);
     }
 }

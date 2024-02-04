@@ -6,6 +6,7 @@ namespace App\Filament\Resources\Admin\Role\Actions;
 
 use App\Models\Role\Role;
 use App\Commands\CommandBus;
+use App\Filament\Actions\Action;
 use Illuminate\Support\Facades\App;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Lang;
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Filament\Tables\Actions\DeleteBulkAction;
 use App\Commands\Role\DeleteMulti\DeleteMultiCommand;
 
-final class DeleteRoles
+final class DeleteRoles extends Action
 {
     public function __construct(
         private readonly CommandBus $commandBus

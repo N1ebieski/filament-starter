@@ -35,7 +35,7 @@ final class MakeSuperAdminCommand extends MakeUserCommand
     {
         return $this->user->newQuery()
             ->whereHas('roles', function (Builder $query) {
-                return $query->where('name', DefaultName::SUPER_ADMIN);
+                return $query->where('name', DefaultName::SuperAdmin);
             })->count() === 0;
     }
 

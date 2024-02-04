@@ -6,11 +6,11 @@ namespace App\ValueObjects\Role;
 
 enum DefaultName: string
 {
-    case USER = 'user';
+    case User = 'user';
 
-    case ADMIN = 'admin';
+    case Admin = 'admin';
 
-    case SUPER_ADMIN = 'super-admin';
+    case SuperAdmin = 'super-admin';
 
-    case API = 'api';
+    case Api = 'api';
 }

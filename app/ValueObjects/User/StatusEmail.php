@@ -12,31 +12,31 @@ enum StatusEmail: string implements HasLabel
 {
     use Enum;
 
-    case VERIFIED = 'verified';
+    case Verified = 'verified';
 
-    case UNVERIFIED = 'unverified';
+    case Unverified = 'unverified';
 
     public function getAsBool(): bool
     {
         return match ($this) {
-            self::VERIFIED => true,
-            self::UNVERIFIED => false
+            self::Verified => true,
+            self::Unverified => false
         };
     }
 
     public function toggle(): self
     {
         return match ($this) {
-            self::VERIFIED => self::UNVERIFIED,
-            self::UNVERIFIED => self::VERIFIED
+            self::Verified => self::Unverified,
+            self::Unverified => self::Verified
         };
     }
 
     public function getLabel(): string
     {
         return match ($this) {
-            self::VERIFIED => Lang::get('user.status_email.verified'),
-            self::UNVERIFIED => Lang::get('user.status_email.unverified')
+            self::Verified => Lang::get('user.status_email.verified'),
+            self::Unverified => Lang::get('user.status_email.unverified')
         };
     }
 }

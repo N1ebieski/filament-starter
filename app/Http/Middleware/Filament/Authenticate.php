@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Http\Middleware;
+namespace App\Http\Middleware\Filament;
 
 use Illuminate\Http\Request;
 use Filament\Facades\Filament;

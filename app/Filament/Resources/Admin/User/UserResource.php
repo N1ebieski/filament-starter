@@ -4,33 +4,15 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Admin\User;
 
-use Filament\Forms;
-use Filament\Tables;
-use App\Queries\Search;
-use Filament\Forms\Form;
-use App\Models\Role\Role;
 use App\Models\User\User;
-use App\Queries\QueryBus;
-use Filament\Tables\Table;
-use App\Queries\SearchFactory;
-use App\Filters\Role\RoleFilter;
 use App\Filters\User\UserFilter;
-use Illuminate\Support\Facades\App;
 use App\Filament\Resources\Resource;
 use Illuminate\Support\Facades\Lang;
-use App\Models\Permission\Permission;
-use Filament\Forms\Components\Select;
-use Illuminate\Database\Eloquent\Model;
-use Filament\Forms\Components\TextInput;
 use App\Filament\Resources\HasGlobalSearch;
-use App\Filament\Resources\Admin\User\Pages;
 use App\Filament\Resources\GlobalSearchInterface;
 use App\Queries\User\GetByFilter\GetByFilterQuery;
 use Illuminate\Contracts\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\Admin\Role\RelationManagers;
 use App\Filament\Resources\Admin\User\Pages\ManageUsers;
-use Illuminate\Contracts\Container\BindingResolutionException;
 
 final class UserResource extends Resource implements GlobalSearchInterface
 {
@@ -39,6 +21,8 @@ final class UserResource extends Resource implements GlobalSearchInterface
     protected static ?string $model = User::class;
 
     protected static ?string $navigationIcon = 'heroicon-s-users';
+
+    protected static ?int $navigationSort = 1;
 
     protected static ?string $recordTitleAttribute = 'name';
 

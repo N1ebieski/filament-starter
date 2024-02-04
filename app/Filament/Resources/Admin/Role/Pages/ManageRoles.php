@@ -125,7 +125,7 @@ final class ManageRoles extends ManageRecords implements PageMetaInterface
             ->recordUrl(null)
             ->recordAction(null)
             ->defaultSort(function (Builder|Role $query): Builder {
-                return $query->filterOrderBy(new OrderBy('id', Order::DESC));
+                return $query->filterOrderBy(new OrderBy('id', Order::Desc));
             });
     }
 }

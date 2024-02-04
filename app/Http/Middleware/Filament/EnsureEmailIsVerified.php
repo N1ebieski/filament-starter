@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Http\Middleware;
+namespace App\Http\Middleware\Filament;
 
 use Closure;
 use Illuminate\Auth\Middleware\EnsureEmailIsVerified as BaseEnsureEmailIsVerified;

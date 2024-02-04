@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Resources\Admin\User\BulkActions;
+namespace App\Filament\Resources\Admin\User\Actions;
 
 use App\Models\User\User;
 use App\Commands\CommandBus;
+use App\Filament\Actions\Action;
 use Illuminate\Support\Facades\App;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Lang;
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Filament\Tables\Actions\DeleteBulkAction;
 use App\Commands\User\DeleteMulti\DeleteMultiCommand;
 
-final class DeleteUsers
+final class DeleteUsers extends Action
 {
     public function __construct(
         private readonly CommandBus $commandBus

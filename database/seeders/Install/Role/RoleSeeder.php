@@ -24,25 +24,25 @@ final class RoleSeeder extends Seeder
     {
         $this->permissionRegistrar->forgetCachedPermissions();
 
-        $superAdmin = $this->role->newQuery()->firstOrCreate(['name' => DefaultName::SUPER_ADMIN->value]);
+        $superAdmin = $this->role->newQuery()->firstOrCreate(['name' => DefaultName::SuperAdmin->value]);
 
         if ($superAdmin->wasRecentlyCreated) {
             $superAdmin->givePermissionTo(['admin.*', 'web.*', 'api.*']);
         }
 
-        $admin = $this->role->newQuery()->firstOrCreate(['name' => DefaultName::ADMIN->value]);
+        $admin = $this->role->newQuery()->firstOrCreate(['name' => DefaultName::Admin->value]);
 
         if ($admin->wasRecentlyCreated) {
             $admin->givePermissionTo(['admin.*', 'web.*', 'api.*']);
         }
 
-        $user = $this->role->newQuery()->firstOrCreate(['name' => DefaultName::USER->value]);
+        $user = $this->role->newQuery()->firstOrCreate(['name' => DefaultName::User->value]);
 
         if ($user->wasRecentlyCreated) {
             $user->givePermissionTo(['web.*']);
         }
 
-        $api = $this->role->newQuery()->firstOrCreate(['name' => DefaultName::API->value]);
+        $api = $this->role->newQuery()->firstOrCreate(['name' => DefaultName::Api->value]);
 
         if ($api->wasRecentlyCreated) {
             $api->givePermissionTo(['api.*']);

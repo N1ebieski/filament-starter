@@ -7,6 +7,7 @@ namespace App\Filament\Resources\Admin\Role\Actions;
 use App\Models\Role\Role;
 use App\Queries\QueryBus;
 use App\Commands\CommandBus;
+use App\Filament\Actions\Action;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
 use App\Models\Permission\Permission;
@@ -19,7 +20,7 @@ use Filament\Forms\Components\TextInput;
 use Illuminate\Contracts\Database\Query\Builder;
 use App\Filament\Resources\Admin\Role\Actions\HasPermissions;
 
-final class EditRole
+final class EditRole extends Action
 {
     use HasPermissions;
 
@@ -72,7 +73,7 @@ final class EditRole
                         'id',
                         function (Exists $rule, Role $record): Exists {
                             return $rule->when(
-                                $record->name->isEqualsDefault(DefaultName::USER),
+                                $record->name->isEqualsDefault(DefaultName::User),
                                 function (Exists $rule): Exists {
                                     return $rule->where(function (Builder $builder): Builder {
                                         return $builder->where('name', 'like', 'web.%')
@@ -81,7 +82,7 @@ final class EditRole
                                 }
                             )
                             ->when(
-                                $record->name->isEqualsDefault(DefaultName::API),
+                                $record->name->isEqualsDefault(DefaultName::Api),
                                 function (Exists $rule): Exists {
                                     return $rule->where(function (Builder $builder): Builder {
                                         return $builder->where('name', 'like', 'api.%');

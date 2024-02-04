@@ -30,12 +30,12 @@ final class EditStatusEmailHandler extends Handler
 
         try {
             $command->user->update([
-                'email_verified_at' => $command->status->isEquals(StatusEmail::VERIFIED) ?
+                'email_verified_at' => $command->status->isEquals(StatusEmail::Verified) ?
                     $this->carbon->now() : null
             ]);
 
             if (
-                $command->status->isEquals(StatusEmail::UNVERIFIED)
+                $command->status->isEquals(StatusEmail::Unverified)
                 && $command->user instanceof MustVerifyEmail
             ) {
                 $command->user->sendEmailVerificationNotification();

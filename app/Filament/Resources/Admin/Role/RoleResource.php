@@ -22,6 +22,8 @@ final class RoleResource extends Resource implements GlobalSearchInterface
 
     protected static ?string $navigationIcon = 'heroicon-s-shield-check';
 
+    protected static ?int $navigationSort = 2;
+
     protected static ?string $recordTitleAttribute = 'name';
 
     protected static ?string $slug = 'roles';

@@ -42,21 +42,21 @@ final class UserFactory extends Factory
     public function user(): self
     {
         return $this->afterCreating(function (User $user) {
-            $user->assignRole(DefaultName::USER->value);
+            $user->assignRole(DefaultName::User->value);
         });
     }
 
     public function admin(): self
     {
         return $this->afterCreating(function (User $user) {
-            $user->assignRole(DefaultName::ADMIN->value);
+            $user->assignRole(DefaultName::Admin->value);
         });
     }
 
     public function superAdmin(): self
     {
         return $this->afterCreating(function (User $user) {
-            $user->assignRole(DefaultName::SUPER_ADMIN->value);
+            $user->assignRole(DefaultName::SuperAdmin->value);
         });
     }
 }

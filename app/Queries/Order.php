@@ -6,7 +6,7 @@ namespace App\Queries;
 
 enum Order: string
 {
-    case ASC = 'asc';
+    case Asc = 'asc';
 
-    case DESC = 'desc';
+    case Desc = 'desc';
 }

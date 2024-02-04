@@ -96,7 +96,7 @@ class User extends Authenticatable implements FilamentUser, HasTenants, MustVeri
     public function statusEmail(): Attribute
     {
         return new Attribute(fn (): StatusEmail => !is_null($this->email_verified_at) ?
-            StatusEmail::VERIFIED : StatusEmail::UNVERIFIED);
+            StatusEmail::Verified : StatusEmail::Unverified);
     }
 
     // Policies

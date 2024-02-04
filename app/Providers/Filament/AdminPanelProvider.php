@@ -10,9 +10,9 @@ use Filament\Widgets;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Blade;
 use Filament\Support\Facades\FilamentView;
-use App\Filament\Http\Middleware\VerifyEmail;
-use App\Filament\Http\Middleware\Authenticate;
-use App\Filament\Http\Middleware\MustTwoFactor;
+use App\Http\Middleware\Filament\VerifyEmail;
+use App\Http\Middleware\Filament\Authenticate;
+use App\Http\Middleware\Filament\MustTwoFactor;
 use App\Extends\Jeffgreco13\FilamentBreezy\BreezyCore;
 
 final class AdminPanelProvider extends PanelProvider

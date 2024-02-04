@@ -26,7 +26,7 @@ final class EditHandler extends Handler
             $user->save();
 
             $user->syncRoles([
-                DefaultName::USER->value,
+                DefaultName::User->value,
                 ...$command->roles->map(fn (Role $role) => $role->name->value)->toArray()
             ]);
         } catch (\Exception $e) {

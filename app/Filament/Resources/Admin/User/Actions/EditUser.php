@@ -8,6 +8,7 @@ use App\Models\Role\Role;
 use App\Models\User\User;
 use App\Queries\QueryBus;
 use App\Commands\CommandBus;
+use App\Filament\Actions\Action;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
 use Filament\Forms\Components\Select;
@@ -15,7 +16,7 @@ use App\Commands\User\Edit\EditCommand;
 use Filament\Tables\Actions\EditAction;
 use Filament\Forms\Components\TextInput;
 
-final class EditUser
+final class EditUser extends Action
 {
     public function __construct(
         private readonly User $user,

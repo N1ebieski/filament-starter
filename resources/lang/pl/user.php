@@ -31,7 +31,7 @@ return [
         'create' => 'Pomyślnie dodano użytkownika :name',
         'edit' => 'Pomyślnie edytowano użytkownika :name',
         'toggle_status_email' => [
-            StatusEmail::VERIFIED->value => 'Pomyślnie zweryfikowano adres email :email użytkownika :name'
+            StatusEmail::Verified->value => 'Pomyślnie zweryfikowano adres email :email użytkownika :name'
         ],
     ],
     'groups' => [
@@ -57,7 +57,7 @@ return [
     ],
     'status_email' => [
         'label' => 'Status weryfikacji',
-        StatusEmail::VERIFIED->value => 'zweryfikowane',
-        StatusEmail::UNVERIFIED->value => 'niezweryfikowane'
+        StatusEmail::Verified->value => 'zweryfikowane',
+        StatusEmail::Unverified->value => 'niezweryfikowane'
     ],
 ];

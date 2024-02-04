@@ -8,6 +8,7 @@ use App\Models\Role\Role;
 use App\Models\User\User;
 use App\Queries\QueryBus;
 use App\Commands\CommandBus;
+use App\Filament\Actions\Action;
 use Filament\Actions\CreateAction;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
@@ -16,7 +17,7 @@ use Filament\Forms\Components\TextInput;
 use App\Commands\User\Create\CreateCommand;
 use Illuminate\Database\Eloquent\Collection;
 
-final class CreateUser
+final class CreateUser extends Action
 {
     public function __construct(
         private readonly User $user,

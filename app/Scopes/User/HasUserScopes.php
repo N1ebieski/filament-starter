@@ -20,7 +20,7 @@ trait HasUserScopes
     public function scopeFilterStatusEmail(Builder $builder, ?StatusEmail $status = null): Builder
     {
         return $builder->when(!is_null($status), function (Builder $builder) use ($status) {
-            return $builder->when($status->isEquals(StatusEmail::VERIFIED), function (Builder $builder) {
+            return $builder->when($status->isEquals(StatusEmail::Verified), function (Builder $builder) {
                 return $builder->whereNotNull('email_verified_at');
             }, function (Builder $builder) {
                 return $builder->whereNull('email_verified_at');

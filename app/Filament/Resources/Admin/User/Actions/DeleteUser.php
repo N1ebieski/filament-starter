@@ -6,12 +6,13 @@ namespace App\Filament\Resources\Admin\User\Actions;
 
 use App\Models\User\User;
 use App\Commands\CommandBus;
+use App\Filament\Actions\Action;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
 use Filament\Tables\Actions\DeleteAction;
 use App\Commands\User\Delete\DeleteCommand;
 
-final class DeleteUser
+final class DeleteUser extends Action
 {
     public function __construct(
         private readonly CommandBus $commandBus

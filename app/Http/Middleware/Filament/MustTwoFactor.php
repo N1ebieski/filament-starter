@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Http\Middleware;
+namespace App\Http\Middleware\Filament;
 
 use Closure;
 use App\Models\User\User;
@@ -30,7 +30,7 @@ final class MustTwoFactor
             return $request->expectsJson() ?
                 App::abort(
                     HttpResponse::HTTP_FORBIDDEN,
-                    'Your have to authenticate by 2FA.'
+                    'You have to authenticate by 2FA.'
                 )
                 : Response::redirectTo($this->redirectTo($request));
         }

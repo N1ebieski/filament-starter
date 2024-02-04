@@ -7,6 +7,7 @@ namespace App\Filament\Resources\Admin\Role\Actions;
 use App\Models\Role\Role;
 use App\Queries\QueryBus;
 use App\Commands\CommandBus;
+use App\Filament\Actions\Action;
 use Filament\Actions\CreateAction;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
@@ -16,7 +17,7 @@ use Filament\Forms\Components\TextInput;
 use App\Commands\Role\Create\CreateCommand;
 use App\Filament\Resources\Admin\Role\Actions\HasPermissions;
 
-final class CreateRole
+final class CreateRole extends Action
 {
     use HasPermissions;
 
