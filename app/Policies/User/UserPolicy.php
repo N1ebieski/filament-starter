@@ -32,7 +32,6 @@ final class UserPolicy
     public function deleteAny(User $user): bool
     {
         return $user->hasRole(DefaultName::SUPER_ADMIN->value);
-        ;
     }
 
     public function toggleStatusEmail(User $user, User $record): bool
