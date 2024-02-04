@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers\Filament;
 
 use Filament\Panel;
@@ -20,7 +22,7 @@ use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 
-class PanelProvider extends BasePanelProvider
+abstract class PanelProvider extends BasePanelProvider
 {
     public function panel(Panel $panel): Panel
     {
@@ -41,17 +43,17 @@ class PanelProvider extends BasePanelProvider
             ])
             ->userMenuItems([
                 MenuItem::make()
-                    ->url(fn () => Filament::getPanel('web')->getHomeUrl())
+                    ->url(fn (): string => Filament::getPanel('web')->getHomeUrl())
                     ->label(Lang::get('home.pages.index.title'))
                     ->icon('heroicon-s-home'),
                 MenuItem::make()
-                    ->url(fn () => Filament::getPanel('user')->getHomeUrl())
-                    ->visible(fn (Panel $panel) => $panel->auth()->check())
+                    ->url(fn (): string => Filament::getPanel('user')->getHomeUrl())
+                    ->visible(fn (Panel $panel): bool => $panel->auth()->check())
                     ->label(Lang::get('user.pages.panel.title'))
                     ->icon('heroicon-s-user'),
                 MenuItem::make()
-                    ->url(fn () => Filament::getPanel('admin')->getHomeUrl())
-                    ->visible(fn (Panel $panel) => $panel->auth()->user()?->can('admin.access') ?? false)
+                    ->url(fn (): string => Filament::getPanel('admin')->getHomeUrl())
+                    ->visible(fn (Panel $panel): bool => $panel->auth()->user()?->can('admin.access') ?? false)
                     ->label(Lang::get('admin.pages.panel.title'))
                     ->icon('heroicon-m-shield-exclamation'),
             ])
@@ -60,7 +62,7 @@ class PanelProvider extends BasePanelProvider
             ->plugins([
                 SpotlightPlugin::make(),
             ])
-            ->bootUsing(function (Panel $panel) {
+            ->bootUsing(function (Panel $panel): void {
                 $panel->userMenuItems([
                     'account' => MenuItem::make()->url(function (Panel $panel): string {
                         if ($panel->auth()->check()) {

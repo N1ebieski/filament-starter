@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\Admin\Role;
 
 use App\Models\Role\Role;
@@ -12,7 +14,7 @@ use App\Queries\Role\GetByFilter\GetByFilterQuery;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use App\Filament\Resources\Admin\Role\Pages\ManageRoles;
 
-class RoleResource extends Resource implements GlobalSearchInterface
+final class RoleResource extends Resource implements GlobalSearchInterface
 {
     use HasGlobalSearch;
 

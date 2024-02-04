@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\Admin\User;
 
 use Filament\Forms;
@@ -30,7 +32,7 @@ use App\Filament\Resources\Admin\Role\RelationManagers;
 use App\Filament\Resources\Admin\User\Pages\ManageUsers;
 use Illuminate\Contracts\Container\BindingResolutionException;
 
-class UserResource extends Resource implements GlobalSearchInterface
+final class UserResource extends Resource implements GlobalSearchInterface
 {
     use HasGlobalSearch;
 

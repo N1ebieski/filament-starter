@@ -1,23 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers\Filament;
 
 use Filament\Pages;
 use Filament\Panel;
 use Filament\Widgets;
 use App\Models\Tenant\Tenant;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Config;
 use App\Filament\Http\Middleware\VerifyEmail;
-use App\Extends\Pxlrbt\FilamentSpotlight\SpotlightPlugin;
 use App\Filament\Http\Middleware\Authenticate;
 use App\Filament\Http\Middleware\MustTwoFactor;
 use App\Filament\Pages\User\Tenancy\RegisterTeam;
-use Jeffgreco13\FilamentBreezy\Pages\MyProfilePage;
 use App\Extends\Jeffgreco13\FilamentBreezy\BreezyCore;
 
-class UserPanelProvider extends PanelProvider
+final class UserPanelProvider extends PanelProvider
 {
     public const ID = 'user';
 

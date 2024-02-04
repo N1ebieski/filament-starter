@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Resources\Admin\Role\Actions;
+namespace App\Filament\Resources\Admin\User\Actions;
 
-use App\Models\Role\Role;
+use App\Models\User\User;
 use App\Commands\CommandBus;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
 use Filament\Tables\Actions\DeleteAction;
-use App\Commands\Role\Delete\DeleteCommand;
+use App\Commands\User\Delete\DeleteCommand;
 
-final class DeleteRole
+final class DeleteUser
 {
     public function __construct(
         private readonly CommandBus $commandBus
@@ -29,13 +29,13 @@ final class DeleteRole
     public function getAction(): DeleteAction
     {
         return DeleteAction::make()
-            ->modalHeading(fn (Role $record): string => Lang::get('role.pages.delete.title', [
+            ->modalHeading(fn (User $record): string => Lang::get('user.pages.delete.title', [
                 'name' => $record->name
             ]))
-            ->using(function (Role $record): bool {
+            ->using(function (User $record): bool {
                 return $this->commandBus->execute(new DeleteCommand($record));
             })
-            ->successNotificationTitle(fn (Role $record): string => Lang::get('role.messages.delete', [
+            ->successNotificationTitle(fn (User $record): string => Lang::get('user.messages.delete', [
                 'name' => $record->name
             ]));
     }

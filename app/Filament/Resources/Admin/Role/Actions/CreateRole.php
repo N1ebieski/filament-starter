@@ -30,13 +30,13 @@ final class CreateRole
 
     public static function make(): CreateAction
     {
-        /** @var self */
+        /** @var static */
         $static = App::make(static::class);
 
-        return $static->get();
+        return $static->getAction();
     }
 
-    public function get(): CreateAction
+    public function getAction(): CreateAction
     {
         return CreateAction::make()
             ->icon('heroicon-o-plus-circle')
@@ -66,6 +66,8 @@ final class CreateRole
                     permissions: $this->permission->newQuery()->findMany($data['permissions'])
                 ));
             })
-            ->successNotificationTitle(fn (Role $record) => Lang::get('role.messages.create', ['name' => $record->name]));
+            ->successNotificationTitle(fn (Role $record): string => Lang::get('role.messages.create', [
+                'name' => $record->name
+            ]));
     }
 }

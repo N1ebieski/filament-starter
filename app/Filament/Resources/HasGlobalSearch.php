@@ -7,7 +7,6 @@ namespace App\Filament\Resources;
 use App\Queries\Search;
 use App\Queries\SearchFactory;
 use Illuminate\Support\Facades\App;
-use Illuminate\Contracts\Database\Eloquent\Builder;
 
 trait HasGlobalSearch
 {
@@ -21,7 +20,7 @@ trait HasGlobalSearch
     protected static function getSearch(?string $search): ?Search
     {
         return !is_null($search) && mb_strlen($search) > 2 ?
-            static::getSearchFactory()->make($search, App::make(static::getModel())) : null;
+            static::getSearchFactory()->getSearch($search, App::make(static::getModel())) : null;
     }
 
     abstract public static function getModel(): string;

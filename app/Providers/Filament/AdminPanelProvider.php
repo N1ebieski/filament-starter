@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers\Filament;
 
 use Filament\Pages;
 use Filament\Panel;
 use Filament\Widgets;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Blade;
 use Filament\Support\Facades\FilamentView;
@@ -13,9 +14,8 @@ use App\Filament\Http\Middleware\VerifyEmail;
 use App\Filament\Http\Middleware\Authenticate;
 use App\Filament\Http\Middleware\MustTwoFactor;
 use App\Extends\Jeffgreco13\FilamentBreezy\BreezyCore;
-use App\Extends\Pxlrbt\FilamentSpotlight\SpotlightPlugin;
 
-class AdminPanelProvider extends PanelProvider
+final class AdminPanelProvider extends PanelProvider
 {
     public const ID = 'admin';
 

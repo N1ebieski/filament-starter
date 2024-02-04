@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Resources\Admin\Role\Actions;
+namespace App\Filament\Resources\Admin\User\BulkActions;
 
-use App\Models\Role\Role;
+use App\Models\User\User;
 use App\Commands\CommandBus;
 use Illuminate\Support\Facades\App;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Database\Eloquent\Collection;
 use Filament\Tables\Actions\DeleteBulkAction;
-use App\Commands\Role\DeleteMulti\DeleteMultiCommand;
+use App\Commands\User\DeleteMulti\DeleteMultiCommand;
 
-final class DeleteRoles
+final class DeleteUsers
 {
     public function __construct(
         private readonly CommandBus $commandBus
@@ -32,17 +32,17 @@ final class DeleteRoles
     {
         return DeleteBulkAction::make()
             ->modalHeading(function (Collection $records): string {
-                return Lang::choice('role.pages.delete_multi.title', $records->count(), [
+                return Lang::choice('user.pages.delete_multi.title', $records->count(), [
                     'number' => $records->count()
                 ]);
             })
             ->using(function (Collection $records, Guard $guard): int {
-                $records = $records->filter(fn (Role $role): bool => $guard->user()?->can('delete', $role));
+                $records = $records->filter(fn (User $user): bool => $guard->user()?->can('delete', $user));
 
                 return $this->commandBus->execute(new DeleteMultiCommand($records));
             })
             ->successNotificationTitle(function (Collection $records): string {
-                return Lang::choice('role.messages.delete_multi', $records->count(), [
+                return Lang::choice('user.messages.delete_multi', $records->count(), [
                     'number' => $records->count()
                 ]);
             });

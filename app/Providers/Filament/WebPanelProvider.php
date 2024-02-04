@@ -1,24 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers\Filament;
 
 use Filament\Pages;
 use Filament\Panel;
 use Filament\Widgets;
-use App\Models\User\User;
-use Filament\Facades\Filament;
 use App\Filament\Http\Middleware;
-use Filament\Navigation\MenuItem;
-use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Blade;
 use Filament\Support\Facades\FilamentView;
-use App\Filament\Http\Middleware\Authenticate;
-use Jeffgreco13\FilamentBreezy\Pages\MyProfilePage;
 use App\Extends\Jeffgreco13\FilamentBreezy\BreezyCore;
 
-class WebPanelProvider extends PanelProvider
+final class WebPanelProvider extends PanelProvider
 {
     public const ID = 'web';
 

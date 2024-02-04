@@ -33,16 +33,18 @@ final class EditRole
 
     public static function make(): EditAction
     {
-        /** @var self */
+        /** @var static */
         $static = App::make(static::class);
 
-        return $static->get();
+        return $static->getAction();
     }
 
-    public function get(): EditAction
+    public function getAction(): EditAction
     {
         return EditAction::make()
-            ->modalHeading(fn (Role $record) => Lang::get('role.pages.edit.title', ['name' => $record->name->value]))
+            ->modalHeading(fn (Role $record): string => Lang::get('role.pages.edit.title', [
+                'name' => $record->name->value
+            ]))
             ->mutateRecordDataUsing(function (array $data, Role $record): array {
                 $data['name'] = $data['name']->value;
                 $data['permissions'] = $record->permissions->pluck('id')->toArray();
@@ -53,7 +55,7 @@ final class EditRole
                 TextInput::make('name')
                     ->label(Lang::get('role.name.label'))
                     ->required()
-                    ->disabled(fn (Role $record) => $record->name->isDefault())
+                    ->disabled(fn (Role $record): bool => $record->name->isDefault())
                     ->string()
                     ->minLength(3)
                     ->maxLength(255)
@@ -61,29 +63,33 @@ final class EditRole
 
                 Select::make('permissions')
                     ->label(Lang::get('role.permissions.label'))
-                    ->options(fn (Role $record) => $this->getGroupedPermissions($record)->toArray())
+                    ->options(fn (Role $record): array => $this->getGroupedPermissions($record)->toArray())
                     ->searchable()
                     ->multiple()
                     ->required()
-                    ->exists($this->permission->getTable(), 'id', function (Exists $rule, Role $record) {
-                        return $rule->when(
-                            $record->name->isEqualsDefault(DefaultName::USER),
-                            function (Exists $rule) {
-                                return $rule->where(function (Builder $builder) {
-                                    return $builder->where('name', 'like', 'web.%')
-                                        ->orWhere('name', 'like', 'api.%');
-                                });
-                            }
-                        )
-                        ->when(
-                            $record->name->isEqualsDefault(DefaultName::API),
-                            function (Exists $rule) {
-                                return $rule->where(function (Builder $builder) {
-                                    return $builder->where('name', 'like', 'api.%');
-                                });
-                            }
-                        );
-                    })
+                    ->exists(
+                        $this->permission->getTable(),
+                        'id',
+                        function (Exists $rule, Role $record): Exists {
+                            return $rule->when(
+                                $record->name->isEqualsDefault(DefaultName::USER),
+                                function (Exists $rule): Exists {
+                                    return $rule->where(function (Builder $builder): Builder {
+                                        return $builder->where('name', 'like', 'web.%')
+                                            ->orWhere('name', 'like', 'api.%');
+                                    });
+                                }
+                            )
+                            ->when(
+                                $record->name->isEqualsDefault(DefaultName::API),
+                                function (Exists $rule): Exists {
+                                    return $rule->where(function (Builder $builder): Builder {
+                                        return $builder->where('name', 'like', 'api.%');
+                                    });
+                                }
+                            );
+                        }
+                    )
             ])
             ->stickyModalFooter()
             ->closeModalByClickingAway(false)
@@ -94,6 +100,8 @@ final class EditRole
                     permissions: $this->permission->newQuery()->findMany($data['permissions'])
                 ));
             })
-            ->successNotificationTitle(fn (Role $record) => Lang::get('role.messages.edit', ['name' => $record->name]));
+            ->successNotificationTitle(fn (Role $record): string => Lang::get('role.messages.edit', [
+                'name' => $record->name
+            ]));
     }
 }

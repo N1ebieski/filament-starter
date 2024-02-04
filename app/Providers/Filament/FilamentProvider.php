@@ -1,18 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers\Filament;
 
-use Livewire\Livewire;
-use Livewire\Component;
 use Filament\Tables\Table;
-use Filament\Facades\Filament;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Filament\Tables\Enums\FiltersLayout;
 use Filament\Support\Facades\FilamentView;
 
-class FilamentProvider extends ServiceProvider
+final class FilamentProvider extends ServiceProvider
 {
     /**
      * Bootstrap any application services.
@@ -29,7 +27,7 @@ class FilamentProvider extends ServiceProvider
                 ->striped()
                 ->recordUrl(null)
                 ->recordAction(null)
-                ->filtersLayout(FiltersLayout::AboveContent);
+                ->filtersLayout(FiltersLayout::AboveContentCollapsible);
         });
     }
 }

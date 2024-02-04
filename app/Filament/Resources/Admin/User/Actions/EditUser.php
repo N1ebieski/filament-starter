@@ -8,15 +8,14 @@ use App\Models\Role\Role;
 use App\Models\User\User;
 use App\Queries\QueryBus;
 use App\Commands\CommandBus;
-use Filament\Actions\CreateAction;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
 use Filament\Forms\Components\Select;
+use App\Commands\User\Edit\EditCommand;
+use Filament\Tables\Actions\EditAction;
 use Filament\Forms\Components\TextInput;
-use App\Commands\User\Create\CreateCommand;
-use Illuminate\Database\Eloquent\Collection;
 
-final class CreateUser
+final class EditUser
 {
     public function __construct(
         private readonly User $user,
@@ -26,22 +25,22 @@ final class CreateUser
     ) {
     }
 
-    public static function make(Collection $roles = new Collection()): CreateAction
+    public static function make(): EditAction
     {
         /** @var static */
         $static = App::make(static::class);
 
-        return $static->getAction(roles: $roles);
+        return $static->getAction();
     }
 
-    public function getAction(Collection $roles = new Collection()): CreateAction
+    public function getAction(): EditAction
     {
-        return CreateAction::make()
-            ->model($this->user::class)
-            ->icon('heroicon-o-plus-circle')
-            ->modalHeading(Lang::get('user.pages.create.title'))
-            ->fillForm(function (array $data) use ($roles): array {
-                $data['roles'] = $roles->pluck('id')->toArray();
+        return EditAction::make()
+            ->modalHeading(fn (User $record): string => Lang::get('user.pages.edit.title', [
+                'name' => $record->name
+            ]))
+            ->mutateRecordDataUsing(function (array $data, User $record): array {
+                $data['roles'] = $record->roles->pluck('id')->toArray();
 
                 return $data;
             })
@@ -52,18 +51,18 @@ final class CreateUser
                     ->string()
                     ->minLength(3)
                     ->maxLength(255)
-                    ->unique($this->user->getTable(), 'name'),
+                    ->unique($this->user->getTable(), 'name', ignoreRecord: true),
 
                 TextInput::make('email')
                     ->label(Lang::get('user.email.label'))
+                    ->required()
                     ->extraInputAttributes([
                         'autocomplete' => 'new-password'
                     ])
-                    ->required()
                     ->string()
                     ->email()
                     ->maxLength(255)
-                    ->unique($this->user->getTable(), 'email'),
+                    ->unique($this->user->getTable(), 'email', ignoreRecord: true),
 
                 TextInput::make('password')
                     ->label(Lang::get('user.password.label'))
@@ -72,7 +71,7 @@ final class CreateUser
                         'autocomplete' => 'new-password'
                     ])
                     ->revealable()
-                    ->required()
+                    ->nullable()
                     ->string()
                     ->minLength(8)
                     ->maxLength(255)
@@ -85,7 +84,7 @@ final class CreateUser
                         'autocomplete' => 'new-password'
                     ])
                     ->revealable()
-                    ->required()
+                    ->nullable()
                     ->string()
                     ->minLength(8)
                     ->maxLength(255),
@@ -101,17 +100,18 @@ final class CreateUser
             ])
             ->stickyModalFooter()
             ->closeModalByClickingAway(false)
-            ->using(function (array $data): User {
+            ->using(function (array $data, User $record): User {
                 return $this->commandBus->execute(
-                    new CreateCommand(
+                    new EditCommand(
+                        user: $record,
                         name: $data['name'],
                         email: $data['email'],
-                        password: $data['password'],
+                        password: $data['password'] ?? $record->password,
                         roles: $this->role->newQuery()->findMany($data['roles'])
                     )
                 );
             })
-            ->successNotificationTitle(fn (User $record): string => Lang::get('user.messages.create', [
+            ->successNotificationTitle(fn (User $record): string => Lang::get('user.messages.edit', [
                 'name' => $record->name
             ]));
     }

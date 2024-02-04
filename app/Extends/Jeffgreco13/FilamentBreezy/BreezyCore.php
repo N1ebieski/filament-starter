@@ -15,6 +15,7 @@ final class BreezyCore extends BaseBreezyCore
         if ($this->myProfile['condition']) {
             $collection->push($this->getMyProfilePageClass());
         }
+
         return $collection->toArray();
     }
 }

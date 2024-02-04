@@ -28,7 +28,7 @@ use App\Filament\Resources\Admin\Role\Actions\DeleteRole;
 use App\Filament\Pages\MetaInterface as PageMetaInterface;
 use App\Filament\Resources\Admin\Role\Actions\DeleteRoles;
 
-class ManageRoles extends ManageRecords implements PageMetaInterface
+final class ManageRoles extends ManageRecords implements PageMetaInterface
 {
     use HasMeta;
 
@@ -67,7 +67,7 @@ class ManageRoles extends ManageRecords implements PageMetaInterface
     private function getSearch(?string $search): ?Search
     {
         return !is_null($search) && mb_strlen($search) > 2 ?
-            $this->searchFactory->make($search, $this->role) : null;
+            $this->searchFactory->getSearch($search, $this->role) : null;
     }
 
     protected function getHeaderActions(): array
@@ -81,7 +81,7 @@ class ManageRoles extends ManageRecords implements PageMetaInterface
     {
         return $table
             ->searchable(true)
-            ->query(function () {
+            ->query(function (): Builder {
                 return $this->queryBus->execute(new GetByFilterQuery(
                     filters: new RoleFilter(
                         search: $this->getSearch($this->getTableSearch())

@@ -14,7 +14,7 @@ final class UserPolicy
         return $authUser->hasRole(DefaultName::SUPER_ADMIN->value);
     }
 
-    public function edit(User $authUser, User $user): bool
+    public function update(User $authUser, User $user): bool
     {
         return $authUser->hasRole(DefaultName::SUPER_ADMIN->value) && ($authUser->id !== $user->id);
     }

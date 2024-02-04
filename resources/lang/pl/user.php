@@ -18,12 +18,21 @@ return [
         'edit' => [
             'title' => 'Edycja użytkownika: :name'
         ],
+        'delete' => [
+            'title' => 'Usuń użytkownika :name'
+        ],
+        'delete_multi' => [
+            'title' => '{1} Usuń :number zaznaczonego użytkownika|{2,*} Usuń :number zaznaczonych użytkowników'
+        ],
     ],
     'messages' => [
         'delete' => 'Pomyślnie usunięto użytkownika :name',
         'delete_multi' => '{1} Pomyślnie usunięto :number użytkownika|{2,*} Pomyślnie usunięto :number użytkowników',
         'create' => 'Pomyślnie dodano użytkownika :name',
-        'edit' => 'Pomyślnie edytowano użytkownika :name'
+        'edit' => 'Pomyślnie edytowano użytkownika :name',
+        'toggle_status_email' => [
+            StatusEmail::VERIFIED->value => 'Pomyślnie zweryfikowano adres email :email użytkownika :name'
+        ],
     ],
     'groups' => [
         'settings' => 'Ustawienia'

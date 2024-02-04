@@ -87,7 +87,7 @@ final class SearchFactory
         return $this->str->contains($match, ['.', '-', '+', '<', '>', '@', '*', '(', ')', '~']);
     }
 
-    public function make(string $search, ?Model $model = null): Search
+    public function getSearch(string $search, ?Model $model = null): Search
     {
         $this->search = $search;
 

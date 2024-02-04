@@ -81,6 +81,8 @@ class User extends Authenticatable implements FilamentUser, HasTenants, MustVeri
 
     public array $searchableAttributes = ['id'];
 
+    // Overrides
+
     public function sendEmailVerificationNotification(): void
     {
         $notification = new VerifyEmail();
