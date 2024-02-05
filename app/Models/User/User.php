@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
 
@@ -81,6 +82,11 @@ class User extends Authenticatable implements FilamentUser, HasTenants, MustVeri
 
     public array $searchableAttributes = ['id'];
 
+    public function getTenants(Panel $panel): array | Collection
+    {
+        return $this->tenants;
+    }
+
     // Overrides
 
     public function sendEmailVerificationNotification(): void
@@ -111,15 +117,19 @@ class User extends Authenticatable implements FilamentUser, HasTenants, MustVeri
         };
     }
 
+    /**
+     * @param Tenant $tenant
+     * @return bool
+     */
     public function canAccessTenant(Model $tenant): bool
     {
-        return true;
+        return $tenant->user->id == $this->id;
     }
 
     // Relations
 
-    public function getTenants(Panel $panel): array | Collection
+    public function tenants(): MorphToMany
     {
-        return Tenant::all();
+        return $this->morphToMany(\App\Models\Tenant\Tenant::class, 'model', 'tenants_models');
     }
 }

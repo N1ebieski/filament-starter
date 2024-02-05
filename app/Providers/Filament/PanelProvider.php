@@ -66,21 +66,9 @@ abstract class PanelProvider extends BasePanelProvider
                 $panel->userMenuItems([
                     'account' => MenuItem::make()->url(function (Panel $panel): string {
                         if ($panel->auth()->check()) {
-                            $tenant = null;
+                            $panel = Filament::getDefaultPanel()->getId();
 
-                            $userPanel = Filament::getPanel('user');
-
-                            if ($userPanel->hasTenancy()) {
-                                /** @var User */
-                                $user = $panel->auth()->user();
-
-                                $tenant = $user->getTenants($userPanel)->first();
-                            }
-
-                            return MyProfilePage::getUrl(
-                                panel: 'user',
-                                tenant: $tenant
-                            );
+                            return MyProfilePage::getUrl(panel: $panel);
                         }
 
                         return '';

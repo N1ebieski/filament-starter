@@ -12,8 +12,9 @@ use Illuminate\Support\Facades\Lang;
 use Filament\Widgets\FilamentInfoWidget;
 use App\Http\Middleware\Filament\VerifyEmail;
 use App\Http\Middleware\Filament\Authenticate;
+use App\Filament\Pages\User\Tenancy\EditTenant;
 use App\Http\Middleware\Filament\MustTwoFactor;
-use App\Filament\Pages\User\Tenancy\RegisterTeam;
+use App\Filament\Pages\User\Tenancy\CreateTenant;
 use App\Extends\Jeffgreco13\FilamentBreezy\BreezyCore;
 
 final class UserPanelProvider extends PanelProvider
@@ -45,17 +46,17 @@ final class UserPanelProvider extends PanelProvider
             ->plugins([
                 BreezyCore::make()
                     ->myProfile(
+                        condition: false,
                         shouldRegisterUserMenu: false,
-                        shouldRegisterNavigation: true,
-                        hasAvatars: false,
+                        shouldRegisterNavigation: false,
                         slug: 'profile',
-                        navigationGroup: Lang::get('user.groups.settings')
                     )
                     ->enableTwoFactorAuthentication()
             ])
             ->tenant(Tenant::class)
-            ->tenantRegistration(RegisterTeam::class)
-            ->tenantRoutePrefix('team')
+            ->tenantRegistration(CreateTenant::class)
+            ->tenantProfile(EditTenant::class)
+            ->tenantRoutePrefix('tenants')
             ->spa();
     }
 }

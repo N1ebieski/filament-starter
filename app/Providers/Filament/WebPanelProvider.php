@@ -42,10 +42,10 @@ final class WebPanelProvider extends PanelProvider
             ->plugins([
                 BreezyCore::make()
                     ->myProfile(
-                        condition: false,
                         shouldRegisterUserMenu: false,
                         shouldRegisterNavigation: false,
-                        slug: 'profile',
+                        hasAvatars: false,
+                        slug: 'profile'
                     )
                     ->enableTwoFactorAuthentication()
             ])
