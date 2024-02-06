@@ -11,13 +11,19 @@ return [
         'delete' => [
             'title' => 'Usuń projekt: :name'
         ],
-        'morphs' => [
+        'users' => [
             'index' => [
                 'title' => 'Członkowie'
             ],
             'attach' => [
                 'title' => 'Dołącz użytkownika'
-            ]
+            ],
+            'detach' => [
+                'title' => 'Odłącz użytkownika: :name'
+            ],
+            'detach_multi' => [
+                'title' => '{1} Odłącz :number zaznaczonego użytkownika|{2,*} Odłącz :number zaznaczonych użytkowników'
+            ],
         ]
     ],
     'messages' => [
@@ -27,9 +33,15 @@ return [
         ],
         'create' => 'Pomyślnie dodano projekt: :name',
         'edit' => 'Pomyślnie edytowano projekt: :name',
-        'morphs' => [
+        'users' => [
             'attach' => [
                 'success' => 'Pomyślnie dołączono użytkownika: :name'
+            ],
+            'detach' => [
+                'success' => 'Pomyślnie odłączono użytkownika: :name'
+            ],
+            'detach_multi' => [
+                'success' => '{1} Pomyślnie odłączono :number użytkownika|{2,*} Pomyślnie odłączono :number użytkowników',
             ]
         ]
     ],

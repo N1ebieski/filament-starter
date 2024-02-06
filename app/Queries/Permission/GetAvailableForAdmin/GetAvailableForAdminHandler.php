@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Queries\Permission\GetAvailable;
+namespace App\Queries\Permission\GetAvailableForAdmin;
 
 use App\Queries\Handler;
 use App\ValueObjects\Role\DefaultName;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 
-final class GetAvailableHandler extends Handler
+final class GetAvailableForAdminHandler extends Handler
 {
-    public function handle(GetAvailableQuery $query): Collection
+    public function handle(GetAvailableForAdminQuery $query): Collection
     {
         /** @var Collection */
         $permissions = $query->permission->newQuery()

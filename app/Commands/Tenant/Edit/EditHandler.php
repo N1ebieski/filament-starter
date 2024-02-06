@@ -20,7 +20,7 @@ final class EditHandler extends Handler
 
             $tenant->save();
 
-            $tenant->morphs()->sync($command->morphs);
+            $tenant->users()->sync($command->users);
         } catch (\Exception $e) {
             $this->db->rollBack();
 

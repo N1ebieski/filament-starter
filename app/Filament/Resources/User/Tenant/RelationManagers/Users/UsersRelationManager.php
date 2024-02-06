@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Filament\Resources\User\Tenant\RelationManagers\Morph;
+declare(strict_types=1);
 
-use Filament\Forms;
-use Filament\Tables;
+namespace App\Filament\Resources\User\Tenant\RelationManagers\Users;
+
 use App\Queries\Order;
 use App\Queries\Search;
 use App\Queries\OrderBy;
-use Filament\Forms\Form;
 use App\Models\User\User;
 use App\Queries\QueryBus;
 use Filament\Tables\Table;
@@ -18,21 +17,18 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
-use Filament\Forms\Components\TextInput;
-use Filament\Tables\Actions\AttachAction;
-use Filament\Tables\Actions\DetachAction;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Actions\BulkActionGroup;
 use Illuminate\Database\Eloquent\Collection;
-use Filament\Tables\Actions\DetachBulkAction;
 use App\Queries\User\GetByFilter\GetByFilterQuery;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Resources\RelationManagers\RelationManager;
-use App\Filament\Resources\User\Tenant\RelationManagers\Morph\Actions\AttachMorph;
+use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\AttachUser;
+use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\DetachUser;
+use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\DetachUsers;
 
-class MorphsRelationManager extends RelationManager
+class UsersRelationManager extends RelationManager
 {
-    protected static string $relationship = 'morphs';
+    protected static string $relationship = 'users';
 
     private QueryBus $queryBus;
 
@@ -60,7 +56,7 @@ class MorphsRelationManager extends RelationManager
 
     public static function getTitle(Model $ownerRecord, string $pageClass): string
     {
-        return Lang::get('tenant.pages.morphs.index.title');
+        return Lang::get('tenant.pages.users.index.title');
     }
 
     private function getSearch(?string $search): ?Search
@@ -91,14 +87,14 @@ class MorphsRelationManager extends RelationManager
                     ->grow(),
             ])
             ->headerActions([
-                AttachMorph::make($tenant),
+                AttachUser::make($tenant),
             ])
             ->actions([
-                DetachAction::make(),
+                DetachUser::make($tenant),
             ])
             ->bulkActions([
                 BulkActionGroup::make([
-                    DetachBulkAction::make(),
+                    DetachUsers::make($tenant),
                 ]),
             ])
             ->recordUrl(null)

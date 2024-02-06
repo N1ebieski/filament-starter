@@ -22,16 +22,16 @@ return new class extends Migration
 
         Schema::create('tenants_models', function (Blueprint $table) {
             $table->bigInteger('tenant_id')->unsigned();
-            $table->bigInteger('model_id')->unsigned();
-            $table->string('model_type');
-            $table->index(['model_type', 'model_id']);
+            $table->bigInteger('authenticatable_id')->unsigned();
+            $table->string('authenticatable_type');
+            $table->index(['authenticatable_type', 'authenticatable_id']);
 
             $table->foreign('tenant_id')
                 ->references('id')
                 ->on('tenants')
                 ->onDelete('cascade');
 
-            $table->primary(['tenant_id', 'model_type', 'model_id']);
+            $table->unique(['tenant_id', 'authenticatable_type', 'authenticatable_id'], 'tenants_models_unique');
         });
     }
 

@@ -8,7 +8,6 @@ use Filament\Facades\Filament;
 use Laravel\Sanctum\HasApiTokens;
 use App\Scopes\User\HasUserScopes;
 use App\ValueObjects\User\StatusEmail;
-use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Filament\Models\Contracts\HasTenants;
@@ -17,6 +16,7 @@ use Filament\Notifications\Auth\VerifyEmail;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use App\Extends\Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -130,6 +130,6 @@ class User extends Authenticatable implements FilamentUser, HasTenants, MustVeri
 
     public function tenants(): MorphToMany
     {
-        return $this->morphToMany(\App\Models\Tenant\Tenant::class, 'model', 'tenants_models');
+        return $this->morphToMany(\App\Models\Tenant\Tenant::class, 'authenticatable', 'tenants_models');
     }
 }

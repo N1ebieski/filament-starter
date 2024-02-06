@@ -2,27 +2,23 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Resources\Admin\Role\Actions;
+namespace App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions;
 
-use App\Models\Role\Role;
 use App\Queries\QueryBus;
 use App\Models\Permission\Permission;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Collection as SupportCollection;
-use App\Queries\Permission\GetAvailableForAdmin\GetAvailableForAdminQuery;
+use App\Queries\Permission\GetAvailableForTenant\GetAvailableForTenantQuery;
 
 /**
  * @property-read QueryBus $queryBus
- * @property-read Role $role
  */
 trait HasPermissions
 {
-    public function getGroupedPermissions(?Role $role = null): SupportCollection
+    public function getGroupedPermissions(): SupportCollection
     {
         /** @var Collection */
-        $permissions = $this->queryBus->execute(new GetAvailableForAdminQuery(
-            role: $role ?? $this->role
-        ));
+        $permissions = $this->queryBus->execute(new GetAvailableForTenantQuery());
 
         return $permissions->sortBy('name')
             ->mapWithKeys(function (Permission $permission) {

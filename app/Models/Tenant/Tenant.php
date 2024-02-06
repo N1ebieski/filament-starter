@@ -36,8 +36,8 @@ class Tenant extends Model implements HasCurrentTenantLabel
         return $this->belongsTo(\App\Models\User\User::class);
     }
 
-    public function morphs(): MorphToMany
+    public function users(): MorphToMany
     {
-        return $this->morphedByMany(\App\Models\User\User::class, 'model', 'tenants_models', 'tenant_id');
+        return $this->morphedByMany(\App\Models\User\User::class, 'authenticatable', 'tenants_models', 'tenant_id');
     }
 }

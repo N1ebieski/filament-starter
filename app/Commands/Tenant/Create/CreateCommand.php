@@ -15,7 +15,7 @@ final class CreateCommand extends Command
         public readonly string $name,
         public readonly User $user,
         public readonly Tenant $tenant = new Tenant(),
-        public readonly Collection $morphs = new Collection()
+        public readonly Collection $users = new Collection()
     ) {
     }
 }

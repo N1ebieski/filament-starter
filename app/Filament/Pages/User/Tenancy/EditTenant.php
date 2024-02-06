@@ -15,7 +15,7 @@ use Filament\Forms\Components\TextInput;
 use App\Commands\Tenant\Edit\EditCommand;
 use Filament\Pages\Tenancy\EditTenantProfile;
 use App\Filament\Actions\User\Tenancy\DeleteTenant;
-use App\Filament\Resources\User\Tenant\RelationManagers\Morph\MorphsRelationManager;
+use App\Filament\Resources\User\Tenant\RelationManagers\Users\UsersRelationManager;
 
 /**
  * @property-read Tenant $tenant
@@ -72,7 +72,7 @@ class EditTenant extends EditTenantProfile
             name: $data['name'],
             user: Auth::user(),
             tenant: $record,
-            morphs: $record->morphs
+            users: $record->users
         ));
 
         return $tenant;
@@ -81,7 +81,7 @@ class EditTenant extends EditTenantProfile
     public static function getRelations(): array
     {
         return [
-            MorphsRelationManager::class
+            UsersRelationManager::class
         ];
     }
 }

@@ -38,5 +38,7 @@ final class PermissionSeeder extends Seeder
         $this->permission->newQuery()->firstOrCreate(['name' => 'api.*']);
 
         $this->permission->newQuery()->firstOrCreate(['name' => 'web.*']);
+
+        $this->permission->newQuery()->firstOrCreate(['name' => 'tenant.*']);
     }
 }

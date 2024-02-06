@@ -21,7 +21,7 @@ final class CreateHandler extends Handler
 
             $tenant->save();
 
-            $tenant->morphs()->attach($command->morphs->push($command->user));
+            $tenant->users()->attach($command->users->push($command->user));
         } catch (\Exception $e) {
             $this->db->rollBack();
 
