@@ -60,4 +60,7 @@ return [
         StatusEmail::Verified->value => 'zweryfikowane',
         StatusEmail::Unverified->value => 'niezweryfikowane'
     ],
+    'permissions' => [
+        'label' => 'Uprawnienia'
+    ]
 ];

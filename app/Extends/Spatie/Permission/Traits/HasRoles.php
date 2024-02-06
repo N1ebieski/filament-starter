@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Extends\Spatie\Permission\Traits;
 
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Config;
 use Spatie\Permission\PermissionRegistrar;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Spatie\Permission\Traits\HasRoles as BaseHasRoles;
@@ -16,27 +18,44 @@ trait HasRoles
         HasPermissions::permissions insteadof BaseHasRoles;
     }
 
+    private function getRolePivotTeamField(): string
+    {
+        /** @var PermissionRegistrar */
+        $permissionRegistrar = App::make(PermissionRegistrar::class);
+
+        return Config::get('permission.table_names.model_has_roles') . '.' . $permissionRegistrar->teamsKey;
+    }
+
+    private function getTeamField(): string
+    {
+        /** @var PermissionRegistrar */
+        $permissionRegistrar = App::make(PermissionRegistrar::class);
+
+        return Config::get('permission.table_names.roles') . '.' . $permissionRegistrar->teamsKey;
+    }
+
     public function roles(): BelongsToMany
     {
+        /** @var PermissionRegistrar */
+        $permissionRegistrar = App::make(PermissionRegistrar::class);
+
         $relation = $this->morphToMany(
-            config('permission.models.role'),
+            Config::get('permission.models.role'),
             'authenticatable',
-            config('permission.table_names.model_has_roles'),
-            config('permission.column_names.model_morph_key'),
-            app(PermissionRegistrar::class)->pivotRole
+            Config::get('permission.table_names.model_has_roles'),
+            Config::get('permission.column_names.model_morph_key'),
+            $permissionRegistrar->pivotRole
         );
 
-        if (! app(PermissionRegistrar::class)->teams) {
+        if (!$permissionRegistrar->teams) {
             return $relation;
         }
 
-        $teamField = config('permission.table_names.roles') . '.' . app(PermissionRegistrar::class)->teamsKey;
-
-        return $relation->where(function (Builder $query) {
-            $pivotTeamField = config('permission.table_names.model_has_roles') . '.' . app(PermissionRegistrar::class)->teamsKey;
-
-            return $query->where($pivotTeamField, getPermissionsTeamId())->orWhereNull($pivotTeamField);
+        return $relation->where(function (Builder $query) use ($permissionRegistrar) {
+            return $query->where($this->getRolePivotTeamField(), $permissionRegistrar->getPermissionsTeamId())
+                ->orWhereNull($this->getRolePivotTeamField());
         })
-        ->where(fn ($q) => $q->whereNull($teamField)->orWhere($teamField, getPermissionsTeamId()));
+        ->where(fn ($q) => $q->whereNull($this->getTeamField())
+        ->orWhere($this->getTeamField(), $permissionRegistrar->getPermissionsTeamId()));
     }
 }

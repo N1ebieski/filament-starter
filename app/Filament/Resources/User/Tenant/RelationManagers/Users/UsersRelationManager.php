@@ -25,6 +25,7 @@ use Filament\Resources\RelationManagers\RelationManager;
 use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\AttachUser;
 use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\DetachUser;
 use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\DetachUsers;
+use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\EditPermissions;
 
 class UsersRelationManager extends RelationManager
 {
@@ -51,7 +52,7 @@ class UsersRelationManager extends RelationManager
         /** @var User|null */
         $user = Auth::user();
 
-        return $ownerRecord->user->id === $user?->id;
+        return $user?->can('usersViewAny', $ownerRecord);
     }
 
     public static function getTitle(Model $ownerRecord, string $pageClass): string
@@ -90,6 +91,7 @@ class UsersRelationManager extends RelationManager
                 AttachUser::make($tenant),
             ])
             ->actions([
+                EditPermissions::make($tenant),
                 DetachUser::make($tenant),
             ])
             ->bulkActions([

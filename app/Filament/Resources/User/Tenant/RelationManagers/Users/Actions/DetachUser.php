@@ -9,6 +9,7 @@ use App\Commands\CommandBus;
 use App\Models\Tenant\Tenant;
 use App\Filament\Actions\Action;
 use Illuminate\Support\Facades\App;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Lang;
 use Filament\Tables\Actions\DetachAction;
 use App\Commands\User\Tenants\Detach\DetachCommand;
@@ -32,6 +33,9 @@ final class DetachUser extends Action
     public function getAction(Tenant $tenant): DetachAction
     {
         return DetachAction::make()
+            ->hidden(function (User $record, Guard $guard) use ($tenant): bool {
+                return !$guard->user()?->can('tenantDetach', [$record, $tenant]);
+            })
             ->modalHeading(function (User $record): string {
                 return Lang::get('tenant.pages.users.detach.title', [
                     'name' => $record->name

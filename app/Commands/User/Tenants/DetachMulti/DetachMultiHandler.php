@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Commands\User\Tenants\DetachMulti;
 
 use App\Commands\Handler;
-use App\Commands\User\Delete\DeleteCommand;
 use App\Commands\User\Tenants\Detach\DetachCommand;
 
 final class DetachMultiHandler extends Handler

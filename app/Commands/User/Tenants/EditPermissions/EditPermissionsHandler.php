@@ -2,27 +2,31 @@
 
 declare(strict_types=1);
 
-namespace App\Commands\User\Tenants\Detach;
+namespace App\Commands\User\Tenants\EditPermissions;
 
 use App\Commands\Handler;
 use App\Models\User\User;
 use App\Models\Permission\Permission;
 
-final class DetachHandler extends Handler
+final class EditPermissionsHandler extends Handler
 {
-    public function handle(DetachCommand $command): User
+    public function handle(EditPermissionsCommand $command): User
     {
         $this->db->beginTransaction();
 
         try {
             $user = $command->user;
 
-            $user->tenants()->detach($command->tenant);
-
             $user->revokePermissionTo(
                 $command->user->tenantPermissions
                     ->map(fn (Permission $permission): string => $permission->name)
                     ->toArray()
+            );
+
+            $user->givePermissionTo(
+                $command->permissions->map(function (Permission $permission) {
+                    return $permission->name;
+                })->toArray()
             );
         } catch (\Exception $e) {
             $this->db->rollBack();

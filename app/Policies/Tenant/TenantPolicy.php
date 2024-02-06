@@ -23,4 +23,9 @@ final class TenantPolicy
     {
         return $user->id === $record->user->id;
     }
+
+    public function usersViewAny(User $user, Tenant $record): bool
+    {
+        return $user->id === $record->user->id;
+    }
 }

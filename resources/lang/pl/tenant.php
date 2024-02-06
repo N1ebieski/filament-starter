@@ -24,6 +24,9 @@ return [
             'detach_multi' => [
                 'title' => '{1} Odłącz :number zaznaczonego użytkownika|{2,*} Odłącz :number zaznaczonych użytkowników'
             ],
+            'edit_permissions' => [
+                'title' => 'Edycja uprawnień użytkownika: :name'
+            ]
         ]
     ],
     'messages' => [
@@ -42,6 +45,9 @@ return [
             ],
             'detach_multi' => [
                 'success' => '{1} Pomyślnie odłączono :number użytkownika|{2,*} Pomyślnie odłączono :number użytkowników',
+            ],
+            'edit_permissions' => [
+                'success' => 'Pomyślnie edytowano uprawnienia użytkownika: :name'
             ]
         ]
     ],
