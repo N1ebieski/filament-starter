@@ -15,7 +15,6 @@ use App\Http\Middleware\Filament\Authenticate;
 use App\Filament\Pages\User\Tenancy\EditTenant;
 use App\Http\Middleware\Filament\MustTwoFactor;
 use App\Filament\Pages\User\Tenancy\CreateTenant;
-use App\Http\Middleware\Filament\TenantPermissions;
 use App\Extends\Jeffgreco13\FilamentBreezy\BreezyCore;
 
 final class UserPanelProvider extends PanelProvider
@@ -42,10 +41,7 @@ final class UserPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
                 MustTwoFactor::class,
-                VerifyEmail::class
-            ])
-            ->tenantMiddleware([
-                TenantPermissions::class
+                VerifyEmail::class,
             ], isPersistent: true)
             ->tenant(Tenant::class)
             ->tenantRegistration(CreateTenant::class)

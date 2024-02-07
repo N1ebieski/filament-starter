@@ -48,6 +48,14 @@ trait HasPermissions
         /** @var PermissionRegistrar */
         $permissionRegistrar = App::make(PermissionRegistrar::class);
 
-        return $this->permissions()->where($this->getPermissionPivotTeamField(), $permissionRegistrar->getPermissionsTeamId());
+        $relation = $this->morphToMany(
+            Config::get('permission.models.permission'),
+            'authenticatable',
+            Config::get('permission.table_names.model_has_permissions'),
+            Config::get('permission.column_names.model_morph_key'),
+            $permissionRegistrar->pivotPermission
+        );
+
+        return $relation->where($this->getPermissionPivotTeamField(), $permissionRegistrar->getPermissionsTeamId());
     }
 }

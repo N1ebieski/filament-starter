@@ -41,7 +41,7 @@ final class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
                 MustTwoFactor::class,
                 VerifyEmail::class
-            ])
+            ], isPersistent: true)
             ->plugins([
                 BreezyCore::make()
                     ->myProfile(
