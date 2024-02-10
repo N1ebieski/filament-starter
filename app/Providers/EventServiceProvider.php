@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -30,11 +29,30 @@ class EventServiceProvider extends ServiceProvider
     ];
 
     /**
+     * The model observers for your application.
+     *
+     * @var array
+     */
+    protected $observers = [
+        \App\Models\User\User::class => [
+            \App\Observers\User\UserObserver::class
+        ],
+        \App\Models\Tenant\Tenant::class => [
+            \App\Observers\Tenant\TenantObserver::class
+        ],
+        \App\Models\Role\Role::class => [
+            \App\Observers\Role\RoleObserver::class
+        ],
+        \App\Models\Permission\Permission::class => [
+            \App\Observers\Permission\PermissionObserver::class
+        ]
+    ];
+
+    /**
      * Register any events for your application.
      */
     public function boot(): void
     {
-        //
     }
 
     /**

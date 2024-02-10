@@ -6,7 +6,6 @@ namespace App\Commands\User\Tenants\Detach;
 
 use App\Commands\Handler;
 use App\Models\User\User;
-use App\Models\Permission\Permission;
 
 final class DetachHandler extends Handler
 {
@@ -18,12 +17,6 @@ final class DetachHandler extends Handler
             $user = $command->user;
 
             $user->tenants()->detach($command->tenant);
-
-            $user->revokePermissionTo(
-                $command->user->tenantPermissions
-                    ->map(fn (Permission $permission): string => $permission->name)
-                    ->toArray()
-            );
         } catch (\Exception $e) {
             $this->db->rollBack();
 

@@ -17,6 +17,8 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use App\Extends\Spatie\Permission\Traits\HasRoles;
+use Fico7489\Laravel\Pivot\Traits\PivotEventTrait;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -29,6 +31,7 @@ class User extends Authenticatable implements FilamentUser, HasTenants, MustVeri
     use HasApiTokens;
     use HasFactory;
     use Notifiable;
+    use PivotEventTrait;
     use TwoFactorAuthenticatable;
 
     // Configuration
@@ -111,7 +114,7 @@ class User extends Authenticatable implements FilamentUser, HasTenants, MustVeri
     {
         return match ($panel->getId()) {
             \App\Providers\Filament\UserPanelProvider::ID => $panel->auth()->check(),
-            \App\Providers\Filament\AdminPanelProvider::ID => $panel->auth()->user()?->can('admin.access'),
+            \App\Providers\Filament\AdminPanelProvider::ID => $panel->auth()->user()?->can('admin.access') ?? false,
             \App\Providers\Filament\WebPanelProvider::ID => true,
             default => false
         };
@@ -127,6 +130,11 @@ class User extends Authenticatable implements FilamentUser, HasTenants, MustVeri
     }
 
     // Relations
+
+    public function ownedTenants(): HasMany
+    {
+        return $this->hasMany(\App\Models\Tenant\Tenant::class);
+    }
 
     public function tenants(): MorphToMany
     {

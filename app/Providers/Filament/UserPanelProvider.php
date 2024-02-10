@@ -9,7 +9,9 @@ use App\Models\Tenant\Tenant;
 use Filament\Pages\Dashboard;
 use Filament\Widgets\AccountWidget;
 use Illuminate\Support\Facades\Lang;
+use App\Http\Middleware\ApplyUserScope;
 use Filament\Widgets\FilamentInfoWidget;
+use App\Http\Middleware\ApplyTenantScope;
 use App\Http\Middleware\Filament\VerifyEmail;
 use App\Http\Middleware\Filament\Authenticate;
 use App\Filament\Pages\User\Tenancy\EditTenant;
@@ -42,6 +44,10 @@ final class UserPanelProvider extends PanelProvider
                 Authenticate::class,
                 MustTwoFactor::class,
                 VerifyEmail::class,
+                // ApplyUserScope::class
+            ], isPersistent: true)
+            ->tenantMiddleware([
+                ApplyTenantScope::class
             ], isPersistent: true)
             ->tenant(Tenant::class)
             ->tenantRegistration(CreateTenant::class)

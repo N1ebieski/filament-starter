@@ -53,7 +53,7 @@ abstract class PanelProvider extends BasePanelProvider
                     ->icon('heroicon-s-user'),
                 MenuItem::make()
                     ->url(fn (): string => Filament::getPanel('admin')->getHomeUrl())
-                    ->visible(fn (Panel $panel): bool => $panel->auth()->user()?->can('admin.access'))
+                    ->visible(fn (Panel $panel): bool => $panel->auth()->user()?->can('admin.access') ?? false)
                     ->label(Lang::get('admin.pages.panel.title'))
                     ->icon('heroicon-m-shield-exclamation'),
             ])

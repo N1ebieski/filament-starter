@@ -97,7 +97,7 @@ final class EditRole extends Action
             ->using(function (array $data, Role $record): Role {
                 return $this->commandBus->execute(new EditCommand(
                     role: $record,
-                    name: $data['name'],
+                    name: $data['name'] ?? $record->name->value,
                     permissions: $this->permission->newQuery()->findMany($data['permissions'])
                 ));
             })

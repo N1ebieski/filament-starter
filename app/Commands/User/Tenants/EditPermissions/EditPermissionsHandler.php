@@ -24,9 +24,9 @@ final class EditPermissionsHandler extends Handler
             );
 
             $user->givePermissionTo(
-                $command->permissions->map(function (Permission $permission) {
-                    return $permission->name;
-                })->toArray()
+                $command->permissions
+                    ->map(fn (Permission $permission): string => $permission->name)
+                    ->toArray()
             );
         } catch (\Exception $e) {
             $this->db->rollBack();
