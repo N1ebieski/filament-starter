@@ -36,7 +36,7 @@ final class DeleteUser extends Action
             ->using(function (User $record): bool {
                 return $this->commandBus->execute(new DeleteCommand($record));
             })
-            ->successNotificationTitle(fn (User $record): string => Lang::get('user.messages.delete', [
+            ->successNotificationTitle(fn (User $record): string => Lang::get('user.messages.delete.success', [
                 'name' => $record->name
             ]));
     }

@@ -26,10 +26,18 @@ return [
         ]
     ],
     'messages' => [
-        'delete_multi' => '{1} Pomyślnie usunięto :number rolę|{2,4} Pomyślnie usunięto :number role|{5,*} Pomyślnie usunięto :number ról',
-        'delete' => 'Pomyślnie usunięto rolę :name',
-        'create' => 'Pomyślnie dodano rolę :name',
-        'edit' => 'Pomyślnie edytowano rolę :name',
+        'delete_multi' => [
+            'success' => '{1} Pomyślnie usunięto :number rolę|{2,4} Pomyślnie usunięto :number role|{5,*} Pomyślnie usunięto :number ról',
+        ],
+        'delete' => [
+            'success' => 'Pomyślnie usunięto rolę :name',
+        ],
+        'create' => [
+            'success' => 'Pomyślnie dodano rolę :name',
+        ],
+        'edit' => [
+            'success' => 'Pomyślnie edytowano rolę :name',
+        ]
     ],
     'name' => [
         'label' => 'Nazwa'

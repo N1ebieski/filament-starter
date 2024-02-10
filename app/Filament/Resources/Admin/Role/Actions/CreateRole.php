@@ -67,7 +67,7 @@ final class CreateRole extends Action
                     permissions: $this->permission->newQuery()->findMany($data['permissions'])
                 ));
             })
-            ->successNotificationTitle(fn (Role $record): string => Lang::get('role.messages.create', [
+            ->successNotificationTitle(fn (Role $record): string => Lang::get('role.messages.create.success', [
                 'name' => $record->name
             ]));
     }

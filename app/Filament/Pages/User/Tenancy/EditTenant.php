@@ -78,6 +78,13 @@ class EditTenant extends EditTenantProfile
         return $tenant;
     }
 
+    protected function getSavedNotificationTitle(): string
+    {
+        return Lang::get('tenant.messages.edit.success', [
+            'name' => $this->tenant->name
+        ]);
+    }
+
     public static function getRelations(): array
     {
         return [

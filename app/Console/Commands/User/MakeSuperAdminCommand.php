@@ -7,6 +7,7 @@ namespace App\Console\Commands\User;
 use App\Models\Role\Role;
 use App\Models\User\User;
 use App\Commands\CommandBus;
+use Filament\Facades\Filament;
 use Illuminate\Support\Facades\Lang;
 use App\ValueObjects\Role\DefaultName;
 use Filament\Commands\MakeUserCommand;
@@ -56,5 +57,15 @@ final class MakeSuperAdminCommand extends MakeUserCommand
         }
 
         return parent::handle();
+    }
+
+    protected function sendSuccessMessage(Authenticatable $user): void
+    {
+        $loginUrl = Filament::getLoginUrl();
+
+        $this->components->info(Lang::get('superadmin.messages.create.success', [
+            'user' => ($user->getAttribute('email') ?? $user->getAttribute('username')),
+            'login_url' => $loginUrl
+        ]));
     }
 }

@@ -10,6 +10,7 @@ use App\Models\Tenant\Tenant;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Filament\Forms\Components\TextInput;
+use Filament\Notifications\Notification;
 use Filament\Pages\Tenancy\RegisterTenant;
 use App\Commands\Tenant\Create\CreateCommand;
 
@@ -50,5 +51,15 @@ class CreateTenant extends RegisterTenant
         ));
 
         return $tenant;
+    }
+
+    public function afterRegister(): void
+    {
+        Notification::make()
+            ->title(Lang::get('tenant.messages.create.success', [
+                'name' => $this->tenant->name
+            ]))
+            ->success()
+            ->send();
     }
 }

@@ -112,7 +112,7 @@ final class CreateUser extends Action
                     )
                 );
             })
-            ->successNotificationTitle(fn (User $record): string => Lang::get('user.messages.create', [
+            ->successNotificationTitle(fn (User $record): string => Lang::get('user.messages.create.success', [
                 'name' => $record->name
             ]));
     }

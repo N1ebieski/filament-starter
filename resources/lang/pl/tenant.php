@@ -34,8 +34,12 @@ return [
             'success' => 'Pomyślnie usunięto projekt: :name',
             'wrong_name' => 'Nieprawidłowo potwierdzona nazwa projektu'
         ],
-        'create' => 'Pomyślnie dodano projekt: :name',
-        'edit' => 'Pomyślnie edytowano projekt: :name',
+        'create' => [
+            'success' => 'Pomyślnie dodano projekt: :name',
+        ],
+        'edit' => [
+            'success' => 'Pomyślnie edytowano projekt: :name',
+        ],
         'users' => [
             'attach' => [
                 'success' => 'Pomyślnie dołączono użytkownika: :name'

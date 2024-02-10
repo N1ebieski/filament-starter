@@ -101,7 +101,7 @@ final class EditRole extends Action
                     permissions: $this->permission->newQuery()->findMany($data['permissions'])
                 ));
             })
-            ->successNotificationTitle(fn (Role $record): string => Lang::get('role.messages.edit', [
+            ->successNotificationTitle(fn (Role $record): string => Lang::get('role.messages.edit.success', [
                 'name' => $record->name
             ]));
     }

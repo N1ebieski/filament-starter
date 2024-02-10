@@ -112,7 +112,7 @@ final class EditUser extends Action
                     )
                 );
             })
-            ->successNotificationTitle(fn (User $record): string => Lang::get('user.messages.edit', [
+            ->successNotificationTitle(fn (User $record): string => Lang::get('user.messages.edit.success', [
                 'name' => $record->name
             ]));
     }

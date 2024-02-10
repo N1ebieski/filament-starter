@@ -35,8 +35,8 @@ use App\Filament\Resources\Admin\User\Actions\EditUser;
 use App\Filament\Resources\Admin\User\Actions\CreateUser;
 use App\Filament\Resources\Admin\User\Actions\DeleteUser;
 use App\Filament\Pages\MetaInterface as PageMetaInterface;
-use App\Commands\User\EditStatusEmail\EditStatusEmailCommand;
 use App\Filament\Resources\Admin\User\Actions\DeleteUsers;
+use App\Commands\User\EditStatusEmail\EditStatusEmailCommand;
 
 final class ManageUsers extends ManageRecords implements PageMetaInterface
 {
@@ -169,7 +169,7 @@ final class ManageUsers extends ManageRecords implements PageMetaInterface
                         }
 
                         Notification::make()
-                            ->title(Lang::get('user.messages.toggle_status_email.verified', [
+                            ->title(Lang::get('user.messages.toggle_status_email.verified.success', [
                                 'email' => $record->email,
                                 'name' => $record->name
                             ]))

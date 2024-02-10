@@ -36,7 +36,7 @@ final class DeleteRole extends Action
             ->using(function (Role $record): bool {
                 return $this->commandBus->execute(new DeleteCommand($record));
             })
-            ->successNotificationTitle(fn (Role $record): string => Lang::get('role.messages.delete', [
+            ->successNotificationTitle(fn (Role $record): string => Lang::get('role.messages.delete.success', [
                 'name' => $record->name
             ]));
     }

@@ -3,6 +3,8 @@
 return [
     'exist' => 'W bazie istnieje już zarejestrowany super admin.',
     'messages' => [
-        'create' => 'Super admin został dodany.'
+        'create' => [
+            'success' => 'Super admin został dodany. :user może się teraz zalogować pod adresem: :login_url'
+        ]
     ]
 ];

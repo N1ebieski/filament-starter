@@ -43,7 +43,7 @@ final class DeleteRoles extends Action
                 return $this->commandBus->execute(new DeleteMultiCommand($records));
             })
             ->successNotificationTitle(function (Collection $records): string {
-                return Lang::choice('role.messages.delete_multi', $records->count(), [
+                return Lang::choice('role.messages.delete_multi.success', $records->count(), [
                     'number' => $records->count()
                 ]);
             });

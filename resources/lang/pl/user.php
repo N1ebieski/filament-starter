@@ -26,16 +26,23 @@ return [
         ],
     ],
     'messages' => [
-        'delete' => 'Pomyślnie usunięto użytkownika :name',
-        'delete_multi' => '{1} Pomyślnie usunięto :number użytkownika|{2,*} Pomyślnie usunięto :number użytkowników',
-        'create' => 'Pomyślnie dodano użytkownika :name',
-        'edit' => 'Pomyślnie edytowano użytkownika :name',
-        'toggle_status_email' => [
-            StatusEmail::Verified->value => 'Pomyślnie zweryfikowano adres email :email użytkownika :name'
+        'delete' => [
+            'success' => 'Pomyślnie usunięto użytkownika :name',
         ],
-    ],
-    'groups' => [
-        'settings' => 'Ustawienia'
+        'delete_multi' => [
+            'success' => '{1} Pomyślnie usunięto :number użytkownika|{2,*} Pomyślnie usunięto :number użytkowników',
+        ],
+        'create' => [
+            'success' => 'Pomyślnie dodano użytkownika :name',
+        ],
+        'edit' => [
+            'success' => 'Pomyślnie edytowano użytkownika :name',
+        ],
+        'toggle_status_email' => [
+            StatusEmail::Verified->value => [
+                'success' => 'Pomyślnie zweryfikowano adres email :email użytkownika :name'
+            ]
+        ],
     ],
     'name' => [
         'label' => 'Nazwa'
