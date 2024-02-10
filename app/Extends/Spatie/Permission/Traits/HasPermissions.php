@@ -39,8 +39,8 @@ trait HasPermissions
             return $relation;
         }
 
-        return $relation->where($this->getPermissionPivotTeamField(), $permissionRegistrar->getPermissionsTeamId())
-            ->orWhereNull($this->getPermissionPivotTeamField());
+        return $relation->wherePivot($this->getPermissionPivotTeamField(), $permissionRegistrar->getPermissionsTeamId())
+            ->orWherePivotNull($this->getPermissionPivotTeamField());
     }
 
     public function tenantPermissions(): BelongsToMany
@@ -56,6 +56,6 @@ trait HasPermissions
             $permissionRegistrar->pivotPermission
         );
 
-        return $relation->where($this->getPermissionPivotTeamField(), $permissionRegistrar->getPermissionsTeamId());
+        return $relation->wherePivot($this->getPermissionPivotTeamField(), $permissionRegistrar->getPermissionsTeamId());
     }
 }

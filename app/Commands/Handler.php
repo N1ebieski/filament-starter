@@ -6,13 +6,15 @@ namespace App\Commands;
 
 use App\Queries\QueryBus;
 use Illuminate\Database\DatabaseManager as DB;
+use Illuminate\Contracts\Events\Dispatcher as EventDispatcher;
 
 abstract class Handler
 {
     public function __construct(
-        protected DB $db,
-        protected CommandBus $commandBus,
-        protected QueryBus $queryBus
+        protected readonly DB $db,
+        protected readonly CommandBus $commandBus,
+        protected readonly QueryBus $queryBus,
+        protected readonly EventDispatcher $eventDispatcher
     ) {
     }
 }

@@ -14,8 +14,8 @@ use Illuminate\Database\DatabaseManager as DB;
 final class CreateHandler extends Handler
 {
     public function __construct(
-        protected DB $db,
-        protected CommandBus $commandBus,
+        protected readonly DB $db,
+        protected readonly CommandBus $commandBus,
         private readonly PermissionRegistrar $permissionRegistrar
     ) {
     }

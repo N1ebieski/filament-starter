@@ -8,7 +8,7 @@ use App\Models\Permission\Permission;
 
 class PermissionObserver
 {
-    public function deleted(Permission $permission): void
+    public function deleting(Permission $permission): void
     {
         $permission->users()->detach();
     }

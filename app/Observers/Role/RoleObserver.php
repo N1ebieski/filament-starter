@@ -8,7 +8,7 @@ use App\Models\Role\Role;
 
 class RoleObserver
 {
-    public function deleted(Role $role): void
+    public function deleting(Role $role): void
     {
         $role->permissions()->detach();
 

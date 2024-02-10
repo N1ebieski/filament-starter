@@ -4,6 +4,7 @@ namespace App\Models\Tenant;
 
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Database\Eloquent\Model;
+use Fico7489\Laravel\Pivot\Traits\PivotEventTrait;
 use Filament\Models\Contracts\HasCurrentTenantLabel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 class Tenant extends Model implements HasCurrentTenantLabel
 {
     use HasFactory;
+    use PivotEventTrait;
 
     // Configuration
 

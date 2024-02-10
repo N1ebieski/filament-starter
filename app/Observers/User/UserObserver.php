@@ -9,7 +9,7 @@ use App\Models\Permission\Permission;
 
 class UserObserver
 {
-    public function pivotDetached(User $user, string $relationName): void
+    public function pivotDetaching(User $user, string $relationName): void
     {
         if ($relationName === $user->tenants()->getRelationName()) {
             $user->revokePermissionTo(
@@ -20,7 +20,7 @@ class UserObserver
         }
     }
 
-    public function deleted(User $user): void
+    public function deleting(User $user): void
     {
         $user->breezySessions()->delete();
 
