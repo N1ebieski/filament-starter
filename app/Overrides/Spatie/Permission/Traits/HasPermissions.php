@@ -2,9 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Extends\Spatie\Permission\Traits;
+namespace App\Overrides\Spatie\Permission\Traits;
 
+use Override;
+use App\Models\Role\Role;
 use Illuminate\Support\Facades\App;
+use App\Models\Permission\Permission;
 use Illuminate\Support\Facades\Config;
 use Spatie\Permission\PermissionRegistrar;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -22,6 +25,7 @@ trait HasPermissions
         return Config::get('permission.table_names.model_has_permissions') . '.' . $permissionRegistrar->teamsKey;
     }
 
+    #[Override]
     public function permissions(): BelongsToMany
     {
         /** @var PermissionRegistrar */
@@ -57,5 +61,26 @@ trait HasPermissions
         );
 
         return $relation->wherePivot($this->getPermissionPivotTeamField(), $permissionRegistrar->getPermissionsTeamId());
+    }
+
+    /**
+     * Revoke the given permission(s).
+     *
+     * @param  Permission|Permission[]|string|string[]|\BackedEnum  $permission
+     * @return $this
+     */
+    public function revokeTenantPermissionTo($permission)
+    {
+        $this->tenantPermissions()->detach($this->getStoredPermission($permission));
+
+        if (is_a($this, Role::class)) {
+            $this->forgetCachedPermissions();
+        }
+
+        $this->forgetWildcardPermissionIndex();
+
+        $this->unsetRelation('permissions');
+
+        return $this;
     }
 }

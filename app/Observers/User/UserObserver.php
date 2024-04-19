@@ -12,7 +12,7 @@ class UserObserver
     public function pivotDetaching(User $user, string $relationName): void
     {
         if ($relationName === $user->tenants()->getRelationName()) {
-            $user->revokePermissionTo(
+            $user->revokeTenantPermissionTo(
                 $user->tenantPermissions
                     ->map(fn (Permission $permission): string => $permission->name)
                     ->toArray()

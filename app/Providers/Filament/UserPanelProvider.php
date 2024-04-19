@@ -17,7 +17,7 @@ use App\Http\Middleware\Filament\Authenticate;
 use App\Filament\Pages\User\Tenancy\EditTenant;
 use App\Http\Middleware\Filament\MustTwoFactor;
 use App\Filament\Pages\User\Tenancy\CreateTenant;
-use App\Extends\Jeffgreco13\FilamentBreezy\BreezyCore;
+use App\Overrides\Jeffgreco13\FilamentBreezy\BreezyCore;
 
 final class UserPanelProvider extends PanelProvider
 {

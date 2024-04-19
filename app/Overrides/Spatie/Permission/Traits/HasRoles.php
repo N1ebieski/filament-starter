@@ -2,15 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Extends\Spatie\Permission\Traits;
+namespace App\Overrides\Spatie\Permission\Traits;
 
+use Override;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Spatie\Permission\PermissionRegistrar;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Spatie\Permission\Traits\HasRoles as BaseHasRoles;
-use App\Extends\Spatie\Permission\Traits\HasPermissions;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use App\Overrides\Spatie\Permission\Traits\HasPermissions;
 
 trait HasRoles
 {
@@ -34,6 +35,7 @@ trait HasRoles
         return Config::get('permission.table_names.roles') . '.' . $permissionRegistrar->teamsKey;
     }
 
+    #[Override]
     public function roles(): BelongsToMany
     {
         /** @var PermissionRegistrar */
@@ -59,5 +61,22 @@ trait HasRoles
             return $query->whereNull($this->getTeamField())
                 ->orWhere($this->getTeamField(), $permissionRegistrar->getPermissionsTeamId());
         });
+    }
+
+    public function tenantRoles(): BelongsToMany
+    {
+        /** @var PermissionRegistrar */
+        $permissionRegistrar = App::make(PermissionRegistrar::class);
+
+        $relation = $this->morphToMany(
+            Config::get('permission.models.role'),
+            'authenticatable',
+            Config::get('permission.table_names.model_has_roles'),
+            Config::get('permission.column_names.model_morph_key'),
+            $permissionRegistrar->pivotRole
+        );
+
+        return $relation->wherePivot($this->getRolePivotTeamField(), $permissionRegistrar->getPermissionsTeamId())
+            ->where($this->getTeamField(), $permissionRegistrar->getPermissionsTeamId());
     }
 }

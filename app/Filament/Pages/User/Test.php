@@ -14,4 +14,9 @@ class Test extends Page
     {
         return auth()->user()->can('tenant.test');
     }
+
+    public static function shouldRegisterSpotlight(): bool
+    {
+        return self::canAccess();
+    }
 }

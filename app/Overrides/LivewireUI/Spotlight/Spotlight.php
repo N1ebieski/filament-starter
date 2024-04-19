@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Extends\LivewireUI\Spotlight;
+namespace App\Overrides\LivewireUI\Spotlight;
 
+use Override;
 use App\Spotlight\Command;
 use Livewire\Attributes\Computed;
 use Illuminate\Support\Collection;
@@ -33,6 +34,7 @@ final class Spotlight extends BaseSpotlight
         $this->container = $container;
     }
 
+    #[Override]
     public static function registerCommand(string $command): void
     {
         tap(App::make($command), function (Command $command) {
@@ -52,6 +54,7 @@ final class Spotlight extends BaseSpotlight
         return mb_strtoupper('CTRL+' . $shortcuts[0]);
     }
 
+    #[Override]
     public function render(): View|Factory
     {
         /** @var View */

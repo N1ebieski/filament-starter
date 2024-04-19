@@ -17,7 +17,7 @@ final class EditPermissionsHandler extends Handler
         try {
             $user = $command->user;
 
-            $user->revokePermissionTo(
+            $user->revokeTenantPermissionTo(
                 $command->user->tenantPermissions
                     ->map(fn (Permission $permission): string => $permission->name)
                     ->toArray()

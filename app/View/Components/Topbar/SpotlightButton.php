@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Livewire\Components\Topbar;
+namespace App\View\Components\Topbar;
 
 use Filament\Actions\Action;
-use Filament\Facades\Filament;
-use Illuminate\Support\HtmlString;
+use App\View\Components\Component;
 use Illuminate\Support\Facades\View;
-use App\Livewire\Components\Component;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Actions\Contracts\HasActions;
 use Filament\Forms\Concerns\InteractsWithForms;
@@ -18,7 +16,7 @@ final class SpotlightButton extends Component implements HasForms, HasActions
     use InteractsWithActions;
     use InteractsWithForms;
 
-    public function spotlightAction(): Action
+    public function spotlightAction()
     {
         return Action::make('spotlight')
             ->livewireClickHandlerEnabled(false)
@@ -29,6 +27,6 @@ final class SpotlightButton extends Component implements HasForms, HasActions
 
     public function render(): ViewContract
     {
-        return View::make('livewire.topbar.spotlight-button');
+        return View::make('components.topbar.spotlight-button');
     }
 }

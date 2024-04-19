@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Extends\Pxlrbt\FilamentSpotlight\Commands;
+namespace App\Overrides\Pxlrbt\FilamentSpotlight\Commands;
 
+use Override;
 use Illuminate\Support\Collection;
 use LivewireUI\Spotlight\Spotlight;
 use App\Filament\Resources\Resource;
@@ -17,6 +18,7 @@ use pxlrbt\FilamentSpotlight\Commands\ResourceCommand as BaseResourceCommand;
  */
 final class ResourceCommand extends BaseResourceCommand
 {
+    #[Override]
     protected function hasDependencies(): bool
     {
         $hasDependencies = parent::hasDependencies();
@@ -31,6 +33,7 @@ final class ResourceCommand extends BaseResourceCommand
     /**
      * @param string $query
      */
+    #[Override]
     public function searchRecord($query): Collection
     {
         $globalSearchQuery = $this->resource::getGlobalSearchEloquentQuery();
@@ -51,6 +54,7 @@ final class ResourceCommand extends BaseResourceCommand
             ));
     }
 
+    #[Override]
     public function execute(Spotlight $spotlight, $record = null): void
     {
         $spotlight->redirect($this->getUrl($record), navigate: true);

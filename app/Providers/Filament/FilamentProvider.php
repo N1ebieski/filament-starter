@@ -19,7 +19,7 @@ final class FilamentProvider extends ServiceProvider
     {
         FilamentView::registerRenderHook(
             'panels::global-search.before',
-            fn (): string => Blade::render('<livewire:topbar.spotlight-button />')
+            fn (): string => Blade::render('<x-topbar.spotlight-button />')
         );
 
         Table::configureUsing(function (Table $table): void {

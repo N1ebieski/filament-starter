@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('proba', function (User $user) {
-    dd($user->permissions()->wherePivot('buba', 'bambo')->orWherePivot('buba', 'dsadsad')->toSql());
+    setPermissionsTeamId(5);
+    dd($user->roles());
 
     return view('welcome');
 });

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Extends\Pxlrbt\FilamentSpotlight\Actions;
+namespace App\Overrides\Pxlrbt\FilamentSpotlight\Actions;
 
 use Filament\Panel;
 use LivewireUI\Spotlight\Spotlight;
 use Filament\Resources\Pages\PageRegistration;
-use App\Extends\Pxlrbt\FilamentSpotlight\Commands\ResourceCommand;
+use App\Overrides\Pxlrbt\FilamentSpotlight\Commands\ResourceCommand;
 
 class RegisterResources
 {

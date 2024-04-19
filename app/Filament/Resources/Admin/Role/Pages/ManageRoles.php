@@ -59,6 +59,11 @@ final class ManageRoles extends ManageRecords implements PageMetaInterface
         return Lang::get('role.pages.index.title');
     }
 
+    public static function getNavigationLabel(): string
+    {
+        return '';
+    }
+
     public function getMeta(): MetaInterface
     {
         return $this->metaFactory->make($this->getPage());

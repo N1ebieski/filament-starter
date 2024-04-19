@@ -25,6 +25,7 @@
         x-on:toggle-spotlight.window="toggleOpen()"
         x-on:livewire:navigating.window="dispose()"
         class="fixed z-50 px-2 pt-16 flex items-start justify-center inset-0 sm:pt-24"
+        wire:ignore
     >
         <div 
             x-show="isOpen" 

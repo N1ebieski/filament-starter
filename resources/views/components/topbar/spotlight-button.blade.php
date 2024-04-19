@@ -1,7 +1,7 @@
 <div>
-    @if ($this->spotlightAction->isVisible())
+    @if ($spotlightAction->isVisible())
     <span x-data x-on:click="$dispatch('toggle-spotlight')">    
-        {{ $this->spotlightAction }}
+        {{ $spotlightAction }}
     </span>
     @endif
 </div>

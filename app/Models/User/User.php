@@ -16,7 +16,7 @@ use Filament\Notifications\Auth\VerifyEmail;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use App\Extends\Spatie\Permission\Traits\HasRoles;
+use App\Overrides\Spatie\Permission\Traits\HasRoles;
 use Fico7489\Laravel\Pivot\Traits\PivotEventTrait;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

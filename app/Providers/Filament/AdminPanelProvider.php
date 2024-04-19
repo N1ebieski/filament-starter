@@ -14,7 +14,7 @@ use Filament\Support\Facades\FilamentView;
 use App\Http\Middleware\Filament\VerifyEmail;
 use App\Http\Middleware\Filament\Authenticate;
 use App\Http\Middleware\Filament\MustTwoFactor;
-use App\Extends\Jeffgreco13\FilamentBreezy\BreezyCore;
+use App\Overrides\Jeffgreco13\FilamentBreezy\BreezyCore;
 
 final class AdminPanelProvider extends PanelProvider
 {

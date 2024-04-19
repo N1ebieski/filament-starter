@@ -77,6 +77,11 @@ final class ManageUsers extends ManageRecords implements PageMetaInterface
         return Lang::get('user.pages.index.title');
     }
 
+    public static function getNavigationLabel(): string
+    {
+        return '';
+    }
+
     public function getMeta(): MetaInterface
     {
         return $this->metaFactory->make($this->getPage());

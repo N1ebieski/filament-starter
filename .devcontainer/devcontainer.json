@@ -41,7 +41,8 @@
                 "formulahendry.auto-close-tag",
                 "esbenp.prettier-vscode",
                 "ms-vscode.test-adapter-converter",
-                "hbenl.vscode-test-explorer"
+                "hbenl.vscode-test-explorer",
+                "bradlc.vscode-tailwindcss"
             ]
         }
     }  
