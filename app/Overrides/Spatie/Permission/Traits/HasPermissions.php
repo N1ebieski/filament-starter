@@ -25,7 +25,6 @@ trait HasPermissions
         return Config::get('permission.table_names.model_has_permissions') . '.' . $permissionRegistrar->teamsKey;
     }
 
-    #[Override]
     public function permissions(): BelongsToMany
     {
         /** @var PermissionRegistrar */
