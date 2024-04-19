@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\User\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +12,3 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('proba', function (User $user) {
-    setPermissionsTeamId(5);
-    dd($user->roles());
-
-    return view('welcome');
-});

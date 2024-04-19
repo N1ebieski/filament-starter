@@ -90,6 +90,14 @@ class User extends Authenticatable implements FilamentUser, HasTenants, MustVeri
         return $this->tenants;
     }
 
+    /**
+     * The channels the user receives notification broadcasts on.
+     */
+    public function receivesBroadcastNotificationsOn(): string
+    {
+        return "Notification.{$this->getKey()}";
+    }
+
     // Overrides
 
     public function sendEmailVerificationNotification(): void
