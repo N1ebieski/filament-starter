@@ -98,7 +98,7 @@ return [
 
     /*
      * When set to true, the method for checking permissions will be registered on the gate.
-     * Set this to false, if you want to implement custom logic for checking permissions.
+     * Set this to false if you want to implement custom logic for checking permissions.
      */
 
     'register_permission_check_method' => true,
@@ -147,9 +147,18 @@ return [
 
     /*
      * By default wildcard permission lookups are disabled.
+     * See documentation to understand supported syntax.
      */
 
-    'enable_wildcard_permission' => true,
+    'enable_wildcard_permission' => false,
+
+    /*
+     * The class to use for interpreting wildcard permissions.
+     * If you need to modify delimiters, override the class and specify its name here.
+     */
+    // 'permission.wildcard_permission' => Spatie\Permission\WildcardPermission::class,
+
+    /* Cache-specific settings */
 
     'cache' => [
 
