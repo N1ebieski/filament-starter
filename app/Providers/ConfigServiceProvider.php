@@ -23,11 +23,4 @@ final class ConfigServiceProvider extends ServiceProvider
         URL::forceScheme($scheme);
         URL::forceRootUrl($url);
     }
-
-    /**
-     * Bootstrap services.
-     */
-    public function boot(): void
-    {
-    }
 }

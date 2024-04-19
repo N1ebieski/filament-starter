@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Listeners\Permission\SetTeamId;
 
 use Filament\Events\TenantSet;
-use Illuminate\Events\Dispatcher;
 use Spatie\Permission\PermissionRegistrar;
 
 class SetTeamIdHandler
@@ -21,12 +20,5 @@ class SetTeamIdHandler
         $tenant = $event->getTenant();
 
         $this->permissionRegistrar->setPermissionsTeamId($tenant->id);
-    }
-
-    public function subscribe(Dispatcher $events): array
-    {
-        return [
-            TenantSet::class => 'handle',
-        ];
     }
 }

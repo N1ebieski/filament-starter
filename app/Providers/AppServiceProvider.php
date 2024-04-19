@@ -12,6 +12,18 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->app->bind(\App\Overrides\Illuminate\Contracts\Chain\Chain::class, function (Application $app) {
+            return $app->make(\App\Overrides\Illuminate\Pipeline\Pipeline::class);
+        });
+
+        $this->app->bind(\App\Overrides\Illuminate\Contracts\Pipeline\Pipeline::class, function (Application $app) {
+            return $app->make(\App\Overrides\Illuminate\Pipeline\Pipeline::class);
+        });
+
+        $this->app->scoped(\App\Overrides\Illuminate\Contracts\Container\Container::class, function (Application $app) {
+            return new \App\Overrides\Illuminate\Container\Container($app);
+        });
+
         $this->app->bind(\App\Scopes\Tenant\TenantScope::class, function (Application $app) {
             /** @var \App\Support\Tenant\CurrentTenantFactory */
             $factory = $app->make(\App\Support\Tenant\CurrentTenantFactory::class, [
@@ -27,13 +39,5 @@ class AppServiceProvider extends ServiceProvider
 
             return new \App\Scopes\User\UserScope($guard->user());
         });
-    }
-
-    /**
-     * Bootstrap any application services.
-     */
-    public function boot(): void
-    {
-        //
     }
 }

@@ -25,7 +25,7 @@ return Application::configure(basePath: dirname(__DIR__))
         \App\Providers\Filament\WebPanelProvider::class,
         \App\Providers\Filament\AdminPanelProvider::class,
         \App\Providers\Filament\UserPanelProvider::class,
-        \App\Providers\SpotlightServiceProvider::class        
+        \App\Providers\SpotlightServiceProvider::class
     ])
     ->withExceptions(function (Exceptions $exceptions) {
         //

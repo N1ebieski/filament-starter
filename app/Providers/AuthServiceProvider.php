@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-// use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -17,12 +16,4 @@ class AuthServiceProvider extends ServiceProvider
         \App\Models\User\User::class => \App\Policies\User\UserPolicy::class,
         \App\Models\Tenant\Tenant::class => \App\Policies\Tenant\TenantPolicy::class,
     ];
-
-    /**
-     * Register any authentication / authorization services.
-     */
-    public function boot(): void
-    {
-        //
-    }
 }

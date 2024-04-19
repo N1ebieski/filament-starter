@@ -15,7 +15,7 @@ use App\Commands\User\Create\CreateCommand;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 
-final class MakeSuperAdminCommand extends MakeUserCommand
+final class MakeSuperAdminHandler extends MakeUserCommand
 {
     protected $description = 'Create a new Filament superadmin';
 

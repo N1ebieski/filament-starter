@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -14,18 +12,12 @@ class EventServiceProvider extends ServiceProvider
      * @var array<class-string, array<int, class-string>>
      */
     protected $listen = [
-        Registered::class => [
-            SendEmailVerificationNotification::class,
+        \Filament\Events\TenantSet::class => [
+            \App\Listeners\Permission\SetTeamId\SetTeamIdHandler::class
         ],
-    ];
-
-    /**
-     * The subscriber classes to register.
-     *
-     * @var array
-     */
-    protected $subscribe = [
-        \App\Listeners\Permission\SetTeamId\SetTeamIdHandler::class,
+        \Illuminate\Auth\Events\Registered::class => [
+            \Illuminate\Auth\Listeners\SendEmailVerificationNotification::class,
+        ],
     ];
 
     /**
@@ -47,13 +39,6 @@ class EventServiceProvider extends ServiceProvider
             \App\Observers\Permission\PermissionObserver::class
         ]
     ];
-
-    /**
-     * Register any events for your application.
-     */
-    public function boot(): void
-    {
-    }
 
     /**
      * Determine if events and listeners should be automatically discovered.
