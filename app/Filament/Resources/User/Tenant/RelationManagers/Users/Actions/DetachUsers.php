@@ -13,7 +13,7 @@ use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Database\Eloquent\Collection;
 use Filament\Tables\Actions\DetachBulkAction;
-use App\Commands\User\Tenants\DetachMulti\DetachMultiCommand;
+use App\Commands\User\Tenants\DetachMany\DetachManyCommand;
 
 final class DetachUsers extends Action
 {
@@ -47,7 +47,7 @@ final class DetachUsers extends Action
                     return $guard->user()?->can('tenantDetach', [$user, $tenant]);
                 });
 
-                return $this->commandBus->execute(new DetachMultiCommand(
+                return $this->commandBus->execute(new DetachManyCommand(
                     tenant: $tenant,
                     users: $records
                 ));
