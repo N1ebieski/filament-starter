@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Overrides\Illuminate\Container;
 
+use Override;
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\Container\Container as BaseContainer;
 use App\Overrides\Illuminate\Contracts\Container\Container as ContainerContract;
@@ -14,6 +15,7 @@ final class Container implements ContainerContract
     {
     }
 
+    #[Override]
     public function makeMany(array $abstracts, array $parameters = []): array
     {
         $objects = new Collection();

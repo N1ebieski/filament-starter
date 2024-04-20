@@ -13,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(\App\Overrides\Illuminate\Contracts\Chain\Chain::class, function (Application $app) {
-            return $app->make(\App\Overrides\Illuminate\Pipeline\Pipeline::class);
+            return $app->make(\App\Overrides\Illuminate\Chain\Chain::class);
         });
 
         $this->app->bind(\App\Overrides\Illuminate\Contracts\Pipeline\Pipeline::class, function (Application $app) {
