@@ -6,6 +6,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 
 final class ConfigServiceProvider extends ServiceProvider
@@ -22,5 +23,10 @@ final class ConfigServiceProvider extends ServiceProvider
 
         URL::forceScheme($scheme);
         URL::forceRootUrl($url);
+    }
+
+    public function boot(): void
+    {
+        Model::shouldBeStrict();
     }
 }
