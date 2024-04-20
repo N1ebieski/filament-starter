@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Admin\User\Pages;
 
+use Override;
 use App\Queries\Order;
 use App\Queries\Search;
 use App\Queries\OrderBy;
@@ -82,6 +83,7 @@ final class ManageUsers extends ManageRecords implements PageMetaInterface
         return '';
     }
 
+    #[Override]
     public function getMeta(): MetaInterface
     {
         return $this->metaFactory->make($this->getPage());
@@ -195,6 +197,7 @@ final class ManageUsers extends ManageRecords implements PageMetaInterface
                     ->relationship($this->role->getTable(), 'name')
                     ->preload()
                     ->multiple()
+                    ->getOptionLabelFromRecordUsing(fn (Role $record) => $record->name->value)
                     ->query(function (Builder|User $query, array $data): Builder {
                         return $query->filterRoles($this->role->newQuery()->findMany($data['values']));
                     })

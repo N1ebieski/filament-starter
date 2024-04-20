@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Admin\Role;
 
+use Override;
 use App\Models\Role\Role;
 use App\Filters\Role\RoleFilter;
 use App\Filament\Resources\Resource;
@@ -28,6 +29,7 @@ final class RoleResource extends Resource implements GlobalSearchInterface
 
     protected static ?string $slug = 'roles';
 
+    #[Override]
     public static function applyGlobalSearchAttributeConstraints(Builder $query, string $search): void
     {
         /** @var Builder */

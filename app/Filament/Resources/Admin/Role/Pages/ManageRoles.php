@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Admin\Role\Pages;
 
+use Override;
 use App\Queries\Order;
 use App\Queries\Search;
 use App\Queries\OrderBy;
@@ -64,6 +65,7 @@ final class ManageRoles extends ManageRecords implements PageMetaInterface
         return '';
     }
 
+    #[Override]
     public function getMeta(): MetaInterface
     {
         return $this->metaFactory->make($this->getPage());

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Admin\User;
 
+use Override;
 use App\Models\User\User;
 use App\Filters\User\UserFilter;
 use App\Filament\Resources\Resource;
@@ -28,6 +29,7 @@ final class UserResource extends Resource implements GlobalSearchInterface
 
     protected static ?string $slug = 'users';
 
+    #[Override]
     public static function applyGlobalSearchAttributeConstraints(Builder $query, string $search): void
     {
         /** @var Builder */
