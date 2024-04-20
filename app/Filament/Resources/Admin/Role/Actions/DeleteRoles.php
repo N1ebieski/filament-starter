@@ -12,7 +12,7 @@ use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Database\Eloquent\Collection;
 use Filament\Tables\Actions\DeleteBulkAction;
-use App\Commands\Role\DeleteMulti\DeleteMultiCommand;
+use App\Commands\Role\DeleteMany\DeleteManyCommand;
 
 final class DeleteRoles extends Action
 {
@@ -40,7 +40,7 @@ final class DeleteRoles extends Action
             ->using(function (Collection $records, Guard $guard): int {
                 $records = $records->filter(fn (Role $role): bool => $guard->user()?->can('delete', $role));
 
-                return $this->commandBus->execute(new DeleteMultiCommand($records));
+                return $this->commandBus->execute(new DeleteManyCommand($records));
             })
             ->successNotificationTitle(function (Collection $records): string {
                 return Lang::choice('role.messages.delete_multi.success', $records->count(), [
