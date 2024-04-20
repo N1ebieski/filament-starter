@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace App\Commands\Role\DeleteMulti;
+namespace App\Commands\User\DeleteMany;
 
 use App\Commands\Handler;
-use App\Commands\Role\Delete\DeleteCommand;
+use App\Commands\User\Delete\DeleteCommand;
 
-final class DeleteMultiHandler extends Handler
+final class DeleteManyHandler extends Handler
 {
-    public function handle(DeleteMultiCommand $command): int
+    public function handle(DeleteManyCommand $command): int
     {
         $this->db->beginTransaction();
 
         $deleted = 0;
 
         try {
-            foreach ($command->roles as $role) {
-                $this->commandBus->execute(new DeleteCommand($role));
+            foreach ($command->users as $user) {
+                $this->commandBus->execute(new DeleteCommand($user));
 
                 $deleted++;
             }

@@ -2,18 +2,20 @@
 
 declare(strict_types=1);
 
-namespace App\Commands\User\DeleteMulti;
+namespace App\Commands\User\Tenants\DetachMany;
 
 use App\Commands\Command;
 use App\Models\User\User;
+use App\Models\Tenant\Tenant;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
  * @property-read Collection<User> $users
  */
-final class DeleteMultiCommand extends Command
+final class DetachManyCommand extends Command
 {
     public function __construct(
+        public readonly Tenant $tenant,
         public readonly Collection $users
     ) {
     }

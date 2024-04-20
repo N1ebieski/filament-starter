@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Commands\User\Tenants\DetachMulti;
+namespace App\Commands\User\Tenants\DetachMany;
 
 use App\Commands\Handler;
 use App\Commands\User\Tenants\Detach\DetachCommand;
 
-final class DetachMultiHandler extends Handler
+final class DetachManyHandler extends Handler
 {
-    public function handle(DetachMultiCommand $command): int
+    public function handle(DetachManyCommand $command): int
     {
         $this->db->beginTransaction();
 
