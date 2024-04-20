@@ -98,6 +98,7 @@ final class CreateUser extends Action
                     ->preload()
                     ->dehydrated(true)
                     ->required()
+                    ->getOptionLabelFromRecordUsing(fn (Role $record) => $record->name->value)
                     ->exists($this->role->getTable(), 'id')
             ])
             ->stickyModalFooter()
