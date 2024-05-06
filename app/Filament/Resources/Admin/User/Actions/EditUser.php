@@ -41,7 +41,11 @@ final class EditUser extends Action
                 'name' => $record->name
             ]))
             ->mutateRecordDataUsing(function (array $data, User $record): array {
-                $data['roles'] = $record->roles->pluck('id')->toArray();
+                $data = [
+                    ...$data,
+                    'roles' => $record->roles->pluck('id')->toArray(),
+                    'email' => $record->email
+                ];
 
                 return $data;
             })

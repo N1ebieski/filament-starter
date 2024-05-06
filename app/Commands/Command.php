@@ -10,4 +10,9 @@ abstract class Command
     {
         return get_object_vars($this);
     }
+
+    public function only(array $attributes): array
+    {
+        return array_intersect_key($this->toArray(), array_flip($attributes));
+    }
 }

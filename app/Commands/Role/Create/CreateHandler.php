@@ -16,7 +16,9 @@ final class CreateHandler extends Handler
         $this->db->beginTransaction();
 
         try {
-            $role = $command->role->newInstance($command->toArray());
+            $role = $command->role->newInstance(
+                $command->only($command->role->getFillable())
+            );
 
             $role->save();
 

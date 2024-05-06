@@ -25,7 +25,9 @@ final class CreateHandler extends Handler
         $this->db->beginTransaction();
 
         try {
-            $tenant = $command->tenant->newInstance($command->toArray());
+            $tenant = $command->tenant->newInstance(
+                $command->only($command->tenant->getFillable())
+            );
 
             $tenant->user()->associate($command->user);
 

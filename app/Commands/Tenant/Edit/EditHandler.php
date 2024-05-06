@@ -14,7 +14,9 @@ final class EditHandler extends Handler
         $this->db->beginTransaction();
 
         try {
-            $tenant = $command->tenant->fill($command->toArray());
+            $tenant = $command->tenant->fill(
+                $command->only($command->tenant->getFillable())
+            );
 
             $tenant->user()->associate($command->user);
 

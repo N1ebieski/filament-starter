@@ -17,7 +17,9 @@ final class EditHandler extends Handler
         $this->db->beginTransaction();
 
         try {
-            $user = $command->user->fill($command->toArray());
+            $user = $command->user->fill(
+                $command->only($command->user->getFillable())
+            );
 
             if ($command->user->getOriginal('email') !== $command->email) {
                 $user->email_verified_at = null;

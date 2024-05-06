@@ -16,7 +16,9 @@ final class EditHandler extends Handler
         $this->db->beginTransaction();
 
         try {
-            $role = $command->role->fill($command->toArray());
+            $role = $command->role->fill(
+                $command->only($command->role->getFillable())
+            );
 
             $role->save();
 
