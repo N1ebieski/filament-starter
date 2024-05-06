@@ -22,7 +22,7 @@ use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 
-abstract class PanelProvider extends BasePanelProvider
+abstract class PanelServiceProvider extends BasePanelProvider
 {
     public function panel(Panel $panel): Panel
     {

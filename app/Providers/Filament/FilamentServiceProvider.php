@@ -10,7 +10,7 @@ use Illuminate\Support\ServiceProvider;
 use Filament\Tables\Enums\FiltersLayout;
 use Filament\Support\Facades\FilamentView;
 
-final class FilamentProvider extends ServiceProvider
+final class FilamentServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any application services.

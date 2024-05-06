@@ -9,10 +9,10 @@ use Filament\Pages\Dashboard;
 use Illuminate\Support\Facades\Blade;
 use Filament\Widgets\FilamentInfoWidget;
 use Filament\Support\Facades\FilamentView;
-use App\Overrides\Jeffgreco13\FilamentBreezy\BreezyCore;
 use App\Http\Middleware\Filament\EnsureEmailIsVerified;
+use App\Overrides\Jeffgreco13\FilamentBreezy\BreezyCore;
 
-final class WebPanelProvider extends PanelProvider
+final class WebPanelServiceProvider extends PanelServiceProvider
 {
     public const ID = 'web';
 

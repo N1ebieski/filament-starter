@@ -5,23 +5,20 @@ declare(strict_types=1);
 namespace App\Providers\Filament;
 
 use Filament\Panel;
-use App\Models\Tenant\Tenant;
 use Filament\Pages\Dashboard;
 use Filament\Widgets\AccountWidget;
 use Illuminate\Support\Facades\Lang;
-use App\Http\Middleware\ApplyUserScope;
+use Illuminate\Support\Facades\Blade;
 use Filament\Widgets\FilamentInfoWidget;
-use App\Http\Middleware\ApplyTenantScope;
+use Filament\Support\Facades\FilamentView;
 use App\Http\Middleware\Filament\VerifyEmail;
 use App\Http\Middleware\Filament\Authenticate;
-use App\Filament\Pages\User\Tenancy\EditTenant;
 use App\Http\Middleware\Filament\MustTwoFactor;
-use App\Filament\Pages\User\Tenancy\CreateTenant;
 use App\Overrides\Jeffgreco13\FilamentBreezy\BreezyCore;
 
-final class UserPanelProvider extends PanelProvider
+final class AdminPanelServiceProvider extends PanelServiceProvider
 {
-    public const ID = 'user';
+    public const ID = 'admin';
 
     public function panel(Panel $panel): Panel
     {
@@ -29,13 +26,13 @@ final class UserPanelProvider extends PanelProvider
             ->id(self::ID)
             ->path(self::ID)
             ->homeUrl('/' . self::ID)
-            ->brandName(Lang::get('user.pages.panel.title'))
-            ->discoverResources(in: app_path('Filament/Resources/User'), for: 'App\\Filament\\Resources\\User')
-            ->discoverPages(in: app_path('Filament/Pages/User'), for: 'App\\Filament\\Pages\\User')
+            ->brandName(Lang::get('admin.pages.panel.title'))
+            ->discoverResources(in: app_path('Filament/Resources/Admin'), for: 'App\\Filament\\Resources\\Admin')
+            ->discoverPages(in: app_path('Filament/Pages/Admin'), for: 'App\\Filament\\Pages\\Admin')
             ->pages([
                 Dashboard::class,
             ])
-            ->discoverWidgets(in: app_path('Filament/Widgets/User'), for: 'App\\Filament\\Widgets\\User')
+            ->discoverWidgets(in: app_path('Filament/Widgets/Admin'), for: 'App\\Filament\\Widgets\\Admin')
             ->widgets([
                 AccountWidget::class,
                 FilamentInfoWidget::class,
@@ -43,26 +40,31 @@ final class UserPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
                 MustTwoFactor::class,
-                VerifyEmail::class,
-                // ApplyUserScope::class
+                VerifyEmail::class
             ], isPersistent: true)
-            ->tenantMiddleware([
-                ApplyTenantScope::class
-            ], isPersistent: true)
-            ->tenant(Tenant::class)
-            ->tenantRegistration(CreateTenant::class)
-            ->tenantProfile(EditTenant::class)
-            ->tenantRoutePrefix('tenants')
             ->plugins([
                 BreezyCore::make()
                     ->myProfile(
                         condition: false,
                         shouldRegisterUserMenu: false,
                         shouldRegisterNavigation: false,
-                        slug: 'profile',
+                        slug: 'profile'
                     )
                     ->enableTwoFactorAuthentication()
             ])
+            ->databaseNotifications()
+            ->databaseNotificationsPolling(null)
             ->spa();
+    }
+
+    /**
+     * Bootstrap any application services.
+     */
+    public function boot(): void
+    {
+        FilamentView::registerRenderHook(
+            'panels::head.end',
+            fn (): string => Blade::render('@vite("resources/js/admin.js")')
+        );
     }
 }

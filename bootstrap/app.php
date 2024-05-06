@@ -22,10 +22,11 @@ return Application::configure(basePath: dirname(__DIR__))
         \App\Providers\AppServiceProvider::class,
         \App\Providers\AuthServiceProvider::class,
         \App\Providers\EventServiceProvider::class,
-        \App\Providers\Filament\FilamentProvider::class,
-        \App\Providers\Filament\WebPanelProvider::class,
-        \App\Providers\Filament\AdminPanelProvider::class,
-        \App\Providers\Filament\UserPanelProvider::class,
+        \App\Providers\Filament\FilamentServiceProvider::class,
+        \App\Providers\Filament\WebPanelServiceProvider::class,
+        \App\Providers\Filament\AdminPanelServiceProvider::class,
+        \App\Providers\Filament\UserPanelServiceProvider::class,
+        \App\Providers\Filament\SpotlightServiceProvider::class,
         \App\Providers\SpotlightServiceProvider::class
     ])
     ->withExceptions(function (Exceptions $exceptions) {

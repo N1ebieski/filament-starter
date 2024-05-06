@@ -12,7 +12,7 @@ class Test extends Page
 
     public static function canAccess(): bool
     {
-        return auth()->user()->can('tenant.test');
+        return auth()->user()?->can('tenant.test') ?? false;
     }
 
     public static function shouldRegisterSpotlight(): bool
