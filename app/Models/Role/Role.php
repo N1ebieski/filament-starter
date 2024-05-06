@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace App\Models\Role;
 
+use Override;
 use App\Scopes\Role\HasRoleScopes;
 use Database\Factories\Role\RoleFactory;
+use Spatie\Permission\PermissionRegistrar;
 use Spatie\Permission\Models\Role as BaseRole;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * App\Models\Role\Role
@@ -79,5 +82,22 @@ final class Role extends BaseRole
     protected static function newFactory(): RoleFactory
     {
         return RoleFactory::new();
+    }
+
+    // Relations
+
+    /**
+     * A role belongs to some users of the model associated with its guard.
+     */
+    #[Override]
+    public function users(): BelongsToMany
+    {
+        return $this->morphedByMany(
+            getModelForGuard($this->attributes['guard_name'] ?? config('auth.defaults.guard')),
+            'authenticatable',
+            config('permission.table_names.model_has_roles'),
+            app(PermissionRegistrar::class)->pivotRole,
+            config('permission.column_names.model_morph_key')
+        );
     }
 }
