@@ -6,6 +6,7 @@ namespace App\Providers\Filament;
 
 use Filament\Panel;
 use Filament\Pages\Dashboard;
+use App\Filament\Pages\Web\MyProfile;
 use Illuminate\Support\Facades\Blade;
 use Filament\Widgets\FilamentInfoWidget;
 use Filament\Support\Facades\FilamentView;
@@ -47,6 +48,7 @@ final class WebPanelServiceProvider extends PanelServiceProvider
                         hasAvatars: false,
                         slug: 'profile'
                     )
+                    ->customMyProfilePage(MyProfile::class)
                     ->enableTwoFactorAuthentication()
             ])
             ->spa();
