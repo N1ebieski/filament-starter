@@ -17,13 +17,13 @@ final class GetByFilterHandler extends Handler
         /** @var LengthAwarePaginator|Collection */
         $roles = $query->role->newQuery()
             ->selectRaw("`{$query->role->getTable()}`.*")
-            ->when(!is_null($query->filters->search), function (Builder|Role $builder) use ($query) {
-                return $builder->filterSearch($query->filters->search)
-                    ->filterSearchAttributes($query->filters->search);
+            ->when(!is_null($query->search), function (Builder|Role $builder) use ($query) {
+                return $builder->filterSearch($query->search)
+                    ->filterSearchAttributes($query->search);
             })
-            ->filterExcept($query->filters->except)
+            ->filterExcept($query->except)
             ->when(is_null($query->orderby), function (Builder|Role $builder) use ($query) {
-                return $builder->filterOrderBySearch($query->filters->search);
+                return $builder->filterOrderBySearch($query->search);
             }, function (Builder|Role $builder) use ($query) {
                 return $builder->filterOrderBy($query->orderby);
             })

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Commands;
 
-abstract class Command
+use App\Support\Arrayable\HasToArray;
+use Illuminate\Contracts\Support\Arrayable;
+
+abstract class Command implements Arrayable
 {
-    public function toArray(): array
-    {
-        return get_object_vars($this);
-    }
+    use HasToArray;
 
     public function only(array $attributes): array
     {

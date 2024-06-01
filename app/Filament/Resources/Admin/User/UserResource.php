@@ -6,7 +6,6 @@ namespace App\Filament\Resources\Admin\User;
 
 use Override;
 use App\Models\User\User;
-use App\Filters\User\UserFilter;
 use App\Filament\Resources\Resource;
 use Illuminate\Support\Facades\Lang;
 use App\Filament\Resources\HasGlobalSearch;
@@ -34,9 +33,7 @@ final class UserResource extends Resource implements GlobalSearchInterface
     {
         /** @var Builder */
         $baseQuery = static::getQueryBus()->execute(new GetByFilterQuery(
-            filters: new UserFilter(
-                search: static::getSearch($search)
-            )
+            search: static::getSearch($search)
         ));
 
         $query->setQuery($baseQuery->getQuery());

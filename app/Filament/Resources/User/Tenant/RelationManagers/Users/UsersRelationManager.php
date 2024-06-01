@@ -8,11 +8,10 @@ use App\Queries\Order;
 use App\Queries\Search;
 use App\Queries\OrderBy;
 use App\Models\User\User;
-use App\Queries\QueryBusInterface;
 use Filament\Tables\Table;
 use App\Models\Tenant\Tenant;
 use App\Queries\SearchFactory;
-use App\Filters\User\UserFilter;
+use App\Queries\QueryBusInterface;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Filament\Tables\Columns\TextColumn;
@@ -75,10 +74,8 @@ class UsersRelationManager extends RelationManager
             ->searchable(true)
             ->query(function () use ($tenant): Builder {
                 return $this->queryBus->execute(new GetByFilterQuery(
-                    filters: new UserFilter(
-                        search: $this->getSearch($this->getTableSearch()),
-                        tenants: new Collection([$tenant])
-                    )
+                    search: $this->getSearch($this->getTableSearch()),
+                    tenants: new Collection([$tenant])
                 ));
             })
             ->recordTitleAttribute('name')

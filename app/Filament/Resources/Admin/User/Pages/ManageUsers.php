@@ -10,16 +10,15 @@ use App\Queries\Search;
 use App\Queries\OrderBy;
 use App\Models\Role\Role;
 use App\Models\User\User;
-use App\Queries\QueryBusInterface;
 use Filament\Tables\Table;
-use App\Commands\CommandBusInterface;
 use App\Queries\SearchFactory;
 use App\Filament\Pages\HasMeta;
 use App\ValueObjects\Role\Name;
-use App\Filters\User\UserFilter;
 use App\View\Metas\MetaInterface;
+use App\Queries\QueryBusInterface;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Lang;
+use App\Commands\CommandBusInterface;
 use App\ValueObjects\Role\DefaultName;
 use App\ValueObjects\User\StatusEmail;
 use Filament\Tables\Columns\TextColumn;
@@ -115,9 +114,7 @@ final class ManageUsers extends ManageRecords implements PageMetaInterface
             ->searchable(true)
             ->query(function (): Builder {
                 return $this->queryBus->execute(new GetByFilterQuery(
-                    filters: new UserFilter(
-                        search: $this->getSearch($this->getTableSearch())
-                    )
+                    search: $this->getSearch($this->getTableSearch())
                 ));
             })
             ->columns([

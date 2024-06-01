@@ -9,12 +9,11 @@ use App\Queries\Order;
 use App\Queries\Search;
 use App\Queries\OrderBy;
 use App\Models\Role\Role;
-use App\Queries\QueryBusInterface;
 use Filament\Tables\Table;
 use App\Queries\SearchFactory;
 use App\Filament\Pages\HasMeta;
-use App\Filters\Role\RoleFilter;
 use App\View\Metas\MetaInterface;
+use App\Queries\QueryBusInterface;
 use Illuminate\Support\Facades\Lang;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Resources\Pages\ManageRecords;
@@ -90,9 +89,7 @@ final class ManageRoles extends ManageRecords implements PageMetaInterface
             ->searchable(true)
             ->query(function (): Builder {
                 return $this->queryBus->execute(new GetByFilterQuery(
-                    filters: new RoleFilter(
-                        search: $this->getSearch($this->getTableSearch())
-                    )
+                    search: $this->getSearch($this->getTableSearch())
                 ));
             })
             ->columns([

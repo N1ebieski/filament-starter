@@ -6,7 +6,6 @@ namespace App\Filament\Resources\Admin\Role;
 
 use Override;
 use App\Models\Role\Role;
-use App\Filters\Role\RoleFilter;
 use App\Filament\Resources\Resource;
 use Illuminate\Support\Facades\Lang;
 use App\Filament\Resources\HasGlobalSearch;
@@ -34,9 +33,7 @@ final class RoleResource extends Resource implements GlobalSearchInterface
     {
         /** @var Builder */
         $baseQuery = static::getQueryBus()->execute(new GetByFilterQuery(
-            filters: new RoleFilter(
-                search: static::getSearch($search)
-            )
+            search: static::getSearch($search)
         ));
 
         $query->setQuery($baseQuery->getQuery());

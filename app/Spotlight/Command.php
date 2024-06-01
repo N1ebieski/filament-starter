@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\Spotlight;
 
 use LivewireUI\Spotlight\SpotlightCommand;
+use Illuminate\Contracts\Support\Arrayable;
+use Override;
 
-abstract class Command extends SpotlightCommand
+abstract class Command extends SpotlightCommand implements Arrayable
 {
     protected bool $default = false;
 
@@ -15,6 +17,7 @@ abstract class Command extends SpotlightCommand
         return $this->default;
     }
 
+    #[Override]
     public function toArray(): array
     {
         return [

@@ -17,16 +17,16 @@ final class GetByFilterHandler extends Handler
         /** @var LengthAwarePaginator|Collection|Builder */
         $users = $query->user->newQuery()
             ->selectRaw("`{$query->user->getTable()}`.*")
-            ->when(!is_null($query->filters->search), function (Builder|User $builder) use ($query) {
-                return $builder->filterSearch($query->filters->search)
-                    ->filterSearchAttributes($query->filters->search);
+            ->when(!is_null($query->search), function (Builder|User $builder) use ($query) {
+                return $builder->filterSearch($query->search)
+                    ->filterSearchAttributes($query->search);
             })
-            ->filterStatusEmail($query->filters->status_email)
-            ->filterExcept($query->filters->except)
-            ->filterRoles($query->filters->roles)
-            ->filterTenants($query->filters->tenants)
+            ->filterStatusEmail($query->status_email)
+            ->filterExcept($query->except)
+            ->filterRoles($query->roles)
+            ->filterTenants($query->tenants)
             ->when(is_null($query->orderby), function (Builder|User $builder) use ($query) {
-                return $builder->filterOrderBySearch($query->filters->search);
+                return $builder->filterOrderBySearch($query->search);
             }, function (Builder|User $builder) use ($query) {
                 return $builder->filterOrderBy($query->orderby);
             })
