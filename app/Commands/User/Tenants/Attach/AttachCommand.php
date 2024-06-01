@@ -7,12 +7,14 @@ namespace App\Commands\User\Tenants\Attach;
 use App\Commands\Command;
 use App\Models\User\User;
 use App\Models\Tenant\Tenant;
+use App\Support\Attributes\Handler;
 use App\Models\Permission\Permission;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
  * @property-read Collection<Permission> $permissions
  */
+#[Handler(\App\Commands\User\Tenants\Attach\AttachHandler::class)]
 final class AttachCommand extends Command
 {
     public function __construct(

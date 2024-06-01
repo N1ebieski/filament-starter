@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions;
 
 use App\Models\User\User;
-use App\Commands\CommandBus;
+use App\Commands\CommandBusInterface;
 use App\Models\Tenant\Tenant;
 use App\Filament\Actions\Action;
 use Illuminate\Support\Facades\App;
@@ -19,7 +19,7 @@ final class DetachUsers extends Action
 {
     public function __construct(
         private readonly User $user,
-        private readonly CommandBus $commandBus
+        private readonly CommandBusInterface $commandBus
     ) {
     }
 

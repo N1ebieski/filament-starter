@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Admin\User\Actions;
 
 use App\Models\User\User;
-use App\Commands\CommandBus;
+use App\Commands\CommandBusInterface;
 use App\Filament\Actions\Action;
 use Illuminate\Support\Facades\App;
 use Illuminate\Contracts\Auth\Guard;
@@ -17,7 +17,7 @@ use App\Commands\User\DeleteMany\DeleteManyCommand;
 final class DeleteUsers extends Action
 {
     public function __construct(
-        private readonly CommandBus $commandBus
+        private readonly CommandBusInterface $commandBus
     ) {
     }
 

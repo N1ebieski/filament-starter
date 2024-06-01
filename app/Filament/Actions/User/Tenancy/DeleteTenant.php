@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Actions\User\Tenancy;
 
-use App\Commands\CommandBus;
+use App\Commands\CommandBusInterface;
 use Filament\Actions\Action;
 use App\Models\Tenant\Tenant;
 use Filament\Facades\Filament;
@@ -20,7 +20,7 @@ use App\Filament\Actions\Action as BaseAction;
 final class DeleteTenant extends BaseAction
 {
     public function __construct(
-        private readonly CommandBus $commandBus
+        private readonly CommandBusInterface $commandBus
     ) {
     }
 

@@ -7,7 +7,7 @@ namespace App\Queries;
 use Illuminate\Container\Container;
 use App\Support\Handler\HandlerHelper;
 
-final class QueryBus
+final class QueryBus implements QueryBusInterface
 {
     public function __construct(
         private readonly Container $container,

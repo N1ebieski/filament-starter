@@ -10,7 +10,9 @@ use App\Queries\OrderBy;
 use App\Models\Role\Role;
 use App\Queries\Paginate;
 use App\Filters\Role\RoleFilter;
+use App\Support\Attributes\Handler;
 
+#[Handler(\App\Queries\Role\GetByFilter\GetByFilterHandler::class)]
 final class GetByFilterQuery extends Query
 {
     public function __construct(

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Admin\Role\Actions;
 
 use App\Models\Role\Role;
-use App\Queries\QueryBus;
-use App\Commands\CommandBus;
+use App\Queries\QueryBusInterface;
+use App\Commands\CommandBusInterface;
 use App\Filament\Actions\Action;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
@@ -27,8 +27,8 @@ final class EditRole extends Action
     public function __construct(
         private readonly Role $role,
         private readonly Permission $permission,
-        private readonly QueryBus $queryBus,
-        private readonly CommandBus $commandBus
+        private readonly QueryBusInterface $queryBus,
+        private readonly CommandBusInterface $commandBus
     ) {
     }
 

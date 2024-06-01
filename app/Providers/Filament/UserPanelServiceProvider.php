@@ -32,9 +32,7 @@ final class UserPanelServiceProvider extends PanelServiceProvider
             ->brandName(Lang::get('user.pages.panel.title'))
             ->discoverResources(in: app_path('Filament/Resources/User'), for: 'App\\Filament\\Resources\\User')
             ->discoverPages(in: app_path('Filament/Pages/User'), for: 'App\\Filament\\Pages\\User')
-            ->pages([
-                Dashboard::class,
-            ])
+            ->pages([])
             ->discoverWidgets(in: app_path('Filament/Widgets/User'), for: 'App\\Filament\\Widgets\\User')
             ->widgets([
                 AccountWidget::class,

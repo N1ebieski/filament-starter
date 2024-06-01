@@ -8,7 +8,7 @@ use App\Queries\Order;
 use App\Queries\Search;
 use App\Queries\OrderBy;
 use App\Models\User\User;
-use App\Queries\QueryBus;
+use App\Queries\QueryBusInterface;
 use Filament\Tables\Table;
 use App\Models\Tenant\Tenant;
 use App\Queries\SearchFactory;
@@ -31,14 +31,14 @@ class UsersRelationManager extends RelationManager
 {
     protected static string $relationship = 'users';
 
-    private QueryBus $queryBus;
+    private QueryBusInterface $queryBus;
 
     private SearchFactory $searchFactory;
 
     private User $user;
 
     public function boot(
-        QueryBus $queryBus,
+        QueryBusInterface $queryBus,
         SearchFactory $searchFactory,
         User $user
     ): void {

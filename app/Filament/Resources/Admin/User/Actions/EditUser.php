@@ -6,8 +6,8 @@ namespace App\Filament\Resources\Admin\User\Actions;
 
 use App\Models\Role\Role;
 use App\Models\User\User;
-use App\Queries\QueryBus;
-use App\Commands\CommandBus;
+use App\Queries\QueryBusInterface;
+use App\Commands\CommandBusInterface;
 use App\Filament\Actions\Action;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
@@ -21,8 +21,8 @@ final class EditUser extends Action
     public function __construct(
         private readonly User $user,
         private readonly Role $role,
-        private readonly QueryBus $queryBus,
-        private readonly CommandBus $commandBus
+        private readonly QueryBusInterface $queryBus,
+        private readonly CommandBusInterface $commandBus
     ) {
     }
 

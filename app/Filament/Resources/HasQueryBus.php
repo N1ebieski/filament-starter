@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
-use App\Queries\QueryBus;
+use App\Queries\QueryBusInterface;
 use Illuminate\Support\Facades\App;
 
 trait HasQueryBus
 {
-    protected static function getQueryBus(): QueryBus
+    protected static function getQueryBus(): QueryBusInterface
     {
-        return App::make(QueryBus::class);
+        return App::make(QueryBusInterface::class);
     }
 }

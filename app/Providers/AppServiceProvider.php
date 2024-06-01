@@ -12,6 +12,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->app->bind(\App\Commands\CommandBusInterface::class, \App\Commands\CommandBus::class);
+
+        $this->app->bind(\App\Queries\QueryBusInterface::class, \App\Queries\QueryBus::class);
+
         $this->app->bind(\App\Overrides\Illuminate\Contracts\Chain\Chain::class, function (Application $app) {
             return $app->make(\App\Overrides\Illuminate\Chain\Chain::class);
         });

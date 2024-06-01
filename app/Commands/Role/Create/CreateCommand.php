@@ -6,8 +6,10 @@ namespace App\Commands\Role\Create;
 
 use App\Commands\Command;
 use App\Models\Role\Role;
+use App\Support\Attributes\Handler;
 use Illuminate\Database\Eloquent\Collection;
 
+#[Handler(\App\Commands\Role\Create\CreateHandler::class)]
 final class CreateCommand extends Command
 {
     public function __construct(

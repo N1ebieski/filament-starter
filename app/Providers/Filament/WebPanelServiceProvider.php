@@ -26,9 +26,7 @@ final class WebPanelServiceProvider extends PanelServiceProvider
             ->homeUrl('/')
             ->discoverResources(in: app_path('Filament/Resources/Web'), for: 'App\\Filament\\Resources\\Web')
             ->discoverPages(in: app_path('Filament/Pages/Web'), for: 'App\\Filament\\Pages\\Web')
-            ->pages([
-                Dashboard::class,
-            ])
+            ->pages([])
             ->discoverWidgets(in: app_path('Filament/Widgets/Web'), for: 'App\\Filament\\Widgets\\Web')
             ->widgets([
                 FilamentInfoWidget::class,

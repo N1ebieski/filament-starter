@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Commands\Tenant\Create;
 
 use App\Commands\Handler;
-use App\Commands\CommandBus;
+use App\Commands\CommandBusInterface;
 use App\Models\Tenant\Tenant;
 use Spatie\Permission\PermissionRegistrar;
 use App\Commands\Tenant\Create\CreateCommand;
@@ -15,7 +15,7 @@ final class CreateHandler extends Handler
 {
     public function __construct(
         protected readonly DB $db,
-        protected readonly CommandBus $commandBus,
+        protected readonly CommandBusInterface $commandBus,
         private readonly PermissionRegistrar $permissionRegistrar
     ) {
     }

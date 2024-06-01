@@ -9,7 +9,7 @@ use App\Queries\Order;
 use App\Queries\Search;
 use App\Queries\OrderBy;
 use App\Models\Role\Role;
-use App\Queries\QueryBus;
+use App\Queries\QueryBusInterface;
 use Filament\Tables\Table;
 use App\Queries\SearchFactory;
 use App\Filament\Pages\HasMeta;
@@ -39,13 +39,13 @@ final class ManageRoles extends ManageRecords implements PageMetaInterface
 
     private SearchFactory $searchFactory;
 
-    private QueryBus $queryBus;
+    private QueryBusInterface $queryBus;
 
     private IndexMetaFactory $metaFactory;
 
     public function boot(
         Role $role,
-        QueryBus $queryBus,
+        QueryBusInterface $queryBus,
         SearchFactory $searchFactory,
         IndexMetaFactory $metaFactory
     ): void {

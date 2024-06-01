@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Pages\User\Tenancy;
 
 use Filament\Forms\Form;
-use App\Commands\CommandBus;
+use App\Commands\CommandBusInterface;
 use App\Models\Tenant\Tenant;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
@@ -18,9 +18,9 @@ class CreateTenant extends RegisterTenant
 {
     protected static ?string $slug = 'tenants/create';
 
-    private CommandBus $commandBus;
+    private CommandBusInterface $commandBus;
 
-    public function boot(CommandBus $commandBus): void
+    public function boot(CommandBusInterface $commandBus): void
     {
         $this->commandBus = $commandBus;
     }

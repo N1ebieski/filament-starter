@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Admin\Role\Actions;
 
 use App\Models\Role\Role;
-use App\Commands\CommandBus;
+use App\Commands\CommandBusInterface;
 use App\Filament\Actions\Action;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
@@ -15,7 +15,7 @@ use App\Commands\Role\Delete\DeleteCommand;
 final class DeleteRole extends Action
 {
     public function __construct(
-        private readonly CommandBus $commandBus
+        private readonly CommandBusInterface $commandBus
     ) {
     }
 

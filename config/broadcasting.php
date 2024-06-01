@@ -54,7 +54,7 @@ return [
                 // for self signed ssl cert
                 ...(env('APP_ENV') === 'local' ? [
                     'verify' => false
-                ] : []),
+                ] : [])
             ],
         ],
 

@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\Console\Commands\User;
 
+use Override;
 use App\Models\Role\Role;
 use App\Models\User\User;
-use App\Commands\CommandBus;
+use App\Commands\CommandBusInterface;
 use Filament\Facades\Filament;
 use Illuminate\Support\Facades\Lang;
 use App\ValueObjects\Role\DefaultName;
@@ -27,7 +28,7 @@ final class MakeSuperAdminHandler extends MakeUserCommand
     public function __construct(
         private readonly User $user,
         private readonly Role $role,
-        private readonly CommandBus $commandBus
+        private readonly CommandBusInterface $commandBus
     ) {
         parent::__construct();
     }
@@ -40,6 +41,7 @@ final class MakeSuperAdminHandler extends MakeUserCommand
             })->count() === 0;
     }
 
+    #[Override]
     protected function createUser(): Authenticatable
     {
         return $this->commandBus->execute(new CreateCommand(
@@ -48,6 +50,7 @@ final class MakeSuperAdminHandler extends MakeUserCommand
         ));
     }
 
+    #[Override]
     public function handle(): int
     {
         if (!$this->authorize()) {

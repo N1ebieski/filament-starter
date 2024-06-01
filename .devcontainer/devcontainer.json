@@ -42,7 +42,8 @@
                 "esbenp.prettier-vscode",
                 "ms-vscode.test-adapter-converter",
                 "hbenl.vscode-test-explorer",
-                "bradlc.vscode-tailwindcss"
+                "bradlc.vscode-tailwindcss",
+                "Gruntfuggly.triggertaskonsave"
             ]
         }
     }  

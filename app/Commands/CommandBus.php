@@ -11,7 +11,7 @@ use App\Support\Handler\IncorrectNameException;
 use Illuminate\Contracts\Bus\Dispatcher as BusDispatcher;
 use Illuminate\Contracts\Container\BindingResolutionException;
 
-final class CommandBus
+final class CommandBus implements CommandBusInterface
 {
     public function __construct(
         private readonly Container $container,

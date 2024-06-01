@@ -10,7 +10,9 @@ use App\Queries\OrderBy;
 use App\Models\User\User;
 use App\Queries\Paginate;
 use App\Filters\User\UserFilter;
+use App\Support\Attributes\Handler;
 
+#[Handler(\App\Queries\Role\GetByFilter\GetByFilterHandler::class)]
 final class GetByFilterQuery extends Query
 {
     public function __construct(

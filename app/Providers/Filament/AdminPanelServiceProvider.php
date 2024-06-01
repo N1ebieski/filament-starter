@@ -29,9 +29,7 @@ final class AdminPanelServiceProvider extends PanelServiceProvider
             ->brandName(Lang::get('admin.pages.panel.title'))
             ->discoverResources(in: app_path('Filament/Resources/Admin'), for: 'App\\Filament\\Resources\\Admin')
             ->discoverPages(in: app_path('Filament/Pages/Admin'), for: 'App\\Filament\\Pages\\Admin')
-            ->pages([
-                Dashboard::class,
-            ])
+            ->pages([])
             ->discoverWidgets(in: app_path('Filament/Widgets/Admin'), for: 'App\\Filament\\Widgets\\Admin')
             ->widgets([
                 AccountWidget::class,

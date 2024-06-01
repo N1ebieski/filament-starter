@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions;
 
 use App\Models\User\User;
-use App\Queries\QueryBus;
-use App\Commands\CommandBus;
 use App\Models\Tenant\Tenant;
 use App\Filament\Actions\Action;
+use App\Queries\QueryBusInterface;
 use Illuminate\Support\Facades\App;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Lang;
+use App\Commands\CommandBusInterface;
 use App\Models\Permission\Permission;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Actions\EditAction;
@@ -24,8 +24,8 @@ final class EditPermissions extends Action
     use HasPermissions;
 
     public function __construct(
-        private readonly CommandBus $commandBus,
-        private readonly QueryBus $queryBus,
+        private readonly CommandBusInterface $commandBus,
+        private readonly QueryBusInterface $queryBus,
         private readonly Permission $permission
     ) {
     }

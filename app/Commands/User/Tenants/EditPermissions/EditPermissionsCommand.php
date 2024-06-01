@@ -7,12 +7,14 @@ namespace App\Commands\User\Tenants\EditPermissions;
 use App\Commands\Command;
 use App\Models\User\User;
 use App\Models\Tenant\Tenant;
+use App\Support\Attributes\Handler;
 use App\Models\Permission\Permission;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
  * @property-read Collection<Permission> $permissions
  */
+#[Handler(\App\Commands\User\Tenants\EditPermissions\EditPermissionsHandler::class)]
 final class EditPermissionsCommand extends Command
 {
     public function __construct(

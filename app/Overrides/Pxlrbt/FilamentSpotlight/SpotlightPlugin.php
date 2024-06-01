@@ -13,12 +13,12 @@ use App\Overrides\Pxlrbt\FilamentSpotlight\Actions\RegisterResources;
 
 final class SpotlightPlugin extends BaseSpotlightPlugin
 {
-    #[Override]
     /**
      * I have to move all logic to App\Providers\Filament\SpotlightServiceProvider
      * because Laravel Octane flush callback listeners after request only
      * if they were in ServiceProvider
      */
+    #[Override]
     public function boot(Panel $panel): void
     {
         //

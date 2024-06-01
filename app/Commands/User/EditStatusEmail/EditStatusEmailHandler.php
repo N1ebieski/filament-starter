@@ -6,8 +6,8 @@ namespace App\Commands\User\EditStatusEmail;
 
 use App\Commands\Handler;
 use App\Models\User\User;
-use App\Queries\QueryBus;
-use App\Commands\CommandBus;
+use App\Queries\QueryBusInterface;
+use App\Commands\CommandBusInterface;
 use Illuminate\Support\Carbon;
 use App\ValueObjects\User\StatusEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -18,8 +18,8 @@ final class EditStatusEmailHandler extends Handler
 {
     public function __construct(
         protected DB $db,
-        protected CommandBus $commandBus,
-        protected QueryBus $queryBus,
+        protected CommandBusInterface $commandBus,
+        protected QueryBusInterface $queryBus,
         private Carbon $carbon
     ) {
     }

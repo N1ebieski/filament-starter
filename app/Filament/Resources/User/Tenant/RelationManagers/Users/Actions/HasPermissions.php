@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions;
 
-use App\Queries\QueryBus;
+use App\Queries\QueryBusInterface;
 use App\Models\Permission\Permission;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Collection as SupportCollection;
 use App\Queries\Permission\GetAvailableForTenant\GetAvailableForTenantQuery;
 
 /**
- * @property-read QueryBus $queryBus
+ * @property-read QueryBusInterface $queryBus
  */
 trait HasPermissions
 {

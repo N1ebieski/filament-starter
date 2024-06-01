@@ -7,7 +7,9 @@ namespace App\Commands\User\Tenants\Detach;
 use App\Commands\Command;
 use App\Models\User\User;
 use App\Models\Tenant\Tenant;
+use App\Support\Attributes\Handler;
 
+#[Handler(\App\Commands\User\Tenants\Detach\DetachHandler::class)]
 final class DetachCommand extends Command
 {
     public function __construct(

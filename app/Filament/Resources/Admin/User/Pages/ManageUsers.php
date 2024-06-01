@@ -10,9 +10,9 @@ use App\Queries\Search;
 use App\Queries\OrderBy;
 use App\Models\Role\Role;
 use App\Models\User\User;
-use App\Queries\QueryBus;
+use App\Queries\QueryBusInterface;
 use Filament\Tables\Table;
-use App\Commands\CommandBus;
+use App\Commands\CommandBusInterface;
 use App\Queries\SearchFactory;
 use App\Filament\Pages\HasMeta;
 use App\ValueObjects\Role\Name;
@@ -49,19 +49,19 @@ final class ManageUsers extends ManageRecords implements PageMetaInterface
 
     private Role $role;
 
-    private CommandBus $commandBus;
+    private CommandBusInterface $commandBus;
 
     private SearchFactory $searchFactory;
 
-    private QueryBus $queryBus;
+    private QueryBusInterface $queryBus;
 
     private IndexMetaFactory $metaFactory;
 
     public function boot(
         User $user,
         Role $role,
-        CommandBus $commandBus,
-        QueryBus $queryBus,
+        CommandBusInterface $commandBus,
+        QueryBusInterface $queryBus,
         SearchFactory $searchFactory,
         IndexMetaFactory $metaFactory
     ): void {

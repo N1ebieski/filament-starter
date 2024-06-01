@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Pages\User\Tenancy;
 
 use Filament\Forms\Form;
-use App\Commands\CommandBus;
+use App\Commands\CommandBusInterface;
 use App\Models\Tenant\Tenant;
 use Filament\Facades\Filament;
 use Illuminate\Support\Facades\Auth;
@@ -24,9 +24,9 @@ class EditTenant extends EditTenantProfile
 {
     protected static ?string $slug = 'edit';
 
-    private CommandBus $commandBus;
+    private CommandBusInterface $commandBus;
 
-    public function boot(CommandBus $commandBus): void
+    public function boot(CommandBusInterface $commandBus): void
     {
         $this->commandBus = $commandBus;
     }
