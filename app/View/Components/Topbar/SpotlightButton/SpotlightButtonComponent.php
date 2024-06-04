@@ -11,7 +11,7 @@ use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Illuminate\Contracts\View\View as ViewContract;
 
-final class SpotlightButton extends Component implements HasForms, HasActions
+final class SpotlightButtonComponent extends Component implements HasForms, HasActions
 {
     use InteractsWithActions;
     use InteractsWithForms;
@@ -27,6 +27,6 @@ final class SpotlightButton extends Component implements HasForms, HasActions
 
     public function render(): ViewContract
     {
-        return View::make('components.topbar.spotlight-button.spotlight-button');
+        return View::make('components.topbar.spotlight-button.spotlight-button-component');
     }
 }

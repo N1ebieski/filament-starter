@@ -16,7 +16,7 @@ use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Illuminate\Contracts\View\View as ViewContract;
 
-final class LoginButton extends Component implements HasForms, HasActions
+final class LoginButtonComponent extends Component implements HasForms, HasActions
 {
     use InteractsWithActions;
     use InteractsWithForms;
@@ -33,6 +33,6 @@ final class LoginButton extends Component implements HasForms, HasActions
 
     public function render(): ViewContract
     {
-        return View::make('components.web.topbar.login-button.login-button');
+        return View::make('components.web.topbar.login-button.login-button-component');
     }
 }

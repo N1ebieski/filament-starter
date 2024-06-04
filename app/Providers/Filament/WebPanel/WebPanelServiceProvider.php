@@ -59,7 +59,7 @@ final class WebPanelServiceProvider extends PanelServiceProvider
     {
         FilamentView::registerRenderHook(
             'panels::topbar.end',
-            fn (): string => Blade::render('<x-web.topbar.login-button />')
+            fn (): string => Blade::render('<x-web.topbar.login-button.login-button-component />')
         );
     }
 }
