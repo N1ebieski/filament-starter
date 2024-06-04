@@ -9,7 +9,7 @@ use App\Models\User\User;
 use App\Queries\QueryBusInterface;
 use App\Commands\CommandBusInterface;
 use Illuminate\Support\Carbon;
-use App\ValueObjects\User\StatusEmail;
+use App\ValueObjects\User\StatusEmail\StatusEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\DatabaseManager as DB;
 use App\Commands\User\EditStatusEmail\EditStatusEmailCommand;

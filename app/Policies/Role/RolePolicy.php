@@ -6,7 +6,7 @@ namespace App\Policies\Role;
 
 use App\Models\Role\Role;
 use App\Models\User\User;
-use App\ValueObjects\Role\DefaultName;
+use App\ValueObjects\Role\DefaultName\DefaultName;
 
 final class RolePolicy
 {

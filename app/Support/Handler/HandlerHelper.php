@@ -46,7 +46,7 @@ final class HandlerHelper
 
         $handlerNamespace = Str::beforeLast($classNamespace, '\\');
 
-        $names = Collection::make(self::NAMES)
+        $names = Collection::make(static::NAMES)
             ->map(function (string $name): string {
                 return preg_quote($name);
             })

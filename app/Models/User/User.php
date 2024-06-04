@@ -7,7 +7,7 @@ use App\Models\Tenant\Tenant;
 use Filament\Facades\Filament;
 use Laravel\Sanctum\HasApiTokens;
 use App\Scopes\User\HasUserScopes;
-use App\ValueObjects\User\StatusEmail;
+use App\ValueObjects\User\StatusEmail\StatusEmail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Filament\Models\Contracts\HasTenants;
@@ -121,9 +121,9 @@ class User extends Authenticatable implements FilamentUser, HasTenants, MustVeri
     public function canAccessPanel(Panel $panel): bool
     {
         return match ($panel->getId()) {
-            \App\Providers\Filament\UserPanelServiceProvider::ID => $panel->auth()->check(),
-            \App\Providers\Filament\AdminPanelServiceProvider::ID => $panel->auth()->user()?->can('admin.access') ?? false,
-            \App\Providers\Filament\WebPanelServiceProvider::ID => true,
+            \App\Providers\Filament\UserPanel\UserPanelServiceProvider::ID => $panel->auth()->check(),
+            \App\Providers\Filament\AdminPanel\AdminPanelServiceProvider::ID => $panel->auth()->user()?->can('admin.access') ?? false,
+            \App\Providers\Filament\WebPanel\WebPanelServiceProvider::ID => true,
             default => false
         };
     }

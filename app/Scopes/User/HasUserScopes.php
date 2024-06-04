@@ -8,7 +8,7 @@ use App\Models\Role\Role;
 use App\Models\User\User;
 use App\Models\Tenant\Tenant;
 use App\Scopes\HasFilterableScopes;
-use App\ValueObjects\User\StatusEmail;
+use App\ValueObjects\User\StatusEmail\StatusEmail;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 

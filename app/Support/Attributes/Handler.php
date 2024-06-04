@@ -12,7 +12,7 @@ final class Handler
     public function __construct(public readonly string $class)
     {
         if (!class_exists($class)) {
-            throw new ClassNotExistsException(
+            throw new ClassNotExistException(
                 "The class {$class} does not exist"
             );
         }

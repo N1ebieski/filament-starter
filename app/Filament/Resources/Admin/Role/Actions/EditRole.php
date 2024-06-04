@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
 use App\Models\Permission\Permission;
 use Filament\Forms\Components\Select;
-use App\ValueObjects\Role\DefaultName;
+use App\ValueObjects\Role\DefaultName\DefaultName;
 use App\Commands\Role\Edit\EditCommand;
 use Filament\Tables\Actions\EditAction;
 use Illuminate\Validation\Rules\Exists;

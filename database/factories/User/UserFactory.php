@@ -5,7 +5,7 @@ namespace Database\Factories\User;
 use App\Models\User\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
-use App\ValueObjects\Role\DefaultName;
+use App\ValueObjects\Role\DefaultName\DefaultName;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

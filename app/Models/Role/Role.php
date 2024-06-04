@@ -64,7 +64,7 @@ final class Role extends BaseRole
      */
     protected $casts = [
         'id' => 'integer',
-        'name' => \App\Casts\Role\NameCast::class,
+        'name' => \App\Casts\Role\Name\NameCast::class,
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];

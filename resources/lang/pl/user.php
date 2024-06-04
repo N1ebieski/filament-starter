@@ -1,6 +1,6 @@
 <?php
 
-use App\ValueObjects\User\StatusEmail;
+use App\ValueObjects\User\StatusEmail\StatusEmail;
 
 return [
     'pages' => [

@@ -7,7 +7,7 @@ namespace App\Commands\User\Create;
 use App\Commands\Handler;
 use App\Models\Role\Role;
 use App\Models\User\User;
-use App\ValueObjects\Role\DefaultName;
+use App\ValueObjects\Role\DefaultName\DefaultName;
 use App\Commands\User\Create\CreateCommand;
 
 final class CreateHandler extends Handler

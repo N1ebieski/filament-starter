@@ -7,7 +7,7 @@ namespace App\Commands\User\Edit;
 use App\Commands\Handler;
 use App\Models\Role\Role;
 use App\Models\User\User;
-use App\ValueObjects\Role\DefaultName;
+use App\ValueObjects\Role\DefaultName\DefaultName;
 use App\Commands\User\Edit\EditCommand;
 
 final class EditHandler extends Handler

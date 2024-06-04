@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Lang;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Resources\Pages\ManageRecords;
 use Filament\Tables\Actions\BulkActionGroup;
-use App\View\Metas\Admin\Role\IndexMetaFactory;
+use App\View\Metas\Admin\Role\Index\IndexMetaFactory;
 use App\Queries\Role\GetByFilter\GetByFilterQuery;
 use App\Filament\Resources\Admin\Role\RoleResource;
 use Illuminate\Contracts\Database\Eloquent\Builder;

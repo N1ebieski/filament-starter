@@ -14,20 +14,20 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->replace(
             \Illuminate\Http\Middleware\TrustProxies::class,
-            \App\Http\Middleware\TrustProxies::class
+            \App\Http\Middleware\TrustProxies\TrustProxiesHandler::class
         );
     })
     ->withProviders([
-        \App\Providers\ConfigServiceProvider::class,
-        \App\Providers\AppServiceProvider::class,
-        \App\Providers\AuthServiceProvider::class,
-        \App\Providers\EventServiceProvider::class,
-        \App\Providers\Filament\FilamentServiceProvider::class,
-        \App\Providers\Filament\WebPanelServiceProvider::class,
-        \App\Providers\Filament\AdminPanelServiceProvider::class,
-        \App\Providers\Filament\UserPanelServiceProvider::class,
-        \App\Providers\Filament\SpotlightServiceProvider::class,
-        \App\Providers\SpotlightServiceProvider::class
+        \App\Providers\Config\ConfigServiceProvider::class,
+        \App\Providers\App\AppServiceProvider::class,
+        \App\Providers\Auth\AuthServiceProvider::class,
+        \App\Providers\Event\EventServiceProvider::class,
+        \App\Providers\Filament\Filament\FilamentServiceProvider::class,
+        \App\Providers\Filament\WebPanel\WebPanelServiceProvider::class,
+        \App\Providers\Filament\AdminPanel\AdminPanelServiceProvider::class,
+        \App\Providers\Filament\UserPanel\UserPanelServiceProvider::class,
+        \App\Providers\Filament\Spotlight\SpotlightServiceProvider::class,
+        \App\Providers\Spotlight\SpotlightServiceProvider::class
     ])
     ->withExceptions(function (Exceptions $exceptions) {
         //
