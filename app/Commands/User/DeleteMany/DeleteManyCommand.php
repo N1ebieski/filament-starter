@@ -6,7 +6,7 @@ namespace App\Commands\User\DeleteMany;
 
 use App\Commands\Command;
 use App\Models\User\User;
-use App\Support\Attributes\Handler;
+use App\Support\Attributes\Handler\Handler;
 use Illuminate\Database\Eloquent\Collection;
 
 /**

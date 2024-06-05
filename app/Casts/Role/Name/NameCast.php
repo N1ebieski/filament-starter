@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Casts\Role\Name;
 
+use App\Casts\Cast;
 use App\ValueObjects\Role\Name\Name;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 
-final class NameCast implements CastsAttributes
+final class NameCast extends Cast implements CastsAttributes
 {
     /**
      * Transform the attribute from the underlying model values.

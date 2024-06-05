@@ -7,7 +7,7 @@ namespace App\Support\Handler;
 use ReflectionClass;
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
-use App\Support\Attributes\Handler;
+use App\Support\Attributes\Handler\Handler;
 
 final class HandlerHelper
 {

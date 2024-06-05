@@ -10,7 +10,7 @@ use App\Queries\Search;
 use App\Queries\OrderBy;
 use App\Models\User\User;
 use App\Queries\Paginate;
-use App\Support\Attributes\Handler;
+use App\Support\Attributes\Handler\Handler;
 use App\ValueObjects\User\StatusEmail\StatusEmail;
 use Illuminate\Database\Eloquent\Collection;
 

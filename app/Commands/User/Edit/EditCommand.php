@@ -6,7 +6,7 @@ namespace App\Commands\User\Edit;
 
 use App\Commands\Command;
 use App\Models\User\User;
-use App\Support\Attributes\Handler;
+use App\Support\Attributes\Handler\Handler;
 use Illuminate\Database\Eloquent\Collection;
 
 #[Handler(\App\Commands\User\Edit\EditHandler::class)]

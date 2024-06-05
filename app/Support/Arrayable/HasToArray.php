@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Support\Arrayable;
 
+use App\Support\Enum\EnumInterface;
 use Illuminate\Contracts\Support\Arrayable;
 
 trait HasToArray
@@ -15,6 +16,10 @@ trait HasToArray
         foreach ($attributes as $key => $value) {
             if ($value instanceof Arrayable) {
                 $attributes[$key] = $value->toArray();
+            }
+
+            if ($value instanceof EnumInterface) {
+                $parameters[$key] = $value->value;
             }
         }
 

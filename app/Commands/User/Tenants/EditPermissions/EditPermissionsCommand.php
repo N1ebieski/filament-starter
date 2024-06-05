@@ -7,7 +7,7 @@ namespace App\Commands\User\Tenants\EditPermissions;
 use App\Commands\Command;
 use App\Models\User\User;
 use App\Models\Tenant\Tenant;
-use App\Support\Attributes\Handler;
+use App\Support\Attributes\Handler\Handler;
 use App\Models\Permission\Permission;
 use Illuminate\Database\Eloquent\Collection;
 

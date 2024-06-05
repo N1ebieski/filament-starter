@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Support\Attributes;
+namespace App\Support\Attributes\Handler;
 
 use Attribute;
+use App\Support\Attributes\ClassNotExistException;
+use App\Support\Attributes\Attribute as BaseAttribute;
 
 #[Attribute()]
-final class Handler
+final class Handler extends BaseAttribute
 {
     public function __construct(public readonly string $class)
     {

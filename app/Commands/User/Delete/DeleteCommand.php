@@ -6,7 +6,7 @@ namespace App\Commands\User\Delete;
 
 use App\Commands\Command;
 use App\Models\User\User;
-use App\Support\Attributes\Handler;
+use App\Support\Attributes\Handler\Handler;
 
 #[Handler(\App\Commands\User\Delete\DeleteHandler::class)]
 final class DeleteCommand extends Command
