@@ -73,7 +73,7 @@ return [
         RequestReceived::class => [
             ...Octane::prepareApplicationForNextOperation(),
             ...Octane::prepareApplicationForNextRequest(),
-            \App\Listeners\Spotlight\FlushCommands\FlushCommandsHandler::class
+            \App\Listeners\Spotlight\FlushCommands\FlushCommandsListener::class
             //
         ],
 

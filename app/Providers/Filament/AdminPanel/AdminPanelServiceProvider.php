@@ -12,9 +12,9 @@ use Filament\Widgets\FilamentInfoWidget;
 use Filament\Support\Facades\FilamentView;
 use App\Providers\Filament\PanelServiceProvider;
 use App\Overrides\Jeffgreco13\FilamentBreezy\BreezyCore;
-use App\Http\Middleware\Filament\VerifyEmail\VerifyEmailHandler;
-use App\Http\Middleware\Filament\Authenticate\AuthenticateHandler;
-use App\Http\Middleware\Filament\MustTwoFactor\MustTwoFactorHandler;
+use App\Http\Middleware\Filament\VerifyEmail\VerifyEmailMiddleware;
+use App\Http\Middleware\Filament\Authenticate\AuthenticateMiddleware;
+use App\Http\Middleware\Filament\MustTwoFactor\MustTwoFactorMiddleware;
 
 final class AdminPanelServiceProvider extends PanelServiceProvider
 {
@@ -36,9 +36,9 @@ final class AdminPanelServiceProvider extends PanelServiceProvider
                 FilamentInfoWidget::class,
             ])
             ->authMiddleware([
-                AuthenticateHandler::class,
-                MustTwoFactorHandler::class,
-                VerifyEmailHandler::class
+                AuthenticateMiddleware::class,
+                MustTwoFactorMiddleware::class,
+                VerifyEmailMiddleware::class
             ], isPersistent: true)
             ->plugins([
                 BreezyCore::make()

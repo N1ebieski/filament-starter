@@ -3,9 +3,9 @@
 namespace App\Http\Middleware\Filament\EnsureEmailIsVerified;
 
 use Closure;
-use Illuminate\Auth\Middleware\EnsureEmailIsVerified as BaseEnsureEmailIsVerified;
+use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
 
-final class EnsureEmailIsVerifiedHandler extends BaseEnsureEmailIsVerified
+final class EnsureEmailIsVerifiedMiddleware extends EnsureEmailIsVerified
 {
     /**
      * Handle an incoming request.

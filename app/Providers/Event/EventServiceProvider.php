@@ -13,7 +13,7 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         \Filament\Events\TenantSet::class => [
-            \App\Listeners\Permission\SetTeamId\SetTeamIdHandler::class
+            \App\Listeners\Permission\SetTeamId\SetTeamIdListener::class
         ],
         \Illuminate\Auth\Events\Registered::class => [
             \Illuminate\Auth\Listeners\SendEmailVerificationNotification::class,

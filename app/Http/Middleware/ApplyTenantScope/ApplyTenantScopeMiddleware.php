@@ -7,8 +7,9 @@ namespace App\Http\Middleware\ApplyTenantScope;
 use Closure;
 use Illuminate\Http\Request;
 use App\Scopes\Tenant\TenantScope;
+use App\Http\Middleware\Middleware;
 
-class ApplyTenantScopeHandler
+class ApplyTenantScopeMiddleware extends Middleware
 {
     public function __construct(private readonly TenantScope $tenantScope)
     {

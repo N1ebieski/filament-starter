@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Listeners\Permission\SetTeamId;
 
-use App\Listeners\Handler;
+use App\Listeners\Listener;
 use Filament\Events\TenantSet;
 use Spatie\Permission\PermissionRegistrar;
 
-class SetTeamIdHandler extends Handler
+class SetTeamIdListener extends Listener
 {
     public function __construct(
         private readonly PermissionRegistrar $permissionRegistrar

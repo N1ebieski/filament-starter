@@ -8,12 +8,13 @@ use Closure;
 use App\Models\User\User;
 use Illuminate\Http\Request;
 use Filament\Facades\Filament;
+use App\Http\Middleware\Middleware;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Response;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
 use Illuminate\Http\Response as HttpResponse;
 
-final class MustTwoFactorHandler
+final class MustTwoFactorMiddleware extends Middleware
 {
     public function handle(Request $request, Closure $next): mixed
     {

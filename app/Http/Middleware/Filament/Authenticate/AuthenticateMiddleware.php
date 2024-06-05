@@ -4,9 +4,9 @@ namespace App\Http\Middleware\Filament\Authenticate;
 
 use Illuminate\Http\Request;
 use Filament\Facades\Filament;
-use Filament\Http\Middleware\Authenticate as Middleware;
+use Filament\Http\Middleware\Authenticate;
 
-class AuthenticateHandler extends Middleware
+class AuthenticateMiddleware extends Authenticate
 {
     /**
      * Get the path the user should be redirected to when they are not authenticated.

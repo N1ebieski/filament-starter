@@ -11,7 +11,7 @@ use Filament\Support\Facades\FilamentView;
 use App\Filament\Pages\Web\MyProfile\MyProfilePage;
 use App\Providers\Filament\PanelServiceProvider;
 use App\Overrides\Jeffgreco13\FilamentBreezy\BreezyCore;
-use App\Http\Middleware\Filament\EnsureEmailIsVerified\EnsureEmailIsVerifiedHandler;
+use App\Http\Middleware\Filament\EnsureEmailIsVerified\EnsureEmailIsVerifiedMiddleware;
 
 final class WebPanelServiceProvider extends PanelServiceProvider
 {
@@ -34,7 +34,7 @@ final class WebPanelServiceProvider extends PanelServiceProvider
             ->login()
             ->emailVerification()
             ->emailVerifiedMiddlewareName(
-                EnsureEmailIsVerifiedHandler::class
+                EnsureEmailIsVerifiedMiddleware::class
             )
             ->registration()
             ->passwordReset()

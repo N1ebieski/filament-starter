@@ -7,8 +7,9 @@ namespace App\Http\Middleware\ApplyUserScope;
 use Closure;
 use Illuminate\Http\Request;
 use App\Scopes\User\UserScope;
+use App\Http\Middleware\Middleware;
 
-class ApplyUserScopeHandler
+class ApplyUserScopeMiddleware extends Middleware
 {
     public function __construct(private readonly UserScope $userScope)
     {

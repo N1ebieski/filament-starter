@@ -13,11 +13,11 @@ use App\Providers\Filament\PanelServiceProvider;
 use App\Filament\Pages\User\Tenancy\Edit\EditTenantPage;
 use App\Filament\Pages\User\Tenancy\Create\CreateTenantPage;
 use App\Overrides\Jeffgreco13\FilamentBreezy\BreezyCore;
-use App\Http\Middleware\ApplyUserScope\ApplyUserScopeHandler;
-use App\Http\Middleware\Filament\VerifyEmail\VerifyEmailHandler;
-use App\Http\Middleware\ApplyTenantScope\ApplyTenantScopeHandler;
-use App\Http\Middleware\Filament\Authenticate\AuthenticateHandler;
-use App\Http\Middleware\Filament\MustTwoFactor\MustTwoFactorHandler;
+use App\Http\Middleware\ApplyUserScope\ApplyUserScopeMiddleware;
+use App\Http\Middleware\Filament\VerifyEmail\VerifyEmailMiddleware;
+use App\Http\Middleware\ApplyTenantScope\ApplyTenantScopeMiddleware;
+use App\Http\Middleware\Filament\Authenticate\AuthenticateMiddleware;
+use App\Http\Middleware\Filament\MustTwoFactor\MustTwoFactorMiddleware;
 
 final class UserPanelServiceProvider extends PanelServiceProvider
 {
@@ -39,13 +39,13 @@ final class UserPanelServiceProvider extends PanelServiceProvider
                 FilamentInfoWidget::class,
             ])
             ->authMiddleware([
-                AuthenticateHandler::class,
-                MustTwoFactorHandler::class,
-                VerifyEmailHandler::class,
+                AuthenticateMiddleware::class,
+                MustTwoFactorMiddleware::class,
+                VerifyEmailMiddleware::class,
                 // ApplyUserScope::class
             ], isPersistent: true)
             ->tenantMiddleware([
-                ApplyTenantScopeHandler::class
+                ApplyTenantScopeMiddleware::class
             ], isPersistent: true)
             ->tenant(Tenant::class)
             ->tenantRegistration(CreateTenantPage::class)
