@@ -12,6 +12,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->app->bind(\App\CacheQueries\CacheQueryBusInterface::class, \App\CacheQueries\CacheQueryBus::class);
+
+        $this->app->bind(\App\Http\Clients\ClientBusInterface::class, \App\Http\Clients\ClientBus::class);
+
         $this->app->bind(\App\Commands\CommandBusInterface::class, \App\Commands\CommandBus::class);
 
         $this->app->bind(\App\Queries\QueryBusInterface::class, \App\Queries\QueryBus::class);

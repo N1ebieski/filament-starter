@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\ValueObjects\Role\Name;
 
 use App\ValueObjects\ValueObject;
-use App\ValueObjects\Role\DefaultName\DefaultName;
+use App\ValueObjects\Role\Name\DefaultName;
 
 final class Name extends ValueObject
 {

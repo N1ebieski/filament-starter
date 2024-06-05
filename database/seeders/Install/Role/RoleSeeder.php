@@ -6,7 +6,7 @@ namespace Database\Seeders\Install\Role;
 
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
-use App\ValueObjects\Role\DefaultName\DefaultName;
+use App\ValueObjects\Role\Name\DefaultName;
 use Spatie\Permission\PermissionRegistrar;
 
 final class RoleSeeder extends Seeder

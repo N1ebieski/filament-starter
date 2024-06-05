@@ -17,7 +17,7 @@ use Filament\Tables\Actions\EditAction;
 use Illuminate\Validation\Rules\Exists;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Contracts\Database\Query\Builder;
-use App\ValueObjects\Role\DefaultName\DefaultName;
+use App\ValueObjects\Role\Name\DefaultName;
 use App\Filament\Resources\Admin\Role\Actions\HasPermissions;
 
 final class EditRoleAction extends Action

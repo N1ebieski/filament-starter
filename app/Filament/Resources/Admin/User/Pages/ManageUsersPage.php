@@ -26,7 +26,7 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Resources\Pages\ManageRecords;
 use Filament\Tables\Actions\BulkActionGroup;
 use App\Queries\User\GetByFilter\GetByFilterQuery;
-use App\ValueObjects\Role\DefaultName\DefaultName;
+use App\ValueObjects\Role\Name\DefaultName;
 use App\ValueObjects\User\StatusEmail\StatusEmail;
 use App\Filament\Resources\Admin\Role\RoleResource;
 use Illuminate\Contracts\Database\Eloquent\Builder;

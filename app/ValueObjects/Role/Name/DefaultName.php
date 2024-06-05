@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\ValueObjects\Role\DefaultName;
+namespace App\ValueObjects\Role\Name;
 
 enum DefaultName: string
 {

@@ -99,7 +99,10 @@ trait HasFilterableScopes
 
     public function scopeFilterPaginate(Builder $builder, Paginate $paginate): LengthAwarePaginator
     {
-        return $builder->paginate($paginate->perPage ?? Config::get('database.paginate'));
+        return $builder->paginate(
+            perPage: $paginate->perPage ?? Config::get('database.paginate'),
+            page: $paginate->page
+        );
     }
 
     public function scopeFilterGet(Builder $builder, Get $get): Collection

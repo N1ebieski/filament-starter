@@ -6,7 +6,9 @@ namespace App\Queries;
 
 final class Paginate
 {
-    public function __construct(public readonly int $perPage)
-    {
+    public function __construct(
+        public readonly int $perPage,
+        public readonly ?int $page = null
+    ) {
     }
 }

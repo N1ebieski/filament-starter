@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Queries\Permission\GetAvailableForAdmin;
 
 use App\Queries\Handler;
-use App\ValueObjects\Role\DefaultName\DefaultName;
+use App\ValueObjects\Role\Name\DefaultName;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 

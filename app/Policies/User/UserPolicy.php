@@ -6,7 +6,7 @@ namespace App\Policies\User;
 
 use App\Models\User\User;
 use App\Models\Tenant\Tenant;
-use App\ValueObjects\Role\DefaultName\DefaultName;
+use App\ValueObjects\Role\Name\DefaultName;
 
 final class UserPolicy
 {
