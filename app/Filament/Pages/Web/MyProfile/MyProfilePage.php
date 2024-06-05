@@ -8,9 +8,9 @@ use Override;
 use Illuminate\Support\Facades\Auth;
 use App\Spotlight\SpotlightInterface;
 use App\Http\Middleware\Filament\Authenticate\AuthenticateHandler;
-use Jeffgreco13\FilamentBreezy\Pages\MyProfilePage;
+use Jeffgreco13\FilamentBreezy\Pages\MyProfilePage as BaseMyProfilePage;
 
-final class MyProfile extends MyProfilePage implements SpotlightInterface
+final class MyProfilePage extends BaseMyProfilePage implements SpotlightInterface
 {
     /**
      * @var string | array<string>

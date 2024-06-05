@@ -17,7 +17,7 @@ use Filament\Forms\Components\TextInput;
 use App\Commands\User\Create\CreateCommand;
 use Illuminate\Database\Eloquent\Collection;
 
-final class CreateUser extends Action
+final class CreateUserAction extends Action
 {
     public function __construct(
         private readonly User $user,

@@ -13,32 +13,32 @@ use App\Models\User\User;
 use Filament\Tables\Table;
 use App\Queries\SearchFactory;
 use App\Filament\Pages\HasMeta;
-use App\ValueObjects\Role\Name\Name;
 use App\View\Metas\MetaInterface;
 use App\Queries\QueryBusInterface;
+use App\ValueObjects\Role\Name\Name;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Lang;
 use App\Commands\CommandBusInterface;
-use App\ValueObjects\Role\DefaultName\DefaultName;
-use App\ValueObjects\User\StatusEmail\StatusEmail;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Notifications\Notification;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Resources\Pages\ManageRecords;
 use Filament\Tables\Actions\BulkActionGroup;
-use App\View\Metas\Admin\User\Index\IndexMetaFactory;
 use App\Queries\User\GetByFilter\GetByFilterQuery;
+use App\ValueObjects\Role\DefaultName\DefaultName;
+use App\ValueObjects\User\StatusEmail\StatusEmail;
 use App\Filament\Resources\Admin\Role\RoleResource;
 use Illuminate\Contracts\Database\Eloquent\Builder;
-use App\Filament\Resources\Admin\User\Actions\EditUser;
-use App\Filament\Resources\Admin\User\Actions\CreateUser;
-use App\Filament\Resources\Admin\User\Actions\DeleteUser;
+use App\View\Metas\Admin\User\Index\IndexMetaFactory;
+use App\Filament\Resources\Admin\User\Actions\EditUserAction;
+use App\Filament\Resources\Admin\User\Actions\CreateUserAction;
+use App\Filament\Resources\Admin\User\Actions\DeleteUserAction;
 use App\Filament\Pages\MetaInterface as PageMetaInterface;
-use App\Filament\Resources\Admin\User\Actions\DeleteUsers;
+use App\Filament\Resources\Admin\User\Actions\DeleteUsersAction;
 use App\Commands\User\EditStatusEmail\EditStatusEmailCommand;
 
-final class ManageUsers extends ManageRecords implements PageMetaInterface
+final class ManageUsersPage extends ManageRecords implements PageMetaInterface
 {
     use HasMeta;
 
@@ -97,7 +97,7 @@ final class ManageUsers extends ManageRecords implements PageMetaInterface
     protected function getHeaderActions(): array
     {
         return [
-            CreateUser::make(
+            CreateUserAction::make(
                 $this->role->newQuery()
                     ->where('name', new Name(DefaultName::User->value))
                     ->when(!empty($this->getTableFilterState('roles')['values']), function (Builder $query): Builder {
@@ -200,12 +200,12 @@ final class ManageUsers extends ManageRecords implements PageMetaInterface
                     })
             ])
             ->actions([
-                EditUser::make(),
-                DeleteUser::make()
+                EditUserAction::make(),
+                DeleteUserAction::make()
             ])
             ->bulkActions([
                 BulkActionGroup::make([
-                    DeleteUsers::make()
+                    DeleteUsersAction::make()
                 ]),
             ])
             ->recordUrl(null)

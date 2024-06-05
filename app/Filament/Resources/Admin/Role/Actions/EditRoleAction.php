@@ -5,22 +5,22 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Admin\Role\Actions;
 
 use App\Models\Role\Role;
-use App\Queries\QueryBusInterface;
-use App\Commands\CommandBusInterface;
 use App\Filament\Actions\Action;
+use App\Queries\QueryBusInterface;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
+use App\Commands\CommandBusInterface;
 use App\Models\Permission\Permission;
 use Filament\Forms\Components\Select;
-use App\ValueObjects\Role\DefaultName\DefaultName;
 use App\Commands\Role\Edit\EditCommand;
 use Filament\Tables\Actions\EditAction;
 use Illuminate\Validation\Rules\Exists;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Contracts\Database\Query\Builder;
+use App\ValueObjects\Role\DefaultName\DefaultName;
 use App\Filament\Resources\Admin\Role\Actions\HasPermissions;
 
-final class EditRole extends Action
+final class EditRoleAction extends Action
 {
     use HasPermissions;
 

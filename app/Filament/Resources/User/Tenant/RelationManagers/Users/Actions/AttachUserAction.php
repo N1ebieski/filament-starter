@@ -14,23 +14,24 @@ use Illuminate\Support\Facades\Lang;
 use App\Commands\CommandBusInterface;
 use App\Models\Permission\Permission;
 use Filament\Forms\Components\Select;
-use Filament\Tables\Actions\EditAction;
 use Illuminate\Validation\Rules\Exists;
+use Filament\Tables\Actions\AttachAction;
 use Illuminate\Contracts\Database\Query\Builder;
-use App\Commands\User\Tenants\EditPermissions\EditPermissionsCommand;
+use App\Commands\User\Tenants\Attach\AttachCommand;
 
-final class EditPermissions extends Action
+final class AttachUserAction extends Action
 {
     use HasPermissions;
 
     public function __construct(
+        private readonly User $user,
         private readonly CommandBusInterface $commandBus,
         private readonly QueryBusInterface $queryBus,
         private readonly Permission $permission
     ) {
     }
 
-    public static function make(Tenant $tenant): EditAction
+    public static function make(Tenant $tenant): AttachAction
     {
         /** @var static */
         $static = App::make(static::class);
@@ -38,23 +39,19 @@ final class EditPermissions extends Action
         return $static->getAction($tenant);
     }
 
-    public function getAction(Tenant $tenant): EditAction
+    public function getAction(Tenant $tenant): AttachAction
     {
-        return EditAction::make()
-            ->hidden(function (User $record, Guard $guard) use ($tenant): bool {
-                return !$guard->user()?->can('tenantUpdatePermissions', [$record, $tenant]);
+        return AttachAction::make()
+            ->hidden(function (Guard $guard) use ($tenant): bool {
+                return !$guard->user()?->can('tenantAttach', [$this->user::class, $tenant]);
             })
-            ->icon('heroicon-s-shield-check')
-            ->label(Lang::get('user.permissions.label'))
-            ->modalHeading(fn (User $record): string => Lang::get('tenant.pages.users.edit_permissions.title', [
-                'name' => $record->name
-            ]))
-            ->mutateRecordDataUsing(function (array $data, User $record): array {
-                $data['permissions'] = $record->tenantPermissions->pluck('id')->toArray();
+            ->icon('heroicon-o-plus-circle')
+            ->modalHeading(Lang::get('tenant.pages.users.attach.title'))
+            ->form(fn (AttachAction $action): array => [
+                $action->getRecordSelect()
+                    ->label(Lang::get('user.name.label'))
+                    ->hiddenLabel(false),
 
-                return $data;
-            })
-            ->form([
                 Select::make('permissions')
                     ->label(Lang::get('user.permissions.label'))
                     ->options($this->getGroupedPermissions()->toArray())
@@ -72,15 +69,15 @@ final class EditPermissions extends Action
             ])
             ->stickyModalFooter()
             ->closeModalByClickingAway(false)
-            ->using(function (array $data, User $record) use ($tenant): User {
-                return $this->commandBus->execute(new EditPermissionsCommand(
+            ->using(function (array $data) use ($tenant): User {
+                return $this->commandBus->execute(new AttachCommand(
                     tenant: $tenant,
-                    user: $record,
+                    user: $this->user->find($data['recordId']),
                     permissions: $this->permission->newQuery()->findMany($data['permissions'])
                 ));
             })
             ->successNotificationTitle(function (User $record): string {
-                return Lang::get('tenant.messages.users.edit_permissions.success', [
+                return Lang::get('tenant.messages.users.attach.success', [
                     'name' => $record->name
                 ]);
             });

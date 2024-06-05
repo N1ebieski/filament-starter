@@ -17,7 +17,7 @@ use Filament\Notifications\Notification;
 use App\Commands\Tenant\Delete\DeleteCommand;
 use App\Filament\Actions\Action as BaseAction;
 
-final class DeleteTenant extends BaseAction
+final class DeleteTenantAction extends BaseAction
 {
     public function __construct(
         private readonly CommandBusInterface $commandBus

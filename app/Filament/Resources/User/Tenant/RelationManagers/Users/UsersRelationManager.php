@@ -21,10 +21,10 @@ use Filament\Tables\Actions\BulkActionGroup;
 use Illuminate\Database\Eloquent\Collection;
 use App\Queries\User\GetByFilter\GetByFilterQuery;
 use Filament\Resources\RelationManagers\RelationManager;
-use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\AttachUser;
-use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\DetachUser;
-use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\DetachUsers;
-use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\EditPermissions;
+use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\AttachUserAction;
+use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\DetachUserAction;
+use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\DetachUsersAction;
+use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\EditPermissionsAction;
 
 class UsersRelationManager extends RelationManager
 {
@@ -85,15 +85,15 @@ class UsersRelationManager extends RelationManager
                     ->grow(),
             ])
             ->headerActions([
-                AttachUser::make($tenant),
+                AttachUserAction::make($tenant),
             ])
             ->actions([
-                EditPermissions::make($tenant),
-                DetachUser::make($tenant),
+                EditPermissionsAction::make($tenant),
+                DetachUserAction::make($tenant),
             ])
             ->bulkActions([
                 BulkActionGroup::make([
-                    DetachUsers::make($tenant),
+                    DetachUsersAction::make($tenant),
                 ]),
             ])
             ->recordUrl(null)

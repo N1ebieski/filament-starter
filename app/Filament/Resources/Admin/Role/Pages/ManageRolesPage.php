@@ -18,17 +18,17 @@ use Illuminate\Support\Facades\Lang;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Resources\Pages\ManageRecords;
 use Filament\Tables\Actions\BulkActionGroup;
-use App\View\Metas\Admin\Role\Index\IndexMetaFactory;
 use App\Queries\Role\GetByFilter\GetByFilterQuery;
 use App\Filament\Resources\Admin\Role\RoleResource;
 use Illuminate\Contracts\Database\Eloquent\Builder;
-use App\Filament\Resources\Admin\Role\Actions\EditRole;
-use App\Filament\Resources\Admin\Role\Actions\CreateRole;
-use App\Filament\Resources\Admin\Role\Actions\DeleteRole;
+use App\View\Metas\Admin\Role\Index\IndexMetaFactory;
 use App\Filament\Pages\MetaInterface as PageMetaInterface;
-use App\Filament\Resources\Admin\Role\Actions\DeleteRoles;
+use App\Filament\Resources\Admin\Role\Actions\EditRoleAction;
+use App\Filament\Resources\Admin\Role\Actions\CreateRoleAction;
+use App\Filament\Resources\Admin\Role\Actions\DeleteRoleAction;
+use App\Filament\Resources\Admin\Role\Actions\DeleteRolesAction;
 
-final class ManageRoles extends ManageRecords implements PageMetaInterface
+final class ManageRolesPage extends ManageRecords implements PageMetaInterface
 {
     use HasMeta;
 
@@ -79,7 +79,7 @@ final class ManageRoles extends ManageRecords implements PageMetaInterface
     protected function getHeaderActions(): array
     {
         return [
-            CreateRole::make()
+            CreateRoleAction::make()
         ];
     }
 
@@ -118,12 +118,12 @@ final class ManageRoles extends ManageRecords implements PageMetaInterface
                     }),
             ])
             ->actions([
-                EditRole::make(),
-                DeleteRole::make()
+                EditRoleAction::make(),
+                DeleteRoleAction::make()
             ])
             ->bulkActions([
                 BulkActionGroup::make([
-                    DeleteRoles::make()
+                    DeleteRolesAction::make()
                 ]),
             ])
             ->recordUrl(null)

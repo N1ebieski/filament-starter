@@ -14,13 +14,13 @@ use Illuminate\Database\Eloquent\Model;
 use Filament\Forms\Components\TextInput;
 use App\Commands\Tenant\Edit\EditCommand;
 use Filament\Pages\Tenancy\EditTenantProfile;
-use App\Filament\Actions\User\Tenancy\Delete\DeleteTenant;
+use App\Filament\Actions\User\Tenancy\Delete\DeleteTenantAction;
 use App\Filament\Resources\User\Tenant\RelationManagers\Users\UsersRelationManager;
 
 /**
  * @property-read Tenant $tenant
  */
-class EditTenant extends EditTenantProfile
+class EditTenantPage extends EditTenantProfile
 {
     protected static ?string $slug = 'edit';
 
@@ -44,7 +44,7 @@ class EditTenant extends EditTenantProfile
     protected function getHeaderActions(): array
     {
         return [
-            DeleteTenant::make($this->tenant)
+            DeleteTenantAction::make($this->tenant)
         ];
     }
 

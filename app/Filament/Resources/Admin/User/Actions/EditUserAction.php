@@ -6,17 +6,17 @@ namespace App\Filament\Resources\Admin\User\Actions;
 
 use App\Models\Role\Role;
 use App\Models\User\User;
-use App\Queries\QueryBusInterface;
-use App\Commands\CommandBusInterface;
 use App\Filament\Actions\Action;
+use App\Queries\QueryBusInterface;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
+use App\Commands\CommandBusInterface;
 use Filament\Forms\Components\Select;
 use App\Commands\User\Edit\EditCommand;
 use Filament\Tables\Actions\EditAction;
 use Filament\Forms\Components\TextInput;
 
-final class EditUser extends Action
+final class EditUserAction extends Action
 {
     public function __construct(
         private readonly User $user,

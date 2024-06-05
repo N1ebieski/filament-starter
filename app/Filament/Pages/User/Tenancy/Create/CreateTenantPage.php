@@ -14,7 +14,7 @@ use Filament\Notifications\Notification;
 use Filament\Pages\Tenancy\RegisterTenant;
 use App\Commands\Tenant\Create\CreateCommand;
 
-class CreateTenant extends RegisterTenant
+class CreateTenantPage extends RegisterTenant
 {
     protected static ?string $slug = 'tenants/create';
 

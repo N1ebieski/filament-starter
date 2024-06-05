@@ -12,7 +12,7 @@ use App\Filament\Resources\HasGlobalSearch;
 use App\Filament\Resources\GlobalSearchInterface;
 use App\Queries\User\GetByFilter\GetByFilterQuery;
 use Illuminate\Contracts\Database\Eloquent\Builder;
-use App\Filament\Resources\Admin\User\Pages\ManageUsers;
+use App\Filament\Resources\Admin\User\Pages\ManageUsersPage;
 
 final class UserResource extends Resource implements GlobalSearchInterface
 {
@@ -62,7 +62,7 @@ final class UserResource extends Resource implements GlobalSearchInterface
     public static function getPages(): array
     {
         return [
-            'index' => ManageUsers::route('/'),
+            'index' => ManageUsersPage::route('/'),
         ];
     }
 }

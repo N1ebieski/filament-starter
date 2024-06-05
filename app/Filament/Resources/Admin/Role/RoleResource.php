@@ -12,7 +12,7 @@ use App\Filament\Resources\HasGlobalSearch;
 use App\Filament\Resources\GlobalSearchInterface;
 use App\Queries\Role\GetByFilter\GetByFilterQuery;
 use Illuminate\Contracts\Database\Eloquent\Builder;
-use App\Filament\Resources\Admin\Role\Pages\ManageRoles;
+use App\Filament\Resources\Admin\Role\Pages\ManageRolesPage;
 
 final class RoleResource extends Resource implements GlobalSearchInterface
 {
@@ -62,7 +62,7 @@ final class RoleResource extends Resource implements GlobalSearchInterface
     public static function getPages(): array
     {
         return [
-            'index' => ManageRoles::route('/'),
+            'index' => ManageRolesPage::route('/'),
         ];
     }
 }

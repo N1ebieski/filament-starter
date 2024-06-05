@@ -2,9 +2,9 @@
 
 namespace App\Filament\Pages\User\Test;
 
-use Filament\Pages\Page;
+use App\Filament\Pages\Page;
 
-class Test extends Page
+class TestPage extends Page
 {
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 

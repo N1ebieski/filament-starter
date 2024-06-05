@@ -5,19 +5,19 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Admin\Role\Actions;
 
 use App\Models\Role\Role;
-use App\Queries\QueryBusInterface;
-use App\Commands\CommandBusInterface;
 use App\Filament\Actions\Action;
+use App\Queries\QueryBusInterface;
 use Filament\Actions\CreateAction;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
+use App\Commands\CommandBusInterface;
 use App\Models\Permission\Permission;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use App\Commands\Role\Create\CreateCommand;
 use App\Filament\Resources\Admin\Role\Actions\HasPermissions;
 
-final class CreateRole extends Action
+final class CreateRoleAction extends Action
 {
     use HasPermissions;
 

@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Lang;
 use Filament\Tables\Actions\DeleteAction;
 use App\Commands\Role\Delete\DeleteCommand;
 
-final class DeleteRole extends Action
+final class DeleteRoleAction extends Action
 {
     public function __construct(
         private readonly CommandBusInterface $commandBus

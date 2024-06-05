@@ -10,8 +10,8 @@ use Filament\Widgets\AccountWidget;
 use Illuminate\Support\Facades\Lang;
 use Filament\Widgets\FilamentInfoWidget;
 use App\Providers\Filament\PanelServiceProvider;
-use App\Filament\Pages\User\Tenancy\Edit\EditTenant;
-use App\Filament\Pages\User\Tenancy\Create\CreateTenant;
+use App\Filament\Pages\User\Tenancy\Edit\EditTenantPage;
+use App\Filament\Pages\User\Tenancy\Create\CreateTenantPage;
 use App\Overrides\Jeffgreco13\FilamentBreezy\BreezyCore;
 use App\Http\Middleware\ApplyUserScope\ApplyUserScopeHandler;
 use App\Http\Middleware\Filament\VerifyEmail\VerifyEmailHandler;
@@ -48,8 +48,8 @@ final class UserPanelServiceProvider extends PanelServiceProvider
                 ApplyTenantScopeHandler::class
             ], isPersistent: true)
             ->tenant(Tenant::class)
-            ->tenantRegistration(CreateTenant::class)
-            ->tenantProfile(EditTenant::class)
+            ->tenantRegistration(CreateTenantPage::class)
+            ->tenantProfile(EditTenantPage::class)
             ->tenantRoutePrefix('tenants')
             ->plugins([
                 BreezyCore::make()

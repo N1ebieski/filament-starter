@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions;
 
 use App\Models\User\User;
-use App\Commands\CommandBusInterface;
 use App\Models\Tenant\Tenant;
 use App\Filament\Actions\Action;
 use Illuminate\Support\Facades\App;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Lang;
+use App\Commands\CommandBusInterface;
 use Filament\Tables\Actions\DetachAction;
 use App\Commands\User\Tenants\Detach\DetachCommand;
 
-final class DetachUser extends Action
+final class DetachUserAction extends Action
 {
     public function __construct(
         private readonly User $user,

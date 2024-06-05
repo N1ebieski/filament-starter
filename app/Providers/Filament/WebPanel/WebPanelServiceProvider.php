@@ -8,7 +8,7 @@ use Filament\Panel;
 use Illuminate\Support\Facades\Blade;
 use Filament\Widgets\FilamentInfoWidget;
 use Filament\Support\Facades\FilamentView;
-use App\Filament\Pages\Web\MyProfile\MyProfile;
+use App\Filament\Pages\Web\MyProfile\MyProfilePage;
 use App\Providers\Filament\PanelServiceProvider;
 use App\Overrides\Jeffgreco13\FilamentBreezy\BreezyCore;
 use App\Http\Middleware\Filament\EnsureEmailIsVerified\EnsureEmailIsVerifiedHandler;
@@ -46,7 +46,7 @@ final class WebPanelServiceProvider extends PanelServiceProvider
                         hasAvatars: false,
                         slug: 'profile'
                     )
-                    ->customMyProfilePage(MyProfile::class)
+                    ->customMyProfilePage(MyProfilePage::class)
                     ->enableTwoFactorAuthentication()
             ])
             ->spa();
