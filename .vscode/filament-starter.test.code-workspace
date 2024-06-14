@@ -1,0 +1,25 @@
+{
+	"folders": [
+		{
+			"name": "filament-starter.test",
+			"path": ".."
+		},
+		{
+			"name": "filament-demo.test",
+			"path": "../../filament-demo.test"
+		}
+	],
+	"settings": {
+		"phpsab.executablePathCBF": "vendor/bin/phpcbf",
+		"phpsab.executablePathCS": "vendor/bin/phpcs",
+		"phpsab.standard": "PSR12",
+		"phpstan.configFile": "phpstan.neon",
+		"phpstan.binPath": "vendor/bin/phpstan",
+		"phpunit.phpunit": "vendor/bin/phpunit",
+		"phpunit.args": [
+			"--configuration phpunit.xml"
+		],
+		"intelephense.environment.phpVersion": "8.3.1",
+		"phpstan.suppressWorkspaceMessage": true
+	}
+}
