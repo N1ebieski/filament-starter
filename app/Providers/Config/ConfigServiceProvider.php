@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Providers\Config;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Database\Eloquent\Model;
@@ -28,5 +29,6 @@ final class ConfigServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Model::shouldBeStrict();
+        DB::prohibitDestructiveCommands($this->app->isProduction());
     }
 }
