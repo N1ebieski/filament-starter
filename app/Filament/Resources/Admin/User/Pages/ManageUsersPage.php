@@ -10,6 +10,7 @@ use App\Queries\Search;
 use App\Queries\OrderBy;
 use App\Models\Role\Role;
 use App\Models\User\User;
+use App\Queries\Paginate;
 use Filament\Tables\Table;
 use App\Queries\SearchFactory;
 use App\Filament\Pages\HasMeta;
@@ -23,20 +24,21 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Notifications\Notification;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Filters\SelectFilter;
+use App\ValueObjects\Role\Name\DefaultName;
 use Filament\Resources\Pages\ManageRecords;
 use Filament\Tables\Actions\BulkActionGroup;
+use Illuminate\Contracts\Pagination\Paginator;
 use App\Queries\User\GetByFilter\GetByFilterQuery;
-use App\ValueObjects\Role\Name\DefaultName;
 use App\ValueObjects\User\StatusEmail\StatusEmail;
 use App\Filament\Resources\Admin\Role\RoleResource;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use App\View\Metas\Admin\User\Index\IndexMetaFactory;
+use App\Filament\Pages\MetaInterface as PageMetaInterface;
+use App\Commands\User\EditStatusEmail\EditStatusEmailCommand;
 use App\Filament\Resources\Admin\User\Actions\EditUserAction;
 use App\Filament\Resources\Admin\User\Actions\CreateUserAction;
 use App\Filament\Resources\Admin\User\Actions\DeleteUserAction;
-use App\Filament\Pages\MetaInterface as PageMetaInterface;
 use App\Filament\Resources\Admin\User\Actions\DeleteUsersAction;
-use App\Commands\User\EditStatusEmail\EditStatusEmailCommand;
 
 final class ManageUsersPage extends ManageRecords implements PageMetaInterface
 {
@@ -213,5 +215,10 @@ final class ManageUsersPage extends ManageRecords implements PageMetaInterface
             ->defaultSort(function (Builder|User $query): Builder {
                 return $query->filterOrderBy(new OrderBy('id', Order::Desc));
             });
+    }
+
+    protected function paginateTableQuery(Builder|User $query): Paginator
+    {
+        return $query->filterPaginate(new Paginate($this->getTableRecordsPerPage(), $this->getPage()));
     }
 }

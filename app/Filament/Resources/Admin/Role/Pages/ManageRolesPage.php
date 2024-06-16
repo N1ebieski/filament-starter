@@ -9,6 +9,7 @@ use App\Queries\Order;
 use App\Queries\Search;
 use App\Queries\OrderBy;
 use App\Models\Role\Role;
+use App\Queries\Paginate;
 use Filament\Tables\Table;
 use App\Queries\SearchFactory;
 use App\Filament\Pages\HasMeta;
@@ -18,6 +19,7 @@ use Illuminate\Support\Facades\Lang;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Resources\Pages\ManageRecords;
 use Filament\Tables\Actions\BulkActionGroup;
+use Illuminate\Contracts\Pagination\Paginator;
 use App\Queries\Role\GetByFilter\GetByFilterQuery;
 use App\Filament\Resources\Admin\Role\RoleResource;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -131,5 +133,10 @@ final class ManageRolesPage extends ManageRecords implements PageMetaInterface
             ->defaultSort(function (Builder|Role $query): Builder {
                 return $query->filterOrderBy(new OrderBy('id', Order::Desc));
             });
+    }
+
+    protected function paginateTableQuery(Builder|Role $query): Paginator
+    {
+        return $query->filterPaginate(new Paginate($this->getTableRecordsPerPage(), $this->getPage()));
     }
 }

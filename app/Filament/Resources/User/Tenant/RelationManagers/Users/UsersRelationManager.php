@@ -8,6 +8,7 @@ use App\Queries\Order;
 use App\Queries\Search;
 use App\Queries\OrderBy;
 use App\Models\User\User;
+use App\Queries\Paginate;
 use Filament\Tables\Table;
 use App\Models\Tenant\Tenant;
 use App\Queries\SearchFactory;
@@ -16,10 +17,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Actions\BulkActionGroup;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Contracts\Pagination\Paginator;
 use App\Queries\User\GetByFilter\GetByFilterQuery;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Filament\Resources\RelationManagers\RelationManager;
 use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\AttachUserAction;
 use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\DetachUserAction;
@@ -101,5 +103,10 @@ class UsersRelationManager extends RelationManager
             ->defaultSort(function (Builder|User $query): Builder {
                 return $query->filterOrderBy(new OrderBy('id', Order::Desc));
             });
+    }
+
+    protected function paginateTableQuery(Builder|User $query): Paginator
+    {
+        return $query->filterPaginate(new Paginate($this->getTableRecordsPerPage(), $this->getPage()));
     }
 }

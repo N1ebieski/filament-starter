@@ -28,7 +28,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Role filterExcept(?array $except = null)
  * @method static \Illuminate\Database\Eloquent\Builder|Role filterOrderBy(?\App\Queries\OrderBy $orderby = null)
  * @method static \Illuminate\Database\Eloquent\Builder|Role filterOrderBySearch(?\App\Queries\Search $search = null)
- * @method static \Illuminate\Database\Eloquent\Builder|Role filterPaginate(?\App\Queries\Paginate $paginate = null)
+ * @method static \Illuminate\Contracts\Pagination\Paginator filterPaginate(?\App\Queries\Paginate $paginate = null)
  * @method static \Illuminate\Database\Eloquent\Builder|Role filterSearch(?\App\Queries\Search $search = null)
  * @method static \Illuminate\Database\Eloquent\Builder|Role filterSearchAttributes(?\App\Queries\Search $search = null)
  * @method static \Illuminate\Database\Eloquent\Builder|Role newModelQuery()
