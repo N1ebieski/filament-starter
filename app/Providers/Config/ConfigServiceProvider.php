@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * @property-read \Illuminate\Foundation\Application $app
+ */
 final class ConfigServiceProvider extends ServiceProvider
 {
     /**
