@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
 use App\Commands\CommandBusInterface;
 use Filament\Forms\Components\Select;
+use Illuminate\Validation\Rules\Exists;
 use Filament\Forms\Components\TextInput;
 use App\Commands\User\Create\CreateCommand;
 use App\ValueObjects\Role\Name\DefaultName;
@@ -103,7 +104,9 @@ final class CreateUserAction extends Action
                     ->dehydrated(true)
                     ->required()
                     ->getOptionLabelFromRecordUsing(fn (Role $record) => $record->name->value)
-                    ->exists($this->role->getTable(), 'id')
+                    ->exists($this->role->getTable(), 'id', function (Exists $exists) {
+                        return $exists->whereNot('name', DefaultName::SuperAdmin);
+                    })
             ])
             ->stickyModalFooter()
             ->closeModalByClickingAway(false)

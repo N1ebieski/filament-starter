@@ -38,7 +38,10 @@ final class DeleteUsersAction extends Action
                 ]);
             })
             ->using(function (Collection $records, Guard $guard): int {
-                $records = $records->filter(fn (User $user): bool => $guard->user()?->can('delete', $user));
+                /** @var User|null */
+                $user = $guard->user();
+
+                $records = $records->filter(fn (User $record): bool => $user?->can('delete', $record));
 
                 return $this->commandBus->execute(new DeleteManyCommand($records));
             })

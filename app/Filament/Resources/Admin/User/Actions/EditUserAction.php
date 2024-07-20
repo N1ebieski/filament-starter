@@ -14,6 +14,7 @@ use App\Commands\CommandBusInterface;
 use Filament\Forms\Components\Select;
 use App\Commands\User\Edit\EditCommand;
 use Filament\Tables\Actions\EditAction;
+use Illuminate\Validation\Rules\Exists;
 use Filament\Forms\Components\TextInput;
 use App\ValueObjects\Role\Name\DefaultName;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -106,7 +107,9 @@ final class EditUserAction extends Action
                     ->dehydrated(true)
                     ->required()
                     ->getOptionLabelFromRecordUsing(fn (Role $record) => $record->name->value)
-                    ->exists($this->role->getTable(), 'id')
+                    ->exists($this->role->getTable(), 'id', function (Exists $exists) {
+                        return $exists->whereNot('name', DefaultName::SuperAdmin);
+                    })
             ])
             ->stickyModalFooter()
             ->closeModalByClickingAway(false)
