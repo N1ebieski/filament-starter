@@ -7,7 +7,6 @@ use App\Models\Tenant\Tenant;
 use Filament\Facades\Filament;
 use Laravel\Sanctum\HasApiTokens;
 use App\Scopes\User\HasUserScopes;
-use App\ValueObjects\User\StatusEmail\StatusEmail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Filament\Models\Contracts\HasTenants;
@@ -16,6 +15,7 @@ use Filament\Notifications\Auth\VerifyEmail;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use App\ValueObjects\User\StatusEmail\StatusEmail;
 use Fico7489\Laravel\Pivot\Traits\PivotEventTrait;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Overrides\Spatie\Permission\Traits\HasRoles;
@@ -122,7 +122,12 @@ class User extends Authenticatable implements FilamentUser, HasTenants, MustVeri
     {
         return match ($panel->getId()) {
             \App\Providers\Filament\UserPanel\UserPanelServiceProvider::ID => $panel->auth()->check(),
-            \App\Providers\Filament\AdminPanel\AdminPanelServiceProvider::ID => $panel->auth()->user()?->can('admin.access') ?? false,
+            \App\Providers\Filament\AdminPanel\AdminPanelServiceProvider::ID => (function (Panel $panel) {
+                /** @var self|null */
+                $user = $panel->auth()->user();
+
+                return $user?->can('admin.access') ?? false;
+            })($panel),
             \App\Providers\Filament\WebPanel\WebPanelServiceProvider::ID => true,
             default => false
         };

@@ -15,6 +15,8 @@ use Filament\Forms\Components\Select;
 use App\Commands\User\Edit\EditCommand;
 use Filament\Tables\Actions\EditAction;
 use Filament\Forms\Components\TextInput;
+use App\ValueObjects\Role\Name\DefaultName;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 
 final class EditUserAction extends Action
 {
@@ -97,7 +99,9 @@ final class EditUserAction extends Action
                 Select::make('roles')
                     ->label(Lang::get('user.roles.label'))
                     ->multiple()
-                    ->relationship($this->role->getTable(), 'name')
+                    ->relationship($this->role->getTable(), 'name', function (Builder $query) {
+                        return $query->whereNot('name', DefaultName::SuperAdmin);
+                    })
                     ->preload()
                     ->dehydrated(true)
                     ->required()
@@ -106,16 +110,17 @@ final class EditUserAction extends Action
             ])
             ->stickyModalFooter()
             ->closeModalByClickingAway(false)
-            ->using(function (array $data, User $record): User {
-                return $this->commandBus->execute(
-                    new EditCommand(
-                        user: $record,
-                        name: $data['name'],
-                        email: $data['email'],
-                        password: $data['password'] ?? $record->password,
-                        roles: $this->role->newQuery()->findMany($data['roles'])
-                    )
-                );
+            ->mutateFormDataUsing(function (array $data, User $record) {
+                if (is_null($data['password'])) {
+                    unset($data['password']);
+                }
+
+                $data['user'] = $record;
+
+                return $data;
+            })
+            ->using(function (array $data): User {
+                return $this->commandBus->execute(EditCommand::from($data));
             })
             ->successNotificationTitle(fn (User $record): string => Lang::get('user.messages.edit.success', [
                 'name' => $record->name

@@ -7,8 +7,8 @@ namespace App\Commands\User\Create;
 use App\Commands\Handler;
 use App\Models\Role\Role;
 use App\Models\User\User;
-use App\ValueObjects\Role\Name\DefaultName;
 use App\Commands\User\Create\CreateCommand;
+use App\ValueObjects\Role\Name\DefaultName;
 
 final class CreateHandler extends Handler
 {
@@ -18,7 +18,7 @@ final class CreateHandler extends Handler
 
         try {
             $user = $command->user->newInstance(
-                $command->only($command->user->getFillable())
+                $command->only(...$command->user->getFillable())->toArray()
             );
 
             $user->save();

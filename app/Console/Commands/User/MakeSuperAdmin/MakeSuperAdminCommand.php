@@ -11,9 +11,9 @@ use Filament\Facades\Filament;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
 use App\Commands\CommandBusInterface;
-use App\ValueObjects\Role\Name\DefaultName;
 use Filament\Commands\MakeUserCommand;
 use App\Commands\User\Create\CreateCommand;
+use App\ValueObjects\Role\Name\DefaultName;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 
@@ -74,6 +74,9 @@ final class MakeSuperAdminCommand extends MakeUserCommand
         return App::call([$this, '__invoke']);
     }
 
+    /**
+     * @param User $user
+     */
     protected function sendSuccessMessage(Authenticatable $user): void
     {
         $loginUrl = Filament::getLoginUrl();

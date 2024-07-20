@@ -7,8 +7,9 @@ namespace App\Commands\User\Edit;
 use App\Commands\Handler;
 use App\Models\Role\Role;
 use App\Models\User\User;
-use App\ValueObjects\Role\Name\DefaultName;
+use Spatie\LaravelData\Optional;
 use App\Commands\User\Edit\EditCommand;
+use App\ValueObjects\Role\Name\DefaultName;
 
 final class EditHandler extends Handler
 {
@@ -18,19 +19,24 @@ final class EditHandler extends Handler
 
         try {
             $user = $command->user->fill(
-                $command->only($command->user->getFillable())
+                $command->only(...$command->user->getFillable())->toArray()
             );
 
-            if ($command->user->getOriginal('email') !== $command->email) {
+            if (
+                !($command->email instanceof Optional)
+                && $command->user->getOriginal('email') !== $command->email
+            ) {
                 $user->email_verified_at = null;
             }
 
             $user->save();
 
-            $user->syncRoles([
-                DefaultName::User->value,
-                ...$command->roles->map(fn (Role $role) => $role->name->value)->toArray()
-            ]);
+            if (!($command->roles instanceof Optional)) {
+                $user->syncRoles([
+                    DefaultName::User->value,
+                    ...$command->roles->map(fn (Role $role) => $role->name->value)->toArray()
+                ]);
+            }
         } catch (\Exception $e) {
             $this->db->rollBack();
 
