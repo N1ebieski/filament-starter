@@ -42,7 +42,10 @@ final class EditPermissionsAction extends Action
     {
         return EditAction::make()
             ->hidden(function (User $record, Guard $guard) use ($tenant): bool {
-                return !$guard->user()?->can('tenantUpdatePermissions', [$record, $tenant]);
+                /** @var User|null */
+                $user = $guard->user();
+
+                return !$user?->can('tenantUpdatePermissions', [$record, $tenant]);
             })
             ->icon('heroicon-s-shield-check')
             ->label(Lang::get('user.permissions.label'))
@@ -72,12 +75,14 @@ final class EditPermissionsAction extends Action
             ])
             ->stickyModalFooter()
             ->closeModalByClickingAway(false)
-            ->using(function (array $data, User $record) use ($tenant): User {
-                return $this->commandBus->execute(new EditPermissionsCommand(
-                    tenant: $tenant,
-                    user: $record,
-                    permissions: $this->permission->newQuery()->findMany($data['permissions'])
-                ));
+            ->mutateFormDataUsing(function (array $data, User $record) use ($tenant): array {
+                $data['tenant'] = $tenant;
+                $data['user'] = $record;
+
+                return $data;
+            })
+            ->using(function (array $data): User {
+                return $this->commandBus->execute(EditPermissionsCommand::from($data));
             })
             ->successNotificationTitle(function (User $record): string {
                 return Lang::get('tenant.messages.users.edit_permissions.success', [

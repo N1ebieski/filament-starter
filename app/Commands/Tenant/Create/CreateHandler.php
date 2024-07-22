@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Commands\Tenant\Create;
 
 use App\Commands\Handler;
-use App\Commands\CommandBusInterface;
 use App\Models\Tenant\Tenant;
+use App\Commands\CommandBusInterface;
 use Spatie\Permission\PermissionRegistrar;
 use App\Commands\Tenant\Create\CreateCommand;
 use Illuminate\Database\DatabaseManager as DB;
@@ -26,7 +26,7 @@ final class CreateHandler extends Handler
 
         try {
             $tenant = $command->tenant->newInstance(
-                $command->only($command->tenant->getFillable())
+                $command->only(...$command->tenant->getFillable())->toArray()
             );
 
             $tenant->user()->associate($command->user);

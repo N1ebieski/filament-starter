@@ -113,7 +113,7 @@ final class EditUserAction extends Action
             ])
             ->stickyModalFooter()
             ->closeModalByClickingAway(false)
-            ->mutateFormDataUsing(function (array $data, User $record) {
+            ->mutateFormDataUsing(function (array $data, User $record): array {
                 if (is_null($data['password'])) {
                     unset($data['password']);
                 }

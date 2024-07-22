@@ -43,7 +43,10 @@ final class AttachUserAction extends Action
     {
         return AttachAction::make()
             ->hidden(function (Guard $guard) use ($tenant): bool {
-                return !$guard->user()?->can('tenantAttach', [$this->user::class, $tenant]);
+                /** @var User|null */
+                $user = $guard->user();
+
+                return !$user?->can('tenantAttach', [$this->user::class, $tenant]);
             })
             ->icon('heroicon-o-plus-circle')
             ->modalHeading(Lang::get('tenant.pages.users.attach.title'))
@@ -69,12 +72,14 @@ final class AttachUserAction extends Action
             ])
             ->stickyModalFooter()
             ->closeModalByClickingAway(false)
-            ->using(function (array $data) use ($tenant): User {
-                return $this->commandBus->execute(new AttachCommand(
-                    tenant: $tenant,
-                    user: $this->user->find($data['recordId']),
-                    permissions: $this->permission->newQuery()->findMany($data['permissions'])
-                ));
+            ->mutateFormDataUsing(function (array $data) use ($tenant): array {
+                $data['tenant'] = $tenant;
+                $data['user'] = $this->user->find($data['recordId']);
+
+                return $data;
+            })
+            ->using(function (array $data): User {
+                return $this->commandBus->execute(AttachCommand::from($data));
             })
             ->successNotificationTitle(function (User $record): string {
                 return Lang::get('tenant.messages.users.attach.success', [

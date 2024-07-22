@@ -35,7 +35,10 @@ final class DetachUsersAction extends Action
     {
         return DetachBulkAction::make()
             ->hidden(function (Guard $guard) use ($tenant): bool {
-                return !$guard->user()?->can('tenantDetachAny', [$this->user::class, $tenant]);
+                /** @var User|null */
+                $user = $guard->user();
+
+                return !$user?->can('tenantDetachAny', [$this->user::class, $tenant]);
             })
             ->modalHeading(function (Collection $records): string {
                 return Lang::choice('tenant.pages.users.detach_multi.title', $records->count(), [
@@ -43,8 +46,11 @@ final class DetachUsersAction extends Action
                 ]);
             })
             ->using(function (Collection $records, Guard $guard) use ($tenant): int {
-                $records = $records->filter(function (User $user) use ($guard, $tenant): bool {
-                    return $guard->user()?->can('tenantDetach', [$user, $tenant]);
+                $records = $records->filter(function (User $record) use ($guard, $tenant): bool {
+                    /** @var User|null */
+                    $user = $guard->user();
+
+                    return $user?->can('tenantDetach', [$record, $tenant]);
                 });
 
                 return $this->commandBus->execute(new DetachManyCommand(

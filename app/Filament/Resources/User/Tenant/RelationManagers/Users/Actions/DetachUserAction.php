@@ -34,7 +34,10 @@ final class DetachUserAction extends Action
     {
         return DetachAction::make()
             ->hidden(function (User $record, Guard $guard) use ($tenant): bool {
-                return !$guard->user()?->can('tenantDetach', [$record, $tenant]);
+                /** @var User|null */
+                $user = $guard->user();
+
+                return !$user?->can('tenantDetach', [$record, $tenant]);
             })
             ->modalHeading(function (User $record): string {
                 return Lang::get('tenant.pages.users.detach.title', [
