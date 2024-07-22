@@ -62,10 +62,7 @@ final class CreateRoleAction extends Action
             ->stickyModalFooter()
             ->closeModalByClickingAway(false)
             ->using(function (array $data): Role {
-                return $this->commandBus->execute(new CreateCommand(
-                    name: $data['name'],
-                    permissions: $this->permission->newQuery()->findMany($data['permissions'])
-                ));
+                return $this->commandBus->execute(CreateCommand::from($data));
             })
             ->successNotificationTitle(fn (Role $record): string => Lang::get('role.messages.create.success', [
                 'name' => $record->name

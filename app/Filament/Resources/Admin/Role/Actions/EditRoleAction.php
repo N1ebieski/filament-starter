@@ -16,8 +16,8 @@ use App\Commands\Role\Edit\EditCommand;
 use Filament\Tables\Actions\EditAction;
 use Illuminate\Validation\Rules\Exists;
 use Filament\Forms\Components\TextInput;
-use Illuminate\Contracts\Database\Query\Builder;
 use App\ValueObjects\Role\Name\DefaultName;
+use Illuminate\Contracts\Database\Query\Builder;
 use App\Filament\Resources\Admin\Role\Actions\HasPermissions;
 
 final class EditRoleAction extends Action
@@ -94,12 +94,13 @@ final class EditRoleAction extends Action
             ])
             ->stickyModalFooter()
             ->closeModalByClickingAway(false)
-            ->using(function (array $data, Role $record): Role {
-                return $this->commandBus->execute(new EditCommand(
-                    role: $record,
-                    name: $data['name'] ?? $record->name->value,
-                    permissions: $this->permission->newQuery()->findMany($data['permissions'])
-                ));
+            ->mutateFormDataUsing(function (array $data, Role $record): array {
+                $data['role'] = $record;
+
+                return $data;
+            })
+            ->using(function (array $data): Role {
+                return $this->commandBus->execute(EditCommand::from($data));
             })
             ->successNotificationTitle(fn (Role $record): string => Lang::get('role.messages.edit.success', [
                 'name' => $record->name

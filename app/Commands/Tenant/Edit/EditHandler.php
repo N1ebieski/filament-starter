@@ -6,6 +6,7 @@ namespace App\Commands\Tenant\Edit;
 
 use App\Commands\Handler;
 use App\Models\Tenant\Tenant;
+use Spatie\LaravelData\Optional;
 
 final class EditHandler extends Handler
 {
@@ -15,14 +16,18 @@ final class EditHandler extends Handler
 
         try {
             $tenant = $command->tenant->fill(
-                $command->only($command->tenant->getFillable())
+                $command->only(...$command->tenant->getFillable())->toArray()
             );
 
-            $tenant->user()->associate($command->user);
+            if (!($command->user instanceof Optional)) {
+                $tenant->user()->associate($command->user);
+            }
 
             $tenant->save();
 
-            $tenant->users()->sync($command->users);
+            if (!($command->users instanceof Optional)) {
+                $tenant->users()->sync($command->users);
+            }
         } catch (\Exception $e) {
             $this->db->rollBack();
 

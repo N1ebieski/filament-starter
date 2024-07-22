@@ -6,6 +6,7 @@ namespace App\Commands\Role\Edit;
 
 use App\Commands\Handler;
 use App\Models\Role\Role;
+use Spatie\LaravelData\Optional;
 use App\Models\Permission\Permission;
 use App\Commands\Role\Edit\EditCommand;
 
@@ -17,16 +18,18 @@ final class EditHandler extends Handler
 
         try {
             $role = $command->role->fill(
-                $command->only($command->role->getFillable())
+                $command->only(...$command->role->getFillable())->toArray()
             );
 
             $role->save();
 
-            $role->syncPermissions(
-                $command->permissions->map(function (Permission $permission) {
-                    return $permission->name;
-                })->toArray()
-            );
+            if (!($command->permissions instanceof Optional)) {
+                $role->syncPermissions(
+                    $command->permissions->map(function (Permission $permission) {
+                        return $permission->name;
+                    })->toArray()
+                );
+            }
         } catch (\Exception $e) {
             $this->db->rollBack();
 
