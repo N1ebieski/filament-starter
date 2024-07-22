@@ -9,7 +9,7 @@ use App\Models\Role\Role;
 use App\Models\User\User;
 use Illuminate\Support\Collection;
 use App\Support\Attributes\Handler\Handler;
-use App\Support\Data\ObjectDefaultsInterface;
+use App\Data\ObjectDefaultsInterface;
 use Spatie\LaravelData\Attributes\WithCastable;
 use App\Data\Casts\ModelCollectionOf\ModelCollectionOf;
 

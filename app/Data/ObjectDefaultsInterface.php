@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Support\Data;
+namespace App\Data;
 
 interface ObjectDefaultsInterface
 {

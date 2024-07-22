@@ -9,7 +9,7 @@ use App\Models\User\User;
 use App\Models\Tenant\Tenant;
 use App\Support\Attributes\Handler\Handler;
 use Illuminate\Database\Eloquent\Collection;
-use App\Support\Data\ObjectDefaultsInterface;
+use App\Data\ObjectDefaultsInterface;
 use Spatie\LaravelData\Attributes\WithCastable;
 use App\Data\Casts\ModelCollectionOf\ModelCollectionOf;
 
