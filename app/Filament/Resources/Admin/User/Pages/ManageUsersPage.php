@@ -160,7 +160,10 @@ final class ManageUsersPage extends ManageRecords implements PageMetaInterface
                 ToggleColumn::make('status_email')
                     ->label(Lang::get('user.status_email.label'))
                     ->disabled(function (User $record, Guard $guard): bool {
-                        return !$guard->user()?->can('toggleStatusEmail', $record);
+                        /** @var User|null */
+                        $user = $guard->user();
+
+                        return !$user?->can('toggleStatusEmail', $record);
                     })
                     ->getStateUsing(fn (User $record): bool => !is_null($record->email_verified_at))
                     ->updateStateUsing(function (User $record): User {

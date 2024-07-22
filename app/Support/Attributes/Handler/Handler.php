@@ -8,7 +8,7 @@ use Attribute;
 use App\Support\Attributes\ClassNotExistException;
 use App\Support\Attributes\Attribute as BaseAttribute;
 
-#[Attribute()]
+#[Attribute(Attribute::TARGET_CLASS)]
 final class Handler extends BaseAttribute
 {
     public function __construct(public readonly string $class)

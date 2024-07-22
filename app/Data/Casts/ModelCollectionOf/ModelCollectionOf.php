@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Data\Casts\CollectionOfModels;
+namespace App\Data\Casts\ModelCollectionOf;
 
 use Spatie\LaravelData\Casts\Cast;
 use Spatie\LaravelData\Casts\Castable;
@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\LaravelData\Support\DataProperty;
 use Spatie\LaravelData\Support\Creation\CreationContext;
 
-class CollectionOfModels implements Castable
+class ModelCollectionOf implements Castable
 {
     public static function dataCastUsing(mixed ...$arguments): Cast
     {

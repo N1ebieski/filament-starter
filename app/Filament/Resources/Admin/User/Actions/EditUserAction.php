@@ -107,8 +107,8 @@ final class EditUserAction extends Action
                     ->dehydrated(true)
                     ->required()
                     ->getOptionLabelFromRecordUsing(fn (Role $record) => $record->name->value)
-                    ->exists($this->role->getTable(), 'id', function (Exists $exists) {
-                        return $exists->whereNot('name', DefaultName::SuperAdmin);
+                    ->exists($this->role->getTable(), 'id', function (Exists $rule) {
+                        return $rule->whereNot('name', DefaultName::SuperAdmin);
                     })
             ])
             ->stickyModalFooter()
