@@ -9,8 +9,8 @@ use App\Models\User\User;
 use App\Models\Tenant\Tenant;
 use App\Models\Permission\Permission;
 use App\Support\Attributes\Handler\Handler;
-use Illuminate\Database\Eloquent\Collection;
 use Spatie\LaravelData\Attributes\WithCast;
+use Illuminate\Database\Eloquent\Collection;
 use App\Data\Casts\ModelCollectionOf\ModelCollectionOfCast;
 
 /**

@@ -72,14 +72,12 @@ final class AttachUserAction extends Action
             ])
             ->stickyModalFooter()
             ->closeModalByClickingAway(false)
-            ->mutateFormDataUsing(function (array $data) use ($tenant): array {
-                $data['tenant'] = $tenant;
-                $data['user'] = $this->user->find($data['recordId']);
-
-                return $data;
-            })
-            ->using(function (array $data): User {
-                return $this->commandBus->execute(AttachCommand::from($data));
+            ->using(function (array $data) use ($tenant): User {
+                return $this->commandBus->execute(AttachCommand::from(
+                    ...$data,
+                    tenant: $tenant,
+                    user: $this->user->find($data['recordId'])
+                ));
             })
             ->successNotificationTitle(function (User $record): string {
                 return Lang::get('tenant.messages.users.attach.success', [

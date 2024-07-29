@@ -75,14 +75,12 @@ final class EditPermissionsAction extends Action
             ])
             ->stickyModalFooter()
             ->closeModalByClickingAway(false)
-            ->mutateFormDataUsing(function (array $data, User $record) use ($tenant): array {
-                $data['tenant'] = $tenant;
-                $data['user'] = $record;
-
-                return $data;
-            })
-            ->using(function (array $data): User {
-                return $this->commandBus->execute(EditPermissionsCommand::from($data));
+            ->using(function (array $data, User $record) use ($tenant): User {
+                return $this->commandBus->execute(EditPermissionsCommand::from(
+                    ...$data,
+                    tenant: $tenant,
+                    user: $record
+                ));
             })
             ->successNotificationTitle(function (User $record): string {
                 return Lang::get('tenant.messages.users.edit_permissions.success', [

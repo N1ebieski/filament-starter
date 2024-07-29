@@ -113,17 +113,18 @@ final class EditUserAction extends Action
             ])
             ->stickyModalFooter()
             ->closeModalByClickingAway(false)
-            ->mutateFormDataUsing(function (array $data, User $record): array {
+            ->mutateFormDataUsing(function (array $data): array {
                 if (is_null($data['password'])) {
                     unset($data['password']);
                 }
 
-                $data['user'] = $record;
-
                 return $data;
             })
-            ->using(function (array $data): User {
-                return $this->commandBus->execute(EditCommand::from($data));
+            ->using(function (array $data, User $record): User {
+                return $this->commandBus->execute(EditCommand::from(
+                    ...$data,
+                    user: $record
+                ));
             })
             ->successNotificationTitle(fn (User $record): string => Lang::get('user.messages.edit.success', [
                 'name' => $record->name

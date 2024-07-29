@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Queries;
 
-use App\Data\Data;
+use App\Data\Data\Data;
 
 final class Search extends Data
 {

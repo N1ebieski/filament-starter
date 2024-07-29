@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\CacheQueries;
 
-abstract class CacheQuery
+use App\Data\Data\Data;
+
+abstract class CacheQuery extends Data
 {
     abstract public function getKey(): string;
 

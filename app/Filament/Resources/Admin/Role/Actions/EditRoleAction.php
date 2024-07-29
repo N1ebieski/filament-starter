@@ -94,13 +94,11 @@ final class EditRoleAction extends Action
             ])
             ->stickyModalFooter()
             ->closeModalByClickingAway(false)
-            ->mutateFormDataUsing(function (array $data, Role $record): array {
-                $data['role'] = $record;
-
-                return $data;
-            })
-            ->using(function (array $data): Role {
-                return $this->commandBus->execute(EditCommand::from($data));
+            ->using(function (array $data, Role $record): Role {
+                return $this->commandBus->execute(EditCommand::from(
+                    ...$data,
+                    role: $record
+                ));
             })
             ->successNotificationTitle(fn (Role $record): string => Lang::get('role.messages.edit.success', [
                 'name' => $record->name
