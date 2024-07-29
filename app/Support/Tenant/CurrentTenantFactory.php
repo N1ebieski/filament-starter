@@ -16,7 +16,7 @@ final class CurrentTenantFactory
     ) {
     }
 
-    public function make(): Tenant
+    public function getTenant(): Tenant
     {
         if ($this->filamentManager->getCurrentPanel()) {
             /** @var Tenant */

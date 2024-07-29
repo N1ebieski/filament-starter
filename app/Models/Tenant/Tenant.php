@@ -2,8 +2,8 @@
 
 namespace App\Models\Tenant;
 
+use App\Models\Model;
 use Illuminate\Support\Facades\Lang;
-use Illuminate\Database\Eloquent\Model;
 use Fico7489\Laravel\Pivot\Traits\PivotEventTrait;
 use Filament\Models\Contracts\HasCurrentTenantLabel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

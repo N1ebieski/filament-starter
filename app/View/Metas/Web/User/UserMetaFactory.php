@@ -22,7 +22,7 @@ final class UserMetaFactory
     ) {
     }
 
-    public function make(
+    public function getMeta(
         ?string $title = null,
         ?int $page = null,
         ?string $description = null,

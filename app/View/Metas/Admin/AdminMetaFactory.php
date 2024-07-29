@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Request;
 
 class AdminMetaFactory
 {
-    public function make(
+    public function getMeta(
         ?string $title = null,
         ?int $page = null,
         ?string $description = null,

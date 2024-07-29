@@ -13,7 +13,7 @@ class ModelCollectionOfCast implements Cast
 {
     private readonly Model $model;
 
-    public function __construct(private readonly string $modelClassname)
+    public function __construct(string $modelClassname)
     {
         $this->model = new $modelClassname();
     }

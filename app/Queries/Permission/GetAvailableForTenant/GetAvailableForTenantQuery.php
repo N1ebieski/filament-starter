@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace App\Queries\Permission\GetAvailableForTenant;
 
 use App\Queries\Query;
-use App\Support\Attributes\Handler\Handler;
+use App\Data\ObjectDefaultsInterface;
 use App\Models\Permission\Permission;
+use App\Support\Attributes\Handler\Handler;
 
 #[Handler(\App\Queries\Permission\GetAvailableForTenant\GetAvailableForTenantHandler::class)]
-final class GetAvailableForTenantQuery extends Query
+final class GetAvailableForTenantQuery extends Query implements ObjectDefaultsInterface
 {
     public function __construct(
         public readonly Permission $permission = new Permission()

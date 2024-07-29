@@ -38,7 +38,7 @@ class AppServiceProvider extends ServiceProvider
                 'filamentManager' => $app->make('filament')
             ]);
 
-            return new \App\Scopes\Tenant\TenantScope($factory->make());
+            return new \App\Scopes\Tenant\TenantScope($factory->getTenant());
         });
 
         $this->app->bind(\App\Scopes\User\UserScope::class, function (Application $app) {

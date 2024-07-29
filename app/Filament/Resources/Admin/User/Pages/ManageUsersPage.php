@@ -6,13 +6,11 @@ namespace App\Filament\Resources\Admin\User\Pages;
 
 use Override;
 use App\Queries\Order;
-use App\Queries\Search;
 use App\Queries\OrderBy;
 use App\Models\Role\Role;
 use App\Models\User\User;
 use App\Queries\Paginate;
 use Filament\Tables\Table;
-use App\Queries\SearchFactory;
 use App\Filament\Pages\HasMeta;
 use App\View\Metas\MetaInterface;
 use App\Queries\QueryBusInterface;
@@ -83,7 +81,7 @@ final class ManageUsersPage extends ManageRecords implements PageMetaInterface
     #[Override]
     public function getMeta(): MetaInterface
     {
-        return $this->metaFactory->make($this->getPage());
+        return $this->metaFactory->getMeta($this->getPage());
     }
 
     protected function getHeaderActions(): array

@@ -8,6 +8,15 @@ use Illuminate\Support\Collection;
 
 final class ColumnsHelper
 {
+    public function getColumnsWithTablePrefix(array $columns, string $table): array
+    {
+        return (new Collection($columns))
+            ->map(function (string $column) use ($table): string {
+                return "{$table}.{$column}";
+            })
+            ->toArray();
+    }
+
     public function getColumnsAsString(array $columns): string
     {
         return (new Collection($columns))

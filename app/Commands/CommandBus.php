@@ -33,6 +33,7 @@ final class CommandBus implements CommandBusInterface
 
         if (!$handler instanceof ShouldQueue) {
             //@phpstan-ignore-next-line
+            /** @disregard */
             return $handler->handle($command);
         }
 
@@ -41,14 +42,14 @@ final class CommandBus implements CommandBusInterface
 
     public function dispatch(Command $command): void
     {
-        $job = $this->jobFactory->make($command);
+        $job = $this->jobFactory->getCommandAsJob($command);
 
         $this->busDispatcher->dispatch($job);
     }
 
     public function dispatchSync(Command $command): void
     {
-        $job = $this->jobFactory->make($command);
+        $job = $this->jobFactory->getCommandAsJob($command);
 
         $this->busDispatcher->dispatchSync($job);
     }

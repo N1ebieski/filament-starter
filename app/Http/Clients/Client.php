@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Clients;
 
-use App\Support\Arrayable\HasToArray;
-use Illuminate\Contracts\Support\Arrayable;
+use App\Data\Data;
 
-abstract class Client implements Arrayable
+abstract class Client extends Data
 {
-    use HasToArray;
 }
