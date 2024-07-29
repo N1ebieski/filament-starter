@@ -11,8 +11,8 @@ use Spatie\LaravelData\Optional;
 use App\Support\Attributes\Handler\Handler;
 use Illuminate\Database\Eloquent\Collection;
 use App\Data\ObjectDefaultsInterface;
-use Spatie\LaravelData\Attributes\WithCastable;
-use App\Data\Casts\ModelCollectionOf\ModelCollectionOf;
+use Spatie\LaravelData\Attributes\WithCast;
+use App\Data\Casts\ModelCollectionOf\ModelCollectionOfCast;
 
 #[Handler(\App\Commands\Tenant\Edit\EditHandler::class)]
 final class EditCommand extends Command implements ObjectDefaultsInterface
@@ -21,7 +21,7 @@ final class EditCommand extends Command implements ObjectDefaultsInterface
         public readonly Tenant $tenant,
         public readonly string|Optional $name = new Optional(),
         public readonly User|Optional $user = new Optional(),
-        #[WithCastable(ModelCollectionOf::class, User::class)]
+        #[WithCast(ModelCollectionOfCast::class, User::class)]
         public readonly Collection|Optional $users = new Optional()
     ) {
     }

@@ -40,7 +40,9 @@ abstract class Data extends BaseData implements Arrayable
     public static function from(mixed ...$payloads): static
     {
         if (in_array(ObjectDefaultsInterface::class, class_implements(static::class))) {
-            $payloadsWithDefaults = array_merge(static::getConstructorDefaults(), ...$payloads);
+            $payloadsForMerge = !isset($payloads[0]) ? [$payloads] : $payloads;
+
+            $payloadsWithDefaults = array_merge(static::getConstructorDefaults(), ...$payloadsForMerge);
 
             $payloads = [$payloadsWithDefaults];
         }

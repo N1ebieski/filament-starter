@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace App\Queries;
 
-use App\Support\Arrayable\HasToArray;
-use Illuminate\Contracts\Support\Arrayable;
+use App\Data\Data;
 
-abstract class Query implements Arrayable
+abstract class Query extends Data
 {
-    use HasToArray;
 }

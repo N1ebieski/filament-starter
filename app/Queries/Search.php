@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Queries;
 
-final class Search
+use App\Data\Data;
+
+final class Search extends Data
 {
     public function __construct(
         public readonly ?array $attributes = null,

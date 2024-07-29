@@ -10,8 +10,8 @@ use App\Models\Tenant\Tenant;
 use App\Models\Permission\Permission;
 use App\Support\Attributes\Handler\Handler;
 use Illuminate\Database\Eloquent\Collection;
-use Spatie\LaravelData\Attributes\WithCastable;
-use App\Data\Casts\ModelCollectionOf\ModelCollectionOf;
+use Spatie\LaravelData\Attributes\WithCast;
+use App\Data\Casts\ModelCollectionOf\ModelCollectionOfCast;
 
 /**
  * @property-read Collection<Permission> $permissions
@@ -22,7 +22,7 @@ final class AttachCommand extends Command
     public function __construct(
         public readonly Tenant $tenant,
         public readonly User $user,
-        #[WithCastable(ModelCollectionOf::class, Permission::class)]
+        #[WithCast(ModelCollectionOfCast::class, Permission::class)]
         public readonly Collection $permissions
     ) {
     }

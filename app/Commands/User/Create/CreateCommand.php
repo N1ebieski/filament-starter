@@ -10,8 +10,8 @@ use App\Models\User\User;
 use Illuminate\Support\Collection;
 use App\Support\Attributes\Handler\Handler;
 use App\Data\ObjectDefaultsInterface;
-use Spatie\LaravelData\Attributes\WithCastable;
-use App\Data\Casts\ModelCollectionOf\ModelCollectionOf;
+use Spatie\LaravelData\Attributes\WithCast;
+use App\Data\Casts\ModelCollectionOf\ModelCollectionOfCast;
 
 #[Handler(\App\Commands\User\Create\CreateHandler::class)]
 final class CreateCommand extends Command implements ObjectDefaultsInterface
@@ -21,7 +21,7 @@ final class CreateCommand extends Command implements ObjectDefaultsInterface
         public readonly string $email,
         public readonly string $password,
         public readonly User $user = new User(),
-        #[WithCastable(ModelCollectionOf::class, Role::class)]
+        #[WithCast(ModelCollectionOfCast::class, Role::class)]
         public readonly Collection $roles = new Collection()
     ) {
     }

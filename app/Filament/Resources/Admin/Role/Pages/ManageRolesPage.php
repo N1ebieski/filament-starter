@@ -72,12 +72,6 @@ final class ManageRolesPage extends ManageRecords implements PageMetaInterface
         return $this->metaFactory->make($this->getPage());
     }
 
-    private function getSearch(?string $search): ?Search
-    {
-        return !is_null($search) && mb_strlen($search) > 2 ?
-            $this->searchFactory->make($search, $this->role) : null;
-    }
-
     protected function getHeaderActions(): array
     {
         return [
@@ -90,9 +84,7 @@ final class ManageRolesPage extends ManageRecords implements PageMetaInterface
         return $table
             ->searchable(true)
             ->query(function (): Builder {
-                return $this->queryBus->execute(new GetByFilterQuery(
-                    search: $this->getSearch($this->getTableSearch())
-                ));
+                return $this->queryBus->execute(GetByFilterQuery::from(search: $this->getTableSearch()));
             })
             ->columns([
                 TextColumn::make('id')

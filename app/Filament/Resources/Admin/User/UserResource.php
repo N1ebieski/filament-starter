@@ -8,7 +8,7 @@ use Override;
 use App\Models\User\User;
 use App\Filament\Resources\Resource;
 use Illuminate\Support\Facades\Lang;
-use App\Filament\Resources\HasGlobalSearch;
+use App\Filament\Resources\HasQueryBus;
 use App\Filament\Resources\GlobalSearchInterface;
 use App\Queries\User\GetByFilter\GetByFilterQuery;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -16,7 +16,7 @@ use App\Filament\Resources\Admin\User\Pages\ManageUsersPage;
 
 final class UserResource extends Resource implements GlobalSearchInterface
 {
-    use HasGlobalSearch;
+    use HasQueryBus;
 
     protected static ?string $model = User::class;
 
@@ -32,9 +32,7 @@ final class UserResource extends Resource implements GlobalSearchInterface
     public static function applyGlobalSearchAttributeConstraints(Builder $query, string $search): void
     {
         /** @var Builder */
-        $baseQuery = static::getQueryBus()->execute(new GetByFilterQuery(
-            search: static::getSearch($search)
-        ));
+        $baseQuery = static::getQueryBus()->execute(GetByFilterQuery::from(search: $search));
 
         $query->setQuery($baseQuery->getQuery());
     }

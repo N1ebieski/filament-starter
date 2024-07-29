@@ -52,8 +52,6 @@ final class ManageUsersPage extends ManageRecords implements PageMetaInterface
 
     private CommandBusInterface $commandBus;
 
-    private SearchFactory $searchFactory;
-
     private QueryBusInterface $queryBus;
 
     private IndexMetaFactory $metaFactory;
@@ -63,14 +61,12 @@ final class ManageUsersPage extends ManageRecords implements PageMetaInterface
         Role $role,
         CommandBusInterface $commandBus,
         QueryBusInterface $queryBus,
-        SearchFactory $searchFactory,
         IndexMetaFactory $metaFactory
     ): void {
         $this->user = $user;
         $this->role = $role;
         $this->commandBus = $commandBus;
         $this->queryBus = $queryBus;
-        $this->searchFactory = $searchFactory;
         $this->metaFactory = $metaFactory;
     }
 
@@ -88,12 +84,6 @@ final class ManageUsersPage extends ManageRecords implements PageMetaInterface
     public function getMeta(): MetaInterface
     {
         return $this->metaFactory->make($this->getPage());
-    }
-
-    private function getSearch(?string $search): ?Search
-    {
-        return !is_null($search) && mb_strlen($search) > 2 ?
-            $this->searchFactory->make($search, $this->user) : null;
     }
 
     protected function getHeaderActions(): array
@@ -115,9 +105,7 @@ final class ManageUsersPage extends ManageRecords implements PageMetaInterface
         return $table
             ->searchable(true)
             ->query(function (): Builder {
-                return $this->queryBus->execute(new GetByFilterQuery(
-                    search: $this->getSearch($this->getTableSearch())
-                ));
+                return $this->queryBus->execute(GetByFilterQuery::from(search: $this->getTableSearch()));
             })
             ->columns([
                 TextColumn::make('id')
