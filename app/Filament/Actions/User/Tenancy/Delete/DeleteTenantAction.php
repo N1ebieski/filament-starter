@@ -38,7 +38,10 @@ final class DeleteTenantAction extends BaseAction
             ->record($tenant)
             ->icon('heroicon-m-trash')
             ->hidden(function (Tenant $record, Guard $guard) {
-                return !$guard->user()?->can('delete', $record);
+                /** @var User|null */
+                $user = $guard->user();
+
+                return !$user?->can('delete', $record);
             })
             ->form([
                 TextInput::make('name')

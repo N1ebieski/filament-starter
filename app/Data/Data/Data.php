@@ -19,10 +19,6 @@ use App\Data\Data\Payload\EnsureIsFlatArray\EnsureIsFlatArrayHandler;
  */
 abstract class Data extends BaseData implements Arrayable
 {
-    /**
-     * \Spatie\LaravelData\Data doesn't allow to have objects as constructor's default values.
-     * This method overrides spatie's factory to bring this feature.
-     */
     public static function from(mixed ...$payloads): static
     {
         /** @var Pipeline */
@@ -41,7 +37,7 @@ abstract class Data extends BaseData implements Arrayable
         /** @var Payload */
         $payload = $pipeline->through(...$handlers)->process(new Payload(
             payloads: $payloads,
-            className: static::class
+            classname: static::class
         ));
 
         return parent::from(...[$payload->payloads]);

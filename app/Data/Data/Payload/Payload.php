@@ -8,7 +8,7 @@ final class Payload
 {
     public function __construct(
         public array $payloads,
-        public readonly string $className
+        public readonly string $classname
     ) {
     }
 }

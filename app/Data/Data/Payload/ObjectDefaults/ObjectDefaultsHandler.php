@@ -34,9 +34,9 @@ final class ObjectDefaultsHandler implements HandlerInterface
 
     public function handle(Payload $payload, Closure $next): Payload
     {
-        if (in_array(ObjectDefaultsInterface::class, class_implements($payload->className))) {
+        if (in_array(ObjectDefaultsInterface::class, class_implements($payload->classname))) {
             $payload->payloads = array_merge(
-                $this->getConstructorDefaults($payload->className),
+                $this->getConstructorDefaults($payload->classname),
                 $payload->payloads
             );
         }

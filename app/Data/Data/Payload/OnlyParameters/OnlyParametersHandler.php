@@ -32,7 +32,7 @@ final class OnlyParametersHandler implements HandlerInterface
 
     public function handle(Payload $payload, Closure $next): Payload
     {
-        $parameters = array_flip($this->getConstructorParameters($payload->className));
+        $parameters = array_flip($this->getConstructorParameters($payload->classname));
 
         $payload->payloads = array_intersect_key($payload->payloads, $parameters);
 
