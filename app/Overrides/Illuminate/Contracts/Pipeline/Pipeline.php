@@ -4,17 +4,15 @@ declare(strict_types=1);
 
 namespace App\Overrides\Illuminate\Contracts\Pipeline;
 
-use Illuminate\Contracts\Pipeline\Pipeline as BasePipeline;
-
-interface Pipeline extends BasePipeline
+interface Pipeline
 {
     /**
-     * Set the stops of the pipe.
+     * Set the array of pipes.
      *
-     * @param  mixed $stops
+     * @param  array|mixed  $pipes
      * @return $this
      */
-    public function through($stops);
+    public function through(...$pipes);
 
     /**
      * @param mixed $traveler

@@ -9,16 +9,10 @@ use App\Support\Handler\HandlerHelper;
 
 final class ClientBus implements ClientBusInterface
 {
-    private Container $container;
-
-    private HandlerHelper $handlerHelper;
-
     public function __construct(
-        Container $container,
-        HandlerHelper $handlerHelper
+        private readonly Container $container,
+        private readonly HandlerHelper $handlerHelper
     ) {
-        $this->container = $container;
-        $this->handlerHelper = $handlerHelper;
     }
 
     /**
@@ -29,6 +23,7 @@ final class ClientBus implements ClientBusInterface
         $handler = $this->resolveHandler($query);
 
         //@phpstan-ignore-next-line
+        /** @disregard */
         return $handler->handle($query);
     }
 

@@ -10,14 +10,17 @@ use Illuminate\Support\Carbon;
 use Illuminate\Contracts\Cache\Repository as Cache;
 use Illuminate\Contracts\Config\Repository as Config;
 
+/**
+ * @property-read \App\Overrides\Illuminate\Contracts\Cache\Repository $cache
+ */
 abstract class Handler
 {
     public function __construct(
-        protected Cache $cache,
-        protected Config $config,
-        protected Carbon $carbon,
-        protected Request $request,
-        protected QueryBus $queryBus
+        protected readonly Cache $cache,
+        protected readonly Config $config,
+        protected readonly Carbon $carbon,
+        protected readonly Request $request,
+        protected readonly QueryBus $queryBus
     ) {
     }
 }

@@ -7,20 +7,24 @@ namespace App\Exceptions;
 use Throwable;
 use Illuminate\Http\Request;
 use Exception as BaseException;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Config;
+use App\Overrides\Illuminate\Contracts\Logger\LoggerInterface;
 
 class Exception extends BaseException
 {
     /**
-     * Undocumented function
      *
      * @param string $message
-     * @param integer $code
+     * @param int $code
      * @param Throwable|null $previous
+     * @param array $context
+     * @return void
      */
-    public function __construct(string $message = '', int $code = 0, Throwable $previous = null)
-    {
+    public function __construct(
+        string $message = '',
+        int $code = 0,
+        Throwable $previous = null,
+        public readonly array $context = []
+    ) {
         parent::__construct(
             !empty($this->message) && empty($message) ? $this->message : $message,
             !empty($this->code) && empty($code) ? $this->code : $code,
@@ -31,9 +35,10 @@ class Exception extends BaseException
     /**
      * Report the exception.
      *
+     * @param LoggerInterface $logger
      * @return bool|void
      */
-    public function report()
+    public function report(LoggerInterface $logger)
     {
         return false;
     }
@@ -45,10 +50,6 @@ class Exception extends BaseException
      */
     public function render(Request $request)
     {
-        if (Config::get('app.debug') === true) {
-            return false;
-        }
-
-        App::abort($this->getCode(), $this->getMessage());
+        return false;
     }
 }

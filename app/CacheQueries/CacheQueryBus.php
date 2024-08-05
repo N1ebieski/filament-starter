@@ -9,16 +9,10 @@ use App\Support\Handler\HandlerHelper;
 
 final class CacheQueryBus implements CacheQueryBusInterface
 {
-    private Container $container;
-
-    private HandlerHelper $handlerHelper;
-
     public function __construct(
-        Container $container,
-        HandlerHelper $handlerHelper
+        private readonly Container $container,
+        private readonly HandlerHelper $handlerHelper
     ) {
-        $this->container = $container;
-        $this->handlerHelper = $handlerHelper;
     }
 
     public function execute(CacheQuery $query): mixed

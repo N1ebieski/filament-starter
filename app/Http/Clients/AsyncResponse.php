@@ -8,15 +8,9 @@ use GuzzleHttp\Promise\PromiseInterface;
 
 final class AsyncResponse
 {
-    public PromiseInterface $promise;
-
-    public ?Response $response = null;
-
     public function __construct(
-        PromiseInterface $promise,
-        ?Response $response = null
+        public readonly PromiseInterface $promise,
+        public readonly ?Response $response = null
     ) {
-        $this->promise = $promise;
-        $this->response = $response;
     }
 }

@@ -18,13 +18,13 @@ interface Chain
      * @param  array|mixed  $pipes
      * @return $this
      */
-    public function pipe($pipes);
+    public function pipe(...$pipes);
 
     /**
-     * Set the stops of the chain.
+     * Set the array of pipes.
      *
-     * @param  mixed $stops
+     * @param  array|mixed  $pipes
      * @return $this
      */
-    public function through($stops);
+    public function through(...$pipes);
 }

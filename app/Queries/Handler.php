@@ -12,10 +12,10 @@ use Illuminate\Contracts\Config\Repository as Config;
 abstract class Handler
 {
     public function __construct(
-        protected Config $config,
-        protected Carbon $carbon,
-        protected Auth $auth,
-        protected DB $db
+        protected readonly Config $config,
+        protected readonly Carbon $carbon,
+        protected readonly Auth $auth,
+        protected readonly DB $db
     ) {
     }
 }
