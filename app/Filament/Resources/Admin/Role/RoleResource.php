@@ -12,7 +12,7 @@ use App\Filament\Resources\HasQueryBus;
 use App\Filament\Resources\GlobalSearchInterface;
 use App\Queries\Role\GetByFilter\GetByFilterQuery;
 use Illuminate\Contracts\Database\Eloquent\Builder;
-use App\Filament\Resources\Admin\Role\Pages\ManageRolesPage;
+use App\Filament\Resources\Admin\Role\Pages\Manage\ManageRolesPage;
 
 final class RoleResource extends Resource implements GlobalSearchInterface
 {

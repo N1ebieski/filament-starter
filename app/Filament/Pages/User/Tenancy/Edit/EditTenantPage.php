@@ -7,7 +7,6 @@ namespace App\Filament\Pages\User\Tenancy\Edit;
 use Filament\Forms\Form;
 use App\Models\Tenant\Tenant;
 use Filament\Facades\Filament;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use App\Commands\CommandBusInterface;
 use Illuminate\Database\Eloquent\Model;

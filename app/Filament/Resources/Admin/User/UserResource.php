@@ -12,7 +12,7 @@ use App\Filament\Resources\HasQueryBus;
 use App\Filament\Resources\GlobalSearchInterface;
 use App\Queries\User\GetByFilter\GetByFilterQuery;
 use Illuminate\Contracts\Database\Eloquent\Builder;
-use App\Filament\Resources\Admin\User\Pages\ManageUsersPage;
+use App\Filament\Resources\Admin\User\Pages\Manage\ManageUsersPage;
 
 final class UserResource extends Resource implements GlobalSearchInterface
 {

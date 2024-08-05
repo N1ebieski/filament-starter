@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Resources\Admin\Role\Pages;
+namespace App\Filament\Resources\Admin\Role\Pages\Manage;
 
 use Override;
 use App\Queries\Order;
@@ -23,10 +23,10 @@ use App\Filament\Resources\Admin\Role\RoleResource;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use App\View\Metas\Admin\Role\Index\IndexMetaFactory;
 use App\Filament\Pages\MetaInterface as PageMetaInterface;
-use App\Filament\Resources\Admin\Role\Actions\EditRoleAction;
-use App\Filament\Resources\Admin\Role\Actions\CreateRoleAction;
-use App\Filament\Resources\Admin\Role\Actions\DeleteRoleAction;
-use App\Filament\Resources\Admin\Role\Actions\DeleteRolesAction;
+use App\Filament\Resources\Admin\Role\Actions\Edit\EditRoleAction;
+use App\Filament\Resources\Admin\Role\Actions\Create\CreateRoleAction;
+use App\Filament\Resources\Admin\Role\Actions\Delete\DeleteRoleAction;
+use App\Filament\Resources\Admin\Role\Actions\DeleteMany\DeleteRolesAction;
 
 final class ManageRolesPage extends ManageRecords implements PageMetaInterface
 {

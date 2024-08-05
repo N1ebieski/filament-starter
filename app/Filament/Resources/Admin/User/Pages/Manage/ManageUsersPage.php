@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Resources\Admin\User\Pages;
+namespace App\Filament\Resources\Admin\User\Pages\Manage;
 
 use Override;
 use App\Queries\Order;
@@ -33,10 +33,10 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 use App\View\Metas\Admin\User\Index\IndexMetaFactory;
 use App\Filament\Pages\MetaInterface as PageMetaInterface;
 use App\Commands\User\EditStatusEmail\EditStatusEmailCommand;
-use App\Filament\Resources\Admin\User\Actions\EditUserAction;
-use App\Filament\Resources\Admin\User\Actions\CreateUserAction;
-use App\Filament\Resources\Admin\User\Actions\DeleteUserAction;
-use App\Filament\Resources\Admin\User\Actions\DeleteUsersAction;
+use App\Filament\Resources\Admin\User\Actions\Edit\EditUserAction;
+use App\Filament\Resources\Admin\User\Actions\Create\CreateUserAction;
+use App\Filament\Resources\Admin\User\Actions\Delete\DeleteUserAction;
+use App\Filament\Resources\Admin\User\Actions\DeleteMany\DeleteUsersAction;
 
 final class ManageUsersPage extends ManageRecords implements PageMetaInterface
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Resources\Admin\User\Actions;
+namespace App\Filament\Resources\Admin\User\Actions\DeleteMany;
 
 use App\Models\User\User;
 use App\Filament\Actions\Action;

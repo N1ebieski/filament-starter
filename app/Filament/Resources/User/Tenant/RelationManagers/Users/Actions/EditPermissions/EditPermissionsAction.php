@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions;
+namespace App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\EditPermissions;
 
 use App\Models\User\User;
 use App\Models\Tenant\Tenant;
@@ -14,24 +14,24 @@ use Illuminate\Support\Facades\Lang;
 use App\Commands\CommandBusInterface;
 use App\Models\Permission\Permission;
 use Filament\Forms\Components\Select;
+use Filament\Tables\Actions\EditAction;
 use Illuminate\Validation\Rules\Exists;
-use Filament\Tables\Actions\AttachAction;
 use Illuminate\Contracts\Database\Query\Builder;
-use App\Commands\User\Tenants\Attach\AttachCommand;
+use App\Commands\User\Tenants\EditPermissions\EditPermissionsCommand;
+use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\HasPermissions;
 
-final class AttachUserAction extends Action
+final class EditPermissionsAction extends Action
 {
     use HasPermissions;
 
     public function __construct(
-        private readonly User $user,
         private readonly CommandBusInterface $commandBus,
         private readonly QueryBusInterface $queryBus,
         private readonly Permission $permission
     ) {
     }
 
-    public static function make(Tenant $tenant): AttachAction
+    public static function make(Tenant $tenant): EditAction
     {
         /** @var static */
         $static = App::make(static::class);
@@ -39,22 +39,26 @@ final class AttachUserAction extends Action
         return $static->makeAction($tenant);
     }
 
-    public function makeAction(Tenant $tenant): AttachAction
+    public function makeAction(Tenant $tenant): EditAction
     {
-        return AttachAction::make()
-            ->hidden(function (Guard $guard) use ($tenant): bool {
+        return EditAction::make()
+            ->hidden(function (User $record, Guard $guard) use ($tenant): bool {
                 /** @var User|null */
                 $user = $guard->user();
 
-                return !$user?->can('tenantAttach', [$this->user::class, $tenant]);
+                return !$user?->can('tenantUpdatePermissions', [$record, $tenant]);
             })
-            ->icon('heroicon-o-plus-circle')
-            ->modalHeading(Lang::get('tenant.pages.users.attach.title'))
-            ->form(fn (AttachAction $action): array => [
-                $action->getRecordSelect()
-                    ->label(Lang::get('user.name.label'))
-                    ->hiddenLabel(false),
+            ->icon('heroicon-s-shield-check')
+            ->label(Lang::get('user.permissions.label'))
+            ->modalHeading(fn (User $record): string => Lang::get('tenant.pages.users.edit_permissions.title', [
+                'name' => $record->name
+            ]))
+            ->mutateRecordDataUsing(function (array $data, User $record): array {
+                $data['permissions'] = $record->tenantPermissions->pluck('id')->toArray();
 
+                return $data;
+            })
+            ->form([
                 Select::make('permissions')
                     ->label(Lang::get('user.permissions.label'))
                     ->options($this->getGroupedPermissions()->toArray())
@@ -72,15 +76,15 @@ final class AttachUserAction extends Action
             ])
             ->stickyModalFooter()
             ->closeModalByClickingAway(false)
-            ->using(function (array $data) use ($tenant): User {
-                return $this->commandBus->execute(AttachCommand::from(
+            ->using(function (array $data, User $record) use ($tenant): User {
+                return $this->commandBus->execute(EditPermissionsCommand::from(
                     ...$data,
                     tenant: $tenant,
-                    user: $this->user->find($data['recordId'])
+                    user: $record
                 ));
             })
             ->successNotificationTitle(function (User $record): string {
-                return Lang::get('tenant.messages.users.attach.success', [
+                return Lang::get('tenant.messages.users.edit_permissions.success', [
                     'name' => $record->name
                 ]);
             });

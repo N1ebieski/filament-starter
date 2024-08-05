@@ -2,24 +2,25 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Resources\Admin\User\Actions;
+namespace App\Filament\Resources\Admin\User\Actions\Create;
 
 use App\Models\Role\Role;
 use App\Models\User\User;
 use App\Filament\Actions\Action;
 use App\Queries\QueryBusInterface;
+use Filament\Actions\CreateAction;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
 use App\Commands\CommandBusInterface;
 use Filament\Forms\Components\Select;
-use App\Commands\User\Edit\EditCommand;
-use Filament\Tables\Actions\EditAction;
 use Illuminate\Validation\Rules\Exists;
 use Filament\Forms\Components\TextInput;
+use App\Commands\User\Create\CreateCommand;
 use App\ValueObjects\Role\Name\DefaultName;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 
-final class EditUserAction extends Action
+final class CreateUserAction extends Action
 {
     public function __construct(
         private readonly User $user,
@@ -29,26 +30,22 @@ final class EditUserAction extends Action
     ) {
     }
 
-    public static function make(): EditAction
+    public static function make(Collection $roles = new Collection()): CreateAction
     {
         /** @var static */
         $static = App::make(static::class);
 
-        return $static->makeAction();
+        return $static->makeAction(roles: $roles);
     }
 
-    public function makeAction(): EditAction
+    public function makeAction(Collection $roles = new Collection()): CreateAction
     {
-        return EditAction::make()
-            ->modalHeading(fn (User $record): string => Lang::get('user.pages.edit.title', [
-                'name' => $record->name
-            ]))
-            ->mutateRecordDataUsing(function (array $data, User $record): array {
-                $data = [
-                    ...$data,
-                    'roles' => $record->roles->pluck('id')->toArray(),
-                    'email' => $record->email
-                ];
+        return CreateAction::make()
+            ->model($this->user::class)
+            ->icon('heroicon-o-plus-circle')
+            ->modalHeading(Lang::get('user.pages.create.title'))
+            ->fillForm(function (array $data) use ($roles): array {
+                $data['roles'] = $roles->pluck('id')->toArray();
 
                 return $data;
             })
@@ -59,18 +56,18 @@ final class EditUserAction extends Action
                     ->string()
                     ->minLength(3)
                     ->maxLength(255)
-                    ->unique($this->user->getTable(), 'name', ignoreRecord: true),
+                    ->unique($this->user->getTable(), 'name'),
 
                 TextInput::make('email')
                     ->label(Lang::get('user.email.label'))
-                    ->required()
                     ->extraInputAttributes([
                         'autocomplete' => 'new-password'
                     ])
+                    ->required()
                     ->string()
                     ->email()
                     ->maxLength(255)
-                    ->unique($this->user->getTable(), 'email', ignoreRecord: true),
+                    ->unique($this->user->getTable(), 'email'),
 
                 TextInput::make('password')
                     ->label(Lang::get('user.password.label'))
@@ -79,7 +76,7 @@ final class EditUserAction extends Action
                         'autocomplete' => 'new-password'
                     ])
                     ->revealable()
-                    ->nullable()
+                    ->required()
                     ->string()
                     ->minLength(8)
                     ->maxLength(255)
@@ -92,7 +89,7 @@ final class EditUserAction extends Action
                         'autocomplete' => 'new-password'
                     ])
                     ->revealable()
-                    ->nullable()
+                    ->required()
                     ->string()
                     ->minLength(8)
                     ->maxLength(255),
@@ -113,20 +110,10 @@ final class EditUserAction extends Action
             ])
             ->stickyModalFooter()
             ->closeModalByClickingAway(false)
-            ->mutateFormDataUsing(function (array $data): array {
-                if (is_null($data['password'])) {
-                    unset($data['password']);
-                }
-
-                return $data;
+            ->using(function (array $data): User {
+                return $this->commandBus->execute(CreateCommand::from($data));
             })
-            ->using(function (array $data, User $record): User {
-                return $this->commandBus->execute(EditCommand::from(
-                    ...$data,
-                    user: $record
-                ));
-            })
-            ->successNotificationTitle(fn (User $record): string => Lang::get('user.messages.edit.success', [
+            ->successNotificationTitle(fn (User $record): string => Lang::get('user.messages.create.success', [
                 'name' => $record->name
             ]));
     }

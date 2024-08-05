@@ -21,10 +21,10 @@ use Illuminate\Contracts\Pagination\Paginator;
 use App\Queries\User\GetByFilter\GetByFilterQuery;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Filament\Resources\RelationManagers\RelationManager;
-use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\AttachUserAction;
-use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\DetachUserAction;
-use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\DetachUsersAction;
-use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\EditPermissionsAction;
+use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\Attach\AttachUserAction;
+use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\Detach\DetachUserAction;
+use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\DetachMany\DetachUsersAction;
+use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\EditPermissions\EditPermissionsAction;
 
 class UsersRelationManager extends RelationManager
 {

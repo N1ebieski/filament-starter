@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Resources\Admin\Role\Actions;
+namespace App\Filament\Resources\Admin\Role\Actions\Create;
 
 use App\Models\Role\Role;
 use App\Filament\Actions\Action;

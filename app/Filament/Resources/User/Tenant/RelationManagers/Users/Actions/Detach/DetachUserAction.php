@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions;
+namespace App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\Detach;
 
 use App\Models\User\User;
 use App\Models\Tenant\Tenant;
