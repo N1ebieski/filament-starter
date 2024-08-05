@@ -27,10 +27,10 @@ final class DeleteRolesAction extends Action
         /** @var static */
         $static = App::make(static::class);
 
-        return $static->getAction();
+        return $static->makeAction();
     }
 
-    public function getAction(): DeleteBulkAction
+    public function makeAction(): DeleteBulkAction
     {
         return DeleteBulkAction::make()
             ->modalHeading(function (Collection $records): string {

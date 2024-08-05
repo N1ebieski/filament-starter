@@ -4,42 +4,30 @@ declare(strict_types=1);
 
 namespace App\Data\Data;
 
-use App\Data\Data\Payload\Payload;
-use Illuminate\Support\Facades\App;
+use Illuminate\Support\Collection;
+use Spatie\LaravelData\DataPipeline;
 use Spatie\LaravelData\Data as BaseData;
 use Illuminate\Contracts\Support\Arrayable;
-use App\Overrides\Illuminate\Contracts\Pipeline\Pipeline;
-use App\Overrides\Illuminate\Contracts\Container\Container;
-use App\Data\Data\Payload\ObjectDefaults\ObjectDefaultsHandler;
-use App\Data\Data\Payload\OnlyParameters\OnlyParametersHandler;
-use App\Data\Data\Payload\EnsureIsFlatArray\EnsureIsFlatArrayHandler;
+use App\Data\Pipelines\ModelDataPipe\ModelDataPipe;
+use Spatie\LaravelData\Concerns\WithDeprecatedCollectionMethod;
+use App\Data\Pipelines\ObjectDefaultsDataPipe\ObjectDefaultsDataPipe;
 
 /**
  * @method self only(string ...$only)
  */
 abstract class Data extends BaseData implements Arrayable
 {
-    public static function from(mixed ...$payloads): static
+    use WithDeprecatedCollectionMethod;
+
+    public function toCollect(): Collection
     {
-        /** @var Pipeline */
-        $pipeline = App::make(Pipeline::class);
+        return Collection::make($this->toArray());
+    }
 
-        /** @var Container */
-        $container = App::make(Container::class);
-
-        /** @var array<HandlerInterface> */
-        $handlers = $container->makeMany([
-            EnsureIsFlatArrayHandler::class,
-            OnlyParametersHandler::class,
-            ObjectDefaultsHandler::class
-        ]);
-
-        /** @var Payload */
-        $payload = $pipeline->through(...$handlers)->process(new Payload(
-            payloads: $payloads,
-            classname: static::class
-        ));
-
-        return parent::from(...[$payload->payloads]);
+    public static function pipeline(): DataPipeline
+    {
+        return parent::pipeline()
+            ->firstThrough(ModelDataPipe::class)
+            ->firstThrough(ObjectDefaultsDataPipe::class);
     }
 }

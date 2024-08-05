@@ -29,10 +29,10 @@ final class DeleteTenantAction extends BaseAction
         /** @var static */
         $static = App::make(static::class);
 
-        return $static->getAction($tenant);
+        return $static->makeAction($tenant);
     }
 
-    public function getAction(Tenant $tenant): DeleteAction
+    public function makeAction(Tenant $tenant): DeleteAction
     {
         return DeleteAction::make()
             ->record($tenant)

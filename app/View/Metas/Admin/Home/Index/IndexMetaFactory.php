@@ -9,8 +9,8 @@ use App\View\Metas\Admin\MetaFactory;
 
 final class IndexMetaFactory extends MetaFactory
 {
-    public function getMeta(): MetaInterface
+    public function makeMeta(): MetaInterface
     {
-        return $this->adminMetaFactory->getMeta();
+        return $this->adminMetaFactory->makeMeta();
     }
 }

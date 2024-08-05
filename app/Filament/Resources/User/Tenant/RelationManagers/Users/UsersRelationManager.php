@@ -5,13 +5,11 @@ declare(strict_types=1);
 namespace App\Filament\Resources\User\Tenant\RelationManagers\Users;
 
 use App\Queries\Order;
-use App\Queries\Search;
 use App\Queries\OrderBy;
 use App\Models\User\User;
 use App\Queries\Paginate;
 use Filament\Tables\Table;
 use App\Models\Tenant\Tenant;
-use App\Queries\SearchFactory;
 use App\Queries\QueryBusInterface;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
@@ -34,18 +32,10 @@ class UsersRelationManager extends RelationManager
 
     private QueryBusInterface $queryBus;
 
-    private SearchFactory $searchFactory;
-
-    private User $user;
-
     public function boot(
-        QueryBusInterface $queryBus,
-        SearchFactory $searchFactory,
-        User $user
+        QueryBusInterface $queryBus
     ): void {
         $this->queryBus = $queryBus;
-        $this->searchFactory = $searchFactory;
-        $this->user = $user;
     }
 
     public static function canViewForRecord(Model $ownerRecord, string $pageClass): bool
@@ -61,12 +51,6 @@ class UsersRelationManager extends RelationManager
         return Lang::get('tenant.pages.users.index.title');
     }
 
-    private function getSearch(?string $search): ?Search
-    {
-        return !is_null($search) && mb_strlen($search) > 2 ?
-            $this->searchFactory->make($search, $this->user) : null;
-    }
-
     public function table(Table $table): Table
     {
         /** @var Tenant */
@@ -75,10 +59,10 @@ class UsersRelationManager extends RelationManager
         return $table
             ->searchable(true)
             ->query(function () use ($tenant): Builder {
-                return $this->queryBus->execute(new GetByFilterQuery(
-                    search: $this->getSearch($this->getTableSearch()),
-                    tenants: new Collection([$tenant])
-                ));
+                return $this->queryBus->execute(GetByFilterQuery::from([
+                    'search' => $this->getTableSearch(),
+                    'tenants' => new Collection([$tenant])
+                ]));
             })
             ->recordTitleAttribute('name')
             ->columns([

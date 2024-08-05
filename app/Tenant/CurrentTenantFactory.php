@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Support\Tenant;
+namespace App\Tenant;
 
 use Illuminate\Http\Request;
 use App\Models\Tenant\Tenant;

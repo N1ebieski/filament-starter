@@ -13,7 +13,7 @@ final class JobFactory
     {
     }
 
-    public function getCommandAsJob(Command $command): CallQueuedListener
+    public function makeJob(Command $command): CallQueuedListener
     {
         return new CallQueuedListener(
             class: $this->handlerHelper->getNamespace($command),

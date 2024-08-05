@@ -22,7 +22,7 @@ final class WebMetaFactory
     ) {
     }
 
-    public function getMeta(
+    public function makeMeta(
         ?string $title = null,
         ?int $page = null,
         ?string $description = null,

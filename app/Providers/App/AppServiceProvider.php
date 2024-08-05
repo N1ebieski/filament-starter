@@ -34,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(\App\Scopes\Tenant\TenantScope::class, function (Application $app) {
             /** @var \App\Support\Tenant\CurrentTenantFactory */
-            $factory = $app->make(\App\Support\Tenant\CurrentTenantFactory::class, [
+            $factory = $app->make(\App\Tenant\CurrentTenantFactory::class, [
                 'filamentManager' => $app->make('filament')
             ]);
 

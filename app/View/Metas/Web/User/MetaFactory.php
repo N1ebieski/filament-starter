@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\View\Metas\Web\User;
 
 use Illuminate\Support\Collection as Collect;
-use Illuminate\Contracts\Config\Repository as Config;
 use Illuminate\Contracts\Translation\Translator;
+use Illuminate\Contracts\Config\Repository as Config;
 
 abstract class MetaFactory
 {

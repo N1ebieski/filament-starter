@@ -37,10 +37,10 @@ final class EditRoleAction extends Action
         /** @var static */
         $static = App::make(static::class);
 
-        return $static->getAction();
+        return $static->makeAction();
     }
 
-    public function getAction(): EditAction
+    public function makeAction(): EditAction
     {
         return EditAction::make()
             ->modalHeading(fn (Role $record): string => Lang::get('role.pages.edit.title', [

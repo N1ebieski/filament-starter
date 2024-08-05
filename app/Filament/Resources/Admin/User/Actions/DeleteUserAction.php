@@ -24,10 +24,10 @@ final class DeleteUserAction extends Action
         /** @var static */
         $static = App::make(static::class);
 
-        return $static->getAction();
+        return $static->makeAction();
     }
 
-    public function getAction(): DeleteAction
+    public function makeAction(): DeleteAction
     {
         return DeleteAction::make()
             ->modalHeading(fn (User $record): string => Lang::get('user.pages.delete.title', [

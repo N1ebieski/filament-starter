@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Data\Casts\ModelCollectionOf;
+namespace App\Data\Casts\CollectionOfModels;
 
 use Spatie\LaravelData\Casts\Cast;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\LaravelData\Support\DataProperty;
 use Spatie\LaravelData\Support\Creation\CreationContext;
 
-class ModelCollectionOfCast implements Cast
+class CollectionOfModelsCast implements Cast
 {
     private readonly Model $model;
 

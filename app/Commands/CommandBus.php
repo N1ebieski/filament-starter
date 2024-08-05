@@ -42,14 +42,14 @@ final class CommandBus implements CommandBusInterface
 
     public function dispatch(Command $command): void
     {
-        $job = $this->jobFactory->getCommandAsJob($command);
+        $job = $this->jobFactory->makeJob($command);
 
         $this->busDispatcher->dispatch($job);
     }
 
     public function dispatchSync(Command $command): void
     {
-        $job = $this->jobFactory->getCommandAsJob($command);
+        $job = $this->jobFactory->makeJob($command);
 
         $this->busDispatcher->dispatchSync($job);
     }

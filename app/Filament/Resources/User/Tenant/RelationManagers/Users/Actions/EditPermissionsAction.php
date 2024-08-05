@@ -35,10 +35,10 @@ final class EditPermissionsAction extends Action
         /** @var static */
         $static = App::make(static::class);
 
-        return $static->getAction($tenant);
+        return $static->makeAction($tenant);
     }
 
-    public function getAction(Tenant $tenant): EditAction
+    public function makeAction(Tenant $tenant): EditAction
     {
         return EditAction::make()
             ->hidden(function (User $record, Guard $guard) use ($tenant): bool {

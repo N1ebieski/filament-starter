@@ -10,9 +10,9 @@ use App\View\Metas\Admin\MetaFactory;
 
 final class IndexMetaFactory extends MetaFactory
 {
-    public function getMeta(?int $page = null): MetaInterface
+    public function makeMeta(?int $page = null): MetaInterface
     {
-        return $this->adminMetaFactory->getMeta(
+        return $this->adminMetaFactory->makeMeta(
             title: Lang::get('role.pages.index.title'),
             page: $page,
             description: Lang::get('role.pages.index.description'),

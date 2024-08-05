@@ -7,11 +7,12 @@ namespace App\Commands\User\Tenants\EditPermissions;
 use App\Commands\Command;
 use App\Models\User\User;
 use App\Models\Tenant\Tenant;
+use App\Data\Casts\Model\ModelCast;
 use App\Models\Permission\Permission;
 use App\Support\Attributes\Handler\Handler;
 use Spatie\LaravelData\Attributes\WithCast;
 use Illuminate\Database\Eloquent\Collection;
-use App\Data\Casts\ModelCollectionOf\ModelCollectionOfCast;
+use App\Data\Casts\CollectionOfModels\CollectionOfModelsCast;
 
 /**
  * @property-read Collection<Permission> $permissions
@@ -20,9 +21,11 @@ use App\Data\Casts\ModelCollectionOf\ModelCollectionOfCast;
 final class EditPermissionsCommand extends Command
 {
     public function __construct(
+        #[WithCast(ModelCast::class, Tenant::class)]
         public readonly Tenant $tenant,
+        #[WithCast(ModelCast::class, User::class)]
         public readonly User $user,
-        #[WithCast(ModelCollectionOfCast::class, Permission::class)]
+        #[WithCast(CollectionOfModelsCast::class, Permission::class)]
         public readonly Collection $permissions
     ) {
     }

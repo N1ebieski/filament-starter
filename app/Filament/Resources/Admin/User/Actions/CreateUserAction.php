@@ -35,10 +35,10 @@ final class CreateUserAction extends Action
         /** @var static */
         $static = App::make(static::class);
 
-        return $static->getAction(roles: $roles);
+        return $static->makeAction(roles: $roles);
     }
 
-    public function getAction(Collection $roles = new Collection()): CreateAction
+    public function makeAction(Collection $roles = new Collection()): CreateAction
     {
         return CreateAction::make()
             ->model($this->user::class)

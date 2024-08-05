@@ -9,9 +9,9 @@ use App\View\Metas\Web\User\MetaFactory;
 
 final class IndexMetaFactory extends MetaFactory
 {
-    public function getMeta(): MetaInterface
+    public function makeMeta(): MetaInterface
     {
-        return $this->userMetaFactory->getMeta(
+        return $this->userMetaFactory->makeMeta(
             title: $this->translator->get('account.pages.index.title'),
             description: $this->translator->get('account.pages.index.description'),
             keywords: $this->translator->get('account.pages.index.keywords'),

@@ -34,10 +34,10 @@ final class CreateRoleAction extends Action
         /** @var static */
         $static = App::make(static::class);
 
-        return $static->getAction();
+        return $static->makeAction();
     }
 
-    public function getAction(): CreateAction
+    public function makeAction(): CreateAction
     {
         return CreateAction::make()
             ->icon('heroicon-o-plus-circle')

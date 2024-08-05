@@ -81,7 +81,7 @@ final class ManageUsersPage extends ManageRecords implements PageMetaInterface
     #[Override]
     public function getMeta(): MetaInterface
     {
-        return $this->metaFactory->getMeta($this->getPage());
+        return $this->metaFactory->makeMeta($this->getPage());
     }
 
     protected function getHeaderActions(): array
@@ -151,7 +151,7 @@ final class ManageUsersPage extends ManageRecords implements PageMetaInterface
 
                         return !$user?->can('toggleStatusEmail', $record);
                     })
-                    ->getStateUsing(fn (User $record): bool => !is_null($record->email_verified_at))
+                    ->getStateUsing(fn (User $record): bool => $record->status_email->getAsBool())
                     ->updateStateUsing(function (User $record): User {
                         return $this->commandBus->execute(new EditStatusEmailCommand(
                             user: $record,

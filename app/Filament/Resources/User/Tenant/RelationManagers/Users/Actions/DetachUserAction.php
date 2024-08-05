@@ -27,10 +27,10 @@ final class DetachUserAction extends Action
         /** @var static */
         $static = App::make(static::class);
 
-        return $static->getAction($tenant);
+        return $static->makeAction($tenant);
     }
 
-    public function getAction(Tenant $tenant): DetachAction
+    public function makeAction(Tenant $tenant): DetachAction
     {
         return DetachAction::make()
             ->hidden(function (User $record, Guard $guard) use ($tenant): bool {

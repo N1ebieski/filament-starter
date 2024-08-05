@@ -10,9 +10,9 @@ use Spatie\LaravelData\Optional;
 use App\Models\Permission\Permission;
 use App\Support\Attributes\Handler\Handler;
 use Illuminate\Database\Eloquent\Collection;
-use App\Data\ObjectDefaultsInterface;
+use App\Data\Pipelines\ObjectDefaultsDataPipe\ObjectDefaultsInterface;
 use Spatie\LaravelData\Attributes\WithCast;
-use App\Data\Casts\ModelCollectionOf\ModelCollectionOfCast;
+use App\Data\Casts\CollectionOfModels\CollectionOfModelsCast;
 
 #[Handler(\App\Commands\Role\Edit\EditHandler::class)]
 final class EditCommand extends Command implements ObjectDefaultsInterface
@@ -20,7 +20,7 @@ final class EditCommand extends Command implements ObjectDefaultsInterface
     public function __construct(
         public readonly Role $role,
         public readonly string|Optional $name = new Optional(),
-        #[WithCast(ModelCollectionOfCast::class, Permission::class)]
+        #[WithCast(CollectionOfModelsCast::class, Permission::class)]
         public readonly Collection|Optional $permissions = new Optional()
     ) {
     }

@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Admin\Role\Actions;
 
 use App\Models\Role\Role;
-use App\Commands\CommandBusInterface;
 use App\Filament\Actions\Action;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
+use App\Commands\CommandBusInterface;
 use Filament\Tables\Actions\DeleteAction;
 use App\Commands\Role\Delete\DeleteCommand;
 
@@ -24,10 +24,10 @@ final class DeleteRoleAction extends Action
         /** @var static */
         $static = App::make(static::class);
 
-        return $static->getAction();
+        return $static->makeAction();
     }
 
-    public function getAction(): DeleteAction
+    public function makeAction(): DeleteAction
     {
         return DeleteAction::make()
             ->modalHeading(fn (Role $record): string => Lang::get('role.pages.delete.title', [

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Queries\Permission\GetAvailableForTenant;
 
 use App\Queries\Query;
-use App\Data\ObjectDefaultsInterface;
+use App\Data\Pipelines\ObjectDefaultsDataPipe\ObjectDefaultsInterface;
 use App\Models\Permission\Permission;
 use App\Support\Attributes\Handler\Handler;
 

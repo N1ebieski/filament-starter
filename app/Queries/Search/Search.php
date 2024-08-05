@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Queries;
+namespace App\Queries\Search;
 
 use App\Data\Data\Data;
 

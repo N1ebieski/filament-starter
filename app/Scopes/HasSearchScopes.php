@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Scopes;
 
-use App\Queries\Search;
+use App\Queries\Search\Search;
 use Illuminate\Support\Facades\App;
 use Illuminate\Database\Eloquent\Model;
 use App\Support\Query\Columns\ColumnsHelper;

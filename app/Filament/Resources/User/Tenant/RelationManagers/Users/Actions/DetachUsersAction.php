@@ -28,10 +28,10 @@ final class DetachUsersAction extends Action
         /** @var static */
         $static = App::make(static::class);
 
-        return $static->getAction($tenant);
+        return $static->makeAction($tenant);
     }
 
-    public function getAction(Tenant $tenant): DetachBulkAction
+    public function makeAction(Tenant $tenant): DetachBulkAction
     {
         return DetachBulkAction::make()
             ->hidden(function (Guard $guard) use ($tenant): bool {

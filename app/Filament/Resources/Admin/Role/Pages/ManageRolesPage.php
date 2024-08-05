@@ -63,7 +63,7 @@ final class ManageRolesPage extends ManageRecords implements PageMetaInterface
     #[Override]
     public function getMeta(): MetaInterface
     {
-        return $this->metaFactory->getMeta($this->getPage());
+        return $this->metaFactory->makeMeta($this->getPage());
     }
 
     protected function getHeaderActions(): array
