@@ -121,10 +121,10 @@ final class EditUserAction extends Action
                 return $data;
             })
             ->using(function (array $data, User $record): User {
-                return $this->commandBus->execute(EditCommand::from(
+                return $this->commandBus->execute(EditCommand::from([
                     ...$data,
-                    user: $record
-                ));
+                    'user' => $record
+                ]));
             })
             ->successNotificationTitle(fn (User $record): string => Lang::get('user.messages.edit.success', [
                 'name' => $record->name

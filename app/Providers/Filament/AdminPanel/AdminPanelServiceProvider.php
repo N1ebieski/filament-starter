@@ -52,17 +52,14 @@ final class AdminPanelServiceProvider extends PanelServiceProvider
             ])
             ->databaseNotifications()
             ->databaseNotificationsPolling(null)
-            ->spa();
-    }
-
-    /**
-     * Bootstrap any application services.
-     */
-    public function boot(): void
-    {
-        FilamentView::registerRenderHook(
-            'panels::head.end',
-            fn (): string => Blade::render('@vite("resources/js/admin.js")')
-        );
+            ->spa()
+            ->renderHook(
+                'panels::head.end',
+                fn (): string => Blade::render('@vite("resources/js/admin.js")')
+            )
+            ->renderHook(
+                'panels::styles.before',
+                fn (): string => Blade::render('@vite("resources/css/admin.scss")')
+            );
     }
 }

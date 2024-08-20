@@ -67,10 +67,10 @@ class EditTenantPage extends EditTenantProfile
     protected function handleRecordUpdate(Model $record, array $data): Tenant
     {
         /** @var Tenant */
-        $tenant = $this->commandBus->execute(EditCommand::from(
+        $tenant = $this->commandBus->execute(EditCommand::from([
             ...$data,
-            tenant: $record
-        ));
+            'tenant' => $record
+        ]));
 
         return $tenant;
     }

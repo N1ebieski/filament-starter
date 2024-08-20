@@ -1,2 +1,2 @@
-import "./echo/echo";
-import "./meta/meta";
+import "./echo/echo.js";
+import "./meta/meta.js";

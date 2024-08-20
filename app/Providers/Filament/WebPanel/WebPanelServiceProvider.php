@@ -8,8 +8,8 @@ use Filament\Panel;
 use Illuminate\Support\Facades\Blade;
 use Filament\Widgets\FilamentInfoWidget;
 use Filament\Support\Facades\FilamentView;
-use App\Filament\Pages\Web\MyProfile\MyProfilePage;
 use App\Providers\Filament\PanelServiceProvider;
+use App\Filament\Pages\Web\MyProfile\MyProfilePage;
 use App\Overrides\Jeffgreco13\FilamentBreezy\BreezyCore;
 use App\Http\Middleware\Filament\EnsureEmailIsVerified\EnsureEmailIsVerifiedMiddleware;
 
@@ -49,17 +49,15 @@ final class WebPanelServiceProvider extends PanelServiceProvider
                     ->customMyProfilePage(MyProfilePage::class)
                     ->enableTwoFactorAuthentication()
             ])
-            ->spa();
-    }
-
-    /**
-     * Bootstrap any application services.
-     */
-    public function boot(): void
-    {
-        FilamentView::registerRenderHook(
-            'panels::topbar.end',
-            fn (): string => Blade::render('<x-web.topbar.login-button.login-button-component />')
-        );
+            ->topNavigation()
+            ->spa()
+            ->renderHook(
+                'panels::styles.before',
+                fn (): string => Blade::render('@vite("resources/css/web.scss")')
+            )
+            ->renderHook(
+                'panels::topbar.end',
+                fn (): string => Blade::render('<x-web.topbar.login-button.login-button-component />')
+            );
     }
 }

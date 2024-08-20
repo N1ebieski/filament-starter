@@ -8,11 +8,12 @@ use Filament\Panel;
 use App\Models\Tenant\Tenant;
 use Filament\Widgets\AccountWidget;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Blade;
 use Filament\Widgets\FilamentInfoWidget;
 use App\Providers\Filament\PanelServiceProvider;
 use App\Filament\Pages\User\Tenancy\Edit\EditTenantPage;
-use App\Filament\Pages\User\Tenancy\Create\CreateTenantPage;
 use App\Overrides\Jeffgreco13\FilamentBreezy\BreezyCore;
+use App\Filament\Pages\User\Tenancy\Create\CreateTenantPage;
 use App\Http\Middleware\ApplyUserScope\ApplyUserScopeMiddleware;
 use App\Http\Middleware\Filament\VerifyEmail\VerifyEmailMiddleware;
 use App\Http\Middleware\ApplyTenantScope\ApplyTenantScopeMiddleware;
@@ -61,6 +62,10 @@ final class UserPanelServiceProvider extends PanelServiceProvider
                     )
                     ->enableTwoFactorAuthentication()
             ])
-            ->spa();
+            ->spa()
+            ->renderHook(
+                'panels::styles.before',
+                fn (): string => Blade::render('@vite("resources/css/user.scss")')
+            );
     }
 }

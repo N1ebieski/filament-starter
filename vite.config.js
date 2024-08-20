@@ -12,7 +12,12 @@ export default defineConfig({
     },
     plugins: [
         laravel({
-            input: ["resources/js/admin.js"],
+            input: [
+                "resources/css/web.scss",
+                "resources/css/user.scss",
+                "resources/css/admin.scss",
+                "resources/js/admin.js",
+            ],
             refresh: true,
         }),
     ],

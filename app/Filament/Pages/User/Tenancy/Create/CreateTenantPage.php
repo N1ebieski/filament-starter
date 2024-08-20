@@ -45,10 +45,10 @@ class CreateTenantPage extends RegisterTenant
     protected function handleRegistration(array $data): Tenant
     {
         /** @var Tenant */
-        $tenant = $this->commandBus->execute(CreateCommand::from(
+        $tenant = $this->commandBus->execute(CreateCommand::from([
             ...$data,
-            user: Auth::user(),
-        ));
+            'user' => Auth::user(),
+        ]));
 
         return $tenant;
     }

@@ -9,10 +9,10 @@ use App\Models\Role\Role;
 use Spatie\LaravelData\Optional;
 use App\Models\Permission\Permission;
 use App\Support\Attributes\Handler\Handler;
-use Illuminate\Database\Eloquent\Collection;
-use App\Data\Pipelines\ObjectDefaultsDataPipe\ObjectDefaultsInterface;
 use Spatie\LaravelData\Attributes\WithCast;
+use Illuminate\Database\Eloquent\Collection;
 use App\Data\Casts\CollectionOfModels\CollectionOfModelsCast;
+use App\Data\Pipelines\ObjectDefaultsDataPipe\ObjectDefaultsInterface;
 
 #[Handler(\App\Commands\Role\Edit\EditHandler::class)]
 final class EditCommand extends Command implements ObjectDefaultsInterface

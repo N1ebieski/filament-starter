@@ -9,6 +9,7 @@ use Filament\Facades\Filament;
 use Filament\Navigation\MenuItem;
 use Filament\Support\Colors\Color;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\View;
 use Illuminate\Session\Middleware\StartSession;
 use Filament\PanelProvider as BasePanelProvider;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -17,9 +18,9 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
-use App\Overrides\Pxlrbt\FilamentSpotlight\SpotlightPlugin;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
+use App\Overrides\Pxlrbt\FilamentSpotlight\SpotlightPlugin;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 
 abstract class PanelServiceProvider extends BasePanelProvider
@@ -74,6 +75,7 @@ abstract class PanelServiceProvider extends BasePanelProvider
                         return '';
                     })->label(Lang::get('filament-breezy::default.profile.my_profile'))
                 ]);
-            });
+            })
+            ->brandLogo(fn () => View::make('filament.logo.logo'));
     }
 }

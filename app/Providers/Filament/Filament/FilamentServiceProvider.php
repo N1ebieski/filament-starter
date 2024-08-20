@@ -22,6 +22,11 @@ final class FilamentServiceProvider extends ServiceProvider
             fn (): string => Blade::render('<x-topbar.spotlight-button.spotlight-button-component />')
         );
 
+        FilamentView::registerRenderHook(
+            'panels::global-search.before',
+            fn (): string => Blade::render('<x-topbar.theme-switcher.theme-switcher-component />')
+        );
+
         Table::configureUsing(function (Table $table): void {
             $table
                 ->striped()

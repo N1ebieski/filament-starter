@@ -74,11 +74,11 @@ final class AttachUserAction extends Action
             ->stickyModalFooter()
             ->closeModalByClickingAway(false)
             ->using(function (array $data) use ($tenant): User {
-                return $this->commandBus->execute(AttachCommand::from(
+                return $this->commandBus->execute(AttachCommand::from([
                     ...$data,
-                    tenant: $tenant,
-                    user: $this->user->find($data['recordId'])
-                ));
+                    'tenant' => $tenant,
+                    'user' => $this->user->find($data['recordId'])
+                ]));
             })
             ->successNotificationTitle(function (User $record): string {
                 return Lang::get('tenant.messages.users.attach.success', [

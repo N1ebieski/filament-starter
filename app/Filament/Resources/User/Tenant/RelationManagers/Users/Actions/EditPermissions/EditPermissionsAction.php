@@ -77,11 +77,11 @@ final class EditPermissionsAction extends Action
             ->stickyModalFooter()
             ->closeModalByClickingAway(false)
             ->using(function (array $data, User $record) use ($tenant): User {
-                return $this->commandBus->execute(EditPermissionsCommand::from(
+                return $this->commandBus->execute(EditPermissionsCommand::from([
                     ...$data,
-                    tenant: $tenant,
-                    user: $record
-                ));
+                    'tenant' => $tenant,
+                    'user' => $record
+                ]));
             })
             ->successNotificationTitle(function (User $record): string {
                 return Lang::get('tenant.messages.users.edit_permissions.success', [

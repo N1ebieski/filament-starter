@@ -1,6 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Http\Response as HttpResponse;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 
@@ -30,5 +33,9 @@ return Application::configure(basePath: dirname(__DIR__))
         \App\Providers\Spotlight\SpotlightServiceProvider::class
     ])
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        $exceptions->render(function (Throwable $e) {
+            if (!Config::get('app.debug') && $e->getPrevious() instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
+                App::abort(HttpResponse::HTTP_NOT_FOUND);
+            }
+        });
     })->create();

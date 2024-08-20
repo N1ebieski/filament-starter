@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Data\Casts\CollectionOfModels;
 
+use Illuminate\Support\Arr;
 use Spatie\LaravelData\Casts\Cast;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\LaravelData\Support\DataProperty;
@@ -26,7 +27,7 @@ class CollectionOfModelsCast implements Cast
      */
     public function cast(DataProperty $property, mixed $value, array $properties, CreationContext $context): mixed
     {
-        if (is_array($value) && (array_search(fn ($v) => $v instanceof Model, $value) === false)) {
+        if (is_array($value) && is_null(Arr::first($value, fn ($v) => $v instanceof Model))) {
             return $this->model->query()
                 ->whereIn($this->model->getKeyName(), $value)
                 ->get();
