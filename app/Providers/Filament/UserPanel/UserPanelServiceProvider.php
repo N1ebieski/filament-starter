@@ -8,6 +8,7 @@ use Filament\Panel;
 use App\Models\Tenant\Tenant;
 use Filament\Widgets\AccountWidget;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\Facades\Blade;
 use Filament\Widgets\FilamentInfoWidget;
 use App\Providers\Filament\PanelServiceProvider;
@@ -65,7 +66,7 @@ final class UserPanelServiceProvider extends PanelServiceProvider
             ->spa()
             ->renderHook(
                 'panels::styles.before',
-                fn (): string => Blade::render('@vite("resources/css/user.scss")')
+                fn (): string => Vite::withEntryPoints(['resources/css/user.scss'])->toHtml()
             );
     }
 }

@@ -10,6 +10,7 @@ use App\Filament\Actions\Action;
 use App\Queries\QueryBusInterface;
 use Filament\Actions\CreateAction;
 use Illuminate\Support\Facades\App;
+use App\ValueObjects\User\Name\Name;
 use Illuminate\Support\Facades\Lang;
 use App\Commands\CommandBusInterface;
 use Filament\Forms\Components\Select;

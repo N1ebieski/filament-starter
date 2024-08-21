@@ -55,7 +55,7 @@ final class DeleteTenantAction extends BaseAction
                 'name' => $record->name
             ]))
             ->action(function (Tenant $record, array $data, Action $action): void {
-                if ($data['name'] !== $record->name) {
+                if ($data['name'] !== $record->name->value) {
                     Notification::make()
                         ->title(Lang::get('tenant.messages.delete.wrong_name'))
                         ->danger()

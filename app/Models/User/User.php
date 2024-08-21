@@ -7,9 +7,12 @@ use App\Models\Tenant\Tenant;
 use Filament\Facades\Filament;
 use Laravel\Sanctum\HasApiTokens;
 use App\Scopes\User\HasUserScopes;
+use App\ValueObjects\User\Name\Name;
+use App\ValueObjects\User\Email\Email;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Filament\Models\Contracts\HasTenants;
+use App\Casts\ValueObject\ValueObjectCast;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Notifications\Auth\VerifyEmail;
 use Illuminate\Database\Eloquent\Collection;
@@ -71,6 +74,8 @@ class User extends Authenticatable implements FilamentUser, HasTenants, MustVeri
      */
     protected $casts = [
         'id' => 'integer',
+        'name' => ValueObjectCast::class . ':' . Name::class,
+        'email' => ValueObjectCast::class . ':' . Email::class,
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',

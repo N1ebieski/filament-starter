@@ -12,6 +12,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->app->bind(\Illuminate\Contracts\Pipeline\Pipeline::class, \Illuminate\Pipeline\Pipeline::class);
+
+        $this->app->scoped(\App\Overrides\Illuminate\Contracts\Container\Container::class, function (Application $app) {
+            return new \App\Overrides\Illuminate\Container\Container($app);
+        });
+
         $this->app->bind(\App\Overrides\Illuminate\Contracts\Auth\Access\Gate::class, function (Application $app) {
             /** @var \Illuminate\Auth\Access\Gate */
             $gate = $app->make(\Illuminate\Contracts\Auth\Access\Gate::class);

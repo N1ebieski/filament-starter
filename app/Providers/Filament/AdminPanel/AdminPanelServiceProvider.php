@@ -7,6 +7,7 @@ namespace App\Providers\Filament\AdminPanel;
 use Filament\Panel;
 use Filament\Widgets\AccountWidget;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\Facades\Blade;
 use Filament\Widgets\FilamentInfoWidget;
 use Filament\Support\Facades\FilamentView;
@@ -55,11 +56,11 @@ final class AdminPanelServiceProvider extends PanelServiceProvider
             ->spa()
             ->renderHook(
                 'panels::head.end',
-                fn (): string => Blade::render('@vite("resources/js/admin.js")')
+                fn (): string => Vite::withEntryPoints(['resources/js/admin.js'])->toHtml()
             )
             ->renderHook(
                 'panels::styles.before',
-                fn (): string => Blade::render('@vite("resources/css/admin.scss")')
+                fn (): string => Vite::withEntryPoints(['resources/css/admin.scss'])->toHtml()
             );
     }
 }

@@ -6,11 +6,15 @@ namespace App\ValueObjects\Role\Name;
 
 use App\ValueObjects\ValueObject;
 use App\ValueObjects\Role\Name\DefaultName;
+use Spatie\LaravelData\Attributes\Validation\Max;
 
 final class Name extends ValueObject
 {
-    public function __construct(public readonly string $value)
-    {
+    public function __construct(
+        #[Max(255)]
+        public readonly string $value
+    ) {
+        $this->validate(['value' => $value]);
     }
 
     public function isAdmin(): bool

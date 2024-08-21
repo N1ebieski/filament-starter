@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Overrides\Spatie\Permission\Traits;
 
-use Override;
 use App\Models\Role\Role;
 use Illuminate\Support\Facades\App;
 use App\Models\Permission\Permission;

@@ -14,6 +14,7 @@ use Illuminate\Session\Middleware\StartSession;
 use Filament\PanelProvider as BasePanelProvider;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Jeffgreco13\FilamentBreezy\Pages\MyProfilePage;
+use Illuminate\Contracts\View\View as ContractsView;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
@@ -76,6 +77,6 @@ abstract class PanelServiceProvider extends BasePanelProvider
                     })->label(Lang::get('filament-breezy::default.profile.my_profile'))
                 ]);
             })
-            ->brandLogo(fn () => View::make('filament.logo.logo'));
+            ->brandLogo(fn (): ContractsView => View::make('filament.logo.logo'));
     }
 }

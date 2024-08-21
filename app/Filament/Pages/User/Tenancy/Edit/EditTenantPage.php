@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Pages\User\Tenancy\Edit;
 
+use Override;
 use Filament\Forms\Form;
 use App\Models\Tenant\Tenant;
 use Filament\Facades\Filament;
@@ -57,6 +58,14 @@ class EditTenantPage extends EditTenantProfile
                     ->minLength(3)
                     ->maxLength(255),
             ]);
+    }
+
+    #[Override]
+    protected function mutateFormDataBeforeFill(array $data): array
+    {
+        $data['name'] = $this->tenant->name->value;
+
+        return $data;
     }
 
     /**

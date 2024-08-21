@@ -13,7 +13,7 @@ class TenantObserver
     {
         if ($relationName === $tenant->users()->getRelationName()) {
             /** @var array<User> */
-            $users = $tenant->users()->get();
+            $users = $tenant->users()->with('tenantPermissions')->get();
 
             foreach ($users as $user) {
                 $user->fireModelEvent(

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Providers\Filament\WebPanel;
 
 use Filament\Panel;
+use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\Facades\Blade;
 use Filament\Widgets\FilamentInfoWidget;
 use Filament\Support\Facades\FilamentView;
@@ -53,7 +54,7 @@ final class WebPanelServiceProvider extends PanelServiceProvider
             ->spa()
             ->renderHook(
                 'panels::styles.before',
-                fn (): string => Blade::render('@vite("resources/css/web.scss")')
+                fn (): string => Vite::withEntryPoints(['resources/css/web.scss'])->toHtml()
             )
             ->renderHook(
                 'panels::topbar.end',

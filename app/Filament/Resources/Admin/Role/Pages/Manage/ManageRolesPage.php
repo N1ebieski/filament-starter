@@ -123,6 +123,9 @@ final class ManageRolesPage extends ManageRecords implements PageMetaInterface
 
     protected function paginateTableQuery(Builder|Role $query): Paginator
     {
-        return $query->filterPaginate(new Paginate($this->getTableRecordsPerPage(), $this->getPage()));
+        return $query->filterPaginate(new Paginate(
+            perPage: (int)$this->getTableRecordsPerPage(),
+            page: $this->getPage()
+        ));
     }
 }

@@ -9,6 +9,7 @@ use App\Models\User\User;
 use App\Filament\Actions\Action;
 use App\Queries\QueryBusInterface;
 use Illuminate\Support\Facades\App;
+use App\ValueObjects\User\Name\Name;
 use Illuminate\Support\Facades\Lang;
 use App\Commands\CommandBusInterface;
 use Filament\Forms\Components\Select;
@@ -46,8 +47,9 @@ final class EditUserAction extends Action
             ->mutateRecordDataUsing(function (array $data, User $record): array {
                 $data = [
                     ...$data,
+                    'name' => $record->name->value,
                     'roles' => $record->roles->pluck('id')->toArray(),
-                    'email' => $record->email
+                    'email' => $record->email->value
                 ];
 
                 return $data;

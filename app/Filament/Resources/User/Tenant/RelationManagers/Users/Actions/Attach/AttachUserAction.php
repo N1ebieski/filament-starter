@@ -52,7 +52,8 @@ final class AttachUserAction extends Action
             ->icon('heroicon-o-plus-circle')
             ->modalHeading(Lang::get('tenant.pages.users.attach.title'))
             ->form(fn (AttachAction $action): array => [
-                $action->getRecordSelect()
+                $action->recordTitle(fn (User $record): string => $record->name->value)
+                    ->getRecordSelect()
                     ->label(Lang::get('user.name.label'))
                     ->hiddenLabel(false),
 

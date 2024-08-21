@@ -6,7 +6,9 @@ namespace App\Models\Role;
 
 use Override;
 use App\Scopes\Role\HasRoleScopes;
+use App\ValueObjects\Role\Name\Name;
 use Database\Factories\Role\RoleFactory;
+use App\Casts\ValueObject\ValueObjectCast;
 use Spatie\Permission\PermissionRegistrar;
 use Spatie\Permission\Models\Role as BaseRole;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -64,7 +66,8 @@ final class Role extends BaseRole
      */
     protected $casts = [
         'id' => 'integer',
-        'name' => \App\Casts\Role\Name\NameCast::class,
+        'tenant_id' => 'integer',
+        'name' => ValueObjectCast::class . ':' . Name::class,
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];

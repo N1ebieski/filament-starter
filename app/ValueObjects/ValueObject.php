@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace App\ValueObjects;
 
 use Stringable;
+use App\Data\Data\Data;
 use AllowDynamicProperties;
 
 /**
  * @property-read mixed $value
  */
 #[AllowDynamicProperties]
-abstract class ValueObject implements Stringable
+abstract class ValueObject extends Data implements Stringable
 {
     public function __toString(): string
     {

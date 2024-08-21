@@ -8,6 +8,7 @@ use App\Models\Role\Role;
 use App\Filament\Actions\Action;
 use App\Queries\QueryBusInterface;
 use Illuminate\Support\Facades\App;
+use App\ValueObjects\Role\Name\Name;
 use Illuminate\Support\Facades\Lang;
 use App\Commands\CommandBusInterface;
 use App\Models\Permission\Permission;
@@ -47,7 +48,7 @@ final class EditRoleAction extends Action
                 'name' => $record->name->value
             ]))
             ->mutateRecordDataUsing(function (array $data, Role $record): array {
-                $data['name'] = $data['name']->value;
+                $data['name'] = $record->name->value;
                 $data['permissions'] = $record->permissions->pluck('id')->toArray();
 
                 return $data;
