@@ -19,13 +19,13 @@ final class EditPermissionsHandler extends Handler
 
             $user->revokeTenantPermissionTo(
                 $command->user->tenantPermissions
-                    ->map(fn (Permission $permission): string => $permission->name)
+                    ->map(fn (Permission $permission): string => $permission->name->value)
                     ->toArray()
             );
 
             $user->givePermissionTo(
                 $command->permissions
-                    ->map(fn (Permission $permission): string => $permission->name)
+                    ->map(fn (Permission $permission): string => $permission->name->value)
                     ->toArray()
             );
         } catch (\Exception $e) {

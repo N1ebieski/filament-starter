@@ -27,6 +27,61 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
 
+/**
+ * 
+ *
+ * @property int $id
+ * @property \App\ValueObjects\User\Name\Name $name
+ * @property \App\ValueObjects\User\Email\Email $email
+ * @property \Illuminate\Support\Carbon|null $email_verified_at
+ * @property mixed $password
+ * @property string|null $remember_token
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read mixed $breezy_session
+ * @property-read Collection<int, \Jeffgreco13\FilamentBreezy\Models\BreezySession> $breezySessions
+ * @property-read int|null $breezy_sessions_count
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
+ * @property-read int|null $notifications_count
+ * @property-read Collection<int, Tenant> $ownedTenants
+ * @property-read int|null $owned_tenants_count
+ * @property-read Collection<int, \App\Models\Permission\Permission> $permissions
+ * @property-read int|null $permissions_count
+ * @property-read Collection<int, \App\Models\Role\Role> $roles
+ * @property-read int|null $roles_count
+ * @property-read StatusEmail $status_email
+ * @property-read Collection<int, \App\Models\Permission\Permission> $tenantPermissions
+ * @property-read int|null $tenant_permissions_count
+ * @property-read Collection<int, \App\Models\Role\Role> $tenantRoles
+ * @property-read int|null $tenant_roles_count
+ * @property-read Collection<int, Tenant> $tenants
+ * @property-read int|null $tenants_count
+ * @property-read Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
+ * @property-read int|null $tokens_count
+ * @property-read mixed $two_factor_recovery_codes
+ * @property-read mixed $two_factor_secret
+ * @method static \Database\Factories\User\UserFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|User filterExcept(?array $except)
+ * @method static \Illuminate\Database\Eloquent\Builder|User filterGet(\App\Queries\Get $get)
+ * @method static \Illuminate\Database\Eloquent\Builder|User filterOrderBy(?\App\Queries\OrderBy $orderby)
+ * @method static \Illuminate\Database\Eloquent\Builder|User filterOrderBySearch(?\App\Queries\Search\Search $search)
+ * @method static \Illuminate\Database\Eloquent\Builder|User filterPaginate(\App\Queries\Paginate $paginate)
+ * @method static \Illuminate\Database\Eloquent\Builder|User filterResult(\App\Queries\Paginate|\App\Queries\Get|null $result)
+ * @method static \Illuminate\Database\Eloquent\Builder|User filterRoles(\Illuminate\Database\Eloquent\Collection $roles)
+ * @method static \Illuminate\Database\Eloquent\Builder|User filterSearch(?\App\Queries\Search\Search $search, string $boolean = 'and')
+ * @method static \Illuminate\Database\Eloquent\Builder|User filterSearchAttributes(?\App\Queries\Search\Search $search)
+ * @method static \Illuminate\Database\Eloquent\Builder|User filterStatusEmail(?\App\ValueObjects\User\StatusEmail\StatusEmail $status)
+ * @method static \Illuminate\Database\Eloquent\Builder|User filterTenants(\Illuminate\Database\Eloquent\Collection $tenants)
+ * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|User permission($permissions, $without = false)
+ * @method static \Illuminate\Database\Eloquent\Builder|User query()
+ * @method static \Illuminate\Database\Eloquent\Builder|User role($roles, $guard = null, $without = false)
+ * @method static \Illuminate\Database\Eloquent\Builder|User withAllRelations()
+ * @method static \Illuminate\Database\Eloquent\Builder|User withoutPermission($permissions)
+ * @method static \Illuminate\Database\Eloquent\Builder|User withoutRole($roles, $guard = null)
+ * @mixin \Eloquent
+ */
 class User extends Authenticatable implements FilamentUser, HasTenants, MustVerifyEmail
 {
     use HasRoles;

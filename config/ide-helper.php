@@ -167,6 +167,7 @@ return [
     */
 
     'model_hooks' => [
+        \App\Overrides\Barryvdh\LaravelIdeHelper\Hook\ValueObjectHook::class
         // App\Support\IdeHelper\MyModelHook::class
     ],
 

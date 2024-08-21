@@ -26,7 +26,7 @@ final class EditHandler extends Handler
             if (!($command->permissions instanceof Optional)) {
                 $role->syncPermissions(
                     $command->permissions->map(function (Permission $permission) {
-                        return $permission->name;
+                        return $permission->name->value;
                     })->toArray()
                 );
             }

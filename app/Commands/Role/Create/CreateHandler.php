@@ -24,7 +24,7 @@ final class CreateHandler extends Handler
 
             $role->givePermissionTo(
                 $command->permissions->map(function (Permission $permission) {
-                    return $permission->name;
+                    return $permission->name->value;
                 })->toArray()
             );
         } catch (\Exception $e) {

@@ -12,6 +12,22 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
+/**
+ * 
+ *
+ * @property int $id
+ * @property \App\ValueObjects\Tenant\Name\Name $name
+ * @property int $user_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\User\User|null $user
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User\User> $users
+ * @property-read int|null $users_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Tenant newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Tenant newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Tenant query()
+ * @mixin \Eloquent
+ */
 class Tenant extends Model implements HasCurrentTenantLabel
 {
     use HasFactory;
