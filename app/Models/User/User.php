@@ -65,7 +65,7 @@ use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
  * @method static \Illuminate\Database\Eloquent\Builder|User filterGet(\App\Queries\Get $get)
  * @method static \Illuminate\Database\Eloquent\Builder|User filterOrderBy(?\App\Queries\OrderBy $orderby)
  * @method static \Illuminate\Database\Eloquent\Builder|User filterOrderBySearch(?\App\Queries\Search\Search $search)
- * @method static \Illuminate\Database\Eloquent\Builder|User filterPaginate(\App\Queries\Paginate $paginate)
+ * @method static \Illuminate\Contracts\Pagination\LengthAwarePaginator filterPaginate(\App\Queries\Paginate $paginate)
  * @method static \Illuminate\Database\Eloquent\Builder|User filterResult(\App\Queries\Paginate|\App\Queries\Get|null $result)
  * @method static \Illuminate\Database\Eloquent\Builder|User filterRoles(\Illuminate\Database\Eloquent\Collection $roles)
  * @method static \Illuminate\Database\Eloquent\Builder|User filterSearch(?\App\Queries\Search\Search $search, string $boolean = 'and')

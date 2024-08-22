@@ -3,8 +3,7 @@
 namespace Tests\Unit\Overrides\Illuminate\Pipeline;
 
 use PHPUnit\Framework\TestCase;
-use Illuminate\Container\Container;
-use App\Overrides\Illuminate\Pipeline\Pipeline;
+use Tests\Unit\Overrides\Illuminate\PipelineFactory;
 use Tests\Unit\Overrides\Illuminate\Pipeline\Handlers\ExampleHandler1;
 use Tests\Unit\Overrides\Illuminate\Pipeline\Handlers\ExampleHandler2;
 
@@ -12,7 +11,7 @@ final class PipelineTest extends TestCase
 {
     public function test_pipeline_with_created_objects(): void
     {
-        $pipeline = new Pipeline();
+        $pipeline = PipelineFactory::makePipeline();
 
         $handlers = [
             new ExampleHandler1(),
@@ -26,9 +25,7 @@ final class PipelineTest extends TestCase
 
     public function test_pipeline_with_namespaces(): void
     {
-        $container = new Container();
-
-        $pipeline = new Pipeline($container);
+        $pipeline = PipelineFactory::makePipeline();
 
         $handlers = [
             ExampleHandler1::class,

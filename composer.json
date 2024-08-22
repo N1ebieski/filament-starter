@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "afatmustafa/blade-hugeicons": "^0.0.3",
         "fico7489/laravel-pivot": "^3.0",
         "filament/filament": "^3.2",
         "guzzlehttp/guzzle": "^7.8",
@@ -50,6 +51,12 @@
         }
     },
     "scripts": {
+        "octane": [
+            "php artisan octane:start --port=8001 --host=filament-starter.test --watch"
+        ],
+        "reverb": [
+            "php artisan reverb:start --debug"
+        ],
         "phpstan": [
             "vendor/bin/phpstan analyse --configuration=phpstan.neon > storage/logs/phpstan.log"
         ],

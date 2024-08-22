@@ -5,7 +5,7 @@ namespace Tests\Unit\Overrides\Illuminate\Chain;
 use DG\BypassFinals;
 use PHPUnit\Framework\TestCase;
 use Illuminate\Container\Container;
-use App\Overrides\Illuminate\Chain\Chain;
+use Tests\Unit\Overrides\Illuminate\PipelineFactory;
 use Tests\Unit\Overrides\Illuminate\Chain\Handlers\ExampleHandler1;
 use Tests\Unit\Overrides\Illuminate\Chain\Handlers\ExampleHandler2;
 
@@ -18,7 +18,7 @@ final class ChainTest extends TestCase
 
     public function test_chain_with_created_objects(): void
     {
-        $chain = new Chain();
+        $chain = PipelineFactory::makePipeline();
 
         $handlers = [
             $this->createMock(ExampleHandler1::class),
@@ -46,7 +46,7 @@ final class ChainTest extends TestCase
         $container->instance(ExampleHandler1::class, $handlers[0]);
         $container->instance(ExampleHandler2::class, $handlers[1]);
 
-        $chain = new Chain($container);
+        $chain = PipelineFactory::makePipeline($container);
 
         $handlers = [
             ExampleHandler1::class,

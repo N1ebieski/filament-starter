@@ -20,6 +20,7 @@ final class SpotlightButtonComponent extends Component implements HasForms, HasA
     {
         return Action::make('spotlight')
             ->livewireClickHandlerEnabled(false)
+            ->tooltip('Spotlight')
             ->color('gray')
             ->icon('heroicon-m-magnifying-glass')
             ->iconButton();

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\Facades\Blade;
 use Filament\Widgets\FilamentInfoWidget;
 use Filament\Support\Facades\FilamentView;
-use App\Providers\Filament\PanelServiceProvider;
+use App\Providers\Filament\Shared\PanelServiceProvider;
 use App\Filament\Pages\Web\MyProfile\MyProfilePage;
 use App\Overrides\Jeffgreco13\FilamentBreezy\BreezyCore;
 use App\Http\Middleware\Filament\EnsureEmailIsVerified\EnsureEmailIsVerifiedMiddleware;
@@ -54,7 +54,7 @@ final class WebPanelServiceProvider extends PanelServiceProvider
             ->spa()
             ->renderHook(
                 'panels::styles.before',
-                fn (): string => Vite::withEntryPoints(['resources/css/web.scss'])->toHtml()
+                fn (): string => Vite::withEntryPoints(['resources/css/web/web.scss'])->toHtml()
             )
             ->renderHook(
                 'panels::topbar.end',

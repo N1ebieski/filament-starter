@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
- * App\Models\Role\Role
+ * 
  *
  * @property int $id
  * @property int|null $tenant_id
@@ -32,7 +32,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Role filterGet(\App\Queries\Get $get)
  * @method static \Illuminate\Database\Eloquent\Builder|Role filterOrderBy(?\App\Queries\OrderBy $orderby)
  * @method static \Illuminate\Database\Eloquent\Builder|Role filterOrderBySearch(?\App\Queries\Search\Search $search)
- * @method static \Illuminate\Database\Eloquent\Builder|Role filterPaginate(\App\Queries\Paginate $paginate)
+ * @method static \Illuminate\Contracts\Pagination\LengthAwarePaginator filterPaginate(\App\Queries\Paginate $paginate)
  * @method static \Illuminate\Database\Eloquent\Builder|Role filterResult(\App\Queries\Paginate|\App\Queries\Get|null $result)
  * @method static \Illuminate\Database\Eloquent\Builder|Role filterSearch(?\App\Queries\Search\Search $search, string $boolean = 'and')
  * @method static \Illuminate\Database\Eloquent\Builder|Role filterSearchAttributes(?\App\Queries\Search\Search $search)

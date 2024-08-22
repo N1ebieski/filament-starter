@@ -67,7 +67,7 @@ class AppServiceProvider extends ServiceProvider
             return new \App\Overrides\Illuminate\Bus\Dispatcher($baseDispatcher);
         });
 
-        $this->app->bind(\App\CacheQueries\CacheQueryBusInterface::class, \App\CacheQueries\CacheQueryBus::class);
+        $this->app->bind(\App\CacheQueries\Shared\CacheQueryBusInterface::class, \App\CacheQueries\Shared\CacheQueryBus::class);
 
         $this->app->bind(\App\Http\Clients\ClientBusInterface::class, \App\Http\Clients\ClientBus::class);
 

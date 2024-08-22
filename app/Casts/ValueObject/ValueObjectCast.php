@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Casts\ValueObject;
 
-use App\Casts\Cast;
+use App\Casts\Shared\Cast;
 use App\ValueObjects\ValueObject;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
@@ -30,7 +30,7 @@ final class ValueObjectCast extends Cast implements CastsAttributes
 
         if (!$value instanceof $this->valueObjectName) {
             /** @var ValueObject */
-            $valueObject = $this->valueObjectName::from(['value' => $value]);
+            $valueObject = new ($this->valueObjectName)($value);
         }
 
         return $valueObject;
@@ -51,7 +51,7 @@ final class ValueObjectCast extends Cast implements CastsAttributes
 
         if (!$value instanceof $this->valueObjectName) {
             /** @var ValueObject */
-            $valueObject = $this->valueObjectName::from(['value' => $value]);
+            $valueObject = new ($this->valueObjectName)($value);
         }
 
         return $valueObject->value;

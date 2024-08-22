@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\Facades\Blade;
 use Filament\Widgets\FilamentInfoWidget;
 use Filament\Support\Facades\FilamentView;
-use App\Providers\Filament\PanelServiceProvider;
+use App\Providers\Filament\Shared\PanelServiceProvider;
 use App\Overrides\Jeffgreco13\FilamentBreezy\BreezyCore;
 use App\Http\Middleware\Filament\VerifyEmail\VerifyEmailMiddleware;
 use App\Http\Middleware\Filament\Authenticate\AuthenticateMiddleware;
@@ -56,11 +56,11 @@ final class AdminPanelServiceProvider extends PanelServiceProvider
             ->spa()
             ->renderHook(
                 'panels::head.end',
-                fn (): string => Vite::withEntryPoints(['resources/js/admin.js'])->toHtml()
+                fn (): string => Vite::withEntryPoints(['resources/js/admin/admin.js'])->toHtml()
             )
             ->renderHook(
                 'panels::styles.before',
-                fn (): string => Vite::withEntryPoints(['resources/css/admin.scss'])->toHtml()
+                fn (): string => Vite::withEntryPoints(['resources/css/admin/admin.scss'])->toHtml()
             );
     }
 }

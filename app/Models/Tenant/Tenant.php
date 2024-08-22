@@ -2,7 +2,7 @@
 
 namespace App\Models\Tenant;
 
-use App\Models\Model;
+use App\Models\Shared\Model;
 use Illuminate\Support\Facades\Lang;
 use App\ValueObjects\Tenant\Name\Name;
 use App\Casts\ValueObject\ValueObjectCast;
@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
  * @property-read \App\Models\User\User|null $user
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User\User> $users
  * @property-read int|null $users_count
+ * @method static \Illuminate\Contracts\Pagination\LengthAwarePaginator filterPaginate(\App\Queries\Paginate $paginate)
  * @method static \Illuminate\Database\Eloquent\Builder|Tenant newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Tenant newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Tenant query()

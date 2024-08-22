@@ -1,0 +1,16 @@
+.pulsating-icon {
+    color: darkred;
+    animation: colorPulse 1.5s infinite;
+}
+
+@keyframes colorPulse {
+    0% {
+        color: darkred;
+    }
+    50% {
+        color: red;
+    }
+    100% {
+        color: darkred;
+    }
+}
