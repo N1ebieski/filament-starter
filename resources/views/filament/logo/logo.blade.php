@@ -2,7 +2,12 @@
     $brandName = filament()->getBrandName();
 @endphp
 
-<div class="flex items-center">
+<div 
+    class="flex items-center bambo"
+    x-data
+    x-on:click="$store.sidebar.close()"
+    x-on:pwa:fetched.window="$store.sidebar.close()"
+>
     <img
         alt="{{ __('filament-panels::layout.logo.alt', ['name' => $brandName]) }}"
         src="{{ asset('images/logo.svg') }}"

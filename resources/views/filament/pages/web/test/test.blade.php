@@ -30,7 +30,7 @@
                 x-transition.opacity
                 class="absolute"           
             >
-                Pierwszy Tab
+                fdfds Pierwszy Tab Jest zmiana 2222444
             </div>
             <div 
                 x-show="tab === 'tab2'" 

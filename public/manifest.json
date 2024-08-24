@@ -1,7 +1,7 @@
 {
-  "resources/js/spotlight/spotlight.js": {
-    "file": "js/pxlrbt/filament-spotlight/spotlight-js.js",
+  "resources/js/serviceworker/serviceworker.js": {
+    "file": "serviceworker-pXkLn2vy.js",
     "isEntry": true,
-    "src": "resources/js/spotlight/spotlight.js"
+    "src": "resources/js/serviceworker/serviceworker.js"
   }
 }

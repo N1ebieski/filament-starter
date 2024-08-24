@@ -3,6 +3,7 @@
 /public/build
 /public/hot
 /public/storage
+/public/serviceworker*
 /storage/*.key
 /vendor
 .env
@@ -17,7 +18,9 @@ yarn-error.log
 /.fleet
 /.idea
 /.tinker
+manifest.json
 
 /caddy
 frankenphp
 frankenphp-worker.php
+

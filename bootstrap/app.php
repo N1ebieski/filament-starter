@@ -30,7 +30,8 @@ return Application::configure(basePath: dirname(__DIR__))
         \App\Providers\Filament\AdminPanel\AdminPanelServiceProvider::class,
         \App\Providers\Filament\UserPanel\UserPanelServiceProvider::class,
         \App\Providers\Filament\Spotlight\SpotlightServiceProvider::class,
-        \App\Providers\Spotlight\SpotlightServiceProvider::class
+        \App\Providers\Spotlight\SpotlightServiceProvider::class,
+        \App\Providers\LaravelPWA\LaravelPWAServiceProvider::class,
     ])
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (Throwable $e) {

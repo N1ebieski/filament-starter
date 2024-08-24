@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "392140d44c4f54e400fc9038175e109f",
+    "content-hash": "aa0b6d8a6f83926b38bc385c2b33ca20",
     "packages": [
         {
             "name": "afatmustafa/blade-hugeicons",
@@ -5220,6 +5220,61 @@
             "time": "2024-04-12T21:02:21+00:00"
         },
         {
+            "name": "motomedialab/laravel-vite-helper",
+            "version": "v1.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/motomedialab/laravel-vite-helper.git",
+                "reference": "f30d1397addac2133a6d38d1ce30f3045bb7973a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/motomedialab/laravel-vite-helper/zipball/f30d1397addac2133a6d38d1ce30f3045bb7973a",
+                "reference": "f30d1397addac2133a6d38d1ce30f3045bb7973a",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^8.0|^9.0|^10.0|^11.0",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.5",
+                "orchestra/testbench": "^6.0|^7.0|^8.0|^9.0",
+                "phpunit/phpunit": "^8.5.8|^9.5.21|^10.0.7|^10.5|^11.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Motomedialab\\LaravelViteHelper\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Chris Page",
+                    "email": "chris@motocom.co.uk",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A helper method to generate absolute asset URL's to Vite assets",
+            "homepage": "https://github.com/motomedialab/laravel-vite-helper",
+            "keywords": [
+                "laravel-vite-helper",
+                "motomedialab"
+            ],
+            "support": {
+                "issues": "https://github.com/motomedialab/laravel-vite-helper/issues",
+                "source": "https://github.com/motomedialab/laravel-vite-helper/tree/v1.7.0"
+            },
+            "time": "2024-03-14T20:01:25+00:00"
+        },
+        {
             "name": "nesbot/carbon",
             "version": "3.5.0",
             "source": {
@@ -8044,6 +8099,56 @@
                 }
             ],
             "time": "2024-02-26T18:08:49+00:00"
+        },
+        {
+            "name": "silviolleite/laravelpwa",
+            "version": "2.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/silviolleite/laravel-pwa.git",
+                "reference": "5f7135d2ee870af01793c9fdf6b1b932b546e20e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/silviolleite/laravel-pwa/zipball/5f7135d2ee870af01793c9fdf6b1b932b546e20e",
+                "reference": "5f7135d2ee870af01793c9fdf6b1b932b546e20e",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "LaravelPWA\\Providers\\LaravelPWAServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "LaravelPWA\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Silvio Luis Leite",
+                    "email": "silviolleite@gmail.com"
+                }
+            ],
+            "description": "Looks like an app, feels like an app, but NOT an app.",
+            "keywords": [
+                "laravel",
+                "php",
+                "progressive web apps",
+                "pwa"
+            ],
+            "support": {
+                "issues": "https://github.com/silviolleite/laravel-pwa/issues",
+                "source": "https://github.com/silviolleite/laravel-pwa/tree/2.0.3"
+            },
+            "time": "2020-08-20T12:19:16+00:00"
         },
         {
             "name": "spatie/color",

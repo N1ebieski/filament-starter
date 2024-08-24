@@ -16,6 +16,7 @@ export default defineConfig({
                 "resources/css/web/web.scss",
                 "resources/css/user/user.scss",
                 "resources/css/admin/admin.scss",
+                "resources/js/web/web.js",
                 "resources/js/admin/admin.js",
             ],
             refresh: true,

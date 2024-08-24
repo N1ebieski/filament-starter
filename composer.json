@@ -20,8 +20,10 @@
         "laravel/reverb": "@beta",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
+        "motomedialab/laravel-vite-helper": "^1.7",
         "opcodesio/log-viewer": "^3.10",
         "pxlrbt/filament-spotlight": "^1.2",
+        "silviolleite/laravelpwa": "^2.0",
         "spatie/laravel-data": "^4.7",
         "spatie/laravel-permission": "^6.6"
     },

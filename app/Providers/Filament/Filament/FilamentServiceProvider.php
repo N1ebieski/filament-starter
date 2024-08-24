@@ -18,8 +18,13 @@ final class FilamentServiceProvider extends ServiceProvider
     public function boot(): void
     {
         FilamentView::registerRenderHook(
+            'panels::head.end',
+            fn (): string => Blade::render('@laravelPWA')
+        );
+
+        FilamentView::registerRenderHook(
             'panels::global-search.before',
-            fn (): string => Blade::render('<livewire:topbar.offline-state.offline-state-component />')
+            fn (): string => Blade::render('<x-topbar.offline-state.offline-state-component />')
         );
 
         FilamentView::registerRenderHook(
