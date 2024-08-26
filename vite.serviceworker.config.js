@@ -3,7 +3,7 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
     build: {
-        manifest: "manifest.json",
+        manifest: false,
         outDir: "public",
         emptyOutDir: false,
         rollupOptions: {
@@ -14,7 +14,7 @@ export default defineConfig({
                 ),
             },
             output: {
-                entryFileNames: "serviceworker-[hash].js",
+                entryFileNames: "serviceworker.js",
             },
         },
     },
