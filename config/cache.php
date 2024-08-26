@@ -89,6 +89,14 @@ return [
             'driver' => 'octane',
         ],
 
+        // Custom stores
+
+        'testing' => [
+            'driver' => 'redis',
+            'connection' => 'testing',
+            'lock_connection' => 'testing',
+        ],
+
     ],
 
     /*

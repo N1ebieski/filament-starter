@@ -18,6 +18,9 @@ class EventServiceProvider extends ServiceProvider
         \Illuminate\Auth\Events\Registered::class => [
             \Illuminate\Auth\Listeners\SendEmailVerificationNotification::class,
         ],
+        \Illuminate\Queue\Events\JobRetryRequested::class => [
+            \App\Listeners\Queue\Retry\RetryListener::class
+        ]
     ];
 
     /**
