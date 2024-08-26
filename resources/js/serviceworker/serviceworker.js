@@ -33,20 +33,21 @@ const staticFilesToCache = [
     "https://fonts.bunny.net/inter/files/inter-latin-ext-600-normal.woff2",
     "https://fonts.bunny.net/inter/files/inter-latin-ext-400-normal.woff2",
 ];
+
 const regexToCache = /\.(js|css|png|svg|woff2|json)(?:\?v=.*)?$/;
 
 async function downloadCache() {
-    await fetch("/api/pwa/files")
-        .then((response) => response.json())
-        .then(async (response) => {
-            const files = response.data;
+    await fetch("/api/pwa/files").then(async (response) => {
+        const json = await response.json();
 
-            const filesToCache = staticFilesToCache.concat(files);
+        const files = json.data;
 
-            caches
-                .open(staticCacheName)
-                .then((cache) => cache.addAll(filesToCache));
-        });
+        const filesToCache = staticFilesToCache.concat(files);
+
+        caches
+            .open(staticCacheName)
+            .then((cache) => cache.addAll(filesToCache));
+    });
 }
 
 async function clearCache() {

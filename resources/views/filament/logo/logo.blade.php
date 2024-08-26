@@ -3,10 +3,20 @@
 @endphp
 
 <div 
-    class="flex items-center bambo"
+    class="flex items-center"
     x-data
+    x-init="
+        const sidebar = document.querySelector('.fi-sidebar');
+
+        sidebar.classList.remove('hidden');        
+    "
     x-on:click="$store.sidebar.close()"
     x-on:pwa:fetched.window="$store.sidebar.close()"
+    x-on:livewire:navigating.window="
+        const sidebar = document.querySelector('.fi-sidebar');
+
+        sidebar.classList.add('hidden');
+    "
 >
     <img
         alt="{{ __('filament-panels::layout.logo.alt', ['name' => $brandName]) }}"
