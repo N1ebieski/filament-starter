@@ -7,7 +7,7 @@
     x-data
     x-init="
         const sidebar = document.querySelector('.fi-sidebar');
-
+        
         sidebar.classList.remove('hidden');        
     "
     x-on:click="$store.sidebar.close()"

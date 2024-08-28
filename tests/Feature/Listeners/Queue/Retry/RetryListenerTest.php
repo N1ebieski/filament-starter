@@ -23,6 +23,12 @@ class RetryListenerTest extends TestCase
         Config::set('queue.default', 'database');
     }
 
+
+    /**
+     * Test that a job that implements RetryInterface, can make use of the retried method.
+     *
+     * @return void
+     */
     public function test_job_with_retried(): void
     {
         $job = new ExampleWithRetriedJob();

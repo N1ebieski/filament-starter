@@ -19,6 +19,11 @@ final class PWAService
     ) {
     }
 
+    /**
+     * Retrieves all assets required for a PWA implementation.
+     *
+     * @return array<string>
+     */
     public function getAssets(): array
     {
         $pipes = $this->container->makeMany([

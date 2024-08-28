@@ -77,29 +77,31 @@ self.addEventListener("activate", (event) => {
 
 self.addEventListener("fetch", async (event) => {
     const online = navigator.onLine;
+    const url = event.request.url;
 
     const response = caches.match(event.request).then((cacheResponse) => {
         if (cacheResponse) {
             return cacheResponse;
         }
 
+        if (event.clientId) {
+            self.clients.get(event.clientId).then((client) => {
+                client.postMessage({
+                    type: "pwa:fetching",
+                    url: url,
+                });
+            });
+        }
+
         return fetch(event.request)
             .then((networkResponse) => {
                 const match =
                     staticFilesToCache.some((file) => {
-                        const url = new URL(event.request.url);
+                        const url = new URL(url);
                         const path = url.pathname;
 
-                        if (typeof file === "string") {
-                            return file === path;
-                        }
-
-                        if (file instanceof RegExp) {
-                            return file.test(path);
-                        }
-
-                        return false;
-                    }) || regexToCache.test(event.request.url);
+                        return file === path;
+                    }) || regexToCache.test(url);
 
                 if (
                     match &&
@@ -126,17 +128,15 @@ self.addEventListener("fetch", async (event) => {
     if (!online) {
         event.respondWith(response);
 
-        if (!event.clientId) return;
-
-        const client = await self.clients.get(event.clientId);
-
-        if (!client) return;
-
-        setTimeout(() => {
-            client.postMessage({
-                type: "pwa:fetched",
-                url: event.request.url,
+        if (event.clientId) {
+            self.clients.get(event.clientId).then((client) => {
+                setTimeout(() => {
+                    client.postMessage({
+                        type: "pwa:fetched",
+                        url: url,
+                    });
+                }, 50);
             });
-        }, 51);
+        }
     }
 });

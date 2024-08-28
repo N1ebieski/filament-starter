@@ -13,14 +13,9 @@
                 'dark' => 'heroicon-m-moon',
                 'system' => 'heroicon-m-computer-desktop'
             ] as $theme => $icon)
-                @php
-                    $label = __("filament-panels::layout.actions.theme_switcher.{$theme}.label");
-                @endphp
-
                 <x-filament::icon-button
                     :icon="$icon"
-                    color="gray"
-                    :tooltip="$label"  
+                    color="gray"  
                     x-show="theme === '{{ $theme }}'"
                     x-cloak
                 />
