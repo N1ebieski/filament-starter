@@ -4,19 +4,9 @@
 
 <div 
     class="flex items-center"
-    x-data
-    x-init="
-        const sidebar = document.querySelector('.fi-sidebar');
-        
-        sidebar.classList.remove('hidden');        
-    "
+    @if(!isset($this) || !$this instanceof \Filament\Pages\SimplePage)
     x-on:click="$store.sidebar.close()"
-    x-on:pwa:fetched.window="$store.sidebar.close()"
-    x-on:livewire:navigating.window="
-        const sidebar = document.querySelector('.fi-sidebar');
-
-        sidebar.classList.add('hidden');
-    "
+    @endif
 >
     <img
         alt="{{ __('filament-panels::layout.logo.alt', ['name' => $brandName]) }}"
@@ -24,7 +14,12 @@
         class="fi-logo mr-4 dark:logo"
         style="height: 2rem;"
     />
-    <div class="lg:hidden xl:block text-xl font-bold leading-5 tracking-tight text-gray-950 dark:text-white">
+    <div 
+        @class([
+            'text-xl font-bold leading-5 tracking-tight text-gray-950 dark:text-white',
+            'lg:hidden xl:block' => !isset($this) || !$this instanceof \Filament\Pages\SimplePage,
+        ])        
+    >
         {{ $brandName }}
     </div>
 </div>

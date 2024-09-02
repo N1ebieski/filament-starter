@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Providers\Filament\WebPanel;
 
 use Filament\Panel;
+use Filament\View\PanelsRenderHook;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\Facades\Blade;
 use Filament\Widgets\FilamentInfoWidget;
-use Filament\Support\Facades\FilamentView;
 use App\Filament\Pages\Web\MyProfile\MyProfilePage;
 use App\Providers\Filament\Shared\PanelServiceProvider;
 use App\Overrides\Jeffgreco13\FilamentBreezy\BreezyCore;
@@ -53,15 +53,15 @@ final class WebPanelServiceProvider extends PanelServiceProvider
             ->topNavigation()
             ->spa()
             ->renderHook(
-                'panels::styles.before',
+                PanelsRenderHook::STYLES_BEFORE,
                 fn (): string => Vite::withEntryPoints(['resources/css/web/web.scss'])->toHtml()
             )
             ->renderHook(
-                'panels::head.end',
+                PanelsRenderHook::HEAD_END,
                 fn (): string => Vite::withEntryPoints(['resources/js/web/web.js'])->toHtml()
-            )            
+            )
             ->renderHook(
-                'panels::topbar.end',
+                PanelsRenderHook::TOPBAR_END,
                 fn (): string => Blade::render('<x-web.topbar.login-button.login-button-component />')
             );
     }

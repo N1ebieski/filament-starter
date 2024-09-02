@@ -6,6 +6,7 @@ namespace App\Providers\Filament\UserPanel;
 
 use Filament\Panel;
 use App\Models\Tenant\Tenant;
+use Filament\View\PanelsRenderHook;
 use Filament\Widgets\AccountWidget;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Vite;
@@ -65,7 +66,7 @@ final class UserPanelServiceProvider extends PanelServiceProvider
             ])
             ->spa()
             ->renderHook(
-                'panels::styles.before',
+                PanelsRenderHook::STYLES_BEFORE,
                 fn (): string => Vite::withEntryPoints(['resources/css/user/user.scss'])->toHtml()
             );
     }

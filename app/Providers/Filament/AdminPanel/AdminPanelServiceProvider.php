@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Providers\Filament\AdminPanel;
 
 use Filament\Panel;
+use Filament\View\PanelsRenderHook;
 use Filament\Widgets\AccountWidget;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Vite;
@@ -55,11 +56,11 @@ final class AdminPanelServiceProvider extends PanelServiceProvider
             ->databaseNotificationsPolling(null)
             ->spa()
             ->renderHook(
-                'panels::head.end',
+                PanelsRenderHook::HEAD_END,
                 fn (): string => Vite::withEntryPoints(['resources/js/admin/admin.js'])->toHtml()
             )
             ->renderHook(
-                'panels::styles.before',
+                PanelsRenderHook::STYLES_BEFORE,
                 fn (): string => Vite::withEntryPoints(['resources/css/admin/admin.scss'])->toHtml()
             );
     }

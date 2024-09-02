@@ -12,7 +12,7 @@
     ])
 >
     <head>
-        {{ \Filament\Support\Facades\FilamentView::renderHook('panels::head.start') }}
+        {{ \Filament\Support\Facades\FilamentView::renderHook(\Filament\View\PanelsRenderHook::HEAD_START, scopes: $livewire->getRenderHookScopes()) }}
 
         <meta charset="utf-8" />
         <meta name="csrf-token" content="{{ csrf_token() }}" />
@@ -23,13 +23,17 @@
         @endif
 
         @if (!$livewire instanceof \App\Filament\Pages\MetaInterface)
-        <title>
-            {{ filled($title = strip_tags(($livewire ?? null)?->getTitle() ?? '')) ? "{$title} - " : null }}
-            {{ filament()->getBrandName() }}
-        </title>
+            @php
+                $title = strip_tags(($livewire ?? null)?->getTitle() ?? '');
+                $brandName = strip_tags(filament()->getBrandName());
+            @endphp
+
+            <title>
+                {{ filled($title) ? "{$title} - " : null }} {{ $brandName }}
+            </title>
         @endif
 
-        {{ \Filament\Support\Facades\FilamentView::renderHook('panels::styles.before') }}
+        {{ \Filament\Support\Facades\FilamentView::renderHook(\Filament\View\PanelsRenderHook::STYLES_BEFORE, scopes: $livewire->getRenderHookScopes()) }}
 
         <style>
             [x-cloak=''],
@@ -61,32 +65,13 @@
                 --font-family: '{!! filament()->getFontFamily() !!}';
                 --sidebar-width: {{ filament()->getSidebarWidth() }};
                 --collapsed-sidebar-width: {{ filament()->getCollapsedSidebarWidth() }};
+                --default-theme-mode: {{ filament()->getDefaultThemeMode()->value }};
             }
         </style>
 
         @stack('styles')
 
-        {{ \Filament\Support\Facades\FilamentView::renderHook('panels::styles.after') }}
-
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                setTimeout(() => {
-                    const activeSidebarItem = document.querySelector('.fi-sidebar-item-active')
-
-                    if (! activeSidebarItem) {
-                        return
-                    }
-                    
-                    const sidebarWrapper = document.querySelector('.fi-sidebar-nav')
-
-                    if (! sidebarWrapper) {
-                        return
-                    }
-
-                    sidebarWrapper.scrollTo(0, activeSidebarItem.offsetTop - (window.innerHeight / 2))
-                }, 0)
-            })
-        </script>
+        {{ \Filament\Support\Facades\FilamentView::renderHook(\Filament\View\PanelsRenderHook::STYLES_AFTER, scopes: $livewire->getRenderHookScopes()) }}
 
         @if (! filament()->hasDarkMode())
             <script>
@@ -111,31 +96,29 @@
             </script>
         @endif
 
-        {{ \Filament\Support\Facades\FilamentView::renderHook('panels::head.end') }}
+        {{ \Filament\Support\Facades\FilamentView::renderHook(\Filament\View\PanelsRenderHook::HEAD_END, scopes: $livewire->getRenderHookScopes()) }}
     </head>
 
     <body
-        {{
-            $attributes
+        {{ $attributes
                 ->merge(($livewire ?? null)?->getExtraBodyAttributes() ?? [], escape: false)
                 ->class([
                     'fi-body',
                     'fi-panel-' . filament()->getId(),
                     'min-h-screen bg-gray-50 font-normal text-gray-950 antialiased dark:bg-gray-950 dark:text-white',
-                ])
-        }}
+                ]) }}
     >
-        {{ \Filament\Support\Facades\FilamentView::renderHook('panels::body.start') }}
+        {{ \Filament\Support\Facades\FilamentView::renderHook(\Filament\View\PanelsRenderHook::BODY_START, scopes: $livewire->getRenderHookScopes()) }}
 
         {{ $slot }}
 
         @livewire(Filament\Livewire\Notifications::class)
 
-        {{ \Filament\Support\Facades\FilamentView::renderHook('panels::scripts.before') }}
+        {{ \Filament\Support\Facades\FilamentView::renderHook(\Filament\View\PanelsRenderHook::SCRIPTS_BEFORE, scopes: $livewire->getRenderHookScopes()) }}
 
         @filamentScripts(withCore: true)
 
-        @if (config('filament.broadcasting.echo'))
+        @if (filament()->hasBroadcasting() && config('filament.broadcasting.echo'))
             <script data-navigate-once>
                 window.Echo = new window.EchoFactory(@js(config('filament.broadcasting.echo')))
 
@@ -145,8 +128,8 @@
 
         @stack('scripts')
 
-        {{ \Filament\Support\Facades\FilamentView::renderHook('panels::scripts.after') }}
+        {{ \Filament\Support\Facades\FilamentView::renderHook(\Filament\View\PanelsRenderHook::SCRIPTS_AFTER, scopes: $livewire->getRenderHookScopes()) }}
 
-        {{ \Filament\Support\Facades\FilamentView::renderHook('panels::body.end') }}
+        {{ \Filament\Support\Facades\FilamentView::renderHook(\Filament\View\PanelsRenderHook::BODY_END, scopes: $livewire->getRenderHookScopes()) }}
     </body>
 </html>
