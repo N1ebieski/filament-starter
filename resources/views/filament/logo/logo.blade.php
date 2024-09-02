@@ -25,7 +25,12 @@
     </div>
 </div>
 @if($isSidebar)
-<div class="absolute end-4 top-6 lg:hidden">
+<div 
+    class="absolute end-4 top-6"
+    x-data
+    x-cloak
+    x-show="$store.sidebar.isOpen"
+>
     <x-filament::icon-button
         color="gray"
         icon="heroicon-o-x-mark"
