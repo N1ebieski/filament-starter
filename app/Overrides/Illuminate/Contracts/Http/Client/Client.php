@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Overrides\Illuminate\Contracts\Http\Client;
 
-interface PendingRequest
+interface Client
 {
     /**
      * Toggle asynchronicity in requests.
@@ -24,6 +24,17 @@ interface PendingRequest
      * @throws \Illuminate\Http\Client\ConnectionException
      */
     public function get(string $url, $query = null);
+
+    /**
+     * Issue a POST request to the given URL.
+     *
+     * @param  string  $url
+     * @param  array  $data
+     * @return \Illuminate\Http\Client\Response
+     *
+     * @throws \Illuminate\Http\Client\ConnectionException
+     */
+    public function post(string $url, array $data = []);
 
     /**
      * Send the request to the given URL.

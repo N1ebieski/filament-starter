@@ -6,8 +6,8 @@ namespace App\Overrides\Illuminate\Http\Client;
 
 use Illuminate\Http\Client\Factory as BaseFactory;
 use App\Overrides\Illuminate\Http\Client\PendingRequest;
+use App\Overrides\Illuminate\Contracts\Http\Client\Client;
 use App\Overrides\Illuminate\Contracts\Http\Client\Factory as ClientFactory;
-use App\Overrides\Illuminate\Contracts\Http\Client\PendingRequest as PendingRequestContract;
 
 final class Factory implements ClientFactory
 {
@@ -15,7 +15,7 @@ final class Factory implements ClientFactory
     {
     }
 
-    public function request(): PendingRequestContract
+    public function request(): Client
     {
         $request = $this->factory->createPendingRequest();
 

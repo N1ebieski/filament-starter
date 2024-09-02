@@ -9,11 +9,11 @@ interface ClientBusInterface
     /**
      * @return AsyncResponse|Response
      */
-    public function execute(Client $query);
+    public function execute(Client $client);
 
     /**
-     * @param array<int|string, Client> $queries
+     * @param array<int|string, Client> $clients
      * @return array<Response>
      */
-    public function executeMany(array $queries): array;
+    public function executeMany(array $clients): array;
 }
