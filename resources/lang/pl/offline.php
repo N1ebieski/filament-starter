@@ -1,5 +1,11 @@
 <?php
 
 return [
-    'offline_mode' => 'Tryb offline'
+    'pages' => [
+        'offline' => [
+            'title' => 'Jesteś w trybie offline'
+        ]
+    ],
+    'back_to' => 'wróc na',
+    'previous_page' => 'poprzednią stronę',
 ];
