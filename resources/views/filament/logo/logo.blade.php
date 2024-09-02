@@ -23,3 +23,17 @@
         {{ $brandName }}
     </div>
 </div>
+@if(!isset($this) || !$this instanceof \Filament\Pages\SimplePage)
+<div class="absolute end-4 top-6 lg:hidden">
+    <x-filament::icon-button
+        color="gray"
+        icon="heroicon-o-x-mark"
+        icon-alias="sidebar.close-button"
+        icon-size="lg"
+        :label="__('filament::components/modal.actions.close.label')"
+        tabindex="-1"
+        x-on:click.prevent="$store.sidebar.close()"
+        class="fi-modal-close-btn"
+    />
+</div>
+@endif
