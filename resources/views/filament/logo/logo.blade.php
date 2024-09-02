@@ -1,10 +1,11 @@
 @php
     $brandName = filament()->getBrandName();
+    $isSidebar = !isset($this) || !$this instanceof \Filament\Pages\SimplePage;
 @endphp
 
 <div 
     class="flex items-center"
-    @if(!isset($this) || !$this instanceof \Filament\Pages\SimplePage)
+    @if($isSidebar)
     x-on:click="$store.sidebar.close()"
     @endif
 >
@@ -17,13 +18,13 @@
     <div 
         @class([
             'text-xl font-bold leading-5 tracking-tight text-gray-950 dark:text-white',
-            'lg:hidden xl:block' => !isset($this) || !$this instanceof \Filament\Pages\SimplePage,
+            'lg:hidden xl:block' => $isSidebar,
         ])        
     >
         {{ $brandName }}
     </div>
 </div>
-@if(!isset($this) || !$this instanceof \Filament\Pages\SimplePage)
+@if($isSidebar)
 <div class="absolute end-4 top-6 lg:hidden">
     <x-filament::icon-button
         color="gray"
