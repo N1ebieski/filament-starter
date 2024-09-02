@@ -1,8 +1,10 @@
+const version = "1.0.1";
 const staticCacheName = "pwa-v" + new Date().getTime();
 
 const staticFilesToCache = [
     "/",
     "/test",
+    "/offline",
     "/pwa-manifest.json",
     "/images/logo.svg",
     "/images/icons/icon-72x72.png",
@@ -30,11 +32,22 @@ const staticFilesToCache = [
     "https://fonts.bunny.net/inter/files/inter-latin-500-normal.woff2",
     "https://fonts.bunny.net/inter/files/inter-latin-400-normal.woff2",
     "https://fonts.bunny.net/inter/files/inter-latin-600-normal.woff2",
+    "https://fonts.bunny.net/inter/files/inter-latin-ext-700-normal.woff2",
     "https://fonts.bunny.net/inter/files/inter-latin-ext-600-normal.woff2",
     "https://fonts.bunny.net/inter/files/inter-latin-ext-400-normal.woff2",
 ];
 
 const regexToCache = /\.(js|css|png|svg|woff2|json)(?:\?v=.*)?$/;
+
+function getOfflinePage() {
+    return (
+        caches.match("offline") ||
+        new Response("Offline", {
+            status: 503,
+            statusText: "Offline",
+        })
+    );
+}
 
 async function downloadCache() {
     await fetch("/api/pwa/files").then(async (response) => {
@@ -84,45 +97,40 @@ self.addEventListener("fetch", async (event) => {
             return cacheResponse;
         }
 
-        if (event.clientId) {
-            self.clients.get(event.clientId).then((client) => {
-                client.postMessage({
-                    type: "pwa:fetching",
-                    url: url,
+        const match =
+            staticFilesToCache.some((file) => {
+                const realUrl = new URL(url);
+                const path = realUrl.pathname;
+
+                return file === path;
+            }) || regexToCache.test(url);
+
+        if (match) {
+            if (event.clientId) {
+                self.clients.get(event.clientId).then((client) => {
+                    client.postMessage({
+                        type: "pwa:fetching",
+                        url: url,
+                    });
                 });
-            });
+            }
+
+            return fetch(event.request)
+                .then((networkResponse) => {
+                    if (networkResponse && networkResponse.status === 200) {
+                        const responseClone = networkResponse.clone();
+
+                        caches.open(staticCacheName).then((cache) => {
+                            cache.put(event.request, responseClone);
+                        });
+                    }
+
+                    return networkResponse;
+                })
+                .catch(() => getOfflinePage());
         }
 
-        return fetch(event.request)
-            .then((networkResponse) => {
-                const match =
-                    staticFilesToCache.some((file) => {
-                        const url = new URL(url);
-                        const path = url.pathname;
-
-                        return file === path;
-                    }) || regexToCache.test(url);
-
-                if (
-                    match &&
-                    networkResponse &&
-                    networkResponse.status === 200
-                ) {
-                    const responseClone = networkResponse.clone();
-
-                    caches.open(staticCacheName).then((cache) => {
-                        cache.put(event.request, responseClone);
-                    });
-                }
-
-                return networkResponse;
-            })
-            .catch(() => {
-                return new Response("Offline", {
-                    status: 503,
-                    statusText: "Offline",
-                });
-            });
+        return getOfflinePage();
     });
 
     if (!online) {
