@@ -12,6 +12,20 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->app->bind(\App\Overrides\Illuminate\Contracts\Http\Client\PendingRequest::class, function (Application $app) {
+            /** @var \App\Overrides\Illuminate\Contracts\Http\Client\Factory */
+            $factory = $app->make(\App\Overrides\Illuminate\Contracts\Http\Client\Factory::class);
+
+            return $factory->request();
+        });
+
+        $this->app->bind(\App\Overrides\Illuminate\Contracts\Http\Client\Factory::class, function (Application $app) {
+            /** @var \Illuminate\Http\Client\Factory */
+            $factory = $app->make(\Illuminate\Http\Client\Factory::class);
+
+            return new \App\Overrides\Illuminate\Http\Client\Factory($factory);
+        });
+
         $this->app->bind(\Illuminate\Contracts\Pipeline\Pipeline::class, \Illuminate\Pipeline\Pipeline::class);
 
         $this->app->scoped(\App\Overrides\Illuminate\Contracts\Container\Container::class, function (Application $app) {

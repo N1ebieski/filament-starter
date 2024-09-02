@@ -20,8 +20,8 @@ final class Container implements ContainerContract
     {
         $objects = new Collection();
 
-        foreach ($abstracts as $abstract) {
-            $objects->push($this->baseContainer->make($abstract, $parameters));
+        foreach ($abstracts as $key => $abstract) {
+            $objects->put($key, $this->baseContainer->make($abstract, $parameters));
         }
 
         return $objects->toArray();

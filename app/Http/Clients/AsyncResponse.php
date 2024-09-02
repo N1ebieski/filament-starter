@@ -10,7 +10,7 @@ final class AsyncResponse
 {
     public function __construct(
         public readonly PromiseInterface $promise,
-        public readonly ?Response $response = null
+        public ?Response $response = null
     ) {
     }
 }
