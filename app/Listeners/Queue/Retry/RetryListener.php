@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Listeners\Queue\Retry;
 
-use App\Services\Queue\JobFactory;
+use App\Listeners\Queue\JobFactory;
 use App\Support\Queue\RetryInterface;
 use Illuminate\Queue\Events\JobRetryRequested;
 
@@ -32,7 +32,7 @@ final class RetryListener
             return;
         }
 
-        $job = $this->jobFactory->makeJobFromCommand($payload['data']['command']);
+        $job = $this->jobFactory->makeJob($payload['data']['command']);
 
         if ($job instanceof RetryInterface) {
             $job->retried();

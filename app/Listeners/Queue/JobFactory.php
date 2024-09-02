@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Services\Queue;
+namespace App\Listeners\Queue;
 
 use Illuminate\Contracts\Encryption\Encrypter;
 
@@ -19,7 +19,7 @@ final class JobFactory
      *
      * @return mixed The job corresponding to the command data.
      */
-    public function makeJobFromCommand(string $command): mixed
+    public function makeJob(string $command): mixed
     {
         if (str_starts_with($command, 'O:')) {
             return unserialize($command);
