@@ -23,7 +23,7 @@ class CollectionOfModelsCast implements Cast
     }
 
     /**
-     * @param array<int> $value
+     * @param array<int>|array<Model> $value
      */
     public function cast(DataProperty $property, mixed $value, array $properties, CreationContext $context): mixed
     {

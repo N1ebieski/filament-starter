@@ -13,7 +13,7 @@ use Spatie\LaravelData\Support\Creation\CreationContext;
 class OrderByCast implements Cast
 {
     /**
-     * @param string|null $value
+     * @param OrderBy|string|null $value
      */
     public function cast(DataProperty $property, mixed $value, array $properties, CreationContext $context): mixed
     {

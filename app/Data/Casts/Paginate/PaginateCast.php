@@ -12,7 +12,7 @@ use Spatie\LaravelData\Support\Creation\CreationContext;
 class PaginateCast implements Cast
 {
     /**
-     * @param int|null $value
+     * @param Paginate|int|null $value
      */
     public function cast(DataProperty $property, mixed $value, array $properties, CreationContext $context): mixed
     {

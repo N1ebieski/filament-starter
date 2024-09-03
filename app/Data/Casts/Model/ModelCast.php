@@ -22,11 +22,11 @@ class ModelCast implements Cast
     }
 
     /**
-     * @param string|null $value
+     * @param Model|string|int|null $value
      */
     public function cast(DataProperty $property, mixed $value, array $properties, CreationContext $context): mixed
     {
-        if (!is_null($value)) {
+        if (!is_null($value) && !$value instanceof $this->model) {
             return $this->model->newQuery()
                 ->whereKey($value)
                 ->first();

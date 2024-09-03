@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Data\Casts\Enum;
 
 use Spatie\LaravelData\Casts\Cast;
+use App\Support\Enum\EnumInterface;
 use App\Support\Enum\FromBoolInterface;
 use Spatie\LaravelData\Support\DataProperty;
 use Spatie\LaravelData\Support\Creation\CreationContext;
@@ -16,7 +17,7 @@ class EnumCast implements Cast
     }
 
     /**
-     * @param string|bool|null $value
+     * @param EnumInterface|string|bool|null $value
      */
     public function cast(DataProperty $property, mixed $value, array $properties, CreationContext $context): mixed
     {
@@ -27,6 +28,10 @@ class EnumCast implements Cast
             return $this->enumName::fromBool($value);
         }
 
-        return $this->enumName::tryFrom($value);
+        if (is_string($value)) {
+            return $this->enumName::from($value);
+        }
+
+        return $value;
     }
 }
