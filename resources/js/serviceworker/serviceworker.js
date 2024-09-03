@@ -39,16 +39,6 @@ const staticFilesToCache = [
 
 const regexToCache = /\.(js|css|png|svg|woff2|json)(?:\?v=.*)?$/;
 
-function getOfflinePage() {
-    return (
-        caches.match("offline") ||
-        new Response("Offline", {
-            status: 503,
-            statusText: "Offline",
-        })
-    );
-}
-
 async function downloadCache() {
     await fetch("/api/pwa/files").then(async (response) => {
         const json = await response.json();
@@ -115,22 +105,26 @@ self.addEventListener("fetch", async (event) => {
                 });
             }
 
-            return fetch(event.request)
-                .then((networkResponse) => {
-                    if (networkResponse && networkResponse.status === 200) {
-                        const responseClone = networkResponse.clone();
+            return fetch(event.request).then((networkResponse) => {
+                if (networkResponse && networkResponse.status === 200) {
+                    const responseClone = networkResponse.clone();
 
-                        caches.open(staticCacheName).then((cache) => {
-                            cache.put(event.request, responseClone);
-                        });
-                    }
+                    caches.open(staticCacheName).then((cache) => {
+                        cache.put(event.request, responseClone);
+                    });
+                }
 
-                    return networkResponse;
-                })
-                .catch(() => getOfflinePage());
+                return networkResponse;
+            });
         }
 
-        return getOfflinePage();
+        return (
+            caches.match("offline") ||
+            new Response("Offline", {
+                status: 503,
+                statusText: "Offline",
+            })
+        );
     });
 
     if (!online) {
