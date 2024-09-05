@@ -18,6 +18,7 @@ use Filament\Models\Contracts\FilamentUser;
 use Filament\Notifications\Auth\VerifyEmail;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Shared\HasDatabaseMatchSearchable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use App\ValueObjects\User\StatusEmail\StatusEmail;
 use Fico7489\Laravel\Pivot\Traits\PivotEventTrait;
@@ -94,6 +95,7 @@ class User extends Authenticatable implements FilamentUser, HasTenants, MustVeri
     use Notifiable;
     use PivotEventTrait;
     use TwoFactorAuthenticatable;
+    use HasDatabaseMatchSearchable;
 
     // Configuration
 
@@ -141,21 +143,13 @@ class User extends Authenticatable implements FilamentUser, HasTenants, MustVeri
         'password' => 'hashed',
     ];
 
-    public array $searchable = ['name', 'email'];
+    private array $searchable = ['name', 'email'];
 
-    public array $searchableAttributes = ['id'];
+    private array $searchableAttributes = ['id'];
 
     public function getTenants(Panel $panel): array | Collection
     {
         return $this->tenants;
-    }
-
-    public function toSearchableArray(): array
-    {
-        return [
-            'name' => $this->getRawOriginal('name'),
-            'email' => $this->getRawOriginal('email')
-        ];
     }
 
     /**
@@ -210,7 +204,7 @@ class User extends Authenticatable implements FilamentUser, HasTenants, MustVeri
      */
     public function canAccessTenant(Model $tenant): bool
     {
-        return $tenant->user->id == $this->id;
+        return $tenant->user->id === $this->id;
     }
 
     // Relations

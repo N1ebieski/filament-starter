@@ -7,25 +7,27 @@ namespace App\Scopes;
 use Laravel\Scout\Searchable;
 use Illuminate\Support\Facades\App;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Shared\HasScoutSearchable;
 use App\Queries\SearchBy\SearchByInterface;
 use App\Support\Query\Columns\ColumnsHelper;
 use App\Queries\SearchBy\Drivers\Scout\Scout;
+use App\Models\Shared\HasDatabaseMatchSearchable;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use App\Queries\SearchBy\Drivers\DatabaseMatch\DatabaseMatch;
 
 /**
- * @property array<string> $searchableAttributes
  * @method \Illuminate\Database\Eloquent\Builder|HasSearchScopes filterOrderByDatabaseMatch(App\Queries\SearchBy\Drivers\DatabaseMatch\DatabaseMatch $databaseMatch)
  * @method \Illuminate\Database\Eloquent\Builder|HasSearchScopes filterSearchByScout(App\Queries\SearchBy\Drivers\Scout\Scout $databaseMatch)
  * @method \Illuminate\Database\Eloquent\Builder|HasSearchScopes filterSearchByDatabaseMatch(App\Queries\SearchBy\Drivers\DatabaseMatch\DatabaseMatch $databaseMatch, string $boolean = 'and')
  * @method \Illuminate\Database\Eloquent\Builder|HasSearchScopes filterSearchAttributesByDatabaseMatch(App\Queries\SearchBy\Drivers\DatabaseMatch\DatabaseMatch $databaseMatch)
  * @method \Illuminate\Database\Eloquent\Builder|HasSearchScopes filterOrderByDatabaseMatch(App\Queries\SearchBy\Drivers\DatabaseMatch\DatabaseMatch $databaseMatch)
  * @mixin Model
+ * @mixin Searchable
+ * @mixin HasDatabaseMatchSearchable
+ * @mixin HasScoutSearchable
  */
 trait HasSearchScopes
 {
-    use Searchable;
-
     public function scopeFilterSearchBy(
         Builder|HasSearchScopes $builder,
         ?SearchByInterface $searchBy
@@ -34,7 +36,7 @@ trait HasSearchScopes
             return match (true) {
                 $searchBy instanceof Scout => $builder->filterSearchByScout($searchBy),
 
-                $searchBy instanceof DatabaseMatch => value(function (Builder $builder) use ($searchBy) {
+                $searchBy instanceof DatabaseMatch => value(function (Builder|HasSearchScopes $builder) use ($searchBy) {
                     return $builder->filterSearchByDatabaseMatch($searchBy)
                         ->filterSearchAttributesByDatabaseMatch($searchBy)
                         ->when($searchBy->isOrderBy, function (Builder|HasSearchScopes $builder) use ($searchBy) {
@@ -53,7 +55,7 @@ trait HasSearchScopes
             $attributes = $databaseMatch->attributes;
 
             return $builder->where(function (Builder $builder) use ($attributes) {
-                foreach ($this->searchableAttributes as $attr) {
+                foreach ($this->getSearchableAttributes() as $attr) {
                     $builder = $builder->when(array_key_exists($attr, $attributes), function (Builder $builder) use ($attr, $attributes) {
                         return $builder->where("{$this->getTable()}.{$attr}", $attributes[$attr]);
                     });
@@ -82,7 +84,7 @@ trait HasSearchScopes
 
             $table = $this->getTable();
 
-            $columns = $columnsHelper->getColumnsWithTablePrefix($this->searchable, $table);
+            $columns = $columnsHelper->getColumnsWithTablePrefix($this->getSearchable(), $table);
 
             $builder = $builder->whereRaw(
                 "MATCH ({$columnsHelper->getColumnsAsString($columns)}) AGAINST (? IN BOOLEAN MODE)",
@@ -109,7 +111,7 @@ trait HasSearchScopes
 
             $table = $this->getTable();
 
-            $columns = $columnsHelper->getColumnsWithTablePrefix($this->searchable, $table);
+            $columns = $columnsHelper->getColumnsWithTablePrefix($this->getSearchable(), $table);
 
             foreach ($columns as $column) {
                 $builder = $builder->orderByRaw("{$columnsHelper->getColumnWithSnakes($column . '_relevance')} DESC");

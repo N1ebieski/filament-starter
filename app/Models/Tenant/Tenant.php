@@ -2,7 +2,7 @@
 
 namespace App\Models\Tenant;
 
-use App\Models\Shared\Model;
+use App\Models\Model;
 use Illuminate\Support\Facades\Lang;
 use App\ValueObjects\Tenant\Name\Name;
 use App\Casts\ValueObject\ValueObjectCast;
@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property \App\ValueObjects\Tenant\Name\Name $name

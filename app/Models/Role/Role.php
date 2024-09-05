@@ -11,6 +11,7 @@ use Database\Factories\Role\RoleFactory;
 use App\Casts\ValueObject\ValueObjectCast;
 use Spatie\Permission\PermissionRegistrar;
 use Spatie\Permission\Models\Role as BaseRole;
+use App\Models\Shared\HasDatabaseMatchSearchable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -50,6 +51,7 @@ final class Role extends BaseRole
 {
     use HasFactory;
     use HasRoleScopes;
+    use HasDatabaseMatchSearchable;
 
     // Configuration
 
@@ -76,9 +78,9 @@ final class Role extends BaseRole
         'updated_at' => 'datetime',
     ];
 
-    public array $searchable = ['name'];
+    private array $searchable = ['name'];
 
-    public array $searchableAttributes = ['id'];
+    private array $searchableAttributes = ['id'];
 
     /**
      * Create a new factory instance for the model.
@@ -86,13 +88,6 @@ final class Role extends BaseRole
     protected static function newFactory(): RoleFactory
     {
         return RoleFactory::new();
-    }
-
-    public function toSearchableArray(): array
-    {
-        return [
-            'name' => $this->getRawOriginal('name'),
-        ];
     }
 
     // Relations
