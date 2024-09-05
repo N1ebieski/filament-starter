@@ -2,24 +2,25 @@
 
 declare(strict_types=1);
 
-namespace App\Queries\SearchBy;
+namespace App\Queries\SearchBy\Drivers\DatabaseMatch;
 
 use Illuminate\Support\Facades\App;
-use App\Queries\SearchBy\DatabaseMatch;
-use App\Queries\SearchBy\Splits\Splits;
 use Illuminate\Database\Eloquent\Model;
-use App\Queries\SearchBy\Splits\HandlerInterface;
 use App\Overrides\Illuminate\Contracts\Pipeline\Pipeline;
 use App\Overrides\Illuminate\Contracts\Container\Container;
-use App\Queries\SearchBy\Splits\SplitExacts\SplitExactsHandler;
-use App\Queries\SearchBy\Splits\SplitLosses\SplitLossesHandler;
-use App\Queries\SearchBy\Splits\SplitRelations\SplitRelationsHandler;
-use App\Queries\SearchBy\Splits\SplitAttributes\SplitAttributesHandler;
+use App\Queries\SearchBy\Drivers\DatabaseMatch\DatabaseMatch;
+use App\Queries\SearchBy\Drivers\DatabaseMatch\Splits\Splits;
+use App\Queries\SearchBy\Drivers\DatabaseMatch\Splits\HandlerInterface;
+use App\Queries\SearchBy\Drivers\DatabaseMatch\Splits\SplitExacts\SplitExactsHandler;
+use App\Queries\SearchBy\Drivers\DatabaseMatch\Splits\SplitLosses\SplitLossesHandler;
+use App\Queries\SearchBy\Drivers\DatabaseMatch\Splits\SplitRelations\SplitRelationsHandler;
+use App\Queries\SearchBy\Drivers\DatabaseMatch\Splits\SplitAttributes\SplitAttributesHandler;
 
 final class DatabaseMatchFactory
 {
     public static function makeDatabaseMatch(
         string $term,
+        bool $isOrderBy = true,
         ?Model $model = null
     ): DatabaseMatch {
         /** @var Container */
@@ -42,6 +43,9 @@ final class DatabaseMatchFactory
             term: $term
         ));
 
-        return DatabaseMatch::from($splits);
+        return DatabaseMatch::from([
+            ...$splits->toArray(),
+            'isOrderBy' => $isOrderBy
+        ]);
     }
 }

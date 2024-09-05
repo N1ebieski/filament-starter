@@ -6,11 +6,23 @@ namespace App\Data\Casts\SearchBy;
 
 use App\Queries\SearchBy\SearchBy;
 use Spatie\LaravelData\Casts\Cast;
+use Illuminate\Database\Eloquent\Model;
 use Spatie\LaravelData\Support\DataProperty;
 use Spatie\LaravelData\Support\Creation\CreationContext;
+use App\Queries\SearchBy\Drivers\DatabaseMatch\DatabaseMatchFactory;
 
 class SearchByCast implements Cast
 {
+    private readonly Model $model;
+
+    public function __construct(string $modelName)
+    {
+        /** @var Model */
+        $model = new $modelName();
+
+        $this->model = $model;
+    }
+
     /**
      * @param SearchBy|string|null $value
      */
@@ -18,7 +30,15 @@ class SearchByCast implements Cast
     {
         if (is_string($value)) {
             if (mb_strlen($value) > 2) {
-                return new SearchBy(term: $value, isOrderBy: true);
+                $databaseMatch = DatabaseMatchFactory::makeDatabaseMatch(
+                    term: $value,
+                    model: $this->model
+                );
+
+                return new SearchBy(
+                    term: $value,
+                    driver: $databaseMatch
+                );
             }
 
             return null;

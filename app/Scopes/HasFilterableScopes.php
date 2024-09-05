@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Scopes;
 
-use App\Queries\Get;
 use App\Queries\OrderBy;
-use App\Queries\Paginate;
-use App\Scopes\Search\HasSearchScopes;
+use App\Queries\Result\Get;
+use App\Scopes\HasSearchScopes;
+use App\Queries\Result\Paginate;
 use Illuminate\Support\Facades\Config;
+use App\Queries\Result\ResultInterface;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -17,17 +18,15 @@ trait HasFilterableScopes
 {
     use HasSearchScopes;
 
-    public function scopeFilterResult(Builder $builder, Paginate|Get|null $result): LengthAwarePaginator|Collection|Builder
+    public function scopeFilterResult(Builder $builder, ?ResultInterface $result): LengthAwarePaginator|Collection|Builder
     {
-        if ($result instanceof Paginate) {
-            return $this->scopeFilterPaginate($builder, $result);
-        }
+        return $builder->when(!is_null($result), function (Builder $builder) use ($result) {
+            return match (true) {
+                $result instanceof Paginate => $this->scopeFilterPaginate($builder, $result),
 
-        if ($result instanceof Get) {
-            return $this->scopeFilterGet($builder, $result);
-        }
-
-        return $builder;
+                $result instanceof Get => $this->scopeFilterGet($builder, $result)
+            };
+        });
     }
 
     public function scopeFilterPaginate(Builder $builder, Paginate $paginate): LengthAwarePaginator

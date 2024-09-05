@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Queries;
+namespace App\Queries\Result;
 
-final class Paginate
+final class Paginate implements ResultInterface
 {
     public function __construct(
         public readonly int $perPage,

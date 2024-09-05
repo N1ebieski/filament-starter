@@ -7,7 +7,7 @@ namespace App\Filament\Resources\User\Tenant\RelationManagers\Users;
 use App\Queries\Order;
 use App\Queries\OrderBy;
 use App\Models\User\User;
-use App\Queries\Paginate;
+use App\Queries\Result\Paginate;
 use Filament\Tables\Table;
 use App\Models\Tenant\Tenant;
 use App\Queries\QueryBusInterface;

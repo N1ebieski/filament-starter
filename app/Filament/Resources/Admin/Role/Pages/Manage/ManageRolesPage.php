@@ -8,11 +8,10 @@ use Override;
 use App\Queries\Order;
 use App\Queries\OrderBy;
 use App\Models\Role\Role;
-use App\Queries\Paginate;
+use App\Queries\Result\Paginate;
 use Filament\Tables\Table;
 use App\View\Metas\MetaInterface;
 use App\Queries\QueryBusInterface;
-use App\Queries\SearchBy\SearchBy;
 use Illuminate\Support\Facades\Lang;
 use App\Filament\Pages\Shared\HasMeta;
 use Filament\Tables\Columns\TextColumn;
@@ -25,6 +24,7 @@ use App\Filament\Resources\Admin\Role\RoleResource;
 use App\View\Metas\Admin\Role\Index\IndexMetaFactory;
 use App\Filament\Pages\Shared\MetaInterface as PageMetaInterface;
 use App\Filament\Resources\Admin\Role\Actions\Edit\EditRoleAction;
+use App\Queries\SearchBy\Drivers\DatabaseMatch\DatabaseMatchFactory;
 use App\Filament\Resources\Admin\Role\Actions\Create\CreateRoleAction;
 use App\Filament\Resources\Admin\Role\Actions\Delete\DeleteRoleAction;
 use App\Filament\Resources\Admin\Role\Actions\DeleteMany\DeleteRolesAction;
@@ -130,9 +130,10 @@ final class ManageRolesPage extends ManageRecords implements PageMetaInterface
         $search = $this->getTableSearch();
 
         if ($search) {
-            return $query->filterSearchBy(new SearchBy(
+            return $query->filterSearchBy(DatabaseMatchFactory::makeDatabaseMatch(
                 term: $search,
-                isOrderBy: is_null($this->getTableSortColumn())
+                isOrderBy: is_null($this->getTableSortColumn()),
+                model: $this->role
             ));
         }
 

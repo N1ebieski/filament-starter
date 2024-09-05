@@ -9,11 +9,10 @@ use App\Queries\Order;
 use App\Queries\OrderBy;
 use App\Models\Role\Role;
 use App\Models\User\User;
-use App\Queries\Paginate;
+use App\Queries\Result\Paginate;
 use Filament\Tables\Table;
 use App\View\Metas\MetaInterface;
 use App\Queries\QueryBusInterface;
-use App\Queries\SearchBy\SearchBy;
 use App\ValueObjects\Role\Name\Name;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Lang;
@@ -35,6 +34,7 @@ use App\View\Metas\Admin\User\Index\IndexMetaFactory;
 use App\Commands\User\EditStatusEmail\EditStatusEmailCommand;
 use App\Filament\Pages\Shared\MetaInterface as PageMetaInterface;
 use App\Filament\Resources\Admin\User\Actions\Edit\EditUserAction;
+use App\Queries\SearchBy\Drivers\DatabaseMatch\DatabaseMatchFactory;
 use App\Filament\Resources\Admin\User\Actions\Create\CreateUserAction;
 use App\Filament\Resources\Admin\User\Actions\Delete\DeleteUserAction;
 use App\Filament\Resources\Admin\User\Actions\DeleteMany\DeleteUsersAction;
@@ -215,9 +215,10 @@ final class ManageUsersPage extends ManageRecords implements PageMetaInterface
         $search = $this->getTableSearch();
 
         if ($search) {
-            return $query->filterSearchBy(new SearchBy(
+            return $query->filterSearchBy(DatabaseMatchFactory::makeDatabaseMatch(
                 term: $search,
-                isOrderBy: is_null($this->getTableSortColumn())
+                isOrderBy: is_null($this->getTableSortColumn()),
+                model: $this->user
             ));
         }
 

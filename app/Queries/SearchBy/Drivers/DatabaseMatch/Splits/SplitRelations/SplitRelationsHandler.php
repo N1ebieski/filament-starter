@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Queries\SearchBy\Splits\SplitRelations;
+namespace App\Queries\SearchBy\Drivers\DatabaseMatch\Splits\SplitRelations;
 
 use Closure;
-use App\Queries\SearchBy\Splits\Splits;
-use App\Queries\SearchBy\Splits\HasSymbol;
-use App\Queries\SearchBy\Splits\HandlerInterface;
+use App\Queries\SearchBy\Drivers\DatabaseMatch\Splits\Splits;
+use App\Queries\SearchBy\Drivers\DatabaseMatch\Splits\HasSymbol;
+use App\Queries\SearchBy\Drivers\DatabaseMatch\Splits\HandlerInterface;
 
 final class SplitRelationsHandler implements HandlerInterface
 {

@@ -2,13 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Queries\SearchBy;
+namespace App\Queries\SearchBy\Drivers\DatabaseMatch;
 
 use App\Data\Data\Data;
+use App\Queries\SearchBy\SearchByInterface;
 
-final class DatabaseMatch extends Data
+final class DatabaseMatch extends Data implements SearchByInterface
 {
     public function __construct(
+        public readonly bool $isOrderBy,
         public readonly ?array $attributes = null,
         public readonly ?array $relations = null,
         public readonly ?array $exacts = null,

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Queries\SearchBy\Splits;
+namespace App\Queries\SearchBy\Drivers\DatabaseMatch\Splits;
 
 use App\Data\Data\Data;
 use Illuminate\Database\Eloquent\Model;

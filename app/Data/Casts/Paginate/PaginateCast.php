@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Data\Casts\Paginate;
 
-use App\Queries\Paginate;
+use App\Queries\Result\Paginate;
 use Spatie\LaravelData\Casts\Cast;
 use Spatie\LaravelData\Support\DataProperty;
 use Spatie\LaravelData\Support\Creation\CreationContext;
