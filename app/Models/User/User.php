@@ -28,7 +28,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property \App\ValueObjects\User\Name\Name $name
@@ -64,12 +64,14 @@ use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
  * @method static \Illuminate\Database\Eloquent\Builder|User filterExcept(?array $except)
  * @method static \Illuminate\Database\Eloquent\Builder|User filterGet(\App\Queries\Get $get)
  * @method static \Illuminate\Database\Eloquent\Builder|User filterOrderBy(?\App\Queries\OrderBy $orderby)
- * @method static \Illuminate\Database\Eloquent\Builder|User filterOrderBySearch(?\App\Queries\Search\Search $search)
+ * @method static \Illuminate\Database\Eloquent\Builder|User filterOrderBySearchByDatabaseMatch(?\App\Queries\Search\DatabaseMatch $search)
  * @method static \Illuminate\Contracts\Pagination\LengthAwarePaginator filterPaginate(\App\Queries\Paginate $paginate)
  * @method static \Illuminate\Database\Eloquent\Builder|User filterResult(\App\Queries\Paginate|\App\Queries\Get|null $result)
  * @method static \Illuminate\Database\Eloquent\Builder|User filterRoles(\Illuminate\Database\Eloquent\Collection $roles)
- * @method static \Illuminate\Database\Eloquent\Builder|User filterSearch(?\App\Queries\Search\Search $search, string $boolean = 'and')
- * @method static \Illuminate\Database\Eloquent\Builder|User filterSearchAttributes(?\App\Queries\Search\Search $search)
+ * @method static \Illuminate\Database\Eloquent\Builder|User filterSearchAttributesByDatabaseMatch(?\App\Queries\Search\DatabaseMatch $search)
+ * @method static \Illuminate\Database\Eloquent\Builder|User filterSearchBy(?\App\Queries\Search\DatabaseMatch $search, bool $isOrderBy, \App\Scopes\Search\Driver $driver = \App\Scopes\Search\Driver::DatabaseMatch)
+ * @method static \Illuminate\Database\Eloquent\Builder|User filterSearchByDatabaseMatch(?\App\Queries\Search\DatabaseMatch $search, string $boolean = 'and')
+ * @method static \Illuminate\Database\Eloquent\Builder|User filterSearchByScout(?\App\Queries\Search\DatabaseMatch $search)
  * @method static \Illuminate\Database\Eloquent\Builder|User filterStatusEmail(?\App\ValueObjects\User\StatusEmail\StatusEmail $status)
  * @method static \Illuminate\Database\Eloquent\Builder|User filterTenants(\Illuminate\Database\Eloquent\Collection $tenants)
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
@@ -138,9 +140,6 @@ class User extends Authenticatable implements FilamentUser, HasTenants, MustVeri
         'password' => 'hashed',
     ];
 
-    /**
-     * The columns of the full text index
-     */
     public array $searchable = ['name', 'email'];
 
     public array $searchableAttributes = ['id'];
@@ -148,6 +147,14 @@ class User extends Authenticatable implements FilamentUser, HasTenants, MustVeri
     public function getTenants(Panel $panel): array | Collection
     {
         return $this->tenants;
+    }
+
+    public function toSearchableArray(): array
+    {
+        return [
+            'name' => $this->getRawOriginal('name'),
+            'email' => $this->getRawOriginal('email')
+        ];
     }
 
     /**

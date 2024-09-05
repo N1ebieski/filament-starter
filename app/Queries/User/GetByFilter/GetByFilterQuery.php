@@ -11,11 +11,11 @@ use App\Models\Role\Role;
 use App\Models\User\User;
 use App\Queries\Paginate;
 use App\Models\Tenant\Tenant;
-use App\Queries\Search\Search;
-use App\Data\Casts\Search\SearchCast;
+use App\Queries\SearchBy\SearchBy;
 use Spatie\LaravelData\Casts\EnumCast;
 use App\Data\Casts\OrderBy\OrderByCast;
 use App\Data\Casts\Paginate\PaginateCast;
+use App\Data\Casts\SearchBy\SearchByCast;
 use App\Support\Attributes\Handler\Handler;
 use Spatie\LaravelData\Attributes\WithCast;
 use Illuminate\Database\Eloquent\Collection;
@@ -33,12 +33,12 @@ final class GetByFilterQuery extends Query implements ObjectDefaultsInterface
         public readonly Collection $roles = new Collection(),
         #[WithCast(CollectionOfModelsCast::class, Tenant::class)]
         public readonly Collection $tenants = new Collection(),
-        #[WithCast(SearchCast::class, User::class)]
-        public readonly ?Search $search = null,
+        #[WithCast(SearchByCast::class)]
+        public readonly ?SearchBy $searchBy = null,
         public readonly ?array $except = null,
         public readonly User $user = new User(),
         #[WithCast(OrderByCast::class)]
-        public readonly ?OrderBy $orderby = null,
+        public readonly ?OrderBy $orderBy = null,
         #[WithCast(PaginateCast::class)]
         public readonly Paginate|Get|null $result = null
     ) {

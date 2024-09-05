@@ -2,32 +2,23 @@
 
 declare(strict_types=1);
 
-namespace App\Data\Casts\Search;
+namespace App\Data\Casts\SearchBy;
 
-use App\Queries\Search\Search;
+use App\Queries\SearchBy\SearchBy;
 use Spatie\LaravelData\Casts\Cast;
-use App\Queries\Search\SearchFactory;
-use Illuminate\Database\Eloquent\Model;
 use Spatie\LaravelData\Support\DataProperty;
 use Spatie\LaravelData\Support\Creation\CreationContext;
 
-class SearchCast implements Cast
+class SearchByCast implements Cast
 {
-    private readonly Model $model;
-
-    public function __construct(string $modelClassname)
-    {
-        $this->model = new $modelClassname();
-    }
-
     /**
-     * @param Search|string|null $value
+     * @param SearchBy|string|null $value
      */
     public function cast(DataProperty $property, mixed $value, array $properties, CreationContext $context): mixed
     {
         if (is_string($value)) {
             if (mb_strlen($value) > 2) {
-                return SearchFactory::makeSearch($value, $this->model);
+                return new SearchBy($value);
             }
 
             return null;

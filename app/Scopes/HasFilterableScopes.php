@@ -7,6 +7,7 @@ namespace App\Scopes;
 use App\Queries\Get;
 use App\Queries\OrderBy;
 use App\Queries\Paginate;
+use App\Scopes\Search\HasSearchScopes;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -45,11 +46,11 @@ trait HasFilterableScopes
         ->get();
     }
 
-    public function scopeFilterOrderBy(Builder $builder, ?OrderBy $orderby): Builder
+    public function scopeFilterOrderBy(Builder $builder, ?OrderBy $orderBy): Builder
     {
-        return $builder->when(!is_null($orderby), function (Builder $builder) use ($orderby) {
+        return $builder->when(!is_null($orderBy), function (Builder $builder) use ($orderBy) {
             /** @var OrderBy $orderby */
-            return $builder->orderBy($orderby->attribute, $orderby->order->value);
+            return $builder->orderBy($orderBy->attribute, $orderBy->order->value);
         });
     }
 

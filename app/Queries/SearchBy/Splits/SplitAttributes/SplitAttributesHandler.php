@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Queries\Search\Splits\SplitAttributes;
+namespace App\Queries\SearchBy\Splits\SplitAttributes;
 
 use Closure;
-use App\Queries\Search\Splits\Splits;
-use App\Queries\Search\Splits\HandlerInterface;
+use App\Queries\SearchBy\Splits\Splits;
+use App\Queries\SearchBy\Splits\HandlerInterface;
 
 final class SplitAttributesHandler implements HandlerInterface
 {

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Queries\Search;
+namespace App\Queries\SearchBy;
 
 use App\Data\Data\Data;
 
-final class Search extends Data
+final class DatabaseMatch extends Data
 {
     public function __construct(
         public readonly ?array $attributes = null,

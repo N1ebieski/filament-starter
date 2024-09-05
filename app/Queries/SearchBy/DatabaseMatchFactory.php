@@ -2,24 +2,26 @@
 
 declare(strict_types=1);
 
-namespace App\Queries\Search;
+namespace App\Queries\SearchBy;
 
-use App\Queries\Search\Search;
 use Illuminate\Support\Facades\App;
-use App\Queries\Search\Splits\Splits;
+use App\Queries\SearchBy\DatabaseMatch;
+use App\Queries\SearchBy\Splits\Splits;
 use Illuminate\Database\Eloquent\Model;
-use App\Queries\Search\Splits\HandlerInterface;
+use App\Queries\SearchBy\Splits\HandlerInterface;
 use App\Overrides\Illuminate\Contracts\Pipeline\Pipeline;
 use App\Overrides\Illuminate\Contracts\Container\Container;
-use App\Queries\Search\Splits\SplitExacts\SplitExactsHandler;
-use App\Queries\Search\Splits\SplitLosses\SplitLossesHandler;
-use App\Queries\Search\Splits\SplitRelations\SplitRelationsHandler;
-use App\Queries\Search\Splits\SplitAttributes\SplitAttributesHandler;
+use App\Queries\SearchBy\Splits\SplitExacts\SplitExactsHandler;
+use App\Queries\SearchBy\Splits\SplitLosses\SplitLossesHandler;
+use App\Queries\SearchBy\Splits\SplitRelations\SplitRelationsHandler;
+use App\Queries\SearchBy\Splits\SplitAttributes\SplitAttributesHandler;
 
-final class SearchFactory
+final class DatabaseMatchFactory
 {
-    public static function makeSearch(string $term, ?Model $model = null): Search
-    {
+    public static function makeDatabaseMatch(
+        string $term,
+        ?Model $model = null
+    ): DatabaseMatch {
         /** @var Container */
         $container = App::make(Container::class);
 
@@ -40,6 +42,6 @@ final class SearchFactory
             term: $term
         ));
 
-        return Search::from($splits);
+        return DatabaseMatch::from($splits);
     }
 }

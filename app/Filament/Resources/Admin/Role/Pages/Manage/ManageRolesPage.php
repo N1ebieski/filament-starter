@@ -10,17 +10,18 @@ use App\Queries\OrderBy;
 use App\Models\Role\Role;
 use App\Queries\Paginate;
 use Filament\Tables\Table;
-use App\Filament\Pages\Shared\HasMeta;
 use App\View\Metas\MetaInterface;
 use App\Queries\QueryBusInterface;
+use App\Queries\SearchBy\SearchBy;
 use Illuminate\Support\Facades\Lang;
+use App\Filament\Pages\Shared\HasMeta;
 use Filament\Tables\Columns\TextColumn;
+use Illuminate\Database\Eloquent\Builder;
 use Filament\Resources\Pages\ManageRecords;
 use Filament\Tables\Actions\BulkActionGroup;
 use Illuminate\Contracts\Pagination\Paginator;
 use App\Queries\Role\GetByFilter\GetByFilterQuery;
 use App\Filament\Resources\Admin\Role\RoleResource;
-use Illuminate\Contracts\Database\Eloquent\Builder;
 use App\View\Metas\Admin\Role\Index\IndexMetaFactory;
 use App\Filament\Pages\Shared\MetaInterface as PageMetaInterface;
 use App\Filament\Resources\Admin\Role\Actions\Edit\EditRoleAction;
@@ -78,7 +79,7 @@ final class ManageRolesPage extends ManageRecords implements PageMetaInterface
         return $table
             ->searchable(true)
             ->query(function (): Builder {
-                return $this->queryBus->execute(GetByFilterQuery::from(search: $this->getTableSearch()));
+                return $this->queryBus->execute(new GetByFilterQuery());
             })
             ->columns([
                 TextColumn::make('id')
@@ -119,6 +120,23 @@ final class ManageRolesPage extends ManageRecords implements PageMetaInterface
             ->defaultSort(function (Builder|Role $query): Builder {
                 return $query->filterOrderBy(new OrderBy('id', Order::Desc));
             });
+    }
+
+    /**
+     * @param Builder|Role $query
+     */
+    protected function applyGlobalSearchToTableQuery(Builder $query): Builder
+    {
+        $search = $this->getTableSearch();
+
+        if ($search) {
+            return $query->filterSearchBy(
+                searchBy: new SearchBy($search),
+                isOrderBy: is_null($this->getTableSortColumn())
+            );
+        }
+
+        return $query;
     }
 
     protected function paginateTableQuery(Builder|Role $query): Paginator

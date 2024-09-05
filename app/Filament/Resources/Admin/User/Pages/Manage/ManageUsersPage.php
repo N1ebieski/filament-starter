@@ -11,17 +11,19 @@ use App\Models\Role\Role;
 use App\Models\User\User;
 use App\Queries\Paginate;
 use Filament\Tables\Table;
-use App\Filament\Pages\Shared\HasMeta;
 use App\View\Metas\MetaInterface;
 use App\Queries\QueryBusInterface;
+use App\Queries\SearchBy\SearchBy;
 use App\ValueObjects\Role\Name\Name;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Lang;
 use App\Commands\CommandBusInterface;
+use App\Filament\Pages\Shared\HasMeta;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Notifications\Notification;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Filters\SelectFilter;
+use Illuminate\Database\Eloquent\Builder;
 use App\ValueObjects\Role\Name\DefaultName;
 use Filament\Resources\Pages\ManageRecords;
 use Filament\Tables\Actions\BulkActionGroup;
@@ -29,10 +31,9 @@ use Illuminate\Contracts\Pagination\Paginator;
 use App\Queries\User\GetByFilter\GetByFilterQuery;
 use App\ValueObjects\User\StatusEmail\StatusEmail;
 use App\Filament\Resources\Admin\Role\RoleResource;
-use Illuminate\Contracts\Database\Eloquent\Builder;
 use App\View\Metas\Admin\User\Index\IndexMetaFactory;
-use App\Filament\Pages\Shared\MetaInterface as PageMetaInterface;
 use App\Commands\User\EditStatusEmail\EditStatusEmailCommand;
+use App\Filament\Pages\Shared\MetaInterface as PageMetaInterface;
 use App\Filament\Resources\Admin\User\Actions\Edit\EditUserAction;
 use App\Filament\Resources\Admin\User\Actions\Create\CreateUserAction;
 use App\Filament\Resources\Admin\User\Actions\Delete\DeleteUserAction;
@@ -103,7 +104,7 @@ final class ManageUsersPage extends ManageRecords implements PageMetaInterface
         return $table
             ->searchable(true)
             ->query(function (): Builder {
-                return $this->queryBus->execute(GetByFilterQuery::from(search: $this->getTableSearch()));
+                return $this->queryBus->execute(new GetByFilterQuery());
             })
             ->columns([
                 TextColumn::make('id')
@@ -204,6 +205,23 @@ final class ManageUsersPage extends ManageRecords implements PageMetaInterface
             ->defaultSort(function (Builder|User $query): Builder {
                 return $query->filterOrderBy(new OrderBy('id', Order::Desc));
             });
+    }
+
+    /**
+     * @param Builder|User $query
+     */
+    protected function applyGlobalSearchToTableQuery(Builder $query): Builder
+    {
+        $search = $this->getTableSearch();
+
+        if ($search) {
+            return $query->filterSearchBy(
+                searchBy: new SearchBy($search),
+                isOrderBy: is_null($this->getTableSortColumn())
+            );
+        }
+
+        return $query;
     }
 
     protected function paginateTableQuery(Builder|User $query): Paginator

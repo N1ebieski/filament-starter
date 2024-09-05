@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Queries\Role\GetByFilter;
 
 use App\Queries\Handler;
-use App\Models\Role\Role;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -17,17 +16,13 @@ final class GetByFilterHandler extends Handler
         /** @var LengthAwarePaginator|Collection */
         $roles = $query->role->newQuery()
             ->selectRaw("`{$query->role->getTable()}`.*")
-            ->when(!is_null($query->search), function (Builder|Role $builder) use ($query) {
-                return $builder->filterSearch($query->search)
-                    ->filterSearchAttributes($query->search);
-            })
+            ->filterSearchBy(
+                searchBy: $query->searchBy,
+                isOrderBy: is_null($query->orderBy)
+            )
             ->filterExcept($query->except)
-            ->when(is_null($query->orderby), function (Builder|Role $builder) use ($query) {
-                return $builder->filterOrderBySearch($query->search);
-            }, function (Builder|Role $builder) use ($query) {
-                return $builder->filterOrderBy($query->orderby);
-            })
             ->withAllRelations()
+            ->filterOrderBy($query->orderBy)
             ->filterResult($query->result);
 
         return $roles;

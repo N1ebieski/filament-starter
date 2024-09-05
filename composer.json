@@ -19,6 +19,7 @@
         "laravel/prompts": "^0.1.22",
         "laravel/reverb": "@beta",
         "laravel/sanctum": "^4.0",
+        "laravel/scout": "^10.11",
         "laravel/tinker": "^2.9",
         "motomedialab/laravel-vite-helper": "^1.7",
         "opcodesio/log-viewer": "^3.10",

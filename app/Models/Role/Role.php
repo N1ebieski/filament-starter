@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int|null $tenant_id
@@ -31,11 +31,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Role filterExcept(?array $except)
  * @method static \Illuminate\Database\Eloquent\Builder|Role filterGet(\App\Queries\Get $get)
  * @method static \Illuminate\Database\Eloquent\Builder|Role filterOrderBy(?\App\Queries\OrderBy $orderby)
- * @method static \Illuminate\Database\Eloquent\Builder|Role filterOrderBySearch(?\App\Queries\Search\Search $search)
+ * @method static \Illuminate\Database\Eloquent\Builder|Role filterOrderBySearchByDatabaseMatch(?\App\Queries\Search\DatabaseMatch $search)
  * @method static \Illuminate\Contracts\Pagination\LengthAwarePaginator filterPaginate(\App\Queries\Paginate $paginate)
  * @method static \Illuminate\Database\Eloquent\Builder|Role filterResult(\App\Queries\Paginate|\App\Queries\Get|null $result)
- * @method static \Illuminate\Database\Eloquent\Builder|Role filterSearch(?\App\Queries\Search\Search $search, string $boolean = 'and')
- * @method static \Illuminate\Database\Eloquent\Builder|Role filterSearchAttributes(?\App\Queries\Search\Search $search)
+ * @method static \Illuminate\Database\Eloquent\Builder|Role filterSearchAttributesByDatabaseMatch(?\App\Queries\Search\DatabaseMatch $search)
+ * @method static \Illuminate\Database\Eloquent\Builder|Role filterSearchBy(?\App\Queries\Search\DatabaseMatch $search, bool $isOrderBy, \App\Scopes\Search\Driver $driver = \App\Scopes\Search\Driver::DatabaseMatch)
+ * @method static \Illuminate\Database\Eloquent\Builder|Role filterSearchByDatabaseMatch(?\App\Queries\Search\DatabaseMatch $search, string $boolean = 'and')
+ * @method static \Illuminate\Database\Eloquent\Builder|Role filterSearchByScout(?\App\Queries\Search\DatabaseMatch $search)
  * @method static \Illuminate\Database\Eloquent\Builder|Role newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Role newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Role permission($permissions, $without = false)
@@ -74,9 +76,6 @@ final class Role extends BaseRole
         'updated_at' => 'datetime',
     ];
 
-    /**
-     * The columns of the full text index
-     */
     public array $searchable = ['name'];
 
     public array $searchableAttributes = ['id'];
@@ -87,6 +86,13 @@ final class Role extends BaseRole
     protected static function newFactory(): RoleFactory
     {
         return RoleFactory::new();
+    }
+
+    public function toSearchableArray(): array
+    {
+        return [
+            'name' => $this->getRawOriginal('name'),
+        ];
     }
 
     // Relations
