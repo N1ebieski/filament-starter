@@ -68,10 +68,7 @@ trait HasSearchScopes
 
     public function scopeFilterSearchByScout(Builder $builder, Scout $scout): Builder
     {
-        $ids = $this->search(
-            query: $scout->query,
-            callback: $scout->callback
-        )->get()->pluck($this->getKeyName());
+        $ids = $this->search($scout->query, $scout->callback)->take($scout->get->take)->keys();
 
         return $builder->whereIn("{$this->getTable()}.{$this->getKeyName()}", $ids->toArray());
     }
@@ -79,22 +76,25 @@ trait HasSearchScopes
     public function scopeFilterSearchByDatabaseMatch(Builder $builder, DatabaseMatch $databaseMatch, string $boolean = 'and'): Builder
     {
         return $builder->when(!is_null($databaseMatch->getSearchAsString()), function (Builder $builder) use ($databaseMatch, $boolean) {
-            /** @var ColumnsHelper */
-            $columnsHelper = App::make(ColumnsHelper::class);
-
             $table = $this->getTable();
 
-            $columns = $columnsHelper->getColumnsWithTablePrefix($this->getSearchable(), $table);
+            $columns = ColumnsHelper::getColumnsWithTablePrefix($this->getSearchable(), $table);
+
+            $columnsAsString = ColumnsHelper::getColumnsAsString($columns);
 
             $builder = $builder->whereRaw(
-                "MATCH ({$columnsHelper->getColumnsAsString($columns)}) AGAINST (? IN BOOLEAN MODE)",
+                "MATCH ({$columnsAsString}) AGAINST (? IN BOOLEAN MODE)",
                 [$databaseMatch->getSearchAsString()],
                 $boolean
             );
 
             foreach ($columns as $column) {
+                $columnWithTicks = ColumnsHelper::getColumnWithTicks($column);
+
+                $columnWithSnakes = ColumnsHelper::getColumnWithSnakes($column . '_relevance');
+
                 $builder = $builder->selectRaw(
-                    "MATCH ({$columnsHelper->getColumnWithTicks($column)}) AGAINST (? IN BOOLEAN MODE) AS {$columnsHelper->getColumnWithSnakes($column . '_relevance')}",
+                    "MATCH ({$columnWithTicks}) AGAINST (? IN BOOLEAN MODE) AS {$columnWithSnakes}",
                     [$databaseMatch->getSearchAsString()]
                 );
             }
@@ -106,15 +106,14 @@ trait HasSearchScopes
     public function scopeFilterOrderByDatabaseMatch(Builder $builder, DatabaseMatch $databaseMatch): Builder
     {
         return $builder->when(!is_null($databaseMatch->getSearchAsString()), function (Builder $builder) {
-            /** @var ColumnsHelper */
-            $columnsHelper = App::make(ColumnsHelper::class);
-
             $table = $this->getTable();
 
-            $columns = $columnsHelper->getColumnsWithTablePrefix($this->getSearchable(), $table);
+            $columns = ColumnsHelper::getColumnsWithTablePrefix($this->getSearchable(), $table);
 
             foreach ($columns as $column) {
-                $builder = $builder->orderByRaw("{$columnsHelper->getColumnWithSnakes($column . '_relevance')} DESC");
+                $columnWithSnakes = ColumnsHelper::getColumnWithSnakes($column . '_relevance');
+
+                $builder = $builder->orderByRaw("{$columnWithSnakes} DESC");
             }
 
             return $builder;

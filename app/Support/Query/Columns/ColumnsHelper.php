@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 
 final class ColumnsHelper
 {
-    public function getColumnsWithTablePrefix(array $columns, string $table): array
+    public static function getColumnsWithTablePrefix(array $columns, string $table): array
     {
         return (new Collection($columns))
             ->map(function (string $column) use ($table): string {
@@ -17,16 +17,16 @@ final class ColumnsHelper
             ->toArray();
     }
 
-    public function getColumnsAsString(array $columns): string
+    public static function getColumnsAsString(array $columns): string
     {
         return (new Collection($columns))
             ->map(function (string $column) {
-                return $this->getColumnWithTicks($column);
+                return self::getColumnWithTicks($column);
             })
             ->implode(',');
     }
 
-    public function getColumnWithTicks(string $column): string
+    public static function getColumnWithTicks(string $column): string
     {
         $names = explode('.', $column);
 
@@ -37,8 +37,8 @@ final class ColumnsHelper
             ->implode('.');
     }
 
-    public function getColumnWithSnakes(string $column): string
+    public static function getColumnWithSnakes(string $column): string
     {
-        return $this->getColumnWithTicks(str_replace('.', '_', $column));
+        return self::getColumnWithTicks(str_replace('.', '_', $column));
     }
 }
