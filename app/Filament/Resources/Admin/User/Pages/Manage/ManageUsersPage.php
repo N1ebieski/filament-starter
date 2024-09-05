@@ -9,8 +9,8 @@ use App\Queries\Order;
 use App\Queries\OrderBy;
 use App\Models\Role\Role;
 use App\Models\User\User;
-use App\Queries\Result\Paginate;
 use Filament\Tables\Table;
+use App\Queries\Result\Paginate;
 use App\View\Metas\MetaInterface;
 use App\Queries\QueryBusInterface;
 use App\ValueObjects\Role\Name\Name;
@@ -214,7 +214,7 @@ final class ManageUsersPage extends ManageRecords implements PageMetaInterface
     {
         $search = $this->getTableSearch();
 
-        if ($search) {
+        if ($search && mb_strlen($search) > 2) {
             return $query->filterSearchBy(DatabaseMatchFactory::makeDatabaseMatch(
                 term: $search,
                 isOrderBy: is_null($this->getTableSortColumn()),

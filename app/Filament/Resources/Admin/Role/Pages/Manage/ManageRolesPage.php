@@ -8,8 +8,8 @@ use Override;
 use App\Queries\Order;
 use App\Queries\OrderBy;
 use App\Models\Role\Role;
-use App\Queries\Result\Paginate;
 use Filament\Tables\Table;
+use App\Queries\Result\Paginate;
 use App\View\Metas\MetaInterface;
 use App\Queries\QueryBusInterface;
 use Illuminate\Support\Facades\Lang;
@@ -129,7 +129,7 @@ final class ManageRolesPage extends ManageRecords implements PageMetaInterface
     {
         $search = $this->getTableSearch();
 
-        if ($search) {
+        if ($search && mb_strlen($search) > 2) {
             return $query->filterSearchBy(DatabaseMatchFactory::makeDatabaseMatch(
                 term: $search,
                 isOrderBy: is_null($this->getTableSortColumn()),

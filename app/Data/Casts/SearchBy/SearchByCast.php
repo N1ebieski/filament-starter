@@ -30,14 +30,10 @@ class SearchByCast implements Cast
     {
         if (is_string($value)) {
             if (mb_strlen($value) > 2) {
-                $databaseMatch = DatabaseMatchFactory::makeDatabaseMatch(
+                return DatabaseMatchFactory::makeDatabaseMatch(
                     term: $value,
+                    isOrderBy: true,
                     model: $this->model
-                );
-
-                return new SearchBy(
-                    term: $value,
-                    driver: $databaseMatch
                 );
             }
 

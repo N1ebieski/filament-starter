@@ -12,7 +12,7 @@ final class Scout extends Data implements SearchByInterface
 {
     public function __construct(
         public readonly string $query,
-        public readonly Closure $callback
+        public readonly ?Closure $callback = null
     ) {
     }
 }
