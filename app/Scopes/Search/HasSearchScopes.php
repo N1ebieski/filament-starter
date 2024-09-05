@@ -28,15 +28,13 @@ trait HasSearchScopes
 
     public function scopeFilterSearchBy(
         Builder|HasSearchScopes $builder,
-        ?SearchBy $searchBy,
-        bool $isOrderBy,
-        Driver $driver = Driver::DatabaseMatch
+        ?SearchBy $searchBy
     ): Builder {
-        return $builder->when(!is_null($searchBy), function (Builder|HasSearchScopes $builder) use ($searchBy, $isOrderBy, $driver) {
-            return match ($driver) {
+        return $builder->when(!is_null($searchBy), function (Builder|HasSearchScopes $builder) use ($searchBy) {
+            return match ($searchBy->driver) {
                 Driver::Scout => $builder->filterSearchByScout($searchBy),
 
-                Driver::DatabaseMatch => tap($builder, function (Builder $builder) use ($searchBy, $isOrderBy) {
+                Driver::DatabaseMatch => tap($builder, function (Builder $builder) use ($searchBy) {
                     $databaseMatch = DatabaseMatchFactory::makeDatabaseMatch(
                         term: $searchBy->term,
                         model: $builder->getModel()
@@ -44,7 +42,7 @@ trait HasSearchScopes
 
                     return $builder->filterSearchByDatabaseMatch($databaseMatch)
                         ->filterSearchAttributesByDatabaseMatch($databaseMatch)
-                        ->when($isOrderBy, function (Builder|HasSearchScopes $builder) use ($databaseMatch) {
+                        ->when($searchBy->isOrderBy, function (Builder|HasSearchScopes $builder) use ($databaseMatch) {
                             return $builder->filterOrderByDatabaseMatch($databaseMatch);
                         });
                 })
@@ -52,7 +50,7 @@ trait HasSearchScopes
         });
     }
 
-    public function scopeFilterSearchAttributesByDatabaseMatch(Builder $builder, ?DatabaseMatch $databaseMatch): Builder
+    public function scopeFilterSearchAttributesByDatabaseMatch(Builder $builder, DatabaseMatch $databaseMatch): Builder
     {
         return $builder->when(!is_null($databaseMatch), function (Builder $builder) use ($databaseMatch) {
             /** @var DatabaseMatch $search */
@@ -82,7 +80,7 @@ trait HasSearchScopes
         });
     }
 
-    public function scopeFilterSearchByDatabaseMatch(Builder $builder, ?DatabaseMatch $databaseMatch, string $boolean = 'and'): Builder
+    public function scopeFilterSearchByDatabaseMatch(Builder $builder, DatabaseMatch $databaseMatch, string $boolean = 'and'): Builder
     {
         return $builder->when(!is_null($databaseMatch), function (Builder $builder) use ($databaseMatch, $boolean) {
             /** @var DatabaseMatch $search */
@@ -112,7 +110,7 @@ trait HasSearchScopes
         });
     }
 
-    public function scopeFilterOrderByDatabaseMatch(Builder $builder, ?DatabaseMatch $databaseMatch): Builder
+    public function scopeFilterOrderByDatabaseMatch(Builder $builder, DatabaseMatch $databaseMatch): Builder
     {
         return $builder->when(!is_null($databaseMatch), function (Builder $builder) use ($databaseMatch) {
             /** @var DatabaseMatch $search */

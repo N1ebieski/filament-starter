@@ -16,10 +16,7 @@ final class GetByFilterHandler extends Handler
         /** @var LengthAwarePaginator|Collection|Builder */
         $users = $query->user->newQuery()
             ->selectRaw("`{$query->user->getTable()}`.*")
-            ->filterSearchBy(
-                searchBy: $query->searchBy,
-                isOrderBy: is_null($query->orderBy)
-            )
+            ->filterSearchBy($query->searchBy)
             ->filterStatusEmail($query->status_email)
             ->filterExcept($query->except)
             ->filterRoles($query->roles)

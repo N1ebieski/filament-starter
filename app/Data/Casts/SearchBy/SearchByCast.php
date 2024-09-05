@@ -18,7 +18,7 @@ class SearchByCast implements Cast
     {
         if (is_string($value)) {
             if (mb_strlen($value) > 2) {
-                return new SearchBy($value);
+                return new SearchBy(term: $value, isOrderBy: true);
             }
 
             return null;

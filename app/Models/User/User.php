@@ -189,13 +189,16 @@ class User extends Authenticatable implements FilamentUser, HasTenants, MustVeri
     {
         return match ($panel->getId()) {
             \App\Providers\Filament\UserPanel\UserPanelServiceProvider::ID => $panel->auth()->check(),
-            \App\Providers\Filament\AdminPanel\AdminPanelServiceProvider::ID => (function (Panel $panel) {
+
+            \App\Providers\Filament\AdminPanel\AdminPanelServiceProvider::ID => tap($panel, function (Panel $panel) {
                 /** @var self|null */
                 $user = $panel->auth()->user();
 
                 return $user?->can('admin.access') ?? false;
-            })($panel),
+            }),
+
             \App\Providers\Filament\WebPanel\WebPanelServiceProvider::ID => true,
+
             default => false
         };
     }

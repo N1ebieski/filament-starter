@@ -215,10 +215,10 @@ final class ManageUsersPage extends ManageRecords implements PageMetaInterface
         $search = $this->getTableSearch();
 
         if ($search) {
-            return $query->filterSearchBy(
-                searchBy: new SearchBy($search),
+            return $query->filterSearchBy(new SearchBy(
+                term: $search,
                 isOrderBy: is_null($this->getTableSortColumn())
-            );
+            ));
         }
 
         return $query;

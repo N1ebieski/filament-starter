@@ -16,10 +16,7 @@ final class GetByFilterHandler extends Handler
         /** @var LengthAwarePaginator|Collection */
         $roles = $query->role->newQuery()
             ->selectRaw("`{$query->role->getTable()}`.*")
-            ->filterSearchBy(
-                searchBy: $query->searchBy,
-                isOrderBy: is_null($query->orderBy)
-            )
+            ->filterSearchBy($query->searchBy)
             ->filterExcept($query->except)
             ->withAllRelations()
             ->filterOrderBy($query->orderBy)

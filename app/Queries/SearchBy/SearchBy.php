@@ -11,6 +11,7 @@ final class SearchBy extends Data
 {
     public function __construct(
         public readonly string $term,
+        public readonly bool $isOrderBy,
         public readonly Driver $driver = Driver::DatabaseMatch
     ) {
     }
