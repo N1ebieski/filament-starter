@@ -7,13 +7,13 @@ namespace App\Filament\Resources\Admin\Role;
 use Override;
 use App\Models\Role\Role;
 use Illuminate\Support\Facades\Lang;
-use App\Filament\Resources\Shared\Resource;
-use App\Filament\Resources\Shared\HasQueryBus;
+use App\Filament\Resources\Resource;
+use App\Filament\Resources\HasQueryBus;
 use App\Queries\Role\GetByFilter\GetByFilterQuery;
 use Illuminate\Contracts\Database\Eloquent\Builder;
-use App\Filament\Resources\Shared\GlobalSearchInterface;
+use App\Filament\Resources\GlobalSearchInterface;
 use App\Filament\Resources\Admin\Role\Pages\Manage\ManageRolesPage;
-use App\Queries\SearchBy\Drivers\DatabaseMatch\DatabaseMatchFactory;
+use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatchFactory;
 
 final class RoleResource extends Resource implements GlobalSearchInterface
 {

@@ -2,7 +2,7 @@
 
 namespace App\Filament\Pages\Web\Test;
 
-use App\Filament\Pages\Shared\Page;
+use App\Filament\Pages\Page;
 
 class TestPage extends Page
 {

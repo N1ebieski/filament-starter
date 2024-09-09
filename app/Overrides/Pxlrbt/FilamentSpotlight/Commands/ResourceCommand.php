@@ -7,10 +7,10 @@ namespace App\Overrides\Pxlrbt\FilamentSpotlight\Commands;
 use Override;
 use Illuminate\Support\Collection;
 use LivewireUI\Spotlight\Spotlight;
-use App\Filament\Resources\Shared\Resource;
+use App\Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Model;
 use LivewireUI\Spotlight\SpotlightSearchResult;
-use App\Filament\Resources\Shared\GlobalSearchInterface;
+use App\Filament\Resources\GlobalSearchInterface;
 use pxlrbt\FilamentSpotlight\Commands\ResourceCommand as BaseResourceCommand;
 
 /**

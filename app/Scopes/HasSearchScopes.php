@@ -7,13 +7,14 @@ namespace App\Scopes;
 use Laravel\Scout\Searchable;
 use Illuminate\Support\Facades\App;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Shared\HasScoutSearchable;
-use App\Queries\SearchBy\SearchByInterface;
+use App\Models\HasScoutSearchable;
+use App\Queries\Shared\SearchBy\SearchByInterface;
 use App\Support\Query\Columns\ColumnsHelper;
-use App\Queries\SearchBy\Drivers\Scout\Scout;
-use App\Models\Shared\HasDatabaseMatchSearchable;
+use App\Queries\Shared\SearchBy\Drivers\Scout\Scout;
+use App\Queries\Shared\SearchBy\Drivers\DriverHandlerFactory;
+use App\Models\HasDatabaseMatchSearchable;
 use Illuminate\Contracts\Database\Eloquent\Builder;
-use App\Queries\SearchBy\Drivers\DatabaseMatch\DatabaseMatch;
+use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatch;
 
 /**
  * @method \Illuminate\Database\Eloquent\Builder|HasSearchScopes filterOrderByDatabaseMatch(App\Queries\SearchBy\Drivers\DatabaseMatch\DatabaseMatch $databaseMatch)
@@ -32,8 +33,11 @@ trait HasSearchScopes
         Builder|HasSearchScopes $builder,
         ?SearchByInterface $searchBy
     ): Builder {
-        return $builder->when(!is_null($searchBy), function (Builder|HasSearchScopes $builder) use ($searchBy) {
-            return $searchBy->getSearchBuilder($builder);
+        return $builder->when(!is_null($searchBy), function (Builder $builder) use ($searchBy) {
+            $handlerFactory = DriverHandlerFactory::makeHandler($searchBy, $builder);
+
+            /** @disregard */
+            return $handlerFactory->handle($searchBy);
         });
     }
 

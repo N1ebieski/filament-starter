@@ -11,7 +11,7 @@ use Database\Factories\Role\RoleFactory;
 use App\Casts\ValueObject\ValueObjectCast;
 use Spatie\Permission\PermissionRegistrar;
 use Spatie\Permission\Models\Role as BaseRole;
-use App\Models\Shared\HasDatabaseMatchSearchable;
+use App\Models\HasDatabaseMatchSearchable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 

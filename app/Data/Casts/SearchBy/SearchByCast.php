@@ -9,7 +9,7 @@ use Spatie\LaravelData\Casts\Cast;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\LaravelData\Support\DataProperty;
 use Spatie\LaravelData\Support\Creation\CreationContext;
-use App\Queries\SearchBy\Drivers\DatabaseMatch\DatabaseMatchFactory;
+use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatchFactory;
 
 class SearchByCast implements Cast
 {

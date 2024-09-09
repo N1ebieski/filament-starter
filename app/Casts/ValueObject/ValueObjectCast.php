@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Casts\ValueObject;
 
-use App\Casts\Shared\Cast;
+use App\Casts\Cast;
 use App\ValueObjects\ValueObject;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;

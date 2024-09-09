@@ -18,7 +18,7 @@ use Filament\Models\Contracts\FilamentUser;
 use Filament\Notifications\Auth\VerifyEmail;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Models\Shared\HasDatabaseMatchSearchable;
+use App\Models\HasDatabaseMatchSearchable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use App\ValueObjects\User\StatusEmail\StatusEmail;
 use Fico7489\Laravel\Pivot\Traits\PivotEventTrait;

@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace App\Scopes;
 
 use App\Queries\OrderBy;
-use App\Queries\Result\Get;
 use App\Scopes\HasSearchScopes;
-use App\Queries\Result\Paginate;
 use Illuminate\Support\Facades\Config;
-use App\Queries\Result\ResultInterface;
+use App\Queries\Shared\Result\Drivers\Get\Get;
+use App\Queries\Shared\Result\ResultInterface;
 use Illuminate\Database\Eloquent\Collection;
+use App\Queries\Shared\Result\Drivers\Paginate\Paginate;
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use App\Queries\Shared\Result\Drivers\DriverHandlerFactory;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 /**
@@ -25,7 +26,10 @@ trait HasFilterableScopes
     public function scopeFilterResult(Builder $builder, ?ResultInterface $result): LengthAwarePaginator|Collection|Builder
     {
         return $builder->when(!is_null($result), function (Builder $builder) use ($result) {
-            return $result->getResultBuilder($builder);
+            $handlerFactory = DriverHandlerFactory::makeHandler($result, $builder);
+
+            /** @disregard */
+            return $handlerFactory->handle($result);
         });
     }
 

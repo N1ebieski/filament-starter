@@ -52,13 +52,13 @@ final class HandlerHelper
             })
             ->implode('|');
 
+        $handlerName = $classBasename . 'Handler';
+
         $lastOccurance = Str::match('/(' . $names . ')$/', $classBasename);
 
-        if (empty($lastOccurance)) {
-            throw new IncorrectNameException("The class name: \"{$classBasename}\" is incorrect.");
+        if (!empty($lastOccurance)) {
+            $handlerName = Str::replaceLast($lastOccurance, 'Handler', $classBasename);
         }
-
-        $handlerName = Str::replaceLast($lastOccurance, 'Handler', $classBasename);
 
         $handlerNamespace = $handlerNamespace . '\\' . $handlerName;
 
