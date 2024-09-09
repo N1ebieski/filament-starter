@@ -6,12 +6,12 @@ namespace App\Filament\Resources\Admin\Role;
 
 use Override;
 use App\Models\Role\Role;
-use Illuminate\Support\Facades\Lang;
 use App\Filament\Resources\Resource;
+use Illuminate\Support\Facades\Lang;
 use App\Filament\Resources\HasQueryBus;
+use App\Filament\Resources\GlobalSearchInterface;
 use App\Queries\Role\GetByFilter\GetByFilterQuery;
 use Illuminate\Contracts\Database\Eloquent\Builder;
-use App\Filament\Resources\GlobalSearchInterface;
 use App\Filament\Resources\Admin\Role\Pages\Manage\ManageRolesPage;
 use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatchFactory;
 

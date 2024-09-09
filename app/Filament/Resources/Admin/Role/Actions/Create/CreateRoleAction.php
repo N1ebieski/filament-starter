@@ -9,7 +9,6 @@ use App\Filament\Actions\Action;
 use App\Queries\QueryBusInterface;
 use Filament\Actions\CreateAction;
 use Illuminate\Support\Facades\App;
-use App\ValueObjects\Role\Name\Name;
 use Illuminate\Support\Facades\Lang;
 use App\Commands\CommandBusInterface;
 use App\Models\Permission\Permission;

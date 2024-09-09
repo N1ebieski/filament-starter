@@ -10,31 +10,30 @@ use App\Queries\OrderBy;
 use App\Models\Role\Role;
 use App\Models\User\User;
 use Filament\Tables\Table;
-use App\Queries\Shared\Result\Drivers\Paginate\Paginate;
+use App\Filament\Pages\HasMeta;
 use App\View\Metas\MetaInterface;
 use App\Queries\QueryBusInterface;
 use App\ValueObjects\Role\Name\Name;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Lang;
 use App\Commands\CommandBusInterface;
-use App\Filament\Pages\HasMeta;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Notifications\Notification;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\HasTableSearch;
 use App\ValueObjects\Role\Name\DefaultName;
 use Filament\Resources\Pages\ManageRecords;
+use App\Filament\Resources\HasTablePaginate;
 use Filament\Tables\Actions\BulkActionGroup;
-use Illuminate\Contracts\Pagination\Paginator;
 use App\Queries\User\GetByFilter\GetByFilterQuery;
 use App\ValueObjects\User\StatusEmail\StatusEmail;
 use App\Filament\Resources\Admin\Role\RoleResource;
 use App\View\Metas\Admin\User\Index\IndexMetaFactory;
-use App\Commands\User\EditStatusEmail\EditStatusEmailCommand;
 use App\Filament\Pages\MetaInterface as PageMetaInterface;
+use App\Commands\User\EditStatusEmail\EditStatusEmailCommand;
 use App\Filament\Resources\Admin\User\Actions\Edit\EditUserAction;
-use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatchFactory;
 use App\Filament\Resources\Admin\User\Actions\Create\CreateUserAction;
 use App\Filament\Resources\Admin\User\Actions\Delete\DeleteUserAction;
 use App\Filament\Resources\Admin\User\Actions\DeleteMany\DeleteUsersAction;
@@ -42,10 +41,10 @@ use App\Filament\Resources\Admin\User\Actions\DeleteMany\DeleteUsersAction;
 final class ManageUsersPage extends ManageRecords implements PageMetaInterface
 {
     use HasMeta;
+    use HasTableSearch;
+    use HasTablePaginate;
 
     protected static string $resource = RoleResource::class;
-
-    private User $user;
 
     private Role $role;
 
@@ -56,13 +55,11 @@ final class ManageUsersPage extends ManageRecords implements PageMetaInterface
     private IndexMetaFactory $metaFactory;
 
     public function boot(
-        User $user,
         Role $role,
         CommandBusInterface $commandBus,
         QueryBusInterface $queryBus,
         IndexMetaFactory $metaFactory
     ): void {
-        $this->user = $user;
         $this->role = $role;
         $this->commandBus = $commandBus;
         $this->queryBus = $queryBus;
@@ -205,31 +202,5 @@ final class ManageUsersPage extends ManageRecords implements PageMetaInterface
             ->defaultSort(function (Builder|User $query): Builder {
                 return $query->filterOrderBy(new OrderBy('id', Order::Desc));
             });
-    }
-
-    /**
-     * @param Builder|User $query
-     */
-    protected function applyGlobalSearchToTableQuery(Builder $query): Builder
-    {
-        $search = $this->getTableSearch();
-
-        if ($search && mb_strlen($search) > 2) {
-            return $query->filterSearchBy(DatabaseMatchFactory::makeDatabaseMatch(
-                term: $search,
-                isOrderBy: is_null($this->getTableSortColumn()),
-                model: $this->user
-            ));
-        }
-
-        return $query;
-    }
-
-    protected function paginateTableQuery(Builder|User $query): Paginator
-    {
-        return $query->filterPaginate(new Paginate(
-            perPage: (int)$this->getTableRecordsPerPage(),
-            page: $this->getPage()
-        ));
     }
 }
