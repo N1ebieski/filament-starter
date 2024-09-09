@@ -6,13 +6,14 @@ namespace App\Filament\Resources\Admin\Role;
 
 use Override;
 use App\Models\Role\Role;
-use App\Filament\Resources\Shared\Resource;
 use Illuminate\Support\Facades\Lang;
+use App\Filament\Resources\Shared\Resource;
 use App\Filament\Resources\Shared\HasQueryBus;
-use App\Filament\Resources\Shared\GlobalSearchInterface;
 use App\Queries\Role\GetByFilter\GetByFilterQuery;
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use App\Filament\Resources\Shared\GlobalSearchInterface;
 use App\Filament\Resources\Admin\Role\Pages\Manage\ManageRolesPage;
+use App\Queries\SearchBy\Drivers\DatabaseMatch\DatabaseMatchFactory;
 
 final class RoleResource extends Resource implements GlobalSearchInterface
 {
@@ -32,7 +33,9 @@ final class RoleResource extends Resource implements GlobalSearchInterface
     public static function applyGlobalSearchAttributeConstraints(Builder $query, string $search): void
     {
         /** @var Builder */
-        $baseQuery = static::getQueryBus()->execute(GetByFilterQuery::from(search: $search));
+        $baseQuery = static::getQueryBus()->execute(GetByFilterQuery::from([
+            'search' => DatabaseMatchFactory::makeDatabaseMatch($search)
+        ]));
 
         $query->setQuery($baseQuery->getQuery());
     }
