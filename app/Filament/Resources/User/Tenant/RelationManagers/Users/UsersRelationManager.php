@@ -7,20 +7,21 @@ namespace App\Filament\Resources\User\Tenant\RelationManagers\Users;
 use App\Queries\Order;
 use App\Queries\OrderBy;
 use App\Models\User\User;
-use App\Queries\Result\Paginate;
 use Filament\Tables\Table;
 use App\Models\Tenant\Tenant;
+use App\Queries\Result\Paginate;
 use App\Queries\QueryBusInterface;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Actions\BulkActionGroup;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Pagination\Paginator;
 use App\Queries\User\GetByFilter\GetByFilterQuery;
-use Illuminate\Contracts\Database\Eloquent\Builder;
 use Filament\Resources\RelationManagers\RelationManager;
+use App\Queries\SearchBy\Drivers\DatabaseMatch\DatabaseMatchFactory;
 use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\Attach\AttachUserAction;
 use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\Detach\DetachUserAction;
 use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\DetachMany\DetachUsersAction;
@@ -32,10 +33,14 @@ class UsersRelationManager extends RelationManager
 
     private QueryBusInterface $queryBus;
 
+    private User $user;
+
     public function boot(
-        QueryBusInterface $queryBus
+        QueryBusInterface $queryBus,
+        User $user
     ): void {
         $this->queryBus = $queryBus;
+        $this->user = $user;
     }
 
     public static function canViewForRecord(Model $ownerRecord, string $pageClass): bool
@@ -60,7 +65,6 @@ class UsersRelationManager extends RelationManager
             ->searchable(true)
             ->query(function () use ($tenant): Builder {
                 return $this->queryBus->execute(GetByFilterQuery::from([
-                    'search' => $this->getTableSearch(),
                     'tenants' => new Collection([$tenant])
                 ]));
             })
@@ -87,6 +91,24 @@ class UsersRelationManager extends RelationManager
             ->defaultSort(function (Builder|User $query): Builder {
                 return $query->filterOrderBy(new OrderBy('id', Order::Desc));
             });
+    }
+
+    /**
+     * @param Builder|User $query
+     */
+    protected function applyGlobalSearchToTableQuery(Builder $query): Builder
+    {
+        $search = $this->getTableSearch();
+
+        if ($search && mb_strlen($search) > 2) {
+            return $query->filterSearchBy(DatabaseMatchFactory::makeDatabaseMatch(
+                term: $search,
+                isOrderBy: is_null($this->getTableSortColumn()),
+                model: $this->user
+            ));
+        }
+
+        return $query;
     }
 
     protected function paginateTableQuery(Builder|User $query): Paginator
