@@ -14,6 +14,10 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
+/**
+* @method \Illuminate\Contracts\Pagination\LengthAwarePaginator filterPaginate(App\Queries\Result\Paginate $paginate)
+ * @method \Illuminate\Database\Eloquent\Collection filterGet(App\Queries\Result\Get $get)
+ */
 trait HasFilterableScopes
 {
     use HasSearchScopes;
@@ -21,11 +25,7 @@ trait HasFilterableScopes
     public function scopeFilterResult(Builder $builder, ?ResultInterface $result): LengthAwarePaginator|Collection|Builder
     {
         return $builder->when(!is_null($result), function (Builder $builder) use ($result) {
-            return match (true) {
-                $result instanceof Paginate => $this->scopeFilterPaginate($builder, $result),
-
-                $result instanceof Get => $this->scopeFilterGet($builder, $result)
-            };
+            return $result->getResultBuilder($builder);
         });
     }
 

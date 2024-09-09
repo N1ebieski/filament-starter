@@ -7,7 +7,9 @@ namespace App\Queries\SearchBy\Drivers\Scout;
 use Closure;
 use App\Data\Data\Data;
 use App\Queries\Result\Get;
+use App\Scopes\HasSearchScopes;
 use App\Queries\SearchBy\SearchByInterface;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 
 final class Scout extends Data implements SearchByInterface
 {
@@ -16,5 +18,13 @@ final class Scout extends Data implements SearchByInterface
         public readonly ?Closure $callback = null,
         public readonly Get $get = new Get(take: 1000)
     ) {
+    }
+
+    /**
+     * @param Builder|HasSearchScopes $builder
+     */
+    public function getSearchBuilder(Builder $builder): Builder
+    {
+        return $builder->filterSearchByScout($this);
     }
 }

@@ -33,17 +33,7 @@ trait HasSearchScopes
         ?SearchByInterface $searchBy
     ): Builder {
         return $builder->when(!is_null($searchBy), function (Builder|HasSearchScopes $builder) use ($searchBy) {
-            return match (true) {
-                $searchBy instanceof Scout => $builder->filterSearchByScout($searchBy),
-
-                $searchBy instanceof DatabaseMatch => value(function (Builder|HasSearchScopes $builder) use ($searchBy) {
-                    return $builder->filterSearchByDatabaseMatch($searchBy)
-                        ->filterSearchAttributesByDatabaseMatch($searchBy)
-                        ->when($searchBy->isOrderBy, function (Builder|HasSearchScopes $builder) use ($searchBy) {
-                            return $builder->filterOrderByDatabaseMatch($searchBy);
-                        });
-                }, $builder)
-            };
+            return $searchBy->getSearchBuilder($builder);
         });
     }
 
