@@ -7,10 +7,8 @@ namespace App\Filament\Resources\Admin\User\Actions\Create;
 use App\Models\Role\Role;
 use App\Models\User\User;
 use App\Filament\Actions\Action;
-use App\Queries\QueryBusInterface;
 use Filament\Actions\CreateAction;
 use Illuminate\Support\Facades\App;
-use App\ValueObjects\User\Name\Name;
 use Illuminate\Support\Facades\Lang;
 use App\Commands\CommandBusInterface;
 use Filament\Forms\Components\Select;
@@ -26,7 +24,6 @@ final class CreateUserAction extends Action
     public function __construct(
         private readonly User $user,
         private readonly Role $role,
-        private readonly QueryBusInterface $queryBus,
         private readonly CommandBusInterface $commandBus
     ) {
     }
@@ -44,7 +41,7 @@ final class CreateUserAction extends Action
         return CreateAction::make()
             ->model($this->user::class)
             ->icon('heroicon-o-plus-circle')
-            ->modalHeading(Lang::get('user.pages.create.title'))
+            ->modalHeading(Lang::get('user.pages.create.title')) //@phpstan-ignore-line
             ->fillForm(function (array $data) use ($roles): array {
                 $data['roles'] = $roles->pluck('id')->toArray();
 
@@ -52,7 +49,7 @@ final class CreateUserAction extends Action
             })
             ->form([
                 TextInput::make('name')
-                    ->label(Lang::get('user.name.label'))
+                    ->label(Lang::get('user.name.label')) //@phpstan-ignore-line
                     ->required()
                     ->string()
                     ->minLength(3)
@@ -60,7 +57,7 @@ final class CreateUserAction extends Action
                     ->unique($this->user->getTable(), 'name'),
 
                 TextInput::make('email')
-                    ->label(Lang::get('user.email.label'))
+                    ->label(Lang::get('user.email.label')) //@phpstan-ignore-line
                     ->extraInputAttributes([
                         'autocomplete' => 'new-password'
                     ])
@@ -71,7 +68,7 @@ final class CreateUserAction extends Action
                     ->unique($this->user->getTable(), 'email'),
 
                 TextInput::make('password')
-                    ->label(Lang::get('user.password.label'))
+                    ->label(Lang::get('user.password.label')) //@phpstan-ignore-line
                     ->password()
                     ->extraInputAttributes([
                         'autocomplete' => 'new-password'
@@ -84,7 +81,7 @@ final class CreateUserAction extends Action
                     ->confirmed(),
 
                 TextInput::make('password_confirmation')
-                    ->label(Lang::get('user.password_confirmation.label'))
+                    ->label(Lang::get('user.password_confirmation.label')) //@phpstan-ignore-line
                     ->password()
                     ->extraInputAttributes([
                         'autocomplete' => 'new-password'
@@ -96,7 +93,7 @@ final class CreateUserAction extends Action
                     ->maxLength(255),
 
                 Select::make('roles')
-                    ->label(Lang::get('user.roles.label'))
+                    ->label(Lang::get('user.roles.label')) //@phpstan-ignore-line
                     ->multiple()
                     ->relationship($this->role->getTable(), 'name', function (Builder $query) {
                         return $query->whereNot('name', DefaultName::SuperAdmin);
@@ -114,7 +111,7 @@ final class CreateUserAction extends Action
             ->using(function (array $data): User {
                 return $this->commandBus->execute(CreateCommand::from($data));
             })
-            ->successNotificationTitle(fn (User $record): string => Lang::get('user.messages.create.success', [
+            ->successNotificationTitle(fn (User $record): string => Lang::get('user.messages.create.success', [ //@phpstan-ignore-line
                 'name' => $record->name
             ]));
     }

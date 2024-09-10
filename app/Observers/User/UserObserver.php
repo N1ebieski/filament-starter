@@ -14,7 +14,7 @@ class UserObserver
         if ($relationName === $user->tenants()->getRelationName()) {
             $user->revokeTenantPermissionTo(
                 $user->tenantPermissions
-                    ->map(fn (Permission $permission): string => $permission->name)
+                    ->map(fn (Permission $permission): string => $permission->name->value)
                     ->toArray()
             );
         }

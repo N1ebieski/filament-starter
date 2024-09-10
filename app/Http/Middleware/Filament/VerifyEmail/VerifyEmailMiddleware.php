@@ -25,14 +25,15 @@ final class VerifyEmailMiddleware extends Middleware
                     HttpResponse::HTTP_FORBIDDEN,
                     'Your email address is not verified'
                 )
-                : Response::redirectTo($this->redirectTo($request));
+                : Response::redirectTo($this->redirectTo());
         }
 
         return $next($request);
     }
 
-    protected function redirectTo(Request $request): ?string
+    protected function redirectTo(): string
     {
-        return $request->expectsJson() ? null : Filament::getDefaultPanel()->getEmailVerificationPromptUrl();
+        /** @var string */
+        return Filament::getDefaultPanel()->getEmailVerificationPromptUrl();
     }
 }

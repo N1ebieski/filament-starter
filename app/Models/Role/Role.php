@@ -9,14 +9,14 @@ use App\Scopes\Role\HasRoleScopes;
 use App\ValueObjects\Role\Name\Name;
 use Database\Factories\Role\RoleFactory;
 use App\Casts\ValueObject\ValueObjectCast;
+use App\Models\HasDatabaseMatchSearchable;
 use Spatie\Permission\PermissionRegistrar;
 use Spatie\Permission\Models\Role as BaseRole;
-use App\Models\HasDatabaseMatchSearchable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
- *
+ * 
  *
  * @property int $id
  * @property int|null $tenant_id
@@ -30,15 +30,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property-read int|null $users_count
  * @method static \Database\Factories\Role\RoleFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Role filterExcept(?array $except)
- * @method static \Illuminate\Database\Eloquent\Builder|Role filterGet(\App\Queries\Get $get)
- * @method static \Illuminate\Database\Eloquent\Builder|Role filterOrderBy(?\App\Queries\OrderBy $orderby)
- * @method static \Illuminate\Database\Eloquent\Builder|Role filterOrderBySearchByDatabaseMatch(?\App\Queries\Search\DatabaseMatch $search)
- * @method static \Illuminate\Contracts\Pagination\LengthAwarePaginator filterPaginate(\App\Queries\Paginate $paginate)
- * @method static \Illuminate\Database\Eloquent\Builder|Role filterResult(\App\Queries\Paginate|\App\Queries\Get|null $result)
- * @method static \Illuminate\Database\Eloquent\Builder|Role filterSearchAttributesByDatabaseMatch(?\App\Queries\Search\DatabaseMatch $search)
- * @method static \Illuminate\Database\Eloquent\Builder|Role filterSearchBy(?\App\Queries\Search\DatabaseMatch $search, bool $isOrderBy, \App\Scopes\Search\Driver $driver = \App\Scopes\Search\Driver::DatabaseMatch)
- * @method static \Illuminate\Database\Eloquent\Builder|Role filterSearchByDatabaseMatch(?\App\Queries\Search\DatabaseMatch $search, string $boolean = 'and')
- * @method static \Illuminate\Database\Eloquent\Builder|Role filterSearchByScout(?\App\Queries\Search\DatabaseMatch $search)
+ * @method static \Illuminate\Database\Eloquent\Builder|Role filterGet(\App\Queries\Shared\Result\Drivers\Get\Get $get)
+ * @method static \Illuminate\Database\Eloquent\Builder|Role filterOrderBy(?\App\Queries\OrderBy $orderBy)
+ * @method static \Illuminate\Database\Eloquent\Builder|Role filterOrderByDatabaseMatch(\App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatch $databaseMatch)
+ * @method static \Illuminate\Contracts\Pagination\LengthAwarePaginator filterPaginate(\App\Queries\Shared\Result\Drivers\Paginate\Paginate $paginate)
+ * @method static \Illuminate\Database\Eloquent\Builder|Role filterResult(?\App\Queries\Shared\Result\ResultInterface $result)
+ * @method static \Illuminate\Database\Eloquent\Builder|Role filterSearchAttributesByDatabaseMatch(\App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatch $databaseMatch)
+ * @method static \Illuminate\Database\Eloquent\Builder|Role filterSearchBy(?\App\Queries\Shared\SearchBy\SearchByInterface $searchBy)
+ * @method static \Illuminate\Database\Eloquent\Builder|Role filterSearchByDatabaseMatch(\App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatch $databaseMatch, string $boolean = 'and')
+ * @method static \Illuminate\Database\Eloquent\Builder|Role filterSearchByScout(\App\Queries\Shared\SearchBy\Drivers\Scout\Scout $scout)
  * @method static \Illuminate\Database\Eloquent\Builder|Role newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Role newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Role permission($permissions, $without = false)
@@ -98,8 +98,9 @@ final class Role extends BaseRole
     #[Override]
     public function users(): BelongsToMany
     {
+        //@phpstan-ignore-next-line
         return $this->morphedByMany(
-            getModelForGuard($this->attributes['guard_name'] ?? config('auth.defaults.guard')),
+            getModelForGuard($this->attributes['guard_name'] ?? config('auth.defaults.guard')), //@phpstan-ignore-line
             'authenticatable',
             config('permission.table_names.model_has_roles'),
             app(PermissionRegistrar::class)->pivotRole,

@@ -41,10 +41,10 @@ final class CreateRoleAction extends Action
     {
         return CreateAction::make()
             ->icon('heroicon-o-plus-circle')
-            ->modalHeading(Lang::get('role.pages.create.title'))
+            ->modalHeading(Lang::get('role.pages.create.title')) //@phpstan-ignore-line
             ->form([
                 TextInput::make('name')
-                    ->label(Lang::get('role.name.label'))
+                    ->label(Lang::get('role.name.label')) //@phpstan-ignore-line
                     ->required()
                     ->string()
                     ->minLength(3)
@@ -52,7 +52,7 @@ final class CreateRoleAction extends Action
                     ->unique($this->role->getTable(), 'name'),
 
                 Select::make('permissions')
-                    ->label(Lang::get('role.permissions.label'))
+                    ->label(Lang::get('role.permissions.label')) //@phpstan-ignore-line
                     ->options($this->getGroupedPermissions()->toArray())
                     ->searchable()
                     ->multiple()
@@ -64,7 +64,7 @@ final class CreateRoleAction extends Action
             ->using(function (array $data): Role {
                 return $this->commandBus->execute(CreateCommand::from($data));
             })
-            ->successNotificationTitle(fn (Role $record): string => Lang::get('role.messages.create.success', [
+            ->successNotificationTitle(fn (Role $record): string => Lang::get('role.messages.create.success', [ //@phpstan-ignore-line
                 'name' => $record->name
             ]));
     }

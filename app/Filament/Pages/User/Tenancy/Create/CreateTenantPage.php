@@ -14,6 +14,9 @@ use Filament\Notifications\Notification;
 use Filament\Pages\Tenancy\RegisterTenant;
 use App\Commands\Tenant\Create\CreateCommand;
 
+/**
+ * @property-read Tenant $tenant
+ */
 class CreateTenantPage extends RegisterTenant
 {
     protected static ?string $slug = 'tenants/create';
@@ -27,6 +30,7 @@ class CreateTenantPage extends RegisterTenant
 
     public static function getLabel(): string
     {
+        //@phpstan-ignore-next-line
         return Lang::get('tenant.pages.create.title');
     }
 
@@ -56,8 +60,8 @@ class CreateTenantPage extends RegisterTenant
     public function afterRegister(): void
     {
         Notification::make()
-            ->title(Lang::get('tenant.messages.create.success', [
-                'name' => $this->tenant->name
+            ->title(Lang::get('tenant.messages.create.success', [ //@phpstan-ignore-line
+                'name' => $this->tenant->name->value
             ]))
             ->success()
             ->send();

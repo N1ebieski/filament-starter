@@ -44,7 +44,7 @@ final class EditRoleAction extends Action
     public function makeAction(): EditAction
     {
         return EditAction::make()
-            ->modalHeading(fn (Role $record): string => Lang::get('role.pages.edit.title', [
+            ->modalHeading(fn (Role $record): string => Lang::get('role.pages.edit.title', [ //@phpstan-ignore-line
                 'name' => $record->name->value
             ]))
             ->mutateRecordDataUsing(function (array $data, Role $record): array {
@@ -55,7 +55,7 @@ final class EditRoleAction extends Action
             })
             ->form([
                 TextInput::make('name')
-                    ->label(Lang::get('role.name.label'))
+                    ->label(Lang::get('role.name.label')) //@phpstan-ignore-line
                     ->required()
                     ->disabled(fn (Role $record): bool => $record->name->isDefault())
                     ->string()
@@ -64,7 +64,7 @@ final class EditRoleAction extends Action
                     ->unique($this->role->getTable(), 'name', ignoreRecord: true),
 
                 Select::make('permissions')
-                    ->label(Lang::get('role.permissions.label'))
+                    ->label(Lang::get('role.permissions.label')) //@phpstan-ignore-line
                     ->options(fn (Role $record): array => $this->getGroupedPermissions($record)->toArray())
                     ->searchable()
                     ->multiple()
@@ -101,7 +101,7 @@ final class EditRoleAction extends Action
                     'role' => $record
                 ]));
             })
-            ->successNotificationTitle(fn (Role $record): string => Lang::get('role.messages.edit.success', [
+            ->successNotificationTitle(fn (Role $record): string => Lang::get('role.messages.edit.success', [ //@phpstan-ignore-line
                 'name' => $record->name
             ]));
     }

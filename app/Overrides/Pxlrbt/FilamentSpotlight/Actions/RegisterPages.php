@@ -9,7 +9,7 @@ use App\Overrides\Pxlrbt\FilamentSpotlight\Commands\PageCommand;
 
 class RegisterPages
 {
-    public static function boot(Panel $panel)
+    public static function boot(Panel $panel): void
     {
         $pages = $panel->getPages();
 
@@ -20,7 +20,7 @@ class RegisterPages
              */
             $page = new $pageClass();
 
-            if (method_exists($page, 'shouldRegisterSpotlight') && $page::shouldRegisterSpotlight() === false) {
+            if (method_exists($page, 'shouldRegisterSpotlight') && $page->shouldRegisterSpotlight() === false) {
                 continue;
             }
 

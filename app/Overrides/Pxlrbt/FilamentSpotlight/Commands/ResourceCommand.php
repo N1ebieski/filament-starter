@@ -47,13 +47,16 @@ final class ResourceCommand extends BaseResourceCommand
             ->get()
             ->map(fn (Model $record) => new SpotlightSearchResult(
                 $record->getKey(),
-                $this->resource::getGlobalSearchResultTitle($record),
+                $this->resource::getGlobalSearchResultTitle($record), //@phpstan-ignore-line
                 collect($this->resource::getGlobalSearchResultDetails($record))
                     ->map(fn ($value, $key) => $key . ': ' . $value)
                     ->join(' – ')
             ));
     }
 
+    /**
+     * @param null|int|string $record
+     */
     #[Override]
     public function execute(Spotlight $spotlight, $record = null): void
     {

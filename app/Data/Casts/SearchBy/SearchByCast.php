@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Data\Casts\SearchBy;
 
-use App\Queries\SearchBy\SearchBy;
 use Spatie\LaravelData\Casts\Cast;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\LaravelData\Support\DataProperty;
 use Spatie\LaravelData\Support\Creation\CreationContext;
 use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatchFactory;
+use App\Queries\Shared\SearchBy\SearchByInterface;
 
 class SearchByCast implements Cast
 {
@@ -24,7 +24,7 @@ class SearchByCast implements Cast
     }
 
     /**
-     * @param SearchBy|string|null $value
+     * @param SearchByInterface|string|null $value
      */
     public function cast(DataProperty $property, mixed $value, array $properties, CreationContext $context): mixed
     {

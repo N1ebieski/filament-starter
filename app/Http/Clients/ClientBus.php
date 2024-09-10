@@ -26,8 +26,8 @@ final class ClientBus implements ClientBusInterface
     {
         $handler = $this->resolveHandler($client);
 
-        //@phpstan-ignore-next-line
         /** @disregard */
+        //@phpstan-ignore-next-line
         return $handler->handle($client);
     }
 

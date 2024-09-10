@@ -22,18 +22,15 @@ final class CommandBus implements CommandBusInterface
     }
 
     /**
-     * @param Command $command
      * @return mixed
-     * @throws IncorrectNameException
-     * @throws BindingResolutionException
      */
     public function execute(Command $command)
     {
         $handler = $this->resolveHandler($command);
 
         if (!$handler instanceof ShouldQueue) {
-            //@phpstan-ignore-next-line
             /** @disregard */
+            //@phpstan-ignore-next-line
             return $handler->handle($command);
         }
 

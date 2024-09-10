@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 /**
- *
+ * 
  *
  * @property int $id
  * @property \App\ValueObjects\Tenant\Name\Name $name
@@ -23,7 +23,7 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
  * @property-read \App\Models\User\User|null $user
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User\User> $users
  * @property-read int|null $users_count
- * @method static \Illuminate\Contracts\Pagination\LengthAwarePaginator filterPaginate(\App\Queries\Paginate $paginate)
+ * @method static \Illuminate\Contracts\Pagination\LengthAwarePaginator filterPaginate(\App\Queries\Shared\Result\Drivers\Paginate\Paginate $paginate)
  * @method static \Illuminate\Database\Eloquent\Builder|Tenant newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Tenant newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Tenant query()
@@ -59,7 +59,7 @@ class Tenant extends Model implements HasCurrentTenantLabel
 
     public function getCurrentTenantLabel(): string
     {
-        return Lang::get('tenant.current');
+        return Lang::get('tenant.current'); //@phpstan-ignore-line
     }
 
     // Relations

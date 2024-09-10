@@ -7,9 +7,7 @@ namespace App\Filament\Resources\Admin\User\Actions\Edit;
 use App\Models\Role\Role;
 use App\Models\User\User;
 use App\Filament\Actions\Action;
-use App\Queries\QueryBusInterface;
 use Illuminate\Support\Facades\App;
-use App\ValueObjects\User\Name\Name;
 use Illuminate\Support\Facades\Lang;
 use App\Commands\CommandBusInterface;
 use Filament\Forms\Components\Select;
@@ -25,7 +23,6 @@ final class EditUserAction extends Action
     public function __construct(
         private readonly User $user,
         private readonly Role $role,
-        private readonly QueryBusInterface $queryBus,
         private readonly CommandBusInterface $commandBus
     ) {
     }
@@ -41,7 +38,7 @@ final class EditUserAction extends Action
     public function makeAction(): EditAction
     {
         return EditAction::make()
-            ->modalHeading(fn (User $record): string => Lang::get('user.pages.edit.title', [
+            ->modalHeading(fn (User $record): string => Lang::get('user.pages.edit.title', [ //@phpstan-ignore-line
                 'name' => $record->name
             ]))
             ->mutateRecordDataUsing(function (array $data, User $record): array {
@@ -56,7 +53,7 @@ final class EditUserAction extends Action
             })
             ->form([
                 TextInput::make('name')
-                    ->label(Lang::get('user.name.label'))
+                    ->label(Lang::get('user.name.label')) //@phpstan-ignore-line
                     ->required()
                     ->string()
                     ->minLength(3)
@@ -64,7 +61,7 @@ final class EditUserAction extends Action
                     ->unique($this->user->getTable(), 'name', ignoreRecord: true),
 
                 TextInput::make('email')
-                    ->label(Lang::get('user.email.label'))
+                    ->label(Lang::get('user.email.label')) //@phpstan-ignore-line
                     ->required()
                     ->extraInputAttributes([
                         'autocomplete' => 'new-password'
@@ -75,7 +72,7 @@ final class EditUserAction extends Action
                     ->unique($this->user->getTable(), 'email', ignoreRecord: true),
 
                 TextInput::make('password')
-                    ->label(Lang::get('user.password.label'))
+                    ->label(Lang::get('user.password.label')) //@phpstan-ignore-line
                     ->password()
                     ->extraInputAttributes([
                         'autocomplete' => 'new-password'
@@ -88,7 +85,7 @@ final class EditUserAction extends Action
                     ->confirmed(),
 
                 TextInput::make('password_confirmation')
-                    ->label(Lang::get('user.password_confirmation.label'))
+                    ->label(Lang::get('user.password_confirmation.label')) //@phpstan-ignore-line
                     ->password()
                     ->extraInputAttributes([
                         'autocomplete' => 'new-password'
@@ -100,7 +97,7 @@ final class EditUserAction extends Action
                     ->maxLength(255),
 
                 Select::make('roles')
-                    ->label(Lang::get('user.roles.label'))
+                    ->label(Lang::get('user.roles.label')) //@phpstan-ignore-line
                     ->multiple()
                     ->relationship($this->role->getTable(), 'name', function (Builder $query) {
                         return $query->whereNot('name', DefaultName::SuperAdmin);

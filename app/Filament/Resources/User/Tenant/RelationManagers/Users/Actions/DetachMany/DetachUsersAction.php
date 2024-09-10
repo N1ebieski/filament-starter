@@ -50,7 +50,7 @@ final class DetachUsersAction extends Action
                     /** @var User|null */
                     $user = $guard->user();
 
-                    return $user?->can('tenantDetach', [$record, $tenant]);
+                    return $user?->can('tenantDetach', [$record, $tenant]) ?? false;
                 });
 
                 return $this->commandBus->execute(new DetachManyCommand(

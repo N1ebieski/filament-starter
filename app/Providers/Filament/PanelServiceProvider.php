@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Providers\Filament\Shared;
+namespace App\Providers\Filament;
 
 use Filament\Panel;
 use App\Models\User\User;

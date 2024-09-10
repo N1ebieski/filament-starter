@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Listeners\Permission\SetTeamId;
 
 use App\Listeners\Listener;
+use App\Models\Tenant\Tenant;
 use Filament\Events\TenantSet;
 use Spatie\Permission\PermissionRegistrar;
 

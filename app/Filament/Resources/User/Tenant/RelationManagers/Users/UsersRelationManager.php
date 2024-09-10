@@ -46,7 +46,7 @@ class UsersRelationManager extends RelationManager
         /** @var User|null */
         $user = Auth::user();
 
-        return $user?->can('usersViewAny', $ownerRecord);
+        return $user?->can('usersViewAny', $ownerRecord) ?? false;
     }
 
     public static function getTitle(Model $ownerRecord, string $pageClass): string

@@ -7,16 +7,16 @@ namespace App\Scopes;
 use App\Queries\OrderBy;
 use App\Scopes\HasSearchScopes;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Database\Eloquent\Collection;
 use App\Queries\Shared\Result\Drivers\Get\Get;
 use App\Queries\Shared\Result\ResultInterface;
-use Illuminate\Database\Eloquent\Collection;
-use App\Queries\Shared\Result\Drivers\Paginate\Paginate;
 use Illuminate\Contracts\Database\Eloquent\Builder;
-use App\Queries\Shared\Result\Drivers\DriverHandlerFactory;
+use App\Queries\Shared\Result\Drivers\Paginate\Paginate;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use App\Queries\Shared\Result\Drivers\DriverHandlerFactory;
 
 /**
-* @method \Illuminate\Contracts\Pagination\LengthAwarePaginator filterPaginate(App\Queries\Result\Paginate $paginate)
+ * @method \Illuminate\Contracts\Pagination\LengthAwarePaginator filterPaginate(App\Queries\Result\Paginate $paginate)
  * @method \Illuminate\Database\Eloquent\Collection filterGet(App\Queries\Result\Get $get)
  */
 trait HasFilterableScopes

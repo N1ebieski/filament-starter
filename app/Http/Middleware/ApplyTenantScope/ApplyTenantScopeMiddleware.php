@@ -11,11 +11,12 @@ use App\Http\Middleware\Middleware;
 
 class ApplyTenantScopeMiddleware extends Middleware
 {
+    //@phpstan-ignore-next-line
     public function __construct(private readonly TenantScope $tenantScope)
     {
     }
 
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): mixed
     {
         // Test::addGlobalScope($this->tenantScope);
 

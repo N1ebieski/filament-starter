@@ -30,10 +30,8 @@ use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatch;
  */
 trait HasSearchScopes
 {
-    public function scopeFilterSearchBy(
-        Builder|HasSearchScopes $builder,
-        ?SearchByInterface $searchBy
-    ): Builder {
+    public function scopeFilterSearchBy(Builder $builder, ?SearchByInterface $searchBy): Builder
+    {
         return $builder->when(!is_null($searchBy), function (Builder $builder) use ($searchBy) {
             $handlerFactory = DriverHandlerFactory::makeHandler($searchBy, $builder);
 

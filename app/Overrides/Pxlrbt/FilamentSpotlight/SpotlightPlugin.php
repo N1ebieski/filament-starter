@@ -14,7 +14,7 @@ use App\Overrides\Pxlrbt\FilamentSpotlight\Actions\RegisterResources;
 final class SpotlightPlugin extends BaseSpotlightPlugin
 {
     /**
-     * I have to move all logic to App\Providers\Filament\SpotlightServiceProvider
+     * I have to move all logic to App\Providers\Filament\Spotlight\SpotlightServiceProvider
      * because Laravel Octane flush callback listeners after request only
      * if they were in ServiceProvider
      */
@@ -24,6 +24,9 @@ final class SpotlightPlugin extends BaseSpotlightPlugin
         //
     }
 
+    /**
+     * @param Panel $panel
+     */
     #[Override]
     public static function registerNavigation($panel)
     {

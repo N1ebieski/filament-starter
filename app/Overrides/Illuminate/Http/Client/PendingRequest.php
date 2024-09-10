@@ -21,7 +21,9 @@ final class PendingRequest implements PendingRequestContract
      */
     public function async(bool $async = true)
     {
-        return $this->request->async($async);
+        $this->request->async($async);
+
+        return $this;
     }
 
     /**

@@ -20,6 +20,7 @@ class OfflinePage extends SimplePage
 
     public function getTitle(): string
     {
+        //@phpstan-ignore-next-line
         return Lang::get('offline.pages.offline.title');
     }
 }

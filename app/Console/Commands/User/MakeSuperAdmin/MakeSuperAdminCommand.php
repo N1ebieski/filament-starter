@@ -54,17 +54,17 @@ final class MakeSuperAdminCommand extends MakeUserCommand
     {
         return $this->user->newQuery()
             ->whereHas('roles', function (Builder $query) {
-                return $query->where('name', DefaultName::SuperAdmin);
+                return $query->where('name', DefaultName::SuperAdmin->value);
             })->count() === 0;
     }
 
     #[Override]
     protected function createUser(): Authenticatable
     {
-        return $this->commandBus->execute(new CreateCommand(
+        return $this->commandBus->execute(CreateCommand::from([
             ...$this->getUserData(),
-            roles: $this->role->all()
-        ));
+            'roles' => $this->role->all()
+        ]));
     }
 
     #[Override]

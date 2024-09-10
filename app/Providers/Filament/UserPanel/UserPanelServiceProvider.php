@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\Facades\Blade;
 use Filament\Widgets\FilamentInfoWidget;
-use App\Providers\Filament\Shared\PanelServiceProvider;
+use App\Providers\Filament\PanelServiceProvider;
 use App\Filament\Pages\User\Tenancy\Edit\EditTenantPage;
 use App\Overrides\Jeffgreco13\FilamentBreezy\BreezyCore;
 use App\Filament\Pages\User\Tenancy\Create\CreateTenantPage;

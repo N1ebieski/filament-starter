@@ -17,7 +17,6 @@ use App\Commands\User\Tenants\Detach\DetachCommand;
 final class DetachUserAction extends Action
 {
     public function __construct(
-        private readonly User $user,
         private readonly CommandBusInterface $commandBus
     ) {
     }

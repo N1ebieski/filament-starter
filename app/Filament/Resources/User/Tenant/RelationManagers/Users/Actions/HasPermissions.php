@@ -21,13 +21,13 @@ trait HasPermissions
         $permissions = $this->queryBus->execute(new GetAvailableForTenantQuery());
 
         return $permissions->sortBy('name')
-            ->mapWithKeys(function (Permission $permission) {
+            ->mapWithKeys(function (Permission $permission): array {
                 return [$permission->id => $permission->name->value];
             })
-            ->groupBy(function (string $item) {
+            ->groupBy(function (string $item): string {
                 preg_match('/[^.]*?\.([a-z]+){1}\..*/', $item, $group);
 
-                return $group[1] ?? null;
+                return $group[1] ?? '';
             }, preserveKeys: true);
     }
 }

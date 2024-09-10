@@ -42,7 +42,7 @@ final class RoleResource extends Resource implements GlobalSearchInterface
 
     public static function getModelLabel(): string
     {
-        return Lang::get('role.pages.index.title');
+        return Lang::get('role.pages.index.title'); //@phpstan-ignore-line
     }
 
     public static function getPluralModelLabel(): string
@@ -57,7 +57,7 @@ final class RoleResource extends Resource implements GlobalSearchInterface
 
     public static function getNavigationGroup(): ?string
     {
-        return Lang::get('admin.groups.user');
+        return Lang::get('admin.groups.user'); //@phpstan-ignore-line
     }
 
     public static function getPages(): array

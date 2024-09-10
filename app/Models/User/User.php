@@ -14,11 +14,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Filament\Models\Contracts\HasTenants;
 use App\Casts\ValueObject\ValueObjectCast;
+use App\Models\HasDatabaseMatchSearchable;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Notifications\Auth\VerifyEmail;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Models\HasDatabaseMatchSearchable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use App\ValueObjects\User\StatusEmail\StatusEmail;
 use Fico7489\Laravel\Pivot\Traits\PivotEventTrait;
@@ -30,7 +30,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
 
 /**
- *
+ * 
  *
  * @property int $id
  * @property \App\ValueObjects\User\Name\Name $name
@@ -64,16 +64,16 @@ use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
  * @property-read mixed $two_factor_secret
  * @method static \Database\Factories\User\UserFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|User filterExcept(?array $except)
- * @method static \Illuminate\Database\Eloquent\Builder|User filterGet(\App\Queries\Get $get)
- * @method static \Illuminate\Database\Eloquent\Builder|User filterOrderBy(?\App\Queries\OrderBy $orderby)
- * @method static \Illuminate\Database\Eloquent\Builder|User filterOrderBySearchByDatabaseMatch(?\App\Queries\Search\DatabaseMatch $search)
- * @method static \Illuminate\Contracts\Pagination\LengthAwarePaginator filterPaginate(\App\Queries\Paginate $paginate)
- * @method static \Illuminate\Database\Eloquent\Builder|User filterResult(\App\Queries\Paginate|\App\Queries\Get|null $result)
+ * @method static \Illuminate\Database\Eloquent\Builder|User filterGet(\App\Queries\Shared\Result\Drivers\Get\Get $get)
+ * @method static \Illuminate\Database\Eloquent\Builder|User filterOrderBy(?\App\Queries\OrderBy $orderBy)
+ * @method static \Illuminate\Database\Eloquent\Builder|User filterOrderByDatabaseMatch(\App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatch $databaseMatch)
+ * @method static \Illuminate\Contracts\Pagination\LengthAwarePaginator filterPaginate(\App\Queries\Shared\Result\Drivers\Paginate\Paginate $paginate)
+ * @method static \Illuminate\Database\Eloquent\Builder|User filterResult(?\App\Queries\Shared\Result\ResultInterface $result)
  * @method static \Illuminate\Database\Eloquent\Builder|User filterRoles(\Illuminate\Database\Eloquent\Collection $roles)
- * @method static \Illuminate\Database\Eloquent\Builder|User filterSearchAttributesByDatabaseMatch(?\App\Queries\Search\DatabaseMatch $search)
- * @method static \Illuminate\Database\Eloquent\Builder|User filterSearchBy(?\App\Queries\Search\DatabaseMatch $search, bool $isOrderBy, \App\Scopes\Search\Driver $driver = \App\Scopes\Search\Driver::DatabaseMatch)
- * @method static \Illuminate\Database\Eloquent\Builder|User filterSearchByDatabaseMatch(?\App\Queries\Search\DatabaseMatch $search, string $boolean = 'and')
- * @method static \Illuminate\Database\Eloquent\Builder|User filterSearchByScout(?\App\Queries\Search\DatabaseMatch $search)
+ * @method static \Illuminate\Database\Eloquent\Builder|User filterSearchAttributesByDatabaseMatch(\App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatch $databaseMatch)
+ * @method static \Illuminate\Database\Eloquent\Builder|User filterSearchBy(?\App\Queries\Shared\SearchBy\SearchByInterface $searchBy)
+ * @method static \Illuminate\Database\Eloquent\Builder|User filterSearchByDatabaseMatch(\App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatch $databaseMatch, string $boolean = 'and')
+ * @method static \Illuminate\Database\Eloquent\Builder|User filterSearchByScout(\App\Queries\Shared\SearchBy\Drivers\Scout\Scout $scout)
  * @method static \Illuminate\Database\Eloquent\Builder|User filterStatusEmail(?\App\ValueObjects\User\StatusEmail\StatusEmail $status)
  * @method static \Illuminate\Database\Eloquent\Builder|User filterTenants(\Illuminate\Database\Eloquent\Collection $tenants)
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
@@ -204,7 +204,7 @@ class User extends Authenticatable implements FilamentUser, HasTenants, MustVeri
      */
     public function canAccessTenant(Model $tenant): bool
     {
-        return $tenant->user->id === $this->id;
+        return $tenant->user?->id === $this->id;
     }
 
     // Relations

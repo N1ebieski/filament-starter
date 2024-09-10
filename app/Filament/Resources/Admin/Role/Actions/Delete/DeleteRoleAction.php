@@ -30,13 +30,13 @@ final class DeleteRoleAction extends Action
     public function makeAction(): DeleteAction
     {
         return DeleteAction::make()
-            ->modalHeading(fn (Role $record): string => Lang::get('role.pages.delete.title', [
+            ->modalHeading(fn (Role $record): string => Lang::get('role.pages.delete.title', [ //@phpstan-ignore-line
                 'name' => $record->name
             ]))
             ->using(function (Role $record): bool {
                 return $this->commandBus->execute(new DeleteCommand($record));
             })
-            ->successNotificationTitle(fn (Role $record): string => Lang::get('role.messages.delete.success', [
+            ->successNotificationTitle(fn (Role $record): string => Lang::get('role.messages.delete.success', [ //@phpstan-ignore-line
                 'name' => $record->name
             ]));
     }
