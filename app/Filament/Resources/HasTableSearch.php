@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace App\Filament\Resources;
 
 use Override;
-use App\Scopes\HasSearchScopes;
+use App\Scopes\SearchScopesInterface;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Concerns\InteractsWithTable;
 use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatchFactory;
@@ -16,7 +17,7 @@ use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatchFactory;
 trait HasTableSearch
 {
     /**
-     * @param Builder|HasSearchScopes $query
+     * @param Builder&SearchScopesInterface $query
      */
     #[Override]
     protected function applyGlobalSearchToTableQuery(Builder $query): Builder
@@ -24,10 +25,13 @@ trait HasTableSearch
         $search = $this->getTableSearch();
 
         if ($search && mb_strlen($search) > 2) {
+            /** @var Model */
+            $model = new ($this->getTable()->getModel());
+
             return $query->filterSearchBy(DatabaseMatchFactory::makeDatabaseMatch(
                 term: $search,
                 isOrderBy: is_null($this->getTableSortColumn()),
-                model: new ($this->getTable()->getModel())
+                model: $model
             ));
         }
 

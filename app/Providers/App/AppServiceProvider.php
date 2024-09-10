@@ -2,6 +2,8 @@
 
 namespace App\Providers\App;
 
+use App\Models\User\User;
+use App\Models\Tenant\Tenant;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Foundation\Application;
 
@@ -90,19 +92,25 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(\App\Queries\QueryBusInterface::class, \App\Queries\QueryBus::class);
 
         $this->app->bind(\App\Scopes\Tenant\TenantScope::class, function (Application $app) {
-            /** @var \App\Support\Tenant\CurrentTenantFactory */
+            /** @var \App\Tenant\CurrentTenantFactory */
             $factory = $app->make(\App\Tenant\CurrentTenantFactory::class, [
                 'filamentManager' => $app->make('filament')
             ]);
 
-            return new \App\Scopes\Tenant\TenantScope($factory->getTenant());
+            /** @var Tenant */
+            $tenant = $factory->getTenant();
+
+            return new \App\Scopes\Tenant\TenantScope($tenant);
         });
 
         $this->app->bind(\App\Scopes\User\UserScope::class, function (Application $app) {
             /** @var \Illuminate\Contracts\Auth\Guard */
             $guard = $app->make(\Illuminate\Contracts\Auth\Guard::class);
 
-            return new \App\Scopes\User\UserScope($guard->user());
+            /** @var User */
+            $user = $guard->user();
+
+            return new \App\Scopes\User\UserScope($user);
         });
     }
 }

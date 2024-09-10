@@ -10,7 +10,7 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 /**
- * @property-read Builder|HasFilterableScopes $builder
+ * @property-read Builder&HasFilterableScopes $builder
  */
 final class PaginateHandler extends Handler
 {

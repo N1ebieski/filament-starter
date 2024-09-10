@@ -6,7 +6,9 @@ namespace App\Models\Role;
 
 use Override;
 use App\Scopes\Role\HasRoleScopes;
+use Illuminate\Support\Facades\App;
 use App\ValueObjects\Role\Name\Name;
+use Illuminate\Support\Facades\Config;
 use Database\Factories\Role\RoleFactory;
 use App\Casts\ValueObject\ValueObjectCast;
 use App\Models\HasDatabaseMatchSearchable;
@@ -16,7 +18,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int|null $tenant_id
@@ -98,13 +100,16 @@ final class Role extends BaseRole
     #[Override]
     public function users(): BelongsToMany
     {
+        /** @var PermissionRegistrar */
+        $permissionRegistrar = App::make(PermissionRegistrar::class);
+
         //@phpstan-ignore-next-line
         return $this->morphedByMany(
-            getModelForGuard($this->attributes['guard_name'] ?? config('auth.defaults.guard')), //@phpstan-ignore-line
+            getModelForGuard($this->attributes['guard_name'] ?? Config::get('auth.defaults.guard')), //@phpstan-ignore-line
             'authenticatable',
-            config('permission.table_names.model_has_roles'),
-            app(PermissionRegistrar::class)->pivotRole,
-            config('permission.column_names.model_morph_key')
+            Config::get('permission.table_names.model_has_roles'),
+            $permissionRegistrar->pivotRole,
+            Config::get('permission.column_names.model_morph_key')
         );
     }
 }

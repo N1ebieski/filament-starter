@@ -16,16 +16,16 @@ final class TenantPolicy
 
     public function update(User $user, Tenant $record): bool
     {
-        return $user->id === $record->user->id;
+        return $user->id === $record->user?->id;
     }
 
     public function delete(User $user, Tenant $record): bool
     {
-        return $user->id === $record->user->id;
+        return $user->id === $record->user?->id;
     }
 
     public function usersViewAny(User $user, Tenant $record): bool
     {
-        return $user->id === $record->user->id;
+        return $user->id === $record->user?->id;
     }
 }

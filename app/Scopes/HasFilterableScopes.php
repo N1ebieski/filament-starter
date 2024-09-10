@@ -16,8 +16,7 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use App\Queries\Shared\Result\Drivers\DriverHandlerFactory;
 
 /**
- * @method \Illuminate\Contracts\Pagination\LengthAwarePaginator filterPaginate(App\Queries\Result\Paginate $paginate)
- * @method \Illuminate\Database\Eloquent\Collection filterGet(App\Queries\Result\Get $get)
+ * @mixin FilterableScopesInterface
  */
 trait HasFilterableScopes
 {

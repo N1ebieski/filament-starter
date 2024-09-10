@@ -6,7 +6,6 @@ namespace App\Scopes;
 
 use Laravel\Scout\Searchable;
 use App\Models\HasScoutSearchable;
-use Illuminate\Support\Facades\App;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\HasDatabaseMatchSearchable;
 use App\Support\Query\Columns\ColumnsHelper;
@@ -17,16 +16,11 @@ use App\Queries\Shared\SearchBy\Drivers\DriverHandlerFactory;
 use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatch;
 
 /**
- * @method \Illuminate\Database\Eloquent\Builder|HasSearchScopes filterSearchBy(?App\Queries\Shared\SearchBy\SearchByInterface $searchBy)
- * @method \Illuminate\Database\Eloquent\Builder|HasSearchScopes filterOrderByDatabaseMatch(App\Queries\SearchBy\Drivers\DatabaseMatch\DatabaseMatch $databaseMatch)
- * @method \Illuminate\Database\Eloquent\Builder|HasSearchScopes filterSearchByScout(App\Queries\SearchBy\Drivers\Scout\Scout $databaseMatch)
- * @method \Illuminate\Database\Eloquent\Builder|HasSearchScopes filterSearchByDatabaseMatch(App\Queries\SearchBy\Drivers\DatabaseMatch\DatabaseMatch $databaseMatch, string $boolean = 'and')
- * @method \Illuminate\Database\Eloquent\Builder|HasSearchScopes filterSearchAttributesByDatabaseMatch(App\Queries\SearchBy\Drivers\DatabaseMatch\DatabaseMatch $databaseMatch)
- * @method \Illuminate\Database\Eloquent\Builder|HasSearchScopes filterOrderByDatabaseMatch(App\Queries\SearchBy\Drivers\DatabaseMatch\DatabaseMatch $databaseMatch)
  * @mixin Model
  * @mixin Searchable
  * @mixin HasDatabaseMatchSearchable
  * @mixin HasScoutSearchable
+ * @mixin SearchScopesInterface
  */
 trait HasSearchScopes
 {

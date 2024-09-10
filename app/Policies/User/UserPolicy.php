@@ -42,21 +42,21 @@ final class UserPolicy
 
     public function tenantAttach(User $user, Tenant $tenant): bool
     {
-        return $tenant->user->id === $user->id;
+        return $tenant->user?->id === $user->id;
     }
 
     public function tenantDetach(User $user, User $record, Tenant $tenant): bool
     {
-        return $tenant->user->id === $user->id && $user->id !== $record->id;
+        return $tenant->user?->id === $user->id && $user->id !== $record->id;
     }
 
     public function tenantDetachAny(User $user, Tenant $tenant): bool
     {
-        return $tenant->user->id === $user->id;
+        return $tenant->user?->id === $user->id;
     }
 
     public function tenantUpdatePermissions(User $user, User $record, Tenant $tenant): bool
     {
-        return $tenant->user->id === $user->id && $user->id !== $record->id;
+        return $tenant->user?->id === $user->id && $user->id !== $record->id;
     }
 }

@@ -10,9 +10,9 @@ parameters:
 		- ./tests
 	excludePaths:
 		- ./app/Scopes/HasSearchScopes.php # This file increases analyze time a lot. I dont know why.
-		- ./app/Filament/Resources/HasTablePaginate.php
-		- ./app/Filament/Resources/HasTableSearch.php
 		- ./app/Overrides/Pxlrbt/FilamentSpotlight/SpotlightPlugin.php
+		- ./app/Overrides/Spatie/Permission/Traits/HasPermissions.php
+		- ./app/Overrides/Spatie/Permission/Traits/HasRoles.php
 	treatPhpDocTypesAsCertain: false
 	noModelMake: true
 	checkOctaneCompatibility: true
