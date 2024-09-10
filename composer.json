@@ -35,6 +35,7 @@
         "itsgoingd/clockwork": "^5.2",
         "larastan/larastan": "^2.9",
         "laravel-lang/common": "^6.2",
+        "laravel/pint": "^1.17",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.1",
         "phpunit/phpunit": "^11.0.1",

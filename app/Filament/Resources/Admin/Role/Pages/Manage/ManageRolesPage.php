@@ -87,18 +87,18 @@ final class ManageRolesPage extends ManageRecords implements PageMetaInterface
                     }),
 
                 TextColumn::make('name')
-                    ->label(Lang::get('role.name.label')) //@phpstan-ignore-line
+                    ->label(Lang::get('role.name.label'))
                     ->grow(),
 
                 TextColumn::make('created_at')
-                    ->label(Lang::get('default.created_at.label')) //@phpstan-ignore-line
+                    ->label(Lang::get('default.created_at.label'))
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->sortable(query: function (Builder|Role $query, string $direction): Builder {
                         return $query->filterOrderBy(new OrderBy('created_at', Order::from($direction)));
                     }),
 
                 TextColumn::make('updated_at')
-                    ->label(Lang::get('default.updated_at.label')) //@phpstan-ignore-line
+                    ->label(Lang::get('default.updated_at.label'))
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->sortable(query: function (Builder|Role $query, string $direction): Builder {
                         return $query->filterOrderBy(new OrderBy('updated_at', Order::from($direction)));

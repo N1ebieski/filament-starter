@@ -32,7 +32,7 @@ final class UserPanelServiceProvider extends PanelServiceProvider
             ->id(self::ID)
             ->path(self::ID)
             ->homeUrl('/' . self::ID)
-            ->brandName(Lang::get('user.pages.panel.title'))
+            ->brandName(Lang::get('user.pages.panel.title')) //@phpstan-ignore-line
             ->discoverResources(in: app_path('Filament/Resources/User'), for: 'App\\Filament\\Resources\\User')
             ->discoverPages(in: app_path('Filament/Pages/User'), for: 'App\\Filament\\Pages\\User')
             ->pages([])

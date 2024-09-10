@@ -16,7 +16,7 @@ final class SpotlightButtonComponent extends Component implements HasForms, HasA
     use InteractsWithActions;
     use InteractsWithForms;
 
-    public function spotlightAction()
+    public function spotlightAction(): Action
     {
         return Action::make('spotlight')
             ->livewireClickHandlerEnabled(false)

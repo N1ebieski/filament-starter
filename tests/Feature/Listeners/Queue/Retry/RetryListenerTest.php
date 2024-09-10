@@ -39,7 +39,7 @@ class RetryListenerTest extends TestCase
 
         Artisan::call('queue:work --once');
 
-        /** @var object */
+        /** @var object{uuid: string} */
         $failedJob = DB::table('failed_jobs')->first();
 
         Artisan::call("queue:retry {$failedJob->uuid}");

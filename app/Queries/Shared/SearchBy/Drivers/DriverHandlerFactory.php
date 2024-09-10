@@ -15,6 +15,9 @@ final class DriverHandlerFactory
     {
         $handlerName = HandlerHelper::getNamespace($searchBy);
 
-        return new $handlerName($builder);
+        /** @var Handler */
+        $handler = new $handlerName($builder);
+
+        return $handler;
     }
 }

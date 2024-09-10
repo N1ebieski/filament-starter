@@ -9,7 +9,6 @@ parameters:
 		- ./routes
 		- ./tests
 	excludePaths:
-		- ./app/Scopes/HasSearchScopes.php # This file increases analyze time a lot. I dont know why.
 		- ./app/Overrides/Pxlrbt/FilamentSpotlight/SpotlightPlugin.php
 		- ./app/Overrides/Spatie/Permission/Traits/HasPermissions.php
 		- ./app/Overrides/Spatie/Permission/Traits/HasRoles.php
@@ -24,21 +23,14 @@ parameters:
 	ignoreErrors:
 		- identifier: missingType.iterableValue
 		- identifier: missingType.generics
-		- '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model::\$created_at#'
-		- '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model::\$updated_at#'
-		- '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model::\$id#'
-		- '#^Call to an undefined method Illuminate\\Contracts\\View\\View::layout\(\)#'
 		- '#^Parameter \#1 \$column of method Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\>::where\(\) expects#'
-		- '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Factories\\Factory\<[A-Za-z\d\\]+\>::(afterMaking|afterCreating)\(\) expects#'
 		- '#^Parameter \#\d \$callback of method Illuminate\\(Support|Database\\Eloquent)\\Collection\<(int|\(int\|string\)),Illuminate\\Database\\Eloquent\\Model\>::(each|map|filter|when)\(\) expects#'
-		- '#^Parameter \#1 \$value of method Illuminate\\(Support|Database\\Eloquent)\\Collection\<(int|\(int\|string\)),Illuminate\\Database\\Eloquent\\Model\>::prepend\(\) expects#'
-		- '#^Parameter \#1 \$string of method Illuminate\\Console\\View\\Components\\Factory::(info|error)\(\) expects string, array\|string given.#'
-		- '#^Parameter \$label of method App\\Overrides\\Laravel\\Prompts\\Contracts\\Prompts::(text|password)\(\) expects string, array\|string given.#'		
+		- '#^Parameter \#1 \$string of method Illuminate\\Console\\View\\Components\\Factory::(info|error)\(\) expects string, array\|string given.#'		
 		- '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection.*expects callable.*: array<int, string>.*: non-empty-array<int, string> given.#'
 		- '#^Call to an undefined method [A-Za-z\d\\]+\|Illuminate\\Database\\Eloquent\\Builder::filter[A-Za-z\d\\]+\(\)#'
 		- '#^Return type of call to method PHPUnit\\Framework\\TestCase::createMock\(\) contains unresolvable type.#'
 		- '#^Anonymous function should return string but returns array\|string.#'
 		- '#^Parameter \#1 \$(label|title|heading) of method Filament\\[A-Za-z\d\\]+::(label|title|modalHeading)\(\) expects Closure(?:\|Illuminate\\Contracts\\Support\\Htmlable)?\|string\|null, array\|string given.#'
 		- '#^Method App\\Filament\\[A-Za-z\d\\]+::(getTitle|getModelLabel|getNavigationGroup)\(\) should return string(?:\|null)? but returns array\|string.#'
-		#- '#^Parameter \#\d \$column of method .*? Illuminate\\Contracts\\Database\\Query\\Expression given#'
+		- '#^Parameter \$(title|description|keywords) of method App\\View\\Metas\\[A-Za-z\d\\]+::makeMeta\(\) expects string\|null, array\|string given.#'
 	

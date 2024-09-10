@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Providers\Filament\Spotlight;
 
+use Filament\Panel;
 use Filament\Events\TenantSet;
 use Filament\Facades\Filament;
 use Illuminate\Support\Facades\Event;
@@ -18,6 +19,7 @@ final class SpotlightServiceProvider extends ServiceProvider
         Filament::serving(function () {
             Config::set('livewire-ui-spotlight.include_js', false);
 
+            /** @var Panel */
             $panel = Filament::getCurrentPanel();
 
             if (Filament::hasTenancy()) {

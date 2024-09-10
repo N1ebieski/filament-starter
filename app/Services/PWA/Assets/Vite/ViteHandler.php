@@ -21,15 +21,15 @@ final class ViteHandler extends Handler
         $manifestPath = public_path('build/manifest.json');
 
         if ($this->filesystem->exists($manifestPath)) {
-            $files = Collection::make(
-                json_decode($this->filesystem->get($manifestPath), true)
-            )->map(function (array $asset) {
-                return $asset['file'];
-            })
-            ->values()
-            ->unique();
+            /** @var array<int, array{file: string}> */
+            $manifestAsArray = json_decode($this->filesystem->get($manifestPath), true);
 
-            $files->each(function (string $file) use ($assets) {
+            $files = Collection::make($manifestAsArray)
+                ->map(fn (array $asset): string => $asset['file'])
+                ->values()
+                ->unique();
+
+            $files->each(function (string $file) use ($assets): void {
                 $assets->value->push('/build/' . $file);
             });
         }

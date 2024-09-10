@@ -34,6 +34,7 @@ enum StatusEmail: string implements HasLabel
 
     public function getLabel(): string
     {
+        //@phpstan-ignore-next-line
         return match ($this) {
             self::Verified => Lang::get('user.status_email.verified'),
             self::Unverified => Lang::get('user.status_email.unverified')

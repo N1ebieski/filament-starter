@@ -21,10 +21,11 @@ trait HasUserScopes
 
     public function scopeFilterStatusEmail(Builder $builder, ?StatusEmail $status): Builder
     {
-        return $builder->when(!is_null($status), function (Builder $builder) use ($status) {
-            return $builder->when($status->isEquals(StatusEmail::Verified), function (Builder $builder) {
+        return $builder->when(!is_null($status), function (Builder $builder) use ($status): Builder {
+            //@phpstan-ignore-next-line
+            return $builder->when($status->isEquals(StatusEmail::Verified), function (Builder $builder): Builder {
                 return $builder->whereNotNull('email_verified_at');
-            }, function (Builder $builder) {
+            }, function (Builder $builder): Builder {
                 return $builder->whereNull('email_verified_at');
             });
         });
@@ -32,8 +33,8 @@ trait HasUserScopes
 
     public function scopeFilterRoles(Builder $builder, Collection $roles): Builder
     {
-        return $builder->when($roles->isNotEmpty(), function (Builder $builder) use ($roles) {
-            return $builder->whereHas('roles', function (Builder $builder) use ($roles) {
+        return $builder->when($roles->isNotEmpty(), function (Builder $builder) use ($roles): Builder {
+            return $builder->whereHas('roles', function (Builder $builder) use ($roles): Builder {
                 /** @var Role */
                 $role = $this->roles()->make();
 
@@ -45,8 +46,8 @@ trait HasUserScopes
 
     public function scopeFilterTenants(Builder $builder, Collection $tenants): Builder
     {
-        return $builder->when($tenants->isNotEmpty(), function (Builder $builder) use ($tenants) {
-            return $builder->whereHas('tenants', function (Builder $builder) use ($tenants) {
+        return $builder->when($tenants->isNotEmpty(), function (Builder $builder) use ($tenants): Builder {
+            return $builder->whereHas('tenants', function (Builder $builder) use ($tenants): Builder {
                 /** @var Tenant */
                 $tenant = $this->tenants()->make();
 

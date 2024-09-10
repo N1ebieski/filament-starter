@@ -11,7 +11,7 @@ use App\Support\Attributes\Handler\Handler;
 
 final class HandlerHelper
 {
-    /** @property array */
+    /** @var array */
     private const NAMES = [
         'Query',
         'CacheQuery',
@@ -28,7 +28,7 @@ final class HandlerHelper
      */
     public static function getNamespace(object $class): string
     {
-        /** @var string */
+        /** @var class-string */
         $classNamespace = get_class($class);
 
         $reflectionClass = new ReflectionClass($classNamespace);

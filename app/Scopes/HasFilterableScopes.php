@@ -24,10 +24,12 @@ trait HasFilterableScopes
 
     public function scopeFilterResult(Builder $builder, ?ResultInterface $result): LengthAwarePaginator|Collection|Builder
     {
-        return $builder->when(!is_null($result), function (Builder $builder) use ($result) {
+        return $builder->when(!is_null($result), function (Builder $builder) use ($result): Builder {
+            //@phpstan-ignore-next-line
             $handlerFactory = DriverHandlerFactory::makeHandler($result, $builder);
 
             /** @disregard */
+            //@phpstan-ignore-next-line
             return $handlerFactory->handle($result);
         });
     }
@@ -42,7 +44,7 @@ trait HasFilterableScopes
 
     public function scopeFilterGet(Builder $builder, Get $get): Collection
     {
-        return $builder->when(!is_null($get->take), function (Builder $builder) use ($get) {
+        return $builder->when(!is_null($get->take), function (Builder $builder) use ($get): Builder {
             return $builder->take($get->take); //@phpstan-ignore-line
         })
         ->get();
@@ -50,16 +52,16 @@ trait HasFilterableScopes
 
     public function scopeFilterOrderBy(Builder $builder, ?OrderBy $orderBy): Builder
     {
-        return $builder->when(!is_null($orderBy), function (Builder $builder) use ($orderBy) {
-            /** @var OrderBy $orderby */
+        return $builder->when(!is_null($orderBy), function (Builder $builder) use ($orderBy): Builder {
+            //@phpstan-ignore-next-line
             return $builder->orderBy($orderBy->attribute, $orderBy->order->value);
         });
     }
 
     public function scopeFilterExcept(Builder $builder, ?array $except): Builder
     {
-        return $builder->when(!is_null($except), function (Builder $builder) use ($except) {
-            $builder->whereNotIn("{$this->getTable()}.{$this->getKeyName()}", $except);
+        return $builder->when(!is_null($except), function (Builder $builder) use ($except): Builder {
+            return $builder->whereNotIn("{$this->getTable()}.{$this->getKeyName()}", $except);
         });
     }
 }

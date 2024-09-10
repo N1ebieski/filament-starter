@@ -13,7 +13,7 @@ final class LaravelPWAServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
-        $middleware = Filament::getCurrentPanel()->getMiddleware();
+        $middleware = Filament::getCurrentPanel()?->getMiddleware();
 
         Route::middleware($middleware)->group(function () {
             Route::get('pwa-manifest.json', [LaravelPWAController::class, 'manifestJson'])
