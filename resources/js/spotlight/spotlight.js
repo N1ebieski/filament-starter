@@ -122,6 +122,10 @@ window.spotlight = (data) => {
             this.requiredDependencies = [];
             this.dependencySearch.setCollection([]);
             this.$refs.input.focus();
+            window.Livewire.find(data.componentId).$set(
+                "dependencyQueryResults",
+                []
+            );
         },
     };
 };
