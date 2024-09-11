@@ -7,7 +7,7 @@ namespace App\Scopes\User;
 use App\Models\Role\Role;
 use App\Models\User\User;
 use App\Models\Tenant\Tenant;
-use App\Scopes\HasFilterableScopes;
+use App\Scopes\HasFiltersScopes;
 use Illuminate\Database\Eloquent\Collection;
 use App\ValueObjects\User\StatusEmail\StatusEmail;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -17,12 +17,13 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
  */
 trait HasUserScopes
 {
-    use HasFilterableScopes;
+    use HasFiltersScopes;
 
     public function scopeFilterStatusEmail(Builder $builder, ?StatusEmail $status): Builder
     {
         return $builder->when(!is_null($status), function (Builder $builder) use ($status): Builder {
-            //@phpstan-ignore-next-line
+            /** @var StatusEmail $status */
+
             return $builder->when($status->isEquals(StatusEmail::Verified), function (Builder $builder): Builder {
                 return $builder->whereNotNull('email_verified_at');
             }, function (Builder $builder): Builder {
@@ -38,7 +39,6 @@ trait HasUserScopes
                 /** @var Role */
                 $role = $this->roles()->make();
 
-                //@phpstan-ignore-next-line
                 return $builder->whereIn("{$role->getTable()}.id", $roles->pluck('id'));
             });
         });
@@ -51,14 +51,8 @@ trait HasUserScopes
                 /** @var Tenant */
                 $tenant = $this->tenants()->make();
 
-                //@phpstan-ignore-next-line
                 return $builder->whereIn("{$tenant->getTable()}.id", $tenants->pluck('id'));
             });
         });
-    }
-
-    public function scopeWithAllRelations(Builder $builder): Builder
-    {
-        return $builder->with('roles');
     }
 }

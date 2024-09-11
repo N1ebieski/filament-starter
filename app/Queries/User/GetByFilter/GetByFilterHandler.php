@@ -15,13 +15,13 @@ final class GetByFilterHandler extends Handler
     {
         /** @var LengthAwarePaginator|Collection|Builder */
         $users = $query->user->newQuery()
-            ->selectRaw("`{$query->user->getTable()}`.*")
+            ->filterSelects($query->selects)
             ->filterSearchBy($query->searchBy)
             ->filterStatusEmail($query->status_email)
-            ->filterExcept($query->except)
+            ->filterIgnores($query->ignores)
             ->filterRoles($query->roles)
             ->filterTenants($query->tenants)
-            ->withAllRelations()
+            ->filterIncludes($query->includes)
             ->filterOrderBy($query->orderBy)
             ->filterResult($query->result);
 

@@ -13,8 +13,6 @@ use Filament\Tables\Table;
 use App\Filament\Pages\HasMeta;
 use App\View\Metas\MetaInterface;
 use App\Queries\QueryBusInterface;
-use Livewire\Attributes\Renderless;
-use App\ValueObjects\Role\Name\Name;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Lang;
 use App\Commands\CommandBusInterface;
@@ -88,7 +86,7 @@ final class ManageUsersPage extends ManageRecords implements PageMetaInterface
         return [
             CreateUserAction::make(
                 $this->role->newQuery()
-                    ->where('name', new Name(DefaultName::User->value))
+                    ->where('name', DefaultName::User->value)
                     ->when(!empty($this->getTableFilterState('roles')['values']), function (Builder $query): Builder {
                         //@phpstan-ignore-next-line
                         return $query->orWhereIn('id', $this->getTableFilterState('roles')['values']);
@@ -103,7 +101,10 @@ final class ManageUsersPage extends ManageRecords implements PageMetaInterface
         return $table
             ->searchable(true)
             ->query(function (): Builder {
-                return $this->queryBus->execute(new GetByFilterQuery());
+                return $this->queryBus->execute(new GetByFilterQuery(
+                    selects: ['id', 'name', 'email', 'email_verified_at', 'created_at', 'updated_at'],
+                    includes: ['roles' => 'name']
+                ));
             })
             ->columns([
                 TextColumn::make('id')

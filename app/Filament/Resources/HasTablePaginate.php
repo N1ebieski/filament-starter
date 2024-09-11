@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources;
 
 use Override;
-use App\Scopes\FilterableScopesInterface;
+use App\Scopes\FiltersScopesInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Contracts\Pagination\Paginator;
 use Filament\Tables\Concerns\InteractsWithTable;
@@ -17,7 +17,7 @@ use App\Queries\Shared\Result\Drivers\Paginate\Paginate;
 trait HasTablePaginate
 {
     /**
-     * @param Builder&FilterableScopesInterface $query
+     * @param Builder&FiltersScopesInterface $query
      */
     #[Override]
     protected function paginateTableQuery(Builder $query): Paginator

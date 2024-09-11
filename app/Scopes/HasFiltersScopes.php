@@ -7,6 +7,7 @@ namespace App\Scopes;
 use App\Queries\OrderBy;
 use App\Scopes\HasSearchScopes;
 use Illuminate\Support\Facades\Config;
+use App\Support\Query\Columns\ColumnsHelper;
 use Illuminate\Database\Eloquent\Collection;
 use App\Queries\Shared\Result\Drivers\Get\Get;
 use App\Queries\Shared\Result\ResultInterface;
@@ -16,11 +17,12 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use App\Queries\Shared\Result\Drivers\DriverHandlerFactory;
 
 /**
- * @mixin FilterableScopesInterface
+ * @mixin FiltersScopesInterface
  */
-trait HasFilterableScopes
+trait HasFiltersScopes
 {
     use HasSearchScopes;
+    use HasIncludesScopes;
 
     public function scopeFilterResult(Builder $builder, ?ResultInterface $result): LengthAwarePaginator|Collection|Builder
     {
@@ -61,10 +63,25 @@ trait HasFilterableScopes
         });
     }
 
-    public function scopeFilterExcept(Builder $builder, ?array $except): Builder
+    public function scopeFilterSelects(Builder $builder, array|string|null $selects): Builder
     {
-        return $builder->when(!is_null($except), function (Builder $builder) use ($except): Builder {
-            return $builder->whereNotIn("{$this->getTable()}.{$this->getKeyName()}", $except);
+        return $builder->when(!is_null($selects), function (Builder $builder) use ($selects): Builder {
+            /** @var array|string $selects */
+
+            $selectsAsArray = is_string($selects) ? explode(', ', $selects) : $selects;
+
+            $selectsAsArrayWithTablePrefix = ColumnsHelper::getColumnsWithTablePrefix($selectsAsArray, $this->getTable());
+
+            return $builder->select($selectsAsArrayWithTablePrefix);
+        }, function (Builder $builder): Builder {
+            return $builder->selectRaw("`{$this->getTable()}`.*");
+        });
+    }
+
+    public function scopeFilterIgnores(Builder $builder, ?array $ignores): Builder
+    {
+        return $builder->when(!is_null($ignores), function (Builder $builder) use ($ignores): Builder {
+            return $builder->whereNotIn("{$this->getTable()}.{$this->getKeyName()}", $ignores);
         });
     }
 }

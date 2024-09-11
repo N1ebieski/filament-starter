@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
- *
+ * 
  *
  * @property int $id
  * @property int|null $tenant_id
@@ -31,8 +31,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User\User> $users
  * @property-read int|null $users_count
  * @method static \Database\Factories\Role\RoleFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder|Role filterExcept(?array $except)
  * @method static \Illuminate\Database\Eloquent\Builder|Role filterGet(\App\Queries\Shared\Result\Drivers\Get\Get $get)
+ * @method static \Illuminate\Database\Eloquent\Builder|Role filterIgnores(?array $ignores)
+ * @method static \Illuminate\Database\Eloquent\Builder|Role filterIncludes(?array $includes)
  * @method static \Illuminate\Database\Eloquent\Builder|Role filterOrderBy(?\App\Queries\OrderBy $orderBy)
  * @method static \Illuminate\Database\Eloquent\Builder|Role filterOrderByDatabaseMatch(\App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatch $databaseMatch)
  * @method static \Illuminate\Contracts\Pagination\LengthAwarePaginator filterPaginate(\App\Queries\Shared\Result\Drivers\Paginate\Paginate $paginate)
@@ -41,11 +42,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Role filterSearchBy(?\App\Queries\Shared\SearchBy\SearchByInterface $searchBy)
  * @method static \Illuminate\Database\Eloquent\Builder|Role filterSearchByDatabaseMatch(\App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatch $databaseMatch, string $boolean = 'and')
  * @method static \Illuminate\Database\Eloquent\Builder|Role filterSearchByScout(\App\Queries\Shared\SearchBy\Drivers\Scout\Scout $scout)
+ * @method static \Illuminate\Database\Eloquent\Builder|Role filterSelects(array|string|null $selects)
  * @method static \Illuminate\Database\Eloquent\Builder|Role newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Role newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Role permission($permissions, $without = false)
  * @method static \Illuminate\Database\Eloquent\Builder|Role query()
- * @method static \Illuminate\Database\Eloquent\Builder|Role withAllRelations()
  * @method static \Illuminate\Database\Eloquent\Builder|Role withoutPermission($permissions)
  * @mixin \Eloquent
  */

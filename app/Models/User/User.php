@@ -63,8 +63,9 @@ use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
  * @property-read mixed $two_factor_recovery_codes
  * @property-read mixed $two_factor_secret
  * @method static \Database\Factories\User\UserFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder|User filterExcept(?array $except)
  * @method static \Illuminate\Database\Eloquent\Builder|User filterGet(\App\Queries\Shared\Result\Drivers\Get\Get $get)
+ * @method static \Illuminate\Database\Eloquent\Builder|User filterIgnores(?array $ignores)
+ * @method static \Illuminate\Database\Eloquent\Builder|User filterIncludes(?array $includes)
  * @method static \Illuminate\Database\Eloquent\Builder|User filterOrderBy(?\App\Queries\OrderBy $orderBy)
  * @method static \Illuminate\Database\Eloquent\Builder|User filterOrderByDatabaseMatch(\App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatch $databaseMatch)
  * @method static \Illuminate\Contracts\Pagination\LengthAwarePaginator filterPaginate(\App\Queries\Shared\Result\Drivers\Paginate\Paginate $paginate)
@@ -74,6 +75,7 @@ use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
  * @method static \Illuminate\Database\Eloquent\Builder|User filterSearchBy(?\App\Queries\Shared\SearchBy\SearchByInterface $searchBy)
  * @method static \Illuminate\Database\Eloquent\Builder|User filterSearchByDatabaseMatch(\App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatch $databaseMatch, string $boolean = 'and')
  * @method static \Illuminate\Database\Eloquent\Builder|User filterSearchByScout(\App\Queries\Shared\SearchBy\Drivers\Scout\Scout $scout)
+ * @method static \Illuminate\Database\Eloquent\Builder|User filterSelects(array|string|null $selects)
  * @method static \Illuminate\Database\Eloquent\Builder|User filterStatusEmail(?\App\ValueObjects\User\StatusEmail\StatusEmail $status)
  * @method static \Illuminate\Database\Eloquent\Builder|User filterTenants(\Illuminate\Database\Eloquent\Collection $tenants)
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
@@ -81,7 +83,6 @@ use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
  * @method static \Illuminate\Database\Eloquent\Builder|User permission($permissions, $without = false)
  * @method static \Illuminate\Database\Eloquent\Builder|User query()
  * @method static \Illuminate\Database\Eloquent\Builder|User role($roles, $guard = null, $without = false)
- * @method static \Illuminate\Database\Eloquent\Builder|User withAllRelations()
  * @method static \Illuminate\Database\Eloquent\Builder|User withoutPermission($permissions)
  * @method static \Illuminate\Database\Eloquent\Builder|User withoutRole($roles, $guard = null)
  * @mixin \Eloquent
