@@ -19,8 +19,6 @@ final class CacheQueryBus implements CacheQueryBusInterface
     {
         $handler = $this->resolveHandler($query);
 
-        /** @disregard */
-        //@phpstan-ignore-next-line
         return $handler->handle($query);
     }
 

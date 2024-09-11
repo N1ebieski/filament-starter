@@ -13,6 +13,7 @@ use Filament\Tables\Table;
 use App\Filament\Pages\HasMeta;
 use App\View\Metas\MetaInterface;
 use App\Queries\QueryBusInterface;
+use Livewire\Attributes\Renderless;
 use App\ValueObjects\Role\Name\Name;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Lang;

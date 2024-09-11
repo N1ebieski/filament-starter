@@ -28,12 +28,11 @@ trait HasSearchScopes
     public function scopeFilterSearchBy(Builder $builder, ?SearchByInterface $searchBy): Builder
     {
         return $builder->when(!is_null($searchBy), function (Builder $builder) use ($searchBy): Builder {
-            //@phpstan-ignore-next-line
-            $handlerFactory = DriverHandlerFactory::makeHandler($searchBy, $builder);
+            /** @var SearchByInterface $searchBy */
 
-            /** @disregard */
-            //@phpstan-ignore-next-line
-            return $handlerFactory->handle($searchBy);
+            $handler = DriverHandlerFactory::makeHandler($searchBy, $builder);
+
+            return $handler->handle($searchBy);
         });
     }
 
@@ -59,8 +58,10 @@ trait HasSearchScopes
     {
         $ids = $this->search($scout->query, $scout->callback)
             ->when(!is_null($scout->get->take), function (ScoutBuilder $builder) use ($scout): ScoutBuilder {
-                //@phpstan-ignore-next-line
-                return $builder->take($scout->get->take);
+                /** @var int */
+                $take = $scout->get->take;
+
+                return $builder->take($take);
             })
             ->keys();
 

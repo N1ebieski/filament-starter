@@ -12,6 +12,7 @@ use Illuminate\Contracts\Config\Repository as Config;
 
 /**
  * @property-read \App\Overrides\Illuminate\Contracts\Cache\Repository $cache
+ * @method mixed handle(CacheQuery $query)
  */
 abstract class Handler
 {

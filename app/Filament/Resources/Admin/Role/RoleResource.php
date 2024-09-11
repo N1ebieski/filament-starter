@@ -8,7 +8,7 @@ use Override;
 use App\Models\Role\Role;
 use App\Filament\Resources\Resource;
 use Illuminate\Support\Facades\Lang;
-use App\Filament\Resources\HasQueryBus;
+use App\Support\Query\HasQueryBus;
 use App\Filament\Resources\GlobalSearchInterface;
 use App\Queries\Role\GetByFilter\GetByFilterQuery;
 use Illuminate\Contracts\Database\Eloquent\Builder;

@@ -9,6 +9,9 @@ use Illuminate\Contracts\Auth\Guard as Auth;
 use Illuminate\Database\DatabaseManager as DB;
 use Illuminate\Contracts\Config\Repository as Config;
 
+/**
+ * @method mixed handle(Query $query)
+ */
 abstract class Handler
 {
     public function __construct(

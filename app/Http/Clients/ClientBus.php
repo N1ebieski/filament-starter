@@ -19,15 +19,10 @@ final class ClientBus implements ClientBusInterface
     ) {
     }
 
-    /**
-     * @return AsyncResponse|Response
-     */
-    public function execute(Client $client)
+    public function execute(Client $client): AsyncResponse|Response
     {
         $handler = $this->resolveHandler($client);
 
-        /** @disregard */
-        //@phpstan-ignore-next-line
         return $handler->handle($client);
     }
 

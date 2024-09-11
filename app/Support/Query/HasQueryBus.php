@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Resources;
+namespace App\Support\Query;
 
 use App\Queries\QueryBusInterface;
 use Illuminate\Support\Facades\App;

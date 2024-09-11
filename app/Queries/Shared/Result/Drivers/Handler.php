@@ -9,6 +9,7 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 
 /**
  * @property-read Builder&FilterableScopesInterface $builder
+ * @method Builder handle(\App\Queries\Shared\Result\ResultInterface $result)
  */
 abstract class Handler
 {

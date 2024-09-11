@@ -7,9 +7,7 @@ namespace App\Commands;
 use Illuminate\Container\Container;
 use App\Support\Handler\HandlerHelper;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Support\Handler\IncorrectNameException;
 use Illuminate\Contracts\Bus\Dispatcher as BusDispatcher;
-use Illuminate\Contracts\Container\BindingResolutionException;
 
 final class CommandBus implements CommandBusInterface
 {
@@ -29,8 +27,6 @@ final class CommandBus implements CommandBusInterface
         $handler = $this->resolveHandler($command);
 
         if (!$handler instanceof ShouldQueue) {
-            /** @disregard */
-            //@phpstan-ignore-next-line
             return $handler->handle($command);
         }
 

@@ -19,8 +19,6 @@ final class QueryBus implements QueryBusInterface
     {
         $handler = $this->resolveHandler($query);
 
-        /** @disregard */
-        //@phpstan-ignore-next-line
         return $handler->handle($query);
     }
 
