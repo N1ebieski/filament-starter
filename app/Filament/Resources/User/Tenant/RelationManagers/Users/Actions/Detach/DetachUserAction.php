@@ -43,7 +43,7 @@ final class DetachUserAction extends Action
                     'name' => $record->name
                 ]);
             })
-            ->using(function (User $record) use ($tenant): User {
+            ->using(function (User $record) use ($tenant): bool {
                 return $this->commandBus->execute(new DetachCommand(
                     tenant: $tenant,
                     user: $record

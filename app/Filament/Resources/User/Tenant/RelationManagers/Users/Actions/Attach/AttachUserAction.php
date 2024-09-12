@@ -74,7 +74,7 @@ final class AttachUserAction extends Action
             ])
             ->stickyModalFooter()
             ->closeModalByClickingAway(false)
-            ->using(function (array $data) use ($tenant): User {
+            ->using(function (array $data) use ($tenant): bool {
                 return $this->commandBus->execute(AttachCommand::from([
                     ...$data,
                     'tenant' => $tenant,

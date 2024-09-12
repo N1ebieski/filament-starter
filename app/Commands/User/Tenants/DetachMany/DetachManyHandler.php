@@ -13,7 +13,7 @@ final class DetachManyHandler extends Handler
     {
         $this->db->beginTransaction();
 
-        $affected = 0;
+        $detached = 0;
 
         try {
             foreach ($command->users as $user) {
@@ -22,7 +22,7 @@ final class DetachManyHandler extends Handler
                     user: $user
                 ));
 
-                $affected++;
+                $detached++;
             }
         } catch (\Exception $e) {
             $this->db->rollBack();
@@ -32,6 +32,6 @@ final class DetachManyHandler extends Handler
 
         $this->db->commit();
 
-        return $affected;
+        return $detached;
     }
 }

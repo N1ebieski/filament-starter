@@ -103,7 +103,7 @@ final class ManageUsersPage extends ManageRecords implements PageMetaInterface
             ->query(function (): Builder {
                 return $this->queryBus->execute(GetByFilterQuery::from([
                     'select' => ['id', 'name', 'email', 'email_verified_at', 'created_at', 'updated_at'],
-                    'include' => ['roles' => 'name']
+                    'include' => ['roles:name']
                 ]));
             })
             ->columns([

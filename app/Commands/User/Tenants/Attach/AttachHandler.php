@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace App\Commands\User\Tenants\Attach;
 
 use App\Commands\Handler;
-use App\Models\User\User;
 use App\Models\Permission\Permission;
 
 final class AttachHandler extends Handler
 {
-    public function handle(AttachCommand $command): User
+    public function handle(AttachCommand $command): bool
     {
         $this->db->beginTransaction();
 
@@ -32,7 +31,6 @@ final class AttachHandler extends Handler
 
         $this->db->commit();
 
-        /** @var User */
-        return $user->fresh();
+        return true;
     }
 }
