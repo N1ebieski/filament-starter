@@ -101,10 +101,10 @@ final class ManageUsersPage extends ManageRecords implements PageMetaInterface
         return $table
             ->searchable(true)
             ->query(function (): Builder {
-                return $this->queryBus->execute(new GetByFilterQuery(
-                    selects: ['id', 'name', 'email', 'email_verified_at', 'created_at', 'updated_at'],
-                    includes: ['roles' => 'name']
-                ));
+                return $this->queryBus->execute(GetByFilterQuery::from([
+                    'select' => ['id', 'name', 'email', 'email_verified_at', 'created_at', 'updated_at'],
+                    'include' => ['roles' => 'name']
+                ]));
             })
             ->columns([
                 TextColumn::make('id')

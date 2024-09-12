@@ -22,7 +22,7 @@ use App\Queries\Shared\Result\Drivers\DriverHandlerFactory;
 trait HasFiltersScopes
 {
     use HasSearchScopes;
-    use HasIncludesScopes;
+    use HasIncludeScopes;
 
     public function scopeFilterResult(Builder $builder, ?ResultInterface $result): LengthAwarePaginator|Collection|Builder
     {
@@ -63,25 +63,23 @@ trait HasFiltersScopes
         });
     }
 
-    public function scopeFilterSelects(Builder $builder, array|string|null $selects): Builder
+    public function scopeFilterSelect(Builder $builder, ?array $select): Builder
     {
-        return $builder->when(!is_null($selects), function (Builder $builder) use ($selects): Builder {
-            /** @var array|string $selects */
+        return $builder->when(!is_null($select), function (Builder $builder) use ($select): Builder {
+            /** @var array $select */
 
-            $selectsAsArray = is_string($selects) ? explode(', ', $selects) : $selects;
+            $selectsWithTablePrefix = ColumnsHelper::getColumnsWithTablePrefix($select, $this->getTable());
 
-            $selectsAsArrayWithTablePrefix = ColumnsHelper::getColumnsWithTablePrefix($selectsAsArray, $this->getTable());
-
-            return $builder->select($selectsAsArrayWithTablePrefix);
+            return $builder->select($selectsWithTablePrefix);
         }, function (Builder $builder): Builder {
             return $builder->selectRaw("`{$this->getTable()}`.*");
         });
     }
 
-    public function scopeFilterIgnores(Builder $builder, ?array $ignores): Builder
+    public function scopeFilterIgnore(Builder $builder, ?array $ignore): Builder
     {
-        return $builder->when(!is_null($ignores), function (Builder $builder) use ($ignores): Builder {
-            return $builder->whereNotIn("{$this->getTable()}.{$this->getKeyName()}", $ignores);
+        return $builder->when(!is_null($ignore), function (Builder $builder) use ($ignore): Builder {
+            return $builder->whereNotIn("{$this->getTable()}.{$this->getKeyName()}", $ignore);
         });
     }
 }

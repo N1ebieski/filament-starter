@@ -77,9 +77,9 @@ final class ManageRolesPage extends ManageRecords implements PageMetaInterface
         return $table
             ->searchable(true)
             ->query(function (): Builder {
-                return $this->queryBus->execute(new GetByFilterQuery(
-                    selects: ['id', 'name', 'created_at', 'updated_at'],
-                ));
+                return $this->queryBus->execute(GetByFilterQuery::from([
+                    'select' => ['id', 'name', 'created_at', 'updated_at'],
+                ]));
             })
             ->columns([
                 TextColumn::make('id')
