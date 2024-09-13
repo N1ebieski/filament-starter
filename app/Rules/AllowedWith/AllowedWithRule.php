@@ -21,6 +21,7 @@ class AllowedWithRule implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
+        /** @var string $baseRelation */
         [$baseRelation, $attributes] = explode(':', $value) + [null, null];
 
         $withs = $this->model->getWithable();

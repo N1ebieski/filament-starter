@@ -6,6 +6,8 @@ namespace App\Models;
 
 interface HasAttributesInterface
 {
+    public function getSelectAlways(): array;
+
     public function getSelectable(): array;
 
     public function getWithable(): array;

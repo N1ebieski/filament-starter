@@ -18,7 +18,7 @@ use App\Data\Pipelines\ModelDataPipe\PrepareFromModelInterface;
 final class UserResource extends Resource implements PrepareFromModelInterface
 {
     public function __construct(
-        public readonly BaseLazy|int $id,
+        public readonly int $id,
         public readonly BaseLazy|string $name,
         public readonly BaseLazy|DateTime|null $created_at,
         public readonly BaseLazy|DateTime|null $updated_at,
@@ -33,7 +33,6 @@ final class UserResource extends Resource implements PrepareFromModelInterface
     {
         $properties = [
             ...$properties,
-            'id' => Lazy::whenAttributeLoaded('id', $user, fn () => $user->id),
             'name' => Lazy::whenLoaded('name', $user, fn () => $user->name->value),
             'created_at' => Lazy::whenLoaded('created_at', $user, fn () => $user->created_at),
             'updated_at' => Lazy::whenLoaded('updated_at', $user, fn () => $user->updated_at),

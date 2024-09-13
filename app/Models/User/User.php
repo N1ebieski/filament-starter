@@ -2,7 +2,6 @@
 
 namespace App\Models\User;
 
-use Closure;
 use Filament\Panel;
 use App\Models\HasAttributes;
 use App\Models\Tenant\Tenant;
@@ -147,9 +146,11 @@ class User extends Authenticatable implements FilamentUser, HasTenants, MustVeri
         'password' => 'hashed',
     ];
 
-    protected array $selectable = ['id', 'name', 'created_at', 'updated_at'];
+    protected array $selectAlways = ['id'];
 
-    protected array $withable = ['roles', 'tenants'];
+    protected array $selectable = ['name', 'created_at', 'updated_at'];
+
+    protected array $withable = ['roles', 'tenants', 'tenants.user'];
 
     protected array $sortable = ['id', 'name', 'created_at', 'updated_at'];
 

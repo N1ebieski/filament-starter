@@ -7,26 +7,32 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @property-read array $selectable
- * @property-read array $withable
- * @property-read array $sortable
+ * @property-read array|null $selectAlways
+ * @property-read array|null $selectable
+ * @property-read array|null $withable
+ * @property-read array|null $sortable
  * @mixin Model
  */
 trait HasAttributes
 {
+    public function getSelectAlways(): array
+    {
+        return $this->selectAlways ?? [];
+    }
+
     public function getSelectable(): array
     {
-        return $this->selectable;
+        return $this->selectable ?? [];
     }
 
     public function getWithable(): array
     {
-        return $this->withable;
+        return $this->withable ?? [];
     }
 
     public function getSortable(): array
     {
-        return $this->sortable;
+        return $this->sortable ?? [];
     }
 
     public function attributeLoaded(string $attribute): bool

@@ -43,7 +43,7 @@ final class IndexRequest extends Request
         $paginate = Config::get('database.paginate');
 
         return [
-            'page' => 'integer',
+            'page' => 'bail|integer',
             'search' => 'bail|nullable|string|min:3|max:255',
             'select' => 'bail|nullable|array',
             'select.*' => [

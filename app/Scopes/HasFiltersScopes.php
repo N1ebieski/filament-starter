@@ -6,12 +6,15 @@ namespace App\Scopes;
 
 use App\Queries\OrderBy;
 use App\Scopes\HasSearchScopes;
+use App\Models\HasAttributesInterface;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Schema;
 use App\Support\Query\Columns\ColumnsHelper;
 use Illuminate\Database\Eloquent\Collection;
 use App\Queries\Shared\Result\Drivers\Get\Get;
 use App\Queries\Shared\Result\ResultInterface;
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Support\Collection as SupportCollection;
 use App\Queries\Shared\Result\Drivers\Paginate\Paginate;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use App\Queries\Shared\Result\Drivers\DriverHandlerFactory;
@@ -68,9 +71,20 @@ trait HasFiltersScopes
         return $builder->when(!is_null($select), function (Builder $builder) use ($select): Builder {
             /** @var array $select */
 
-            $selectsWithTablePrefix = ColumnsHelper::getColumnsWithTablePrefix($select, $this->getTable());
+            $model = $builder->getModel();
 
-            return $builder->select($selectsWithTablePrefix);
+            $columnsAsCollection = SupportCollection::make($select);
+
+            /**
+             * We need to select all foreign keys just in case
+             */
+            if ($model instanceof HasAttributesInterface) {
+                $columnsAsCollection->push(...$model->getSelectAlways());
+            }
+
+            $columnsWithTablePrefix = ColumnsHelper::getColumnsWithTablePrefix($columnsAsCollection->toArray(), $this->getTable());
+
+            return $builder->select($columnsWithTablePrefix);
         }, function (Builder $builder): Builder {
             return $builder->selectRaw("`{$this->getTable()}`.*");
         });

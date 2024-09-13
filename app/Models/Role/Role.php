@@ -84,7 +84,9 @@ final class Role extends BaseRole implements HasAttributesInterface
         'updated_at' => 'datetime',
     ];
 
-    protected array $selectable = ['id', 'name', 'created_at', 'updated_at'];
+    protected array $selectAlways = ['id', 'tenant_id'];
+
+    protected array $selectable = ['name', 'created_at', 'updated_at'];
 
     protected array $withable = ['permissions'];
 

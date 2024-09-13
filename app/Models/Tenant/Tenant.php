@@ -57,9 +57,11 @@ class Tenant extends Model implements HasCurrentTenantLabel
         'updated_at' => 'datetime',
     ];
 
-    protected array $selectable = ['id', 'name', 'created_at', 'updated_at'];
+    protected array $selectAlways = ['id', 'user_id'];
 
-    protected array $withable = ['users'];
+    protected array $selectable = ['name', 'created_at', 'updated_at'];
+
+    protected array $withable = ['user'];
 
     protected array $sortable = ['id', 'name', 'created_at', 'updated_at'];
 

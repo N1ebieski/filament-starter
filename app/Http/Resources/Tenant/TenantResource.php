@@ -8,16 +8,18 @@ use DateTime;
 use App\Models\Tenant\Tenant;
 use App\Http\Resources\Resource;
 use Spatie\LaravelData\Lazy as BaseLazy;
+use App\Http\Resources\User\UserResource;
 use App\Overrides\Spatie\LaravelData\Lazy;
 use App\Data\Pipelines\ModelDataPipe\PrepareFromModelInterface;
 
 final class TenantResource extends Resource implements PrepareFromModelInterface
 {
     public function __construct(
-        public readonly BaseLazy|int $id,
+        public readonly int $id,
         public readonly BaseLazy|string $name,
         public readonly BaseLazy|DateTime|null $created_at,
-        public readonly BaseLazy|DateTime|null $updated_at
+        public readonly BaseLazy|DateTime|null $updated_at,
+        public readonly BaseLazy|UserResource $user
     ) {
     }
 
@@ -25,10 +27,10 @@ final class TenantResource extends Resource implements PrepareFromModelInterface
     {
         $properties = [
             ...$properties,
-            'id' => Lazy::whenAttributeLoaded('id', $tenant, fn () => $tenant->id),
-            'name' => Lazy::whenAttributeLoaded('name', $tenant, fn () => $tenant->name->value),
-            'created_at' => Lazy::whenAttributeLoaded('created_at', $tenant, fn () => $tenant->created_at),
-            'updated_at' => Lazy::whenAttributeLoaded('updated_at', $tenant, fn () => $tenant->updated_at),
+            'name' => Lazy::whenLoaded('name', $tenant, fn () => $tenant->name->value),
+            'created_at' => Lazy::whenLoaded('created_at', $tenant, fn () => $tenant->created_at),
+            'updated_at' => Lazy::whenLoaded('updated_at', $tenant, fn () => $tenant->updated_at),
+            'user' => Lazy::whenLoaded('user', $tenant, fn () => UserResource::from($tenant->user)),
         ];
 
         return $properties;
