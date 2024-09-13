@@ -175,4 +175,5 @@ return [
         ],
     ],
 
+    'paginate' => env('DB_PAGINATE', 25)
 ];

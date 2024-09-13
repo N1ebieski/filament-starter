@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace App\Models\Role;
 
 use Override;
+use App\Models\HasAttributes;
 use App\Scopes\Role\HasRoleScopes;
 use Illuminate\Support\Facades\App;
 use App\ValueObjects\Role\Name\Name;
+use App\Models\HasAttributesInterface;
 use Illuminate\Support\Facades\Config;
 use Database\Factories\Role\RoleFactory;
 use App\Casts\ValueObject\ValueObjectCast;
@@ -18,7 +20,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int|null $tenant_id
@@ -33,7 +35,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @method static \Database\Factories\Role\RoleFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Role filterGet(\App\Queries\Shared\Result\Drivers\Get\Get $get)
  * @method static \Illuminate\Database\Eloquent\Builder|Role filterIgnore(?array $ignore)
- * @method static \Illuminate\Database\Eloquent\Builder|Role filterInclude(?array $include)
  * @method static \Illuminate\Database\Eloquent\Builder|Role filterOrderBy(?\App\Queries\OrderBy $orderBy)
  * @method static \Illuminate\Database\Eloquent\Builder|Role filterOrderByDatabaseMatch(\App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatch $databaseMatch)
  * @method static \Illuminate\Contracts\Pagination\LengthAwarePaginator filterPaginate(\App\Queries\Shared\Result\Drivers\Paginate\Paginate $paginate)
@@ -43,6 +44,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Role filterSearchByDatabaseMatch(\App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatch $databaseMatch, string $boolean = 'and')
  * @method static \Illuminate\Database\Eloquent\Builder|Role filterSearchByScout(\App\Queries\Shared\SearchBy\Drivers\Scout\Scout $scout)
  * @method static \Illuminate\Database\Eloquent\Builder|Role filterSelect(?array $select)
+ * @method static \Illuminate\Database\Eloquent\Builder|Role filterWith(?array $with)
  * @method static \Illuminate\Database\Eloquent\Builder|Role newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Role newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Role permission($permissions, $without = false)
@@ -50,9 +52,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Role withoutPermission($permissions)
  * @mixin \Eloquent
  */
-final class Role extends BaseRole
+final class Role extends BaseRole implements HasAttributesInterface
 {
     use HasFactory;
+    use HasAttributes;
     use HasRoleScopes;
     use HasDatabaseMatchSearchable;
 

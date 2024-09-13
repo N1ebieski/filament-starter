@@ -12,14 +12,14 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 /**
  * @mixin Model
  */
-trait HasIncludeScopes
+trait HasWithScopes
 {
-    public function scopeFilterInclude(Builder $builder, ?array $include): Builder
+    public function scopeFilterWith(Builder $builder, ?array $with): Builder
     {
-        return $builder->when(!is_null($include), function (Builder $builder) use ($include): Builder {
-            /** @var array<int, string> $include */
+        return $builder->when(!is_null($with), function (Builder $builder) use ($with): Builder {
+            /** @var array<int, string> $with */
 
-            foreach ($include as $relation) {
+            foreach ($with as $relation) {
                 $scopeName = IncludeHelper::getScopeRelationName($relation);
 
                 if (method_exists($this, $scopeName)) {
@@ -38,6 +38,15 @@ trait HasIncludeScopes
             }
 
             return $builder;
+        }, function (Builder $builder): Builder {
+            $builder = $this->scopeWithAll($builder);
+
+            return $builder;
         });
+    }
+
+    public function scopeWithAll(Builder $builder): Builder
+    {
+        return $builder;
     }
 }

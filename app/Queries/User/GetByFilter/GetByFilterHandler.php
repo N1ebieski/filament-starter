@@ -21,7 +21,7 @@ final class GetByFilterHandler extends Handler
             ->filterIgnore($query->ignore)
             ->filterRoles($query->roles)
             ->filterTenants($query->tenants)
-            ->filterInclude($query->include)
+            ->filterWith($query->with)
             ->filterOrderBy($query->orderBy)
             ->filterResult($query->result);
 

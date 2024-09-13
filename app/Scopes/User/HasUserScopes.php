@@ -55,4 +55,9 @@ trait HasUserScopes
             });
         });
     }
+
+    public function scopeWithAll(Builder $builder): Builder
+    {
+        return $builder->with(['roles']);
+    }
 }

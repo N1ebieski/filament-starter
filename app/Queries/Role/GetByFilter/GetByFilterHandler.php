@@ -18,7 +18,7 @@ final class GetByFilterHandler extends Handler
             ->filterSelect($query->select)
             ->filterSearchBy($query->searchBy)
             ->filterIgnore($query->ignore)
-            ->filterInclude($query->include)
+            ->filterWith($query->with)
             ->filterOrderBy($query->orderBy)
             ->filterResult($query->result);
 

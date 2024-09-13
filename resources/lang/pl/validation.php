@@ -233,4 +233,11 @@ return [
         'username'                 => 'nazwa użytkownika',
         'year'                     => 'rok',
     ],
+    'resource_with' => [
+        'with_in' => 'Zaznaczony element :attribute jest nieprawidłowy. Dozwolone relacje: :relations',
+        'select_in' => 'Zaznaczony atrybut w elemencie :attribute jest nieprawidłowy. Dozwolone atrybuty: :attributes',
+    ],
+    'resource_select' => [
+        'in' => 'Zaznaczony element :attribute jest nieprawidłowy. Dozwolone atrybuty: :attributes',
+    ]
 ];

@@ -22,11 +22,11 @@ use App\Queries\Shared\Result\Drivers\DriverHandlerFactory;
 trait HasFiltersScopes
 {
     use HasSearchScopes;
-    use HasIncludeScopes;
+    use HasWithScopes;
 
     public function scopeFilterResult(Builder $builder, ?ResultInterface $result): LengthAwarePaginator|Collection|Builder
     {
-        return $builder->when(!is_null($result), function (Builder $builder) use ($result): Builder {
+        return $builder->when(!is_null($result), function (Builder $builder) use ($result): LengthAwarePaginator|Collection|Builder {
             /** @var ResultInterface $result */
 
             $handler = DriverHandlerFactory::makeHandler($result, $builder);

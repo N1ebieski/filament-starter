@@ -4,11 +4,13 @@ namespace App\Models\User;
 
 use Closure;
 use Filament\Panel;
+use App\Models\HasAttributes;
 use App\Models\Tenant\Tenant;
 use Filament\Facades\Filament;
 use Laravel\Sanctum\HasApiTokens;
 use App\Scopes\User\HasUserScopes;
 use App\ValueObjects\User\Name\Name;
+use App\Models\HasAttributesInterface;
 use App\ValueObjects\User\Email\Email;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
@@ -30,7 +32,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property \App\ValueObjects\User\Name\Name $name
@@ -65,7 +67,6 @@ use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
  * @method static \Database\Factories\User\UserFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|User filterGet(\App\Queries\Shared\Result\Drivers\Get\Get $get)
  * @method static \Illuminate\Database\Eloquent\Builder|User filterIgnore(?array $ignore)
- * @method static \Illuminate\Database\Eloquent\Builder|User filterInclude(?array $include)
  * @method static \Illuminate\Database\Eloquent\Builder|User filterOrderBy(?\App\Queries\OrderBy $orderBy)
  * @method static \Illuminate\Database\Eloquent\Builder|User filterOrderByDatabaseMatch(\App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatch $databaseMatch)
  * @method static \Illuminate\Contracts\Pagination\LengthAwarePaginator filterPaginate(\App\Queries\Shared\Result\Drivers\Paginate\Paginate $paginate)
@@ -78,6 +79,7 @@ use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
  * @method static \Illuminate\Database\Eloquent\Builder|User filterSelect(?array $select)
  * @method static \Illuminate\Database\Eloquent\Builder|User filterStatusEmail(?\App\ValueObjects\User\StatusEmail\StatusEmail $status)
  * @method static \Illuminate\Database\Eloquent\Builder|User filterTenants(\Illuminate\Database\Eloquent\Collection $tenants)
+ * @method static \Illuminate\Database\Eloquent\Builder|User filterWith(?array $with)
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User permission($permissions, $without = false)
@@ -87,9 +89,10 @@ use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
  * @method static \Illuminate\Database\Eloquent\Builder|User withoutRole($roles, $guard = null)
  * @mixin \Eloquent
  */
-class User extends Authenticatable implements FilamentUser, HasTenants, MustVerifyEmail
+class User extends Authenticatable implements FilamentUser, HasTenants, MustVerifyEmail, HasAttributesInterface
 {
     use HasRoles;
+    use HasAttributes;
     use HasUserScopes;
     use HasApiTokens;
     use HasFactory;

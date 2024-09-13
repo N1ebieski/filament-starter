@@ -6,7 +6,9 @@ namespace App\Data\Pipelines\ModelDataPipe;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @method static array prepareFromModel(Model $model, array $properties)
+ */
 interface PrepareFromModelInterface
 {
-    public static function prepareFromModel(Model $model, array $properties): array;
 }

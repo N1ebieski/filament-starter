@@ -11,7 +11,6 @@ use App\Models\User\User;
 use App\Models\Tenant\Tenant;
 use App\Data\Casts\Select\SelectCast;
 use Spatie\LaravelData\Casts\EnumCast;
-use App\Data\Casts\Include\IncludeCast;
 use App\Data\Casts\OrderBy\OrderByCast;
 use App\Data\Casts\Paginate\PaginateCast;
 use App\Data\Casts\SearchBy\SearchByCast;
@@ -21,6 +20,7 @@ use Illuminate\Database\Eloquent\Collection;
 use App\Queries\Shared\Result\ResultInterface;
 use App\Queries\Shared\SearchBy\SearchByInterface;
 use App\ValueObjects\User\StatusEmail\StatusEmail;
+use App\Data\Casts\With\WithCast as WithRelationCast;
 use App\Data\Casts\CollectionOfModels\CollectionOfModelsCast;
 use App\Data\Pipelines\ObjectDefaultsDataPipe\ObjectDefaultsInterface;
 
@@ -39,8 +39,8 @@ final class GetByFilterQuery extends Query implements ObjectDefaultsInterface
         #[WithCast(SearchByCast::class, User::class)]
         public readonly ?SearchByInterface $searchBy = null,
         public readonly ?array $ignore = null,
-        #[WithCast(IncludeCast::class)]
-        public readonly ?array $include = null,
+        #[WithCast(WithRelationCast::class)]
+        public readonly ?array $with = null,
         public readonly User $user = new User(),
         #[WithCast(OrderByCast::class)]
         public readonly ?OrderBy $orderBy = null,

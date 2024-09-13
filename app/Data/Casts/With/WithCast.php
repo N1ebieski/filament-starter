@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Data\Casts\Include;
+namespace App\Data\Casts\With;
 
 use Spatie\LaravelData\Casts\Cast;
 use Spatie\LaravelData\Support\DataProperty;
 use Spatie\LaravelData\Support\Creation\CreationContext;
 
-class IncludeCast implements Cast
+class WithCast implements Cast
 {
     /**
      * @param array<int, string>|string|null $value
