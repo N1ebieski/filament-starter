@@ -7,9 +7,15 @@ namespace App\Commands\User\Tenants\EditPermissions;
 use App\Commands\Handler;
 use App\Models\User\User;
 use App\Models\Permission\Permission;
+use Illuminate\Database\ConnectionInterface as DB;
 
 final class EditPermissionsHandler extends Handler
 {
+    public function __construct(
+        private readonly DB $db,
+    ) {
+    }
+
     public function handle(EditPermissionsCommand $command): User
     {
         $this->db->beginTransaction();

@@ -8,9 +8,15 @@ use App\Commands\Handler;
 use App\Models\Role\Role;
 use App\Models\Permission\Permission;
 use App\Commands\Role\Create\CreateCommand;
+use Illuminate\Database\ConnectionInterface as DB;
 
 final class CreateHandler extends Handler
 {
+    public function __construct(
+        private readonly DB $db,
+    ) {
+    }
+
     public function handle(CreateCommand $command): Role
     {
         $this->db->beginTransaction();

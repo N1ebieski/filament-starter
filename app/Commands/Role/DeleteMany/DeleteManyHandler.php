@@ -5,10 +5,18 @@ declare(strict_types=1);
 namespace App\Commands\Role\DeleteMany;
 
 use App\Commands\Handler;
+use App\Commands\CommandBusInterface;
 use App\Commands\Role\Delete\DeleteCommand;
+use Illuminate\Database\ConnectionInterface as DB;
 
 final class DeleteManyHandler extends Handler
 {
+    public function __construct(
+        private readonly DB $db,
+        private readonly CommandBusInterface $commandBus,
+    ) {
+    }
+
     public function handle(DeleteManyCommand $command): int
     {
         $this->db->beginTransaction();

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\View\Metas\Web\User;
+namespace App\View\Metas\User;
 
 use App\View\Metas\Meta;
 use Illuminate\Http\Request;
@@ -15,10 +15,10 @@ use Illuminate\Contracts\Config\Repository as Config;
 final class UserMetaFactory
 {
     public function __construct(
-        protected Config $config,
-        protected Translator $translator,
-        protected Collect $collect,
-        protected Request $request
+        private readonly Config $config,
+        private readonly Translator $translator,
+        private readonly Collect $collect,
+        private readonly Request $request
     ) {
     }
 

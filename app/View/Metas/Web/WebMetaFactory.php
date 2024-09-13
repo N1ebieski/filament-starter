@@ -15,10 +15,10 @@ use Illuminate\Contracts\Config\Repository as Config;
 final class WebMetaFactory
 {
     public function __construct(
-        protected Config $config,
-        protected Translator $translator,
-        protected Collect $collect,
-        protected Request $request
+        private readonly Config $config,
+        private readonly Translator $translator,
+        private readonly Collect $collect,
+        private readonly Request $request
     ) {
     }
 

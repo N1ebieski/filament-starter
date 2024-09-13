@@ -10,9 +10,15 @@ use App\Models\User\User;
 use Spatie\LaravelData\Optional;
 use App\Commands\User\Edit\EditCommand;
 use App\ValueObjects\Role\Name\DefaultName;
+use Illuminate\Database\ConnectionInterface as DB;
 
 final class EditHandler extends Handler
 {
+    public function __construct(
+        private readonly DB $db,
+    ) {
+    }
+
     public function handle(EditCommand $command): User
     {
         $this->db->beginTransaction();

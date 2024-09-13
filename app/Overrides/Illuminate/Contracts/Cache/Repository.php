@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace App\Overrides\Illuminate\Contracts\Cache;
 
 use Illuminate\Cache\TaggedCache;
-use Illuminate\Contracts\Cache\Repository as BaseRepository;
 
-interface Repository extends BaseRepository
+interface Repository
 {
     /**
      * @param  array|mixed  $names

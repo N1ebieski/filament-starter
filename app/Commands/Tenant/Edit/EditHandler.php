@@ -7,9 +7,15 @@ namespace App\Commands\Tenant\Edit;
 use App\Commands\Handler;
 use App\Models\Tenant\Tenant;
 use Spatie\LaravelData\Optional;
+use Illuminate\Database\ConnectionInterface as DB;
 
 final class EditHandler extends Handler
 {
+    public function __construct(
+        private readonly DB $db,
+    ) {
+    }
+
     public function handle(EditCommand $command): Tenant
     {
         $this->db->beginTransaction();

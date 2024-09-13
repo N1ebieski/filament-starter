@@ -6,8 +6,4 @@ namespace App\View\Metas\Admin;
 
 abstract class MetaFactory
 {
-    public function __construct(
-        protected AdminMetaFactory $adminMetaFactory
-    ) {
-    }
 }

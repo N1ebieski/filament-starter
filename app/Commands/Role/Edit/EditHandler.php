@@ -9,9 +9,15 @@ use App\Models\Role\Role;
 use Spatie\LaravelData\Optional;
 use App\Models\Permission\Permission;
 use App\Commands\Role\Edit\EditCommand;
+use Illuminate\Database\ConnectionInterface as DB;
 
 final class EditHandler extends Handler
 {
+    public function __construct(
+        private readonly DB $db,
+    ) {
+    }
+
     public function handle(EditCommand $command): Role
     {
         $this->db->beginTransaction();

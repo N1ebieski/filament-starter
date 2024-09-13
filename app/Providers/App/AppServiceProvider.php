@@ -14,6 +14,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->app->bind(\App\Overrides\Illuminate\Contracts\Cache\Repository::class, function (Application $app) {
+            /** @var \Illuminate\Cache\Repository */
+            $cache = $app->make(\Illuminate\Contracts\Cache\Repository::class);
+
+            return new \App\Overrides\Illuminate\Cache\Repository($cache);
+        });
+
         $this->app->bind(\App\Overrides\Illuminate\Contracts\Http\Client\Client::class, function (Application $app) {
             /** @var \App\Overrides\Illuminate\Contracts\Http\Client\Factory */
             $factory = $app->make(\App\Overrides\Illuminate\Contracts\Http\Client\Factory::class);
