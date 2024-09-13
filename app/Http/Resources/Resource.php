@@ -8,13 +8,4 @@ use App\Data\Data\Data;
 
 abstract class Resource extends Data
 {
-    public static function getAllowedSelect(): array
-    {
-        return [];
-    }
-
-    public static function getAllowedWith(): array
-    {
-        return [];
-    }
 }

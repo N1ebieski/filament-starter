@@ -8,7 +8,7 @@ use App\Models\Role\Role;
 use App\Models\User\User;
 use App\Models\Tenant\Tenant;
 use App\Scopes\HasFiltersScopes;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use App\ValueObjects\User\StatusEmail\StatusEmail;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 
@@ -32,9 +32,11 @@ trait HasUserScopes
         });
     }
 
-    public function scopeFilterRoles(Builder $builder, Collection $roles): Builder
+    public function scopeFilterRoles(Builder $builder, ?Collection $roles): Builder
     {
-        return $builder->when($roles->isNotEmpty(), function (Builder $builder) use ($roles): Builder {
+        return $builder->when($roles?->isNotEmpty(), function (Builder $builder) use ($roles): Builder {
+            /** @var Collection $roles */
+
             return $builder->whereHas('roles', function (Builder $builder) use ($roles): Builder {
                 /** @var Role */
                 $role = $this->roles()->make();
@@ -44,9 +46,11 @@ trait HasUserScopes
         });
     }
 
-    public function scopeFilterTenants(Builder $builder, Collection $tenants): Builder
+    public function scopeFilterTenants(Builder $builder, ?Collection $tenants): Builder
     {
-        return $builder->when($tenants->isNotEmpty(), function (Builder $builder) use ($tenants): Builder {
+        return $builder->when($tenants?->isNotEmpty(), function (Builder $builder) use ($tenants): Builder {
+            /** @var Collection $tenants */
+
             return $builder->whereHas('tenants', function (Builder $builder) use ($tenants): Builder {
                 /** @var Tenant */
                 $tenant = $this->tenants()->make();

@@ -7,9 +7,9 @@ namespace App\Data\Casts\SearchBy;
 use Spatie\LaravelData\Casts\Cast;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\LaravelData\Support\DataProperty;
+use App\Queries\Shared\SearchBy\SearchByInterface;
 use Spatie\LaravelData\Support\Creation\CreationContext;
 use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatchFactory;
-use App\Queries\Shared\SearchBy\SearchByInterface;
 
 class SearchByCast implements Cast
 {

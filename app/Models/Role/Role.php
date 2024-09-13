@@ -84,9 +84,15 @@ final class Role extends BaseRole implements HasAttributesInterface
         'updated_at' => 'datetime',
     ];
 
-    private array $searchable = ['name'];
+    protected array $selectable = ['id', 'name', 'created_at', 'updated_at'];
 
-    private array $searchableAttributes = ['id'];
+    protected array $withable = ['permissions'];
+
+    protected array $sortable = ['id', 'name', 'created_at', 'updated_at'];
+
+    protected array $searchable = ['name'];
+
+    protected array $searchableAttributes = ['id'];
 
     /**
      * Create a new factory instance for the model.

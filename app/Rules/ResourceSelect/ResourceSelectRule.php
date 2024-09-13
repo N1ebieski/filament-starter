@@ -3,21 +3,13 @@
 namespace App\Rules\ResourceSelect;
 
 use Closure;
-use App\Http\Resources\Resource;
-use Illuminate\Database\Eloquent\Model;
-use App\Support\Resource\ResourceHelper;
+use App\Models\HasAttributesInterface;
 use Illuminate\Contracts\Validation\ValidationRule;
 
 class ResourceSelectRule implements ValidationRule
 {
-    private readonly Model $model;
-
-    public function __construct(string $modelName)
+    public function __construct(private readonly HasAttributesInterface $model)
     {
-        /** @var Model */
-        $model = new $modelName();
-
-        $this->model = $model;
     }
 
     /**
@@ -28,12 +20,9 @@ class ResourceSelectRule implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        /** @var Resource */
-        $resource = ResourceHelper::getResourceName($this->model);
-
-        if (!in_array($value, $resource::getAllowedSelect())) {
+        if (!in_array($value, $this->model->getSelectable())) {
             $fail('validation.resource_select.in')->translate([
-                'attributes' => implode(', ', $resource::getAllowedSelect())
+                'attributes' => implode(', ', $this->model->getSelectable())
             ]);
         }
     }

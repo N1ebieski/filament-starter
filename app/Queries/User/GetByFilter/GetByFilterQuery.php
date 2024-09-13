@@ -9,6 +9,7 @@ use App\Queries\OrderBy;
 use App\Models\Role\Role;
 use App\Models\User\User;
 use App\Models\Tenant\Tenant;
+use Illuminate\Support\Collection;
 use App\Data\Casts\Select\SelectCast;
 use Spatie\LaravelData\Casts\EnumCast;
 use App\Data\Casts\OrderBy\OrderByCast;
@@ -16,7 +17,6 @@ use App\Data\Casts\Paginate\PaginateCast;
 use App\Data\Casts\SearchBy\SearchByCast;
 use App\Support\Attributes\Handler\Handler;
 use Spatie\LaravelData\Attributes\WithCast;
-use Illuminate\Database\Eloquent\Collection;
 use App\Queries\Shared\Result\ResultInterface;
 use App\Queries\Shared\SearchBy\SearchByInterface;
 use App\ValueObjects\User\StatusEmail\StatusEmail;
@@ -33,9 +33,9 @@ final class GetByFilterQuery extends Query implements ObjectDefaultsInterface
         #[WithCast(EnumCast::class)]
         public readonly ?StatusEmail $status_email = null,
         #[WithCast(CollectionOfModelsCast::class, Role::class)]
-        public readonly Collection $roles = new Collection(),
+        public readonly ?Collection $roles = null,
         #[WithCast(CollectionOfModelsCast::class, Tenant::class)]
-        public readonly Collection $tenants = new Collection(),
+        public readonly ?Collection $tenants = null,
         #[WithCast(SearchByCast::class, User::class)]
         public readonly ?SearchByInterface $searchBy = null,
         public readonly ?array $ignore = null,

@@ -5,20 +5,14 @@ namespace App\Rules\ResourceWith;
 use Closure;
 use App\Http\Resources\Resource;
 use Illuminate\Support\Collection;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\HasAttributesInterface;
 use App\Support\Resource\ResourceHelper;
 use Illuminate\Contracts\Validation\ValidationRule;
 
 class ResourceWithRule implements ValidationRule
 {
-    private readonly Model $model;
-
-    public function __construct(string $modelName)
+    public function __construct(private readonly HasAttributesInterface $model)
     {
-        /** @var Model */
-        $model = new $modelName();
-
-        $this->model = $model;
     }
 
     /**
@@ -29,14 +23,11 @@ class ResourceWithRule implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        [$baseRelation, $attributes] = explode(':', $value);
+        [$baseRelation, $attributes] = explode(':', $value) + [null, null];
 
-        /** @var Resource */
-        $resource = ResourceHelper::getResourceName($this->model);
-
-        if (!in_array($baseRelation, $resource::getAllowedWith())) {
+        if (!in_array($baseRelation, $this->model->getWithable())) {
             $fail('validation.resource_with.with_in')->translate([
-                'relations' => implode(', ', $resource::getAllowedWith())
+                'relations' => implode(', ', $this->model->getWithable())
             ]);
 
             return;
@@ -51,15 +42,13 @@ class ResourceWithRule implements ValidationRule
                     $model = $this->model;
 
                     foreach ($relations as $relation) {
+                        /** @var HasAttributesInterface */
                         $model = $model->{$relation}()->make();
                     }
 
-                    /** @var Resource */
-                    $resource = ResourceHelper::getResourceName($model);
-
-                    if (!in_array($attribute, $resource::getAllowedSelect())) {
+                    if (!in_array($attribute, $model->getSelectable())) {
                         $fail('validation.resource_with.select_in')->translate([
-                            'attributes' => implode(', ', $resource::getAllowedSelect())
+                            'attributes' => implode(', ', $model->getSelectable())
                         ]);
                     }
                 });

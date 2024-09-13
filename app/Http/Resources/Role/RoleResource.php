@@ -14,7 +14,7 @@ use App\Data\Pipelines\ModelDataPipe\PrepareFromModelInterface;
 final class RoleResource extends Resource implements PrepareFromModelInterface
 {
     public function __construct(
-        public readonly int $id,
+        public readonly BaseLazy|int $id,
         public readonly BaseLazy|string $name,
         public readonly BaseLazy|DateTime|null $created_at,
         public readonly BaseLazy|DateTime|null $updated_at
@@ -25,16 +25,12 @@ final class RoleResource extends Resource implements PrepareFromModelInterface
     {
         $properties = [
             ...$properties,
+            'id' => Lazy::whenAttributeLoaded('id', $role, fn () => $role->id),
             'name' => Lazy::whenAttributeLoaded('name', $role, fn () => $role->name->value),
             'created_at' => Lazy::whenAttributeLoaded('created_at', $role, fn () => $role->created_at),
             'updated_at' => Lazy::whenAttributeLoaded('updated_at', $role, fn () => $role->updated_at),
         ];
 
         return $properties;
-    }
-
-    public static function getAllowedSelect(): array
-    {
-        return ['id', 'name', 'created_at', 'updated_at'];
     }
 }

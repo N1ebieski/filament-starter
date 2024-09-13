@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property \App\ValueObjects\Tenant\Name\Name $name
@@ -56,6 +56,12 @@ class Tenant extends Model implements HasCurrentTenantLabel
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    protected array $selectable = ['id', 'name', 'created_at', 'updated_at'];
+
+    protected array $withable = ['users'];
+
+    protected array $sortable = ['id', 'name', 'created_at', 'updated_at'];
 
     public function getCurrentTenantLabel(): string
     {

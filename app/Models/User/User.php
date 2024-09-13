@@ -147,9 +147,15 @@ class User extends Authenticatable implements FilamentUser, HasTenants, MustVeri
         'password' => 'hashed',
     ];
 
-    private array $searchable = ['name', 'email'];
+    protected array $selectable = ['id', 'name', 'created_at', 'updated_at'];
 
-    private array $searchableAttributes = ['id'];
+    protected array $withable = ['roles', 'tenants'];
+
+    protected array $sortable = ['id', 'name', 'created_at', 'updated_at'];
+
+    protected array $searchable = ['name', 'email'];
+
+    protected array $searchableAttributes = ['id'];
 
     public function getTenants(Panel $panel): array | Collection
     {
