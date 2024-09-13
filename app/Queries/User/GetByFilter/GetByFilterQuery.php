@@ -23,6 +23,7 @@ use App\ValueObjects\User\StatusEmail\StatusEmail;
 use App\Data\Casts\With\WithCast as WithRelationCast;
 use App\Data\Casts\CollectionOfModels\CollectionOfModelsCast;
 use App\Data\Pipelines\ObjectDefaultsDataPipe\ObjectDefaultsInterface;
+use Spatie\LaravelData\Attributes\MapInputName;
 
 #[Handler(\App\Queries\User\GetByFilter\GetByFilterHandler::class)]
 final class GetByFilterQuery extends Query implements ObjectDefaultsInterface
@@ -36,14 +37,17 @@ final class GetByFilterQuery extends Query implements ObjectDefaultsInterface
         public readonly ?Collection $roles = null,
         #[WithCast(CollectionOfModelsCast::class, Tenant::class)]
         public readonly ?Collection $tenants = null,
+        #[MapInputName('search')]
         #[WithCast(SearchByCast::class, User::class)]
         public readonly ?SearchByInterface $searchBy = null,
         public readonly ?array $ignore = null,
         #[WithCast(WithRelationCast::class)]
         public readonly ?array $with = null,
         public readonly User $user = new User(),
+        #[MapInputName('orderby')]
         #[WithCast(OrderByCast::class)]
         public readonly ?OrderBy $orderBy = null,
+        #[MapInputName('paginate')]
         #[WithCast(PaginateCast::class)]
         public readonly ?ResultInterface $result = null
     ) {

@@ -1,15 +1,13 @@
 <?php
 
-namespace App\Rules\ResourceWith;
+namespace App\Rules\AllowedWith;
 
 use Closure;
-use App\Http\Resources\Resource;
 use Illuminate\Support\Collection;
 use App\Models\HasAttributesInterface;
-use App\Support\Resource\ResourceHelper;
 use Illuminate\Contracts\Validation\ValidationRule;
 
-class ResourceWithRule implements ValidationRule
+class AllowedWithRule implements ValidationRule
 {
     public function __construct(private readonly HasAttributesInterface $model)
     {
@@ -25,9 +23,11 @@ class ResourceWithRule implements ValidationRule
     {
         [$baseRelation, $attributes] = explode(':', $value) + [null, null];
 
-        if (!in_array($baseRelation, $this->model->getWithable())) {
-            $fail('validation.resource_with.with_in')->translate([
-                'relations' => implode(', ', $this->model->getWithable())
+        $withs = $this->model->getWithable();
+
+        if (!in_array($baseRelation, $withs)) {
+            $fail('validation.allowed_with.with_in')->translate([
+                'relations' => implode(', ', $withs)
             ]);
 
             return;
@@ -46,9 +46,11 @@ class ResourceWithRule implements ValidationRule
                         $model = $model->{$relation}()->make();
                     }
 
-                    if (!in_array($attribute, $model->getSelectable())) {
-                        $fail('validation.resource_with.select_in')->translate([
-                            'attributes' => implode(', ', $model->getSelectable())
+                    $selects = $model->getSelectable();
+
+                    if (!in_array($attribute, $selects)) {
+                        $fail('validation.allowed_with.select_in')->translate([
+                            'attributes' => implode(', ', $selects)
                         ]);
                     }
                 });

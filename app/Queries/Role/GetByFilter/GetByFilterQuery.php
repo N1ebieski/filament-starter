@@ -14,6 +14,7 @@ use App\Data\Casts\SearchBy\SearchByCast;
 use App\Support\Attributes\Handler\Handler;
 use Spatie\LaravelData\Attributes\WithCast;
 use App\Queries\Shared\Result\ResultInterface;
+use Spatie\LaravelData\Attributes\MapInputName;
 use App\Queries\Shared\SearchBy\SearchByInterface;
 use App\Data\Casts\With\WithCast as WithRelationCast;
 use App\Data\Pipelines\ObjectDefaultsDataPipe\ObjectDefaultsInterface;
@@ -25,13 +26,16 @@ final class GetByFilterQuery extends Query implements ObjectDefaultsInterface
         #[WithCast(SelectCast::class)]
         public readonly ?array $select = null,
         public readonly Role $role = new Role(),
+        #[MapInputName('search')]
         #[WithCast(SearchByCast::class, Role::class)]
         public readonly ?SearchByInterface $searchBy = null,
         public readonly ?array $ignore = null,
         #[WithCast(WithRelationCast::class)]
         public readonly ?array $with = null,
+        #[MapInputName('orderby')]
         #[WithCast(OrderByCast::class)]
         public readonly ?OrderBy $orderBy = null,
+        #[MapInputName('paginate')]
         #[WithCast(PaginateCast::class)]
         public readonly ?ResultInterface $result = null
     ) {

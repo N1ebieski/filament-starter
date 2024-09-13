@@ -8,35 +8,34 @@ use App\Models\User\User;
 use App\Http\Requests\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Config;
-use App\Support\Query\Sorts\SortsHelper;
-use App\Rules\ResourceWith\ResourceWithRule;
-use Spatie\LaravelData\Attributes\MapInputName;
-use App\Rules\ResourceSelect\ResourceSelectRule;
+use App\Rules\AllowedSort\AllowedSortRule;
+use App\Rules\AllowedWith\AllowedWithRule;
+use App\Rules\AllowedSelect\AllowedSelectRule;
+use App\ValueObjects\User\StatusEmail\StatusEmail;
 
 final class IndexRequest extends Request
 {
     public int $page = 1;
 
-    #[MapInputName('search')]
-    public ?string $searchBy = null;
+    public ?string $search = null;
 
     public ?array $select = null;
 
     public ?array $with = null;
 
+    public ?string $status_email = null;
+
     public ?array $roles = null;
 
     public ?array $tenants = null;
 
-    #[MapInputName('orderby')]
-    public ?string $orderBy = null;
+    public ?string $orderby = null;
 
-    #[MapInputName('paginate')]
-    public int $result;
+    public int $paginate;
 
     public function __construct()
     {
-        $this->result = Config::get('database.paginate');
+        $this->paginate = Config::get('database.paginate');
     }
 
     public static function rules(User $user): array
@@ -50,13 +49,18 @@ final class IndexRequest extends Request
             'select.*' => [
                 'bail',
                 'string',
-                new ResourceSelectRule($user),
+                new AllowedSelectRule($user),
             ],
             'with' => 'bail|nullable|array',
             'with.*' => [
                 'bail',
                 'string',
-                new ResourceWithRule($user)
+                new AllowedWithRule($user)
+            ],
+            'status_email' => [
+                'bail',
+                'string',
+                Rule::enum(StatusEmail::class)
             ],
             'roles' => 'bail|nullable|array',
             'roles.*' => [
@@ -74,7 +78,7 @@ final class IndexRequest extends Request
                 'bail',
                 'string',
                 'nullable',
-                Rule::in(SortsHelper::getAttributesWithOrder($user->getSortable()))
+                new AllowedSortRule($user)
             ],
             'paginate' => [
                 'bail',
