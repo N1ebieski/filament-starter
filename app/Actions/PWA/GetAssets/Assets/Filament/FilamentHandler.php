@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Services\PWA\Assets\Filament;
+namespace App\Actions\PWA\GetAssets\Assets\Filament;
 
 use Closure;
 use Illuminate\Support\Str;
 use Composer\InstalledVersions;
-use App\Services\PWA\Assets\Assets;
-use App\Services\PWA\Assets\Handler;
 use Illuminate\Filesystem\Filesystem;
+use App\Actions\PWA\GetAssets\Assets\Assets;
+use App\Actions\PWA\GetAssets\Assets\Handler;
 
 final class FilamentHandler extends Handler
 {

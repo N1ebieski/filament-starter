@@ -63,6 +63,7 @@ class UsersRelationManager extends RelationManager
             ->searchable(true)
             ->query(function () use ($tenant): Builder {
                 return $this->queryBus->execute(GetByFilterQuery::from([
+                    'select' => ['id', 'name'],
                     'tenants' => new Collection([$tenant])
                 ]));
             })

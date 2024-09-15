@@ -16,7 +16,8 @@ final class HandlerHelper
         'Query',
         'CacheQuery',
         'Command',
-        'Client'
+        'Client',
+        'Action'
     ];
 
     /**

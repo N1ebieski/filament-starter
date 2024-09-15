@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Services\PWA\Assets\Livewire;
+namespace App\Actions\PWA\GetAssets\Assets\Livewire;
 
 use Closure;
-use App\Services\PWA\Assets\Assets;
-use App\Services\PWA\Assets\Handler;
 use Illuminate\Filesystem\Filesystem;
+use App\Actions\PWA\GetAssets\Assets\Assets;
+use App\Actions\PWA\GetAssets\Assets\Handler;
 
 final class LivewireHandler extends Handler
 {

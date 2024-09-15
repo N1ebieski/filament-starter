@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Services\PWA\Assets\Vite;
+namespace App\Actions\PWA\GetAssets\Assets\Vite;
 
 use Closure;
 use Illuminate\Support\Collection;
-use App\Services\PWA\Assets\Assets;
-use App\Services\PWA\Assets\Handler;
 use Illuminate\Filesystem\Filesystem;
+use App\Actions\PWA\GetAssets\Assets\Assets;
+use App\Actions\PWA\GetAssets\Assets\Handler;
 
 final class ViteHandler extends Handler
 {

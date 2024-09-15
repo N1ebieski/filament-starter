@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\User\Index;
 
+use App\Models\User\User;
 use Illuminate\Http\JsonResponse;
 use App\Queries\QueryBusInterface;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Response;
 use App\Http\Resources\User\UserResource;
 use Spatie\LaravelData\PaginatedDataCollection;
@@ -24,6 +26,8 @@ final class IndexController extends Controller
     public function __invoke(
         IndexRequest $request,
     ): JsonResponse {
+        Gate::authorize('viewAny', User::class);
+
         $data = $request->toArray();
 
         /** @var LengthAwarePaginator */

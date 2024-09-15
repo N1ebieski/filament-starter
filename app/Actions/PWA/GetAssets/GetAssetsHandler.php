@@ -2,16 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Services\PWA;
+namespace App\Actions\PWA\GetAssets;
 
-use App\Services\PWA\Assets\Assets;
-use App\Services\PWA\Assets\Vite\ViteHandler;
-use App\Services\PWA\Assets\Filament\FilamentHandler;
-use App\Services\PWA\Assets\Livewire\LivewireHandler;
+use App\Queries\Handler;
+use App\Actions\PWA\GetAssets\Assets\Assets;
+use App\Actions\PWA\GetAssets\Assets\Vite\ViteHandler;
 use App\Overrides\Illuminate\Contracts\Pipeline\Pipeline;
 use App\Overrides\Illuminate\Contracts\Container\Container;
+use App\Actions\PWA\GetAssets\Assets\Filament\FilamentHandler;
+use App\Actions\PWA\GetAssets\Assets\Livewire\LivewireHandler;
 
-final class PWAService
+final class GetAssetsHandler extends Handler
 {
     public function __construct(
         private readonly Pipeline $pipeline,
@@ -24,7 +25,7 @@ final class PWAService
      *
      * @return array<string>
      */
-    public function getAssets(): array
+    public function handle(GetAssetsAction $action): array
     {
         $pipes = $this->container->makeMany([
             FilamentHandler::class,
