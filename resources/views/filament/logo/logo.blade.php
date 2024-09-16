@@ -26,7 +26,7 @@
 </div>
 @if($isSidebar)
 <div 
-    class="absolute end-4 top-6"
+    class="absolute end-4 top-5"
     x-data
     x-cloak
     x-show="$store.sidebar.isOpen"

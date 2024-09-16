@@ -7,7 +7,7 @@ namespace App\Providers\LaravelPWA;
 use Filament\Facades\Filament;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use LaravelPWA\Http\Controllers\LaravelPWAController;
+use App\Http\Controllers\Api\PWA\Manifest\ManifestController;
 
 final class LaravelPWAServiceProvider extends ServiceProvider
 {
@@ -16,7 +16,7 @@ final class LaravelPWAServiceProvider extends ServiceProvider
         $middleware = Filament::getCurrentPanel()?->getMiddleware();
 
         Route::middleware($middleware)->group(function () {
-            Route::get('pwa-manifest.json', [LaravelPWAController::class, 'manifestJson'])
+            Route::get('pwa-manifest.json', ManifestController::class)
                 ->name('laravelpwa.manifest');
 
             Route::get('offline', \App\Filament\Pages\Web\Offline\OfflinePage::class)

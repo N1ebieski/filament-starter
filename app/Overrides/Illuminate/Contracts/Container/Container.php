@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Overrides\Illuminate\Contracts\Container;
 
-use Illuminate\Contracts\Container\Container as BaseContainer;
-
 interface Container
 {
     /**

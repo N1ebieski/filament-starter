@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions\PWA\GetAssets;
 
-use App\Queries\Handler;
+use App\Actions\Handler;
 use App\Actions\PWA\GetAssets\Assets\Assets;
 use App\Actions\PWA\GetAssets\Assets\Vite\ViteHandler;
 use App\Overrides\Illuminate\Contracts\Pipeline\Pipeline;

@@ -5,9 +5,11 @@
         "dev": "vite",
         "build": "vite build && vite build --config vite.spotlight.config.js && vite build --config vite.serviceworker.config.js",
         "watch": "vite build --watch",
-        "watch-serviceworker": "./node_modules/.bin/vite build --watch --config=vite.serviceworker.config.js"
+        "watch-serviceworker": "./node_modules/.bin/vite build --watch --config=vite.serviceworker.config.js",
+        "pwa-assets-generator": "./node_modules/.bin/pwa-assets-generator"
     },
     "devDependencies": {
+        "@vite-pwa/assets-generator": "^0.2.6",
         "autoprefixer": "^10.4.20",
         "axios": "^1.6.4",
         "chokidar": "^3.6.0",

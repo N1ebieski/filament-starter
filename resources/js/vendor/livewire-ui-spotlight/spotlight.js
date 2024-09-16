@@ -10,7 +10,7 @@ window.LivewireUISpotlight = (config) => {
         selectedCommand: null,
 
         dependencySearch: null,
-        dependencyQueryResults: window.Livewire.find(config.componentId).entangle('dependencyQueryResults'),
+        dependencyQueryResults: null,
 
         requiredDependencies: [],
         currentDependency: null,
@@ -19,6 +19,8 @@ window.LivewireUISpotlight = (config) => {
         showResultsWithoutInput: config.showResultsWithoutInput,
 
         init() {
+            this.dependencyQueryResults = window.Livewire.find(config.componentId).entangle('dependencyQueryResults'),
+
             this.commandSearch = new Fuse(this.commands, {threshold: 0.3, keys: ['name', 'description', 'synonyms']});
             this.dependencySearch = new Fuse([], {threshold: 0.3, keys: ['name', 'description', 'synonyms']});
 

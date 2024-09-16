@@ -83,6 +83,7 @@ abstract class PanelServiceProvider extends BasePanelProvider
                     })->label(Lang::get('filament-breezy::default.profile.my_profile'))
                 ]);
             })
-            ->brandLogo(fn (): ContractsView => View::make('filament.logo.logo'));
+            ->brandLogo(fn (): ContractsView => View::make('filament.logo.logo'))
+            ->favicon(asset('favicon.ico'));
     }
 }

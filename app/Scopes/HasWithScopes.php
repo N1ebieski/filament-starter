@@ -9,6 +9,7 @@ use Illuminate\Support\Collection;
 use App\Models\HasAttributesInterface;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\Model;
+use App\Support\Query\Columns\ColumnsHelper;
 use App\Support\Query\Include\IncludeHelper;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 
@@ -49,7 +50,7 @@ trait HasWithScopes
                             $columnsAsCollection->push(...$model->getSelectAlways());
                         }
 
-                        return $builder->select($columnsAsCollection->toArray());
+                        return $builder->select(ColumnsHelper::getColumnsWithTablePrefix($columnsAsCollection->toArray(), $model->getTable()));
                     });
                 }]);
             }

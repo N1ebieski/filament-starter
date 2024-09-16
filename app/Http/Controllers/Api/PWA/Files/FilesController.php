@@ -10,6 +10,9 @@ use App\Actions\PWA\GetAssets\GetAssetsHandler;
 
 class FilesController extends Controller
 {
+    /**
+     * Get all assets required for the PWA.
+     */
     public function __invoke(GetAssetsHandler $handler): JsonResponse
     {
         return Response::json(['data' => $handler->handle(new GetAssetsAction())]);
