@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace App\Data\Casts\Paginate;
+namespace App\Data\Casts\Time;
 
+use App\CacheQueries\Time;
 use Spatie\LaravelData\Casts\Cast;
 use Spatie\LaravelData\Support\DataProperty;
-use App\Queries\Shared\Result\Drivers\Paginate\Paginate;
 use Spatie\LaravelData\Support\Creation\CreationContext;
 
-class PaginateCast implements Cast
+class TimeCast implements Cast
 {
     /**
-     * @param Paginate|int|null $value
+     * @param Time|int|null $value
      */
     public function cast(DataProperty $property, mixed $value, array $properties, CreationContext $context): mixed
     {
-        return is_int($value) ? new Paginate($value) : $value;
+        return is_int($value) ? new Time($value) : $value;
     }
 }

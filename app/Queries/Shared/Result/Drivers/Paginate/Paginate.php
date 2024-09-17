@@ -11,7 +11,7 @@ use App\Queries\Shared\Result\ResultInterface;
 final class Paginate implements ResultInterface
 {
     public function __construct(
-        public readonly int $perPage,
+        public readonly ?int $perPage = null,
         public readonly ?int $page = null
     ) {
     }

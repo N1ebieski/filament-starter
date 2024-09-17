@@ -8,7 +8,6 @@ use App\Queries\OrderBy;
 use App\Scopes\HasSearchScopes;
 use App\Models\HasAttributesInterface;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Schema;
 use App\Support\Query\Columns\ColumnsHelper;
 use Illuminate\Database\Eloquent\Collection;
 use App\Queries\Shared\Result\Drivers\Get\Get;

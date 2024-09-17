@@ -22,6 +22,7 @@ final class ManifestService
         $baseManifest['icons'] = [];
 
         foreach ($this->config->get('laravelpwa.manifest.icons') as $file) {
+            /** @var array{extension: string} */
             $fileInfo = pathinfo($file['path']);
 
             $baseManifest['icons'][] = [

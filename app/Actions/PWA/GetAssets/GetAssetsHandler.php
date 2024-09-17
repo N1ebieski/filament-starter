@@ -11,6 +11,8 @@ use App\Overrides\Illuminate\Contracts\Pipeline\Pipeline;
 use App\Overrides\Illuminate\Contracts\Container\Container;
 use App\Actions\PWA\GetAssets\Assets\Filament\FilamentHandler;
 use App\Actions\PWA\GetAssets\Assets\Livewire\LivewireHandler;
+use App\Actions\PWA\GetAssets\Assets\PWACache\PWACacheHandler;
+use App\Actions\PWA\GetAssets\Assets\PWAManifest\PWAManifestHandler;
 
 final class GetAssetsHandler extends Handler
 {
@@ -30,7 +32,9 @@ final class GetAssetsHandler extends Handler
         $pipes = $this->container->makeMany([
             FilamentHandler::class,
             LivewireHandler::class,
-            ViteHandler::class
+            ViteHandler::class,
+            PWAManifestHandler::class,
+            PWACacheHandler::class
         ]);
 
         /** @var Assets */
