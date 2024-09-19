@@ -12,8 +12,7 @@ final class ManifestService
     public function __construct(
         private readonly BaseManifestService $manifestService,
         private readonly Config $config
-    ) {
-    }
+    ) {}
 
     public function generate(): array
     {
@@ -27,9 +26,9 @@ final class ManifestService
 
             $baseManifest['icons'][] = [
                 'src' => $file['path'],
-                'type' => 'image/' . $fileInfo['extension'],
+                'type' => 'image/'.$fileInfo['extension'],
                 'sizes' => $file['sizes'],
-                'purpose' => $file['purpose']
+                'purpose' => $file['purpose'],
             ];
         }
 

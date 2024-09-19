@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace App\Overrides\LivewireUI\Spotlight;
 
-use Override;
 use App\Spotlight\Command;
-use Livewire\Attributes\Computed;
-use Illuminate\Support\Collection;
-use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\App;
-use Illuminate\Contracts\View\Factory;
-use LivewireUI\Spotlight\SpotlightCommand;
-use Illuminate\Contracts\Container\Container;
-use LivewireUI\Spotlight\Spotlight as BaseSpotlight;
 use Illuminate\Contracts\Config\Repository as Config;
+use Illuminate\Contracts\Container\Container;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\App;
+use Livewire\Attributes\Computed;
+use LivewireUI\Spotlight\Spotlight as BaseSpotlight;
+use LivewireUI\Spotlight\SpotlightCommand;
+use Override;
 
 final class Spotlight extends BaseSpotlight
 {
@@ -38,7 +38,7 @@ final class Spotlight extends BaseSpotlight
     public static function registerCommand(string $command): void
     {
         tap(App::make($command), function (Command $command) {
-            if ($command->getDefault() && !method_exists($command, 'dependencies')) {
+            if ($command->getDefault() && ! method_exists($command, 'dependencies')) {
                 throw new \Exception('A command without dependencies cannot be default.');
             }
 
@@ -51,7 +51,7 @@ final class Spotlight extends BaseSpotlight
     {
         $shortcuts = $this->config->get('livewire-ui-spotlight.shortcuts');
 
-        return mb_strtoupper('CTRL+' . $shortcuts[0]);
+        return mb_strtoupper('CTRL+'.$shortcuts[0]);
     }
 
     #[Override]
@@ -64,7 +64,7 @@ final class Spotlight extends BaseSpotlight
             'commands',
             $this->collection->make(self::$commands)
                 ->filter(function (SpotlightCommand $command) {
-                    if (!method_exists($command, 'shouldBeShown')) {
+                    if (! method_exists($command, 'shouldBeShown')) {
                         return true;
                     }
 

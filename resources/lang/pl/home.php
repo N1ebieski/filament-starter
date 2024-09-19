@@ -6,6 +6,6 @@ return [
     'pages' => [
         'index' => [
             'title' => 'Strona główna',
-        ]
-    ]
+        ],
+    ],
 ];

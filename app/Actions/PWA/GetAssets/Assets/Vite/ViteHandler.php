@@ -4,17 +4,15 @@ declare(strict_types=1);
 
 namespace App\Actions\PWA\GetAssets\Assets\Vite;
 
-use Closure;
-use Illuminate\Support\Collection;
-use Illuminate\Filesystem\Filesystem;
 use App\Actions\PWA\GetAssets\Assets\Assets;
 use App\Actions\PWA\GetAssets\Assets\Handler;
+use Closure;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Collection;
 
 final class ViteHandler extends Handler
 {
-    public function __construct(private readonly Filesystem $filesystem)
-    {
-    }
+    public function __construct(private readonly Filesystem $filesystem) {}
 
     public function handle(Assets $assets, Closure $next): Assets
     {
@@ -30,7 +28,7 @@ final class ViteHandler extends Handler
                 ->unique();
 
             $files->each(function (string $file) use ($assets): void {
-                $assets->value->push('/build/' . $file);
+                $assets->value->push('/build/'.$file);
             });
         }
 

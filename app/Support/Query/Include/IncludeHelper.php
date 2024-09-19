@@ -10,7 +10,7 @@ final class IncludeHelper
 {
     public static function getScopeRelationName(string $name): string
     {
-        $scopeName = 'scopeWith' . Str::of($name)
+        $scopeName = 'scopeWith'.Str::of($name)
             ->beforeLast(':')
             ->camel()
             ->ucfirst();

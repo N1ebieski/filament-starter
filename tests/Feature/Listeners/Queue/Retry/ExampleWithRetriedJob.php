@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Listeners\Queue\Retry;
 
-use Illuminate\Bus\Queueable;
 use App\Support\Queue\RetryInterface;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Cache;
 
-final class ExampleWithRetriedJob implements ShouldQueue, RetryInterface
+final class ExampleWithRetriedJob implements RetryInterface, ShouldQueue
 {
     use Dispatchable;
     use InteractsWithQueue;

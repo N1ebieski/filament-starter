@@ -16,6 +16,5 @@ final class Splits extends Data
         public ?array $relations = null,
         public ?array $exacts = null,
         public ?array $looses = null,
-    ) {
-    }
+    ) {}
 }

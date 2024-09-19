@@ -8,15 +8,12 @@ use Illuminate\Contracts\Encryption\Encrypter;
 
 final class JobFactory
 {
-    public function __construct(private readonly Encrypter $encrypter)
-    {
-    }
+    public function __construct(private readonly Encrypter $encrypter) {}
 
     /**
      * Unserialize a command, decrypting it if necessary and returns the corresponding job.
      *
-     * @param string $command The command data to be processed.
-     *
+     * @param  string  $command  The command data to be processed.
      * @return mixed The job corresponding to the command data.
      */
     public function makeJob(string $command): mixed

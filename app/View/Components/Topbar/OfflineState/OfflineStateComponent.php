@@ -3,8 +3,8 @@
 namespace App\View\Components\Topbar\OfflineState;
 
 use App\View\Components\Component;
-use Illuminate\Support\Facades\View;
 use Illuminate\Contracts\View\View as ViewContract;
+use Illuminate\Support\Facades\View;
 
 class OfflineStateComponent extends Component
 {

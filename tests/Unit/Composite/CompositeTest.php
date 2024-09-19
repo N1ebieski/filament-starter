@@ -16,11 +16,11 @@ final class CompositeTest extends TestCase
 
     public function test_composite_with_created_objects(): void
     {
-        $composite = new ExampleComposite();
+        $composite = new ExampleComposite;
 
         $handlers = [
             $this->createMock(ExampleHandler1::class),
-            $this->createMock(ExampleHandler2::class)
+            $this->createMock(ExampleHandler2::class),
         ];
 
         foreach ($handlers as $handler) {

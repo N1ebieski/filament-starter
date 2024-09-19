@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace App\Overrides\Pxlrbt\FilamentSpotlight\Actions;
 
-use Filament\Panel;
-use Filament\Resources\Resource;
-use Filament\Resources\Pages\Page;
-use LivewireUI\Spotlight\Spotlight;
-use Filament\Resources\Pages\PageRegistration;
 use App\Overrides\Pxlrbt\FilamentSpotlight\Commands\ResourceCommand;
+use Filament\Panel;
+use Filament\Resources\Pages\Page;
+use Filament\Resources\Pages\PageRegistration;
+use Filament\Resources\Resource;
+use LivewireUI\Spotlight\Spotlight;
 
 class RegisterResources
 {
     public static function boot(Panel $panel): void
     {
-        /** @var array<int, class-string<Resource>> */
+        /** @var array<int, class-string<resource>> */
         $resources = $panel->getResources();
 
         foreach ($resources as $resource) {

@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Providers\Filament\WebPanel;
 
+use App\Filament\Pages\Web\MyProfile\MyProfilePage;
+use App\Http\Middleware\Filament\EnsureEmailIsVerified\EnsureEmailIsVerifiedMiddleware;
+use App\Overrides\Jeffgreco13\FilamentBreezy\BreezyCore;
+use App\Providers\Filament\PanelServiceProvider;
 use Filament\Panel;
 use Filament\View\PanelsRenderHook;
-use Illuminate\Support\Facades\Vite;
-use Illuminate\Support\Facades\Blade;
 use Filament\Widgets\FilamentInfoWidget;
-use App\Filament\Pages\Web\MyProfile\MyProfilePage;
-use App\Providers\Filament\PanelServiceProvider;
-use App\Overrides\Jeffgreco13\FilamentBreezy\BreezyCore;
-use App\Http\Middleware\Filament\EnsureEmailIsVerified\EnsureEmailIsVerifiedMiddleware;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Vite;
 
 final class WebPanelServiceProvider extends PanelServiceProvider
 {
@@ -48,7 +48,7 @@ final class WebPanelServiceProvider extends PanelServiceProvider
                         slug: 'profile'
                     )
                     ->customMyProfilePage(MyProfilePage::class)
-                    ->enableTwoFactorAuthentication()
+                    ->enableTwoFactorAuthentication(),
             ])
             ->topNavigation()
             ->spa()

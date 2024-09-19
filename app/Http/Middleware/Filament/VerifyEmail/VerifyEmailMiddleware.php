@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware\Filament\VerifyEmail;
 
-use Closure;
-use Illuminate\Http\Request;
-use Filament\Facades\Filament;
 use App\Http\Middleware\Middleware;
+use Closure;
+use Filament\Facades\Filament;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response as HttpResponse;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Response;
-use Illuminate\Http\Response as HttpResponse;
 use Jeffgreco13\FilamentBreezy\Pages\MyProfilePage;
 
 final class VerifyEmailMiddleware extends Middleware
@@ -19,7 +19,7 @@ final class VerifyEmailMiddleware extends Middleware
     {
         $myProfileRouteName = MyProfilePage::getRouteName(panel: 'user');
 
-        if ($request->user() && !$request->user()->hasVerifiedEmail() && !$request->routeIs($myProfileRouteName)) {
+        if ($request->user() && ! $request->user()->hasVerifiedEmail() && ! $request->routeIs($myProfileRouteName)) {
             return $request->expectsJson() ?
                 App::abort(
                     HttpResponse::HTTP_FORBIDDEN,

@@ -12,7 +12,7 @@ interface ClientBusInterface
     public function execute(Client $client);
 
     /**
-     * @param array<int|string, Client> $clients
+     * @param  array<int|string, Client>  $clients
      * @return array<Response>
      */
     public function executeMany(array $clients): array;

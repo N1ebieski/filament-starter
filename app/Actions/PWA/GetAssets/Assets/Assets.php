@@ -9,7 +9,6 @@ use Illuminate\Support\Collection;
 final class Assets
 {
     public function __construct(
-        public Collection $value = new Collection()
-    ) {
-    }
+        public Collection $value = new Collection
+    ) {}
 }

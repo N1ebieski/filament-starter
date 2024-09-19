@@ -13,8 +13,7 @@ class SetTeamIdListener extends Listener
 {
     public function __construct(
         private readonly PermissionRegistrar $permissionRegistrar
-    ) {
-    }
+    ) {}
 
     public function handle(TenantSet $event): void
     {

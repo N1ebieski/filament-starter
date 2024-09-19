@@ -4,25 +4,25 @@ declare(strict_types=1);
 
 namespace App\Http\Resources;
 
+use App\Support\Resource\ResourceHelper;
+use Illuminate\Contracts\Pagination\CursorPaginator as CursorPaginatorContract;
+use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Contracts\Pagination\Paginator as PaginatorContract;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Pagination\AbstractCursorPaginator;
+use Illuminate\Pagination\AbstractPaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Enumerable;
 use Illuminate\Support\LazyCollection;
-use Spatie\LaravelData\DataCollection;
-use Illuminate\Database\Eloquent\Model;
-use App\Support\Resource\ResourceHelper;
-use Illuminate\Pagination\AbstractPaginator;
-use Illuminate\Contracts\Pagination\Paginator;
-use Spatie\LaravelData\PaginatedDataCollection;
-use Illuminate\Pagination\AbstractCursorPaginator;
 use Spatie\LaravelData\CursorPaginatedDataCollection;
-use Illuminate\Contracts\Pagination\Paginator as PaginatorContract;
-use Illuminate\Contracts\Pagination\CursorPaginator as CursorPaginatorContract;
+use Spatie\LaravelData\DataCollection;
+use Spatie\LaravelData\PaginatedDataCollection;
 
 final class ResourceFactory
 {
     public static function makeResource(Model $model): Resource
     {
-        /** @var Resource */
+        /** @var \App\Http\Resources\Resource */
         $resourceName = ResourceHelper::getResourceName($model);
 
         return $resourceName::from($model);
@@ -37,7 +37,7 @@ final class ResourceFactory
             //@phpstan-ignore-next-line
             $model = $collection[0];
 
-            /** @var Resource */
+            /** @var \App\Http\Resources\Resource */
             $resourceName = ResourceHelper::getResourceName($model);
 
             return $resourceName::collect($collection, $into);

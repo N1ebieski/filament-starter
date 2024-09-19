@@ -12,8 +12,7 @@ final class AttachHandler extends Handler
 {
     public function __construct(
         private readonly DB $db,
-    ) {
-    }
+    ) {}
 
     public function handle(AttachCommand $command): bool
     {

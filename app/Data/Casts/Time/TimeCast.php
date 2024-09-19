@@ -6,13 +6,13 @@ namespace App\Data\Casts\Time;
 
 use App\CacheQueries\Time;
 use Spatie\LaravelData\Casts\Cast;
-use Spatie\LaravelData\Support\DataProperty;
 use Spatie\LaravelData\Support\Creation\CreationContext;
+use Spatie\LaravelData\Support\DataProperty;
 
 class TimeCast implements Cast
 {
     /**
-     * @param Time|int|null $value
+     * @param  Time|int|null  $value
      */
     public function cast(DataProperty $property, mixed $value, array $properties, CreationContext $context): mixed
     {

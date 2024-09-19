@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Broadcasting\Notification;
 
-use App\Models\User\User;
 use App\Broadcasting\Channel;
+use App\Models\User\User;
 
 final class NotificationChannel extends Channel
 {

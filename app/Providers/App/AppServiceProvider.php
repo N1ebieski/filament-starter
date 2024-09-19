@@ -2,10 +2,10 @@
 
 namespace App\Providers\App;
 
-use App\Models\User\User;
 use App\Models\Tenant\Tenant;
-use Illuminate\Support\ServiceProvider;
+use App\Models\User\User;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -103,7 +103,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(\App\Scopes\Tenant\TenantScope::class, function (Application $app) {
             /** @var \App\Tenant\CurrentTenantFactory */
             $factory = $app->make(\App\Tenant\CurrentTenantFactory::class, [
-                'filamentManager' => $app->make('filament')
+                'filamentManager' => $app->make('filament'),
             ]);
 
             /** @var Tenant */

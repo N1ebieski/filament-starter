@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Filament\Pages;
 
 use App\View\Metas\MetaInterface;
-use Illuminate\Support\Facades\View;
 use Filament\Support\Facades\FilamentView;
 use Illuminate\Contracts\View\View as ContractView;
+use Illuminate\Support\Facades\View;
 
 trait HasMeta
 {

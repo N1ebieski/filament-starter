@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace App\Scopes;
 
-use Illuminate\Support\Str;
-use Illuminate\Support\Collection;
 use App\Models\HasAttributesInterface;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Eloquent\Model;
 use App\Support\Query\Columns\ColumnsHelper;
 use App\Support\Query\Include\IncludeHelper;
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 
 /**
  * @mixin Model
@@ -20,9 +19,8 @@ trait HasWithScopes
 {
     public function scopeFilterWith(Builder $builder, ?array $with, bool $withAll = false): Builder
     {
-        return $builder->when(!is_null($with), function (Builder $builder) use ($with): Builder {
+        return $builder->when(! is_null($with), function (Builder $builder) use ($with): Builder {
             /** @var array<int, string> $with */
-
             foreach ($with as $baseRelation) {
                 $scopeName = IncludeHelper::getScopeRelationName($baseRelation);
 
@@ -31,7 +29,7 @@ trait HasWithScopes
                 $columnsAsCollection = Str::contains($baseRelation, ':') ? Str::of($baseRelation)
                     ->afterLast(':')
                     ->explode(',')
-                    ->map(fn (string $column): string => trim($column)) : new Collection();
+                    ->map(fn (string $column): string => trim($column)) : new Collection;
 
                 if (method_exists($this, $scopeName)) {
                     $builder->{$scopeName}($builder, $columnsAsCollection->toArray());

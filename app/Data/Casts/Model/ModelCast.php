@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Data\Casts\Model;
 
-use Spatie\LaravelData\Casts\Cast;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\LaravelData\Support\DataProperty;
+use Spatie\LaravelData\Casts\Cast;
 use Spatie\LaravelData\Support\Creation\CreationContext;
+use Spatie\LaravelData\Support\DataProperty;
 
 class ModelCast implements Cast
 {
@@ -16,17 +16,17 @@ class ModelCast implements Cast
     public function __construct(string $modelName)
     {
         /** @var Model */
-        $model = new $modelName();
+        $model = new $modelName;
 
         $this->model = $model;
     }
 
     /**
-     * @param Model|string|int|null $value
+     * @param  Model|string|int|null  $value
      */
     public function cast(DataProperty $property, mixed $value, array $properties, CreationContext $context): mixed
     {
-        if (!is_null($value) && !$value instanceof $this->model) {
+        if (! is_null($value) && ! $value instanceof $this->model) {
             return $this->model->newQuery()
                 ->whereKey($value)
                 ->first();

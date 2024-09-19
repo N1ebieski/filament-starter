@@ -1,9 +1,5 @@
 <?php
 
-use App\Data\TestData;
-use App\Models\User\User;
-use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes

@@ -10,7 +10,5 @@ use App\Support\Attributes\Handler\Handler;
 #[Handler(GetHandler::class)]
 final class Get implements ResultInterface
 {
-    public function __construct(public readonly ?int $take = null)
-    {
-    }
+    public function __construct(public readonly ?int $take = null) {}
 }

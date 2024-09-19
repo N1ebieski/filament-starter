@@ -9,7 +9,6 @@ interface Client
     /**
      * Toggle asynchronicity in requests.
      *
-     * @param  bool  $async
      * @return $this
      */
     public function async(bool $async = true);
@@ -17,7 +16,6 @@ interface Client
     /**
      * Issue a GET request to the given URL.
      *
-     * @param  string  $url
      * @param  array|string|null  $query
      * @return \Illuminate\Http\Client\Response
      *
@@ -28,8 +26,6 @@ interface Client
     /**
      * Issue a POST request to the given URL.
      *
-     * @param  string  $url
-     * @param  array  $data
      * @return \Illuminate\Http\Client\Response
      *
      * @throws \Illuminate\Http\Client\ConnectionException
@@ -39,9 +35,6 @@ interface Client
     /**
      * Send the request to the given URL.
      *
-     * @param  string  $method
-     * @param  string  $url
-     * @param  array  $options
      * @return \Illuminate\Http\Client\Response
      *
      * @throws \Exception

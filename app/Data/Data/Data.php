@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Data\Data;
 
-use Illuminate\Support\Collection;
-use Spatie\LaravelData\DataPipeline;
-use Spatie\LaravelData\Data as BaseData;
-use Illuminate\Contracts\Support\Arrayable;
 use App\Data\Pipelines\ModelDataPipe\ModelDataPipe;
-use Spatie\LaravelData\Concerns\WithDeprecatedCollectionMethod;
 use App\Data\Pipelines\ObjectDefaultsDataPipe\ObjectDefaultsDataPipe;
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Collection;
+use Spatie\LaravelData\Concerns\WithDeprecatedCollectionMethod;
+use Spatie\LaravelData\Data as BaseData;
+use Spatie\LaravelData\DataPipeline;
 
 /**
  * @method self only(string ...$only)

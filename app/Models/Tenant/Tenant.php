@@ -2,19 +2,17 @@
 
 namespace App\Models\Tenant;
 
-use App\Models\Model;
-use Illuminate\Support\Facades\Lang;
-use App\ValueObjects\Tenant\Name\Name;
 use App\Casts\ValueObject\ValueObjectCast;
+use App\Models\Model;
+use App\ValueObjects\Tenant\Name\Name;
 use Fico7489\Laravel\Pivot\Traits\PivotEventTrait;
 use Filament\Models\Contracts\HasCurrentTenantLabel;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Illuminate\Support\Facades\Lang;
 
 /**
- *
- *
  * @property int $id
  * @property \App\ValueObjects\Tenant\Name\Name $name
  * @property int $user_id
@@ -23,10 +21,12 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
  * @property-read \App\Models\User\User|null $user
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User\User> $users
  * @property-read int|null $users_count
+ *
  * @method static \Illuminate\Contracts\Pagination\LengthAwarePaginator filterPaginate(\App\Queries\Shared\Result\Drivers\Paginate\Paginate $paginate)
  * @method static \Illuminate\Database\Eloquent\Builder|Tenant newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Tenant newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Tenant query()
+ *
  * @mixin \Eloquent
  */
 class Tenant extends Model implements HasCurrentTenantLabel
@@ -42,7 +42,7 @@ class Tenant extends Model implements HasCurrentTenantLabel
      * @var array<int, string>
      */
     protected $fillable = [
-        'name'
+        'name',
     ];
 
     /**
@@ -52,7 +52,7 @@ class Tenant extends Model implements HasCurrentTenantLabel
      */
     protected $casts = [
         'id' => 'integer',
-        'name' => ValueObjectCast::class . ':' . Name::class,
+        'name' => ValueObjectCast::class.':'.Name::class,
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];

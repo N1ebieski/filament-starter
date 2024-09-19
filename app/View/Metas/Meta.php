@@ -12,6 +12,5 @@ final class Meta implements MetaInterface
         public readonly string $keywords,
         public readonly string $url,
         public readonly ?OpenGraphInterface $openGraph = null
-    ) {
-    }
+    ) {}
 }

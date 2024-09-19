@@ -2,9 +2,9 @@
 
 return [
     'created_at' => [
-        'label' => 'Data dodania'
+        'label' => 'Data dodania',
     ],
     'updated_at' => [
-        'label' => 'Data ost. aktualizacji'
-    ]
+        'label' => 'Data ost. aktualizacji',
+    ],
 ];

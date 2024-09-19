@@ -14,8 +14,7 @@ final class IndexMetaFactory extends MetaFactory
     public function __construct(
         private readonly UserMetaFactory $userMetaFactory,
         private readonly Translator $translator
-    ) {
-    }
+    ) {}
 
     public function makeMeta(): MetaInterface
     {

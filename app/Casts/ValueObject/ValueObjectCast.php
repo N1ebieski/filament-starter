@@ -6,16 +6,15 @@ namespace App\Casts\ValueObject;
 
 use App\Casts\Cast;
 use App\ValueObjects\ValueObject;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
+use Illuminate\Database\Eloquent\Model;
 
 final class ValueObjectCast extends Cast implements CastsAttributes
 {
     public function __construct(
         private readonly string $valueObjectName,
         private readonly bool $nullable = false
-    ) {
-    }
+    ) {}
 
     /**
      * Transform the attribute from the underlying model values.
@@ -28,7 +27,7 @@ final class ValueObjectCast extends Cast implements CastsAttributes
 
         $valueObject = $value;
 
-        if (!$value instanceof $this->valueObjectName) {
+        if (! $value instanceof $this->valueObjectName) {
             /** @var ValueObject */
             $valueObject = new ($this->valueObjectName)($value);
         }
@@ -39,7 +38,7 @@ final class ValueObjectCast extends Cast implements CastsAttributes
     /**
      * Transform the attribute to its underlying model values.
      *
-     * @param ValueObject|mixed $value
+     * @param  ValueObject|mixed  $value
      */
     public function set(Model $model, string $key, mixed $value, array $attributes): ?string
     {
@@ -49,7 +48,7 @@ final class ValueObjectCast extends Cast implements CastsAttributes
 
         $valueObject = $value;
 
-        if (!$value instanceof $this->valueObjectName) {
+        if (! $value instanceof $this->valueObjectName) {
             /** @var ValueObject */
             $valueObject = new ($this->valueObjectName)($value);
         }

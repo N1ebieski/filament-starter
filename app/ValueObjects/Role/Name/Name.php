@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\ValueObjects\Role\Name;
 
 use App\ValueObjects\ValueObject;
-use App\ValueObjects\Role\Name\DefaultName;
 use Spatie\LaravelData\Attributes\Validation\Max;
 
 final class Name extends ValueObject

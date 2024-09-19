@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Database\Seeders\Install\Role;
 
+use App\ValueObjects\Role\Name\DefaultName;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
-use App\ValueObjects\Role\Name\DefaultName;
 use Spatie\Permission\PermissionRegistrar;
 
 final class RoleSeeder extends Seeder
@@ -14,8 +14,7 @@ final class RoleSeeder extends Seeder
     public function __construct(
         private Role $role,
         private PermissionRegistrar $permissionRegistrar
-    ) {
-    }
+    ) {}
 
     /**
      * Run the database seeds.

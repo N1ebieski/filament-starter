@@ -11,8 +11,7 @@ final class DetachHandler extends Handler
 {
     public function __construct(
         private readonly DB $db,
-    ) {
-    }
+    ) {}
 
     public function handle(DetachCommand $command): bool
     {

@@ -2,10 +2,10 @@
 
 namespace App\Overrides\Pxlrbt\FilamentSpotlight\Actions;
 
-use Filament\Panel;
-use Filament\Pages\Page;
-use LivewireUI\Spotlight\Spotlight;
 use App\Overrides\Pxlrbt\FilamentSpotlight\Commands\PageCommand;
+use Filament\Pages\Page;
+use Filament\Panel;
+use LivewireUI\Spotlight\Spotlight;
 
 class RegisterPages
 {
@@ -18,7 +18,7 @@ class RegisterPages
             /**
              * @var Page $page
              */
-            $page = new $pageClass();
+            $page = new $pageClass;
 
             if (method_exists($page, 'shouldRegisterSpotlight') && $page->shouldRegisterSpotlight() === false) {
                 continue;

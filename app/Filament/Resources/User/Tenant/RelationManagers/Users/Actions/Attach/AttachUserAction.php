@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\Attach;
 
-use App\Models\User\User;
-use App\Models\Tenant\Tenant;
-use App\Filament\Actions\Action;
-use App\Queries\QueryBusInterface;
-use Illuminate\Support\Facades\App;
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Support\Facades\Lang;
 use App\Commands\CommandBusInterface;
-use App\Models\Permission\Permission;
-use Filament\Forms\Components\Select;
-use Illuminate\Validation\Rules\Exists;
-use Filament\Tables\Actions\AttachAction;
-use Illuminate\Contracts\Database\Query\Builder;
 use App\Commands\User\Tenants\Attach\AttachCommand;
+use App\Filament\Actions\Action;
 use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\HasPermissions;
+use App\Models\Permission\Permission;
+use App\Models\Tenant\Tenant;
+use App\Models\User\User;
+use App\Queries\QueryBusInterface;
+use Filament\Forms\Components\Select;
+use Filament\Tables\Actions\AttachAction;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Contracts\Database\Query\Builder;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Validation\Rules\Exists;
 
 final class AttachUserAction extends Action
 {
@@ -29,13 +29,12 @@ final class AttachUserAction extends Action
         private readonly CommandBusInterface $commandBus,
         private readonly QueryBusInterface $queryBus,
         private readonly Permission $permission
-    ) {
-    }
+    ) {}
 
     public static function make(Tenant $tenant): AttachAction
     {
         /** @var static */
-        $static = App::make(static::class);
+        $static = App::make(self::class);
 
         return $static->makeAction($tenant);
     }
@@ -47,7 +46,7 @@ final class AttachUserAction extends Action
                 /** @var User|null */
                 $user = $guard->user();
 
-                return !$user?->can('tenantAttach', [$this->user::class, $tenant]);
+                return ! $user?->can('tenantAttach', [$this->user::class, $tenant]);
             })
             ->icon('heroicon-o-plus-circle')
             ->modalHeading(Lang::get('tenant.pages.users.attach.title'))
@@ -70,7 +69,7 @@ final class AttachUserAction extends Action
                                 return $builder->where('name', 'like', 'tenant.%');
                             });
                         }
-                    )
+                    ),
             ])
             ->stickyModalFooter()
             ->closeModalByClickingAway(false)
@@ -78,12 +77,12 @@ final class AttachUserAction extends Action
                 return $this->commandBus->execute(AttachCommand::from([
                     ...$data,
                     'tenant' => $tenant,
-                    'user' => $this->user->find($data['recordId'])
+                    'user' => $this->user->find($data['recordId']),
                 ]));
             })
             ->successNotificationTitle(function (User $record): string {
                 return Lang::get('tenant.messages.users.attach.success', [
-                    'name' => $record->name
+                    'name' => $record->name,
                 ]);
             });
     }

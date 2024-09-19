@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Admin\User\Actions\Edit;
 
+use App\Commands\CommandBusInterface;
+use App\Commands\User\Edit\EditCommand;
+use App\Filament\Actions\Action;
 use App\Models\Role\Role;
 use App\Models\User\User;
-use App\Filament\Actions\Action;
+use App\ValueObjects\Role\Name\DefaultName;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Actions\EditAction;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
-use App\Commands\CommandBusInterface;
-use Filament\Forms\Components\Select;
-use App\Commands\User\Edit\EditCommand;
-use Filament\Tables\Actions\EditAction;
 use Illuminate\Validation\Rules\Exists;
-use Filament\Forms\Components\TextInput;
-use App\ValueObjects\Role\Name\DefaultName;
-use Illuminate\Contracts\Database\Eloquent\Builder;
 
 final class EditUserAction extends Action
 {
@@ -24,13 +24,12 @@ final class EditUserAction extends Action
         private readonly User $user,
         private readonly Role $role,
         private readonly CommandBusInterface $commandBus
-    ) {
-    }
+    ) {}
 
     public static function make(): EditAction
     {
         /** @var static */
-        $static = App::make(static::class);
+        $static = App::make(self::class);
 
         return $static->makeAction();
     }
@@ -39,14 +38,14 @@ final class EditUserAction extends Action
     {
         return EditAction::make()
             ->modalHeading(fn (User $record): string => Lang::get('user.pages.edit.title', [
-                'name' => $record->name
+                'name' => $record->name,
             ]))
             ->mutateRecordDataUsing(function (array $data, User $record): array {
                 $data = [
                     ...$data,
                     'name' => $record->name->value,
                     'roles' => $record->roles->pluck('id')->toArray(),
-                    'email' => $record->email->value
+                    'email' => $record->email->value,
                 ];
 
                 return $data;
@@ -64,7 +63,7 @@ final class EditUserAction extends Action
                     ->label(Lang::get('user.email.label'))
                     ->required()
                     ->extraInputAttributes([
-                        'autocomplete' => 'new-password'
+                        'autocomplete' => 'new-password',
                     ])
                     ->string()
                     ->email()
@@ -75,7 +74,7 @@ final class EditUserAction extends Action
                     ->label(Lang::get('user.password.label'))
                     ->password()
                     ->extraInputAttributes([
-                        'autocomplete' => 'new-password'
+                        'autocomplete' => 'new-password',
                     ])
                     ->revealable()
                     ->nullable()
@@ -88,7 +87,7 @@ final class EditUserAction extends Action
                     ->label(Lang::get('user.password_confirmation.label'))
                     ->password()
                     ->extraInputAttributes([
-                        'autocomplete' => 'new-password'
+                        'autocomplete' => 'new-password',
                     ])
                     ->revealable()
                     ->nullable()
@@ -108,7 +107,7 @@ final class EditUserAction extends Action
                     ->getOptionLabelFromRecordUsing(fn (Role $record) => $record->name->value)
                     ->exists($this->role->getTable(), 'id', function (Exists $rule) {
                         return $rule->whereNot('name', DefaultName::SuperAdmin);
-                    })
+                    }),
             ])
             ->stickyModalFooter()
             ->closeModalByClickingAway(false)
@@ -122,11 +121,11 @@ final class EditUserAction extends Action
             ->using(function (array $data, User $record): User {
                 return $this->commandBus->execute(EditCommand::from([
                     ...$data,
-                    'user' => $record
+                    'user' => $record,
                 ]));
             })
             ->successNotificationTitle(fn (User $record): string => Lang::get('user.messages.edit.success', [
-                'name' => $record->name
+                'name' => $record->name,
             ]));
     }
 }

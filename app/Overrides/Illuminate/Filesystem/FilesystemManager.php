@@ -9,9 +9,7 @@ use Illuminate\Filesystem\FilesystemManager as BaseFilesystemManager;
 
 final class FilesystemManager implements Factory
 {
-    public function __construct(private readonly BaseFilesystemManager $filesystemManager)
-    {
-    }
+    public function __construct(private readonly BaseFilesystemManager $filesystemManager) {}
 
     /**
      * Get a filesystem implementation.

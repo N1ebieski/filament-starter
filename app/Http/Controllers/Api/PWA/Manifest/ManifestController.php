@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api\PWA\Manifest;
 
-use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Response;
 use App\Overrides\LaravelPWA\Services\ManifestService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Response;
 
 class ManifestController extends Controller
 {

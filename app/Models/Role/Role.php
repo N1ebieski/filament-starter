@@ -4,24 +4,22 @@ declare(strict_types=1);
 
 namespace App\Models\Role;
 
-use Override;
-use App\Models\HasAttributes;
-use App\Scopes\Role\HasRoleScopes;
-use Illuminate\Support\Facades\App;
-use App\ValueObjects\Role\Name\Name;
-use App\Models\HasAttributesInterface;
-use Illuminate\Support\Facades\Config;
-use Database\Factories\Role\RoleFactory;
 use App\Casts\ValueObject\ValueObjectCast;
+use App\Models\HasAttributes;
+use App\Models\HasAttributesInterface;
 use App\Models\HasDatabaseMatchSearchable;
-use Spatie\Permission\PermissionRegistrar;
-use Spatie\Permission\Models\Role as BaseRole;
+use App\Scopes\Role\HasRoleScopes;
+use App\ValueObjects\Role\Name\Name;
+use Database\Factories\Role\RoleFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Config;
+use Override;
+use Spatie\Permission\Models\Role as BaseRole;
+use Spatie\Permission\PermissionRegistrar;
 
 /**
- *
- *
  * @property int $id
  * @property int|null $tenant_id
  * @property \App\ValueObjects\Role\Name\Name $name
@@ -32,6 +30,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property-read int|null $permissions_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User\User> $users
  * @property-read int|null $users_count
+ *
  * @method static \Database\Factories\Role\RoleFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Role filterGet(\App\Queries\Shared\Result\Drivers\Get\Get $get)
  * @method static \Illuminate\Database\Eloquent\Builder|Role filterIgnore(?array $ignore)
@@ -50,14 +49,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Role permission($permissions, $without = false)
  * @method static \Illuminate\Database\Eloquent\Builder|Role query()
  * @method static \Illuminate\Database\Eloquent\Builder|Role withoutPermission($permissions)
+ *
  * @mixin \Eloquent
  */
 final class Role extends BaseRole implements HasAttributesInterface
 {
-    use HasFactory;
     use HasAttributes;
-    use HasRoleScopes;
     use HasDatabaseMatchSearchable;
+    use HasFactory;
+    use HasRoleScopes;
 
     // Configuration
 
@@ -68,7 +68,7 @@ final class Role extends BaseRole implements HasAttributesInterface
      */
     protected $fillable = [
         'name',
-        'guard_name'
+        'guard_name',
     ];
 
     /**
@@ -79,7 +79,7 @@ final class Role extends BaseRole implements HasAttributesInterface
     protected $casts = [
         'id' => 'integer',
         'tenant_id' => 'integer',
-        'name' => ValueObjectCast::class . ':' . Name::class,
+        'name' => ValueObjectCast::class.':'.Name::class,
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];

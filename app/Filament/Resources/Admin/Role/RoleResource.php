@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Admin\Role;
 
-use Override;
-use App\Models\Role\Role;
-use App\Filament\Resources\Resource;
-use Illuminate\Support\Facades\Lang;
-use App\Support\Query\HasQueryBus;
-use App\Filament\Resources\GlobalSearchInterface;
-use App\Queries\Role\GetByFilter\GetByFilterQuery;
-use Illuminate\Contracts\Database\Eloquent\Builder;
 use App\Filament\Resources\Admin\Role\Pages\Manage\ManageRolesPage;
+use App\Filament\Resources\GlobalSearchInterface;
+use App\Filament\Resources\Resource;
+use App\Models\Role\Role;
+use App\Queries\Role\GetByFilter\GetByFilterQuery;
 use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatchFactory;
+use App\Support\Query\HasQueryBus;
+use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Lang;
+use Override;
 
 final class RoleResource extends Resource implements GlobalSearchInterface
 {
@@ -33,8 +33,8 @@ final class RoleResource extends Resource implements GlobalSearchInterface
     public static function applyGlobalSearchAttributeConstraints(Builder $query, string $search): void
     {
         /** @var Builder */
-        $baseQuery = static::getQueryBus()->execute(GetByFilterQuery::from([
-            'search' => DatabaseMatchFactory::makeDatabaseMatch($search)
+        $baseQuery = self::getQueryBus()->execute(GetByFilterQuery::from([
+            'search' => DatabaseMatchFactory::makeDatabaseMatch($search),
         ]));
 
         $query->setQuery($baseQuery->getQuery());
@@ -47,12 +47,12 @@ final class RoleResource extends Resource implements GlobalSearchInterface
 
     public static function getPluralModelLabel(): string
     {
-        return static::getModelLabel();
+        return self::getModelLabel();
     }
 
     public static function getNavigationLabel(): string
     {
-        return static::getModelLabel();
+        return self::getModelLabel();
     }
 
     public static function getNavigationGroup(): ?string

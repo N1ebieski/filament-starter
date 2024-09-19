@@ -10,19 +10,19 @@ return [
         'index' => [
             'title' => 'Użytkownicy',
             'description' => 'Użytkownicy',
-            'keywords' => 'Użytkownicy'
+            'keywords' => 'Użytkownicy',
         ],
         'create' => [
-            'title' => 'Dodaj użytkownika'
+            'title' => 'Dodaj użytkownika',
         ],
         'edit' => [
-            'title' => 'Edycja użytkownika: :name'
+            'title' => 'Edycja użytkownika: :name',
         ],
         'delete' => [
-            'title' => 'Usuń użytkownika :name'
+            'title' => 'Usuń użytkownika :name',
         ],
         'delete_multi' => [
-            'title' => '{1} Usuń :number zaznaczonego użytkownika|{2,*} Usuń :number zaznaczonych użytkowników'
+            'title' => '{1} Usuń :number zaznaczonego użytkownika|{2,*} Usuń :number zaznaczonych użytkowników',
         ],
     ],
     'messages' => [
@@ -40,24 +40,24 @@ return [
         ],
         'toggle_status_email' => [
             StatusEmail::Verified->value => [
-                'success' => 'Pomyślnie zweryfikowano adres email :email użytkownika :name'
-            ]
+                'success' => 'Pomyślnie zweryfikowano adres email :email użytkownika :name',
+            ],
         ],
     ],
     'name' => [
-        'label' => 'Nazwa'
+        'label' => 'Nazwa',
     ],
     'email' => [
-        'label' => 'Adres email'
+        'label' => 'Adres email',
     ],
     'password' => [
-        'label' => 'Hasło'
+        'label' => 'Hasło',
     ],
     'password_confirmation' => [
-        'label' => 'Potwierdź hasło'
+        'label' => 'Potwierdź hasło',
     ],
     'roles' => [
-        'label' => 'Typ konta'
+        'label' => 'Typ konta',
     ],
     'email_verified_at' => [
         'label' => 'Data weryfikacji adresu email',
@@ -65,9 +65,9 @@ return [
     'status_email' => [
         'label' => 'Status weryfikacji',
         StatusEmail::Verified->value => 'zweryfikowane',
-        StatusEmail::Unverified->value => 'niezweryfikowane'
+        StatusEmail::Unverified->value => 'niezweryfikowane',
     ],
     'permissions' => [
-        'label' => 'Uprawnienia'
-    ]
+        'label' => 'Uprawnienia',
+    ],
 ];

@@ -10,9 +10,10 @@
 		}
 	],
 	"settings": {
-		"phpsab.executablePathCBF": "vendor/bin/phpcbf",
-		"phpsab.executablePathCS": "vendor/bin/phpcs",
-		"phpsab.standard": "PSR12",
+		"[php]": {
+			"editor.defaultFormatter": "open-southeners.laravel-pint",
+			"editor.formatOnSave": true
+		},		
 		"phpstan.configFile": "phpstan.neon",
 		"phpstan.binPath": "vendor/bin/phpstan",
 		"phpunit.phpunit": "vendor/bin/phpunit",

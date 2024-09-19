@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Data\Pipelines\ModelDataPipe;
 
 use Illuminate\Database\Eloquent\Model;
-use Spatie\LaravelData\Support\DataClass;
 use Spatie\LaravelData\DataPipes\DataPipe;
 use Spatie\LaravelData\Support\Creation\CreationContext;
+use Spatie\LaravelData\Support\DataClass;
 
 final class ModelDataPipe implements DataPipe
 {

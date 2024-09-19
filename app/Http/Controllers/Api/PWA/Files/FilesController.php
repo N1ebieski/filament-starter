@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Api\PWA\Files;
 
+use App\Actions\PWA\GetAssets\GetAssetsAction;
+use App\CacheQueries\CacheQueryBusInterface;
+use App\CacheQueries\PWA\GetAssets\GetAssetsCacheQuery;
 use App\CacheQueries\Time;
-use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Response;
-use App\CacheQueries\CacheQueryBusInterface;
-use App\Actions\PWA\GetAssets\GetAssetsAction;
-use App\CacheQueries\PWA\GetAssets\GetAssetsCacheQuery;
 
 class FilesController extends Controller
 {
@@ -20,7 +20,7 @@ class FilesController extends Controller
     {
         /** @var array<int, string> */
         $assets = $cacheQuery->execute(new GetAssetsCacheQuery(
-            action: new GetAssetsAction(),
+            action: new GetAssetsAction,
             time: new Time(Config::get('cache.minutes'))
         ));
 

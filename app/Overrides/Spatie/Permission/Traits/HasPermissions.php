@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Overrides\Spatie\Permission\Traits;
 
-use App\Models\Role\Role;
-use Illuminate\Support\Facades\App;
 use App\Models\Permission\Permission;
+use App\Models\Role\Role;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Spatie\Permission\PermissionRegistrar;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\Permission\Traits\HasPermissions as BaseHasPermissions;
 
 trait HasPermissions
@@ -21,7 +21,7 @@ trait HasPermissions
         /** @var PermissionRegistrar */
         $permissionRegistrar = App::make(PermissionRegistrar::class);
 
-        return Config::get('permission.table_names.model_has_permissions') . '.' . $permissionRegistrar->teamsKey;
+        return Config::get('permission.table_names.model_has_permissions').'.'.$permissionRegistrar->teamsKey;
     }
 
     public function permissions(): BelongsToMany
@@ -37,7 +37,7 @@ trait HasPermissions
             $permissionRegistrar->pivotPermission
         );
 
-        if (!$permissionRegistrar->teams) {
+        if (! $permissionRegistrar->teams) {
             return $relation;
         }
 

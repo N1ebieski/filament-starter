@@ -4,19 +4,16 @@ declare(strict_types=1);
 
 namespace App\Overrides\Illuminate\Http\Client;
 
-use Illuminate\Http\Client\PendingRequest as BasePendingRequest;
 use App\Overrides\Illuminate\Contracts\Http\Client\Client as PendingRequestContract;
+use Illuminate\Http\Client\PendingRequest as BasePendingRequest;
 
 final class PendingRequest implements PendingRequestContract
 {
-    public function __construct(private readonly BasePendingRequest $request)
-    {
-    }
+    public function __construct(private readonly BasePendingRequest $request) {}
 
     /**
      * Toggle asynchronicity in requests.
      *
-     * @param  bool  $async
      * @return $this
      */
     public function async(bool $async = true)
@@ -29,7 +26,6 @@ final class PendingRequest implements PendingRequestContract
     /**
      * Issue a GET request to the given URL.
      *
-     * @param  string  $url
      * @param  array|string|null  $query
      * @return \Illuminate\Http\Client\Response
      *
@@ -43,8 +39,6 @@ final class PendingRequest implements PendingRequestContract
     /**
      * Issue a POST request to the given URL.
      *
-     * @param  string  $url
-     * @param  array  $data
      * @return \Illuminate\Http\Client\Response
      *
      * @throws \Illuminate\Http\Client\ConnectionException
@@ -57,9 +51,6 @@ final class PendingRequest implements PendingRequestContract
     /**
      * Send the request to the given URL.
      *
-     * @param  string  $method
-     * @param  string  $url
-     * @param  array  $options
      * @return \Illuminate\Http\Client\Response
      *
      * @throws \Exception

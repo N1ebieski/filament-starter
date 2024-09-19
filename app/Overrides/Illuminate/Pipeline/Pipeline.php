@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace App\Overrides\Illuminate\Pipeline;
 
-use Illuminate\Pipeline\Pipeline as BasePipeline;
 use App\Overrides\Illuminate\Contracts\Chain\Chain as ContractsChain;
 use App\Overrides\Illuminate\Contracts\Pipeline\Pipeline as ContractsPipeline;
+use Illuminate\Pipeline\Pipeline as BasePipeline;
 
-final class Pipeline implements ContractsPipeline, ContractsChain
+final class Pipeline implements ContractsChain, ContractsPipeline
 {
-    public function __construct(private readonly BasePipeline $pipeline)
-    {
-    }
+    public function __construct(private readonly BasePipeline $pipeline) {}
 
     /**
      * Set the array of pipes.
@@ -41,7 +39,6 @@ final class Pipeline implements ContractsPipeline, ContractsChain
     }
 
     /**
-     * @param mixed $traveler
      * @return mixed
      */
     public function process(mixed $traveler)

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\Splits\SplitAttributes;
 
-use Closure;
-use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\Splits\Splits;
 use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\Splits\HandlerInterface;
+use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\Splits\Splits;
+use Closure;
 
 final class SplitAttributesHandler implements HandlerInterface
 {
@@ -15,7 +15,7 @@ final class SplitAttributesHandler implements HandlerInterface
         if ($splits->model) {
             $searchableColumns = implode('|', $splits->model->searchableAttributes ?? []);
 
-            preg_match_all('/attr:(' . $searchableColumns . '):\"(.*?)\"/', $splits->term, $matches);
+            preg_match_all('/attr:('.$searchableColumns.'):\"(.*?)\"/', $splits->term, $matches);
 
             $attributes = [];
 
@@ -25,7 +25,7 @@ final class SplitAttributesHandler implements HandlerInterface
                 $splits->term = trim(str_replace($value, '', $splits->term));
             }
 
-            $splits->attributes = !empty($attributes) ? $attributes : null;
+            $splits->attributes = ! empty($attributes) ? $attributes : null;
         }
 
         return $next($splits);

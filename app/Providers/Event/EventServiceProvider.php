@@ -13,14 +13,14 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         \Filament\Events\TenantSet::class => [
-            \App\Listeners\Permission\SetTeamId\SetTeamIdListener::class
+            \App\Listeners\Permission\SetTeamId\SetTeamIdListener::class,
         ],
         \Illuminate\Auth\Events\Registered::class => [
             \Illuminate\Auth\Listeners\SendEmailVerificationNotification::class,
         ],
         \Illuminate\Queue\Events\JobRetryRequested::class => [
-            \App\Listeners\Queue\Retry\RetryListener::class
-        ]
+            \App\Listeners\Queue\Retry\RetryListener::class,
+        ],
     ];
 
     /**
@@ -30,17 +30,17 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $observers = [
         \App\Models\User\User::class => [
-            \App\Observers\User\UserObserver::class
+            \App\Observers\User\UserObserver::class,
         ],
         \App\Models\Tenant\Tenant::class => [
-            \App\Observers\Tenant\TenantObserver::class
+            \App\Observers\Tenant\TenantObserver::class,
         ],
         \App\Models\Role\Role::class => [
-            \App\Observers\Role\RoleObserver::class
+            \App\Observers\Role\RoleObserver::class,
         ],
         \App\Models\Permission\Permission::class => [
-            \App\Observers\Permission\PermissionObserver::class
-        ]
+            \App\Observers\Permission\PermissionObserver::class,
+        ],
     ];
 
     /**

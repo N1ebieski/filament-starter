@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace App\Actions\PWA\GetAssets\Assets\PWAManifest;
 
-use Closure;
 use App\Actions\PWA\GetAssets\Assets\Assets;
 use App\Actions\PWA\GetAssets\Assets\Handler;
+use Closure;
 use Illuminate\Contracts\Config\Repository as Config;
 
 final class PWAManifestHandler extends Handler
 {
-    public function __construct(private readonly Config $config)
-    {
-    }
+    public function __construct(private readonly Config $config) {}
 
     public function handle(Assets $assets, Closure $next): Assets
     {

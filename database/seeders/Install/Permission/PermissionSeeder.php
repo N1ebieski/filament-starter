@@ -13,8 +13,7 @@ final class PermissionSeeder extends Seeder
     public function __construct(
         private Permission $permission,
         private PermissionRegistrar $permissionRegistrar
-    ) {
-    }
+    ) {}
 
     /**
      * Run the database seeds.

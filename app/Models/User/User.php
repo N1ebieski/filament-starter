@@ -2,37 +2,35 @@
 
 namespace App\Models\User;
 
-use Filament\Panel;
-use App\Models\HasAttributes;
-use App\Models\Tenant\Tenant;
-use Filament\Facades\Filament;
-use Laravel\Sanctum\HasApiTokens;
-use App\Scopes\User\HasUserScopes;
-use App\ValueObjects\User\Name\Name;
-use App\Models\HasAttributesInterface;
-use App\ValueObjects\User\Email\Email;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Notifications\Notifiable;
-use Filament\Models\Contracts\HasTenants;
 use App\Casts\ValueObject\ValueObjectCast;
+use App\Models\HasAttributes;
+use App\Models\HasAttributesInterface;
 use App\Models\HasDatabaseMatchSearchable;
-use Filament\Models\Contracts\FilamentUser;
-use Filament\Notifications\Auth\VerifyEmail;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Casts\Attribute;
+use App\Models\Tenant\Tenant;
+use App\Overrides\Spatie\Permission\Traits\HasRoles;
+use App\Scopes\User\HasUserScopes;
+use App\ValueObjects\User\Email\Email;
+use App\ValueObjects\User\Name\Name;
 use App\ValueObjects\User\StatusEmail\StatusEmail;
 use Fico7489\Laravel\Pivot\Traits\PivotEventTrait;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use App\Overrides\Spatie\Permission\Traits\HasRoles;
+use Filament\Facades\Filament;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasTenants;
+use Filament\Notifications\Auth\VerifyEmail;
+use Filament\Panel;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
+use Laravel\Sanctum\HasApiTokens;
 
 /**
- *
- *
  * @property int $id
  * @property \App\ValueObjects\User\Name\Name $name
  * @property \App\ValueObjects\User\Email\Email $email
@@ -63,6 +61,7 @@ use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
  * @property-read int|null $tokens_count
  * @property-read mixed $two_factor_recovery_codes
  * @property-read mixed $two_factor_secret
+ *
  * @method static \Database\Factories\User\UserFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|User filterGet(\App\Queries\Shared\Result\Drivers\Get\Get $get)
  * @method static \Illuminate\Database\Eloquent\Builder|User filterIgnore(?array $ignore)
@@ -86,19 +85,20 @@ use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
  * @method static \Illuminate\Database\Eloquent\Builder|User role($roles, $guard = null, $without = false)
  * @method static \Illuminate\Database\Eloquent\Builder|User withoutPermission($permissions)
  * @method static \Illuminate\Database\Eloquent\Builder|User withoutRole($roles, $guard = null)
+ *
  * @mixin \Eloquent
  */
-class User extends Authenticatable implements FilamentUser, HasTenants, MustVerifyEmail, HasAttributesInterface
+class User extends Authenticatable implements FilamentUser, HasAttributesInterface, HasTenants, MustVerifyEmail
 {
-    use HasRoles;
-    use HasAttributes;
-    use HasUserScopes;
     use HasApiTokens;
+    use HasAttributes;
+    use HasDatabaseMatchSearchable;
     use HasFactory;
+    use HasRoles;
+    use HasUserScopes;
     use Notifiable;
     use PivotEventTrait;
     use TwoFactorAuthenticatable;
-    use HasDatabaseMatchSearchable;
 
     // Configuration
 
@@ -116,7 +116,7 @@ class User extends Authenticatable implements FilamentUser, HasTenants, MustVeri
         'name',
         'email',
         'email_verified_at',
-        'password'
+        'password',
     ];
 
     /**
@@ -127,7 +127,7 @@ class User extends Authenticatable implements FilamentUser, HasTenants, MustVeri
     protected $hidden = [
         'password',
         'remember_token',
-        'email'
+        'email',
     ];
 
     /**
@@ -137,8 +137,8 @@ class User extends Authenticatable implements FilamentUser, HasTenants, MustVeri
      */
     protected $casts = [
         'id' => 'integer',
-        'name' => ValueObjectCast::class . ':' . Name::class,
-        'email' => ValueObjectCast::class . ':' . Email::class,
+        'name' => ValueObjectCast::class.':'.Name::class,
+        'email' => ValueObjectCast::class.':'.Email::class,
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',
@@ -158,7 +158,7 @@ class User extends Authenticatable implements FilamentUser, HasTenants, MustVeri
 
     protected array $searchableAttributes = ['id'];
 
-    public function getTenants(Panel $panel): array | Collection
+    public function getTenants(Panel $panel): array|Collection
     {
         return $this->tenants;
     }
@@ -175,7 +175,7 @@ class User extends Authenticatable implements FilamentUser, HasTenants, MustVeri
 
     public function sendEmailVerificationNotification(): void
     {
-        $notification = new VerifyEmail();
+        $notification = new VerifyEmail;
         $notification->url = Filament::getDefaultPanel()->getVerifyEmailUrl($this);
 
         $this->notify($notification);
@@ -185,7 +185,7 @@ class User extends Authenticatable implements FilamentUser, HasTenants, MustVeri
 
     public function statusEmail(): Attribute
     {
-        return new Attribute(fn (): StatusEmail => !is_null($this->email_verified_at) ?
+        return new Attribute(fn (): StatusEmail => ! is_null($this->email_verified_at) ?
             StatusEmail::Verified : StatusEmail::Unverified);
     }
 
@@ -210,8 +210,7 @@ class User extends Authenticatable implements FilamentUser, HasTenants, MustVeri
     }
 
     /**
-     * @param Tenant $tenant
-     * @return bool
+     * @param  Tenant  $tenant
      */
     public function canAccessTenant(Model $tenant): bool
     {

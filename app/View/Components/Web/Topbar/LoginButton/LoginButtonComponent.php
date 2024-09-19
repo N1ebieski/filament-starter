@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace App\View\Components\Web\Topbar\LoginButton;
 
-use Filament\Actions\Action;
 use App\View\Components\Component;
-use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\View;
-use Filament\Forms\Contracts\HasForms;
+use Filament\Actions\Action;
+use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
 use Filament\Forms\Concerns\InteractsWithForms;
-use Filament\Actions\Concerns\InteractsWithActions;
+use Filament\Forms\Contracts\HasForms;
 use Illuminate\Contracts\View\View as ViewContract;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\View;
 
-final class LoginButtonComponent extends Component implements HasForms, HasActions
+final class LoginButtonComponent extends Component implements HasActions, HasForms
 {
     use InteractsWithActions;
     use InteractsWithForms;
@@ -26,7 +26,7 @@ final class LoginButtonComponent extends Component implements HasForms, HasActio
         return Action::make('login')
             ->url(URL::route('filament.web.auth.login'))
             ->label(Lang::get('filament-panels::pages/auth/login.form.actions.authenticate.label'))
-            ->visible(fn (): bool => !Auth::check())
+            ->visible(fn (): bool => ! Auth::check())
             ->button()
             ->outlined();
     }

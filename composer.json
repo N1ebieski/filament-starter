@@ -61,6 +61,9 @@
         "reverb": [
             "php artisan reverb:start --debug"
         ],
+        "pint": [
+            "vendor/bin/pint"
+        ],
         "phpstan": [
             "vendor/bin/phpstan analyse --configuration=phpstan.neon > storage/logs/phpstan.log"
         ],

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Overrides\Spatie\LaravelData;
 
-use Closure;
 use App\Models\HasAttributesInterface;
+use Closure;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\LaravelData\Lazy as BaseLazy;
+use Spatie\LaravelData\Support\Lazy\ConditionalLazy;
 use Spatie\LaravelData\Support\Lazy\DefaultLazy;
 use Spatie\LaravelData\Support\Lazy\RelationalLazy;
-use Spatie\LaravelData\Support\Lazy\ConditionalLazy;
 
 abstract class Lazy
 {

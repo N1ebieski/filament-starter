@@ -4,17 +4,16 @@ declare(strict_types=1);
 
 namespace App\Queries\Shared\SearchBy\Drivers\DatabaseMatch;
 
-use Illuminate\Support\Facades\App;
-use Illuminate\Database\Eloquent\Model;
-use App\Overrides\Illuminate\Contracts\Pipeline\Pipeline;
 use App\Overrides\Illuminate\Contracts\Container\Container;
-use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatch;
-use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\Splits\Splits;
+use App\Overrides\Illuminate\Contracts\Pipeline\Pipeline;
 use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\Splits\HandlerInterface;
+use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\Splits\SplitAttributes\SplitAttributesHandler;
 use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\Splits\SplitExacts\SplitExactsHandler;
 use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\Splits\SplitLosses\SplitLossesHandler;
 use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\Splits\SplitRelations\SplitRelationsHandler;
-use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\Splits\SplitAttributes\SplitAttributesHandler;
+use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\Splits\Splits;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\App;
 
 final class DatabaseMatchFactory
 {
@@ -34,7 +33,7 @@ final class DatabaseMatchFactory
             SplitAttributesHandler::class,
             SplitRelationsHandler::class,
             SplitExactsHandler::class,
-            SplitLossesHandler::class
+            SplitLossesHandler::class,
         ]);
 
         /** @var Splits */
@@ -45,7 +44,7 @@ final class DatabaseMatchFactory
 
         return DatabaseMatch::from([
             ...$splits->toArray(),
-            'isOrderBy' => $isOrderBy
+            'isOrderBy' => $isOrderBy,
         ]);
     }
 }

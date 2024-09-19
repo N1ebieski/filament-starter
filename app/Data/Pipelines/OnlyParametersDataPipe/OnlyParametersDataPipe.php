@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Data\Pipelines\OnlyParametersDataPipe;
 
-use Spatie\LaravelData\Support\DataClass;
 use Spatie\LaravelData\DataPipes\DataPipe;
 use Spatie\LaravelData\Support\Creation\CreationContext;
+use Spatie\LaravelData\Support\DataClass;
 
 final class OnlyParametersDataPipe implements DataPipe
 {
     /**
-     * @param class-string $className
+     * @param  class-string  $className
      */
     private function getConstructorParameters(string $className): array
     {

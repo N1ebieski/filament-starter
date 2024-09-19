@@ -4,22 +4,21 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Admin\Role\Actions\Edit;
 
-use App\Models\Role\Role;
-use App\Filament\Actions\Action;
-use App\Queries\QueryBusInterface;
-use Illuminate\Support\Facades\App;
-use App\ValueObjects\Role\Name\Name;
-use Illuminate\Support\Facades\Lang;
 use App\Commands\CommandBusInterface;
-use App\Models\Permission\Permission;
-use Filament\Forms\Components\Select;
 use App\Commands\Role\Edit\EditCommand;
-use Filament\Tables\Actions\EditAction;
-use Illuminate\Validation\Rules\Exists;
-use Filament\Forms\Components\TextInput;
-use App\ValueObjects\Role\Name\DefaultName;
-use Illuminate\Contracts\Database\Query\Builder;
+use App\Filament\Actions\Action;
 use App\Filament\Resources\Admin\Role\Actions\HasPermissions;
+use App\Models\Permission\Permission;
+use App\Models\Role\Role;
+use App\Queries\QueryBusInterface;
+use App\ValueObjects\Role\Name\DefaultName;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Actions\EditAction;
+use Illuminate\Contracts\Database\Query\Builder;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Validation\Rules\Exists;
 
 final class EditRoleAction extends Action
 {
@@ -30,13 +29,12 @@ final class EditRoleAction extends Action
         private readonly Permission $permission,
         private readonly QueryBusInterface $queryBus,
         private readonly CommandBusInterface $commandBus
-    ) {
-    }
+    ) {}
 
     public static function make(): EditAction
     {
         /** @var static */
-        $static = App::make(static::class);
+        $static = App::make(self::class);
 
         return $static->makeAction();
     }
@@ -45,7 +43,7 @@ final class EditRoleAction extends Action
     {
         return EditAction::make()
             ->modalHeading(fn (Role $record): string => Lang::get('role.pages.edit.title', [
-                'name' => $record->name->value
+                'name' => $record->name->value,
             ]))
             ->mutateRecordDataUsing(function (array $data, Role $record): array {
                 $data['name'] = $record->name->value;
@@ -82,27 +80,27 @@ final class EditRoleAction extends Action
                                     });
                                 }
                             )
-                            ->when(
-                                $record->name->isEqualsDefault(DefaultName::Api),
-                                function (Exists $rule): Exists {
-                                    return $rule->where(function (Builder $builder): Builder {
-                                        return $builder->where('name', 'like', 'api.%');
-                                    });
-                                }
-                            );
+                                ->when(
+                                    $record->name->isEqualsDefault(DefaultName::Api),
+                                    function (Exists $rule): Exists {
+                                        return $rule->where(function (Builder $builder): Builder {
+                                            return $builder->where('name', 'like', 'api.%');
+                                        });
+                                    }
+                                );
                         }
-                    )
+                    ),
             ])
             ->stickyModalFooter()
             ->closeModalByClickingAway(false)
             ->using(function (array $data, Role $record): Role {
                 return $this->commandBus->execute(EditCommand::from([
                     ...$data,
-                    'role' => $record
+                    'role' => $record,
                 ]));
             })
             ->successNotificationTitle(fn (Role $record): string => Lang::get('role.messages.edit.success', [
-                'name' => $record->name
+                'name' => $record->name,
             ]));
     }
 }

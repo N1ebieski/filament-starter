@@ -4,32 +4,32 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\User\Tenant\RelationManagers\Users;
 
-use App\Queries\Order;
-use App\Queries\OrderBy;
-use App\Models\User\User;
-use Filament\Tables\Table;
-use App\Models\Tenant\Tenant;
-use App\Queries\QueryBusInterface;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Lang;
-use Filament\Tables\Columns\TextColumn;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
-use App\Filament\Resources\HasTableSearch;
 use App\Filament\Resources\HasTablePaginate;
-use Filament\Tables\Actions\BulkActionGroup;
-use Illuminate\Database\Eloquent\Collection;
-use App\Queries\User\GetByFilter\GetByFilterQuery;
-use Filament\Resources\RelationManagers\RelationManager;
+use App\Filament\Resources\HasTableSearch;
 use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\Attach\AttachUserAction;
 use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\Detach\DetachUserAction;
 use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\DetachMany\DetachUsersAction;
 use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\EditPermissions\EditPermissionsAction;
+use App\Models\Tenant\Tenant;
+use App\Models\User\User;
+use App\Queries\Order;
+use App\Queries\OrderBy;
+use App\Queries\QueryBusInterface;
+use App\Queries\User\GetByFilter\GetByFilterQuery;
+use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Lang;
 
 class UsersRelationManager extends RelationManager
 {
-    use HasTableSearch;
     use HasTablePaginate;
+    use HasTableSearch;
 
     protected static string $relationship = 'users';
 
@@ -64,7 +64,7 @@ class UsersRelationManager extends RelationManager
             ->query(function () use ($tenant): Builder {
                 return $this->queryBus->execute(GetByFilterQuery::from([
                     'select' => ['id', 'name'],
-                    'tenants' => new Collection([$tenant])
+                    'tenants' => new Collection([$tenant]),
                 ]));
             })
             ->recordTitleAttribute('name')

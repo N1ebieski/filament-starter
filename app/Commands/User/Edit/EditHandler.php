@@ -7,17 +7,15 @@ namespace App\Commands\User\Edit;
 use App\Commands\Handler;
 use App\Models\Role\Role;
 use App\Models\User\User;
-use Spatie\LaravelData\Optional;
-use App\Commands\User\Edit\EditCommand;
 use App\ValueObjects\Role\Name\DefaultName;
 use Illuminate\Database\ConnectionInterface as DB;
+use Spatie\LaravelData\Optional;
 
 final class EditHandler extends Handler
 {
     public function __construct(
         private readonly DB $db,
-    ) {
-    }
+    ) {}
 
     public function handle(EditCommand $command): User
     {
@@ -29,7 +27,7 @@ final class EditHandler extends Handler
             );
 
             if (
-                !($command->email instanceof Optional)
+                ! ($command->email instanceof Optional)
                 && $command->user->getOriginal('email') !== $command->email
             ) {
                 $user->email_verified_at = null;
@@ -37,10 +35,10 @@ final class EditHandler extends Handler
 
             $user->save();
 
-            if (!($command->roles instanceof Optional)) {
+            if (! ($command->roles instanceof Optional)) {
                 $user->syncRoles([
                     DefaultName::User->value,
-                    ...$command->roles->map(fn (Role $role) => $role->name->value)->toArray()
+                    ...$command->roles->map(fn (Role $role) => $role->name->value)->toArray(),
                 ]);
             }
         } catch (\Exception $e) {

@@ -6,15 +6,14 @@ namespace App\Commands\Tenant\Edit;
 
 use App\Commands\Handler;
 use App\Models\Tenant\Tenant;
-use Spatie\LaravelData\Optional;
 use Illuminate\Database\ConnectionInterface as DB;
+use Spatie\LaravelData\Optional;
 
 final class EditHandler extends Handler
 {
     public function __construct(
         private readonly DB $db,
-    ) {
-    }
+    ) {}
 
     public function handle(EditCommand $command): Tenant
     {
@@ -25,13 +24,13 @@ final class EditHandler extends Handler
                 $command->only(...$command->tenant->getFillable())->toArray()
             );
 
-            if (!($command->user instanceof Optional)) {
+            if (! ($command->user instanceof Optional)) {
                 $tenant->user()->associate($command->user);
             }
 
             $tenant->save();
 
-            if (!($command->users instanceof Optional)) {
+            if (! ($command->users instanceof Optional)) {
                 $tenant->users()->sync($command->users);
             }
         } catch (\Exception $e) {

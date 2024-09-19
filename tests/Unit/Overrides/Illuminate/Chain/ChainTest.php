@@ -3,11 +3,11 @@
 namespace Tests\Unit\Overrides\Illuminate\Chain;
 
 use DG\BypassFinals;
-use PHPUnit\Framework\TestCase;
 use Illuminate\Container\Container;
-use Tests\Unit\Overrides\Illuminate\PipelineFactory;
+use PHPUnit\Framework\TestCase;
 use Tests\Unit\Overrides\Illuminate\Chain\Handlers\ExampleHandler1;
 use Tests\Unit\Overrides\Illuminate\Chain\Handlers\ExampleHandler2;
+use Tests\Unit\Overrides\Illuminate\PipelineFactory;
 
 final class ChainTest extends TestCase
 {
@@ -22,7 +22,7 @@ final class ChainTest extends TestCase
 
         $handlers = [
             $this->createMock(ExampleHandler1::class),
-            $this->createMock(ExampleHandler2::class)
+            $this->createMock(ExampleHandler2::class),
         ];
 
         $handlers[0]->expects($this->once())->method('handle')->with($this->equalTo('Test1'));
@@ -33,11 +33,11 @@ final class ChainTest extends TestCase
 
     public function test_chain_with_namespaces(): void
     {
-        $container = new Container();
+        $container = new Container;
 
         $handlers = [
             $this->createMock(ExampleHandler1::class),
-            $this->createMock(ExampleHandler2::class)
+            $this->createMock(ExampleHandler2::class),
         ];
 
         $handlers[0]->expects($this->once())->method('handle')->with($this->equalTo('Test1'));
@@ -50,7 +50,7 @@ final class ChainTest extends TestCase
 
         $handlers = [
             ExampleHandler1::class,
-            ExampleHandler2::class
+            ExampleHandler2::class,
         ];
 
         $chain->through(...$handlers)->process('Test1');

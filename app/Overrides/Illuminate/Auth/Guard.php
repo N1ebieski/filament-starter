@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace App\Overrides\Illuminate\Auth;
 
-use Illuminate\Contracts\Auth\Guard as BaseGuard;
 use App\Overrides\Illuminate\Contracts\Auth\Guard as ContractsGuard;
+use Illuminate\Contracts\Auth\Guard as BaseGuard;
 
 final class Guard implements ContractsGuard
 {
-    public function __construct(private readonly BaseGuard $guard)
-    {
-    }
+    public function __construct(private readonly BaseGuard $guard) {}
 
     /**
      * Get the currently authenticated user.

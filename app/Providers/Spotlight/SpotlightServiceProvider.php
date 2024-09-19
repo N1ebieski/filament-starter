@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Providers\Spotlight;
 
-use Livewire\Livewire;
-use Illuminate\Support\ServiceProvider;
 use App\Overrides\LivewireUI\Spotlight\Spotlight;
+use Illuminate\Support\ServiceProvider;
+use Livewire\Livewire;
 
 final class SpotlightServiceProvider extends ServiceProvider
 {

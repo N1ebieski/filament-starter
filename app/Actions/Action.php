@@ -6,6 +6,4 @@ namespace App\Actions;
 
 use App\Data\Data\Data;
 
-abstract class Action extends Data
-{
-}
+abstract class Action extends Data {}

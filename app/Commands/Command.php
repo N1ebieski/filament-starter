@@ -6,6 +6,4 @@ namespace App\Commands;
 
 use App\Data\Data\Data;
 
-abstract class Command extends Data
-{
-}
+abstract class Command extends Data {}

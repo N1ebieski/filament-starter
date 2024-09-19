@@ -23,13 +23,13 @@ final class RolePolicy
     public function update(User $user, Role $record): bool
     {
         return $user->hasRole(DefaultName::SuperAdmin->value)
-            && !$record->name->isAdmin();
+            && ! $record->name->isAdmin();
     }
 
     public function delete(User $user, Role $record): bool
     {
         return $user->hasRole(DefaultName::SuperAdmin->value)
-            && !$record->name->isDefault();
+            && ! $record->name->isDefault();
     }
 
     public function deleteAny(User $user): bool

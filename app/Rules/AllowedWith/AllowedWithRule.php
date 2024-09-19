@@ -2,22 +2,20 @@
 
 namespace App\Rules\AllowedWith;
 
-use Closure;
-use Illuminate\Support\Collection;
 use App\Models\HasAttributesInterface;
+use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Support\Collection;
 
 class AllowedWithRule implements ValidationRule
 {
-    public function __construct(private readonly HasAttributesInterface $model)
-    {
-    }
+    public function __construct(private readonly HasAttributesInterface $model) {}
 
     /**
      * Run the validation rule.
      *
      * @param  \Closure(string): \Illuminate\Translation\PotentiallyTranslatedString  $fail
-     * @param string $value
+     * @param  string  $value
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
@@ -26,15 +24,15 @@ class AllowedWithRule implements ValidationRule
 
         $withs = $this->model->getWithable();
 
-        if (!in_array($baseRelation, $withs)) {
+        if (! in_array($baseRelation, $withs)) {
             $fail('validation.allowed_with.with_in')->translate([
-                'relations' => implode(', ', $withs)
+                'relations' => implode(', ', $withs),
             ]);
 
             return;
         }
 
-        if (!empty($attributes)) {
+        if (! empty($attributes)) {
             Collection::make(explode(',', $attributes))
                 ->map(fn (string $attribute): string => trim($attribute))
                 ->each(function (string $attribute) use ($baseRelation, $fail) {
@@ -49,9 +47,9 @@ class AllowedWithRule implements ValidationRule
 
                     $selects = $model->getSelectable();
 
-                    if (!in_array($attribute, $selects)) {
+                    if (! in_array($attribute, $selects)) {
                         $fail('validation.allowed_with.select_in')->translate([
-                            'attributes' => implode(', ', $selects)
+                            'attributes' => implode(', ', $selects),
                         ]);
                     }
                 });

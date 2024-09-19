@@ -7,6 +7,4 @@ namespace App\Support\Enum;
 /**
  * @property-read mixed $value
  */
-interface EnumInterface
-{
-}
+interface EnumInterface {}

@@ -6,7 +6,5 @@ namespace App\CacheQueries;
 
 final class Time
 {
-    public function __construct(public readonly int $minutes)
-    {
-    }
+    public function __construct(public readonly int $minutes) {}
 }

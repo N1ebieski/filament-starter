@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Providers\Filament\Filament;
 
+use Filament\Support\Facades\FilamentView;
+use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Table;
 use Filament\View\PanelsRenderHook;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
-use Filament\Tables\Enums\FiltersLayout;
-use Filament\Support\Facades\FilamentView;
 
 final class FilamentServiceProvider extends ServiceProvider
 {

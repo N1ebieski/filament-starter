@@ -22,6 +22,7 @@ use Spatie\Permission\Models\Permission as BasePermission;
  * @property-read int|null $roles_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User\User> $users
  * @property-read int|null $users_count
+ *
  * @method static \Illuminate\Contracts\Pagination\LengthAwarePaginator filterPaginate(\App\Queries\Shared\Result\Drivers\Paginate\Paginate $paginate)
  * @method static \Illuminate\Database\Eloquent\Builder|Permission newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Permission newQuery()
@@ -30,6 +31,7 @@ use Spatie\Permission\Models\Permission as BasePermission;
  * @method static \Illuminate\Database\Eloquent\Builder|Permission role($roles, $guard = null, $without = false)
  * @method static \Illuminate\Database\Eloquent\Builder|Permission withoutPermission($permissions)
  * @method static \Illuminate\Database\Eloquent\Builder|Permission withoutRole($roles, $guard = null)
+ *
  * @mixin \Eloquent
  */
 final class Permission extends BasePermission
@@ -41,7 +43,7 @@ final class Permission extends BasePermission
      */
     protected $casts = [
         'id' => 'integer',
-        'name' => ValueObjectCast::class . ':' . Name::class,
+        'name' => ValueObjectCast::class.':'.Name::class,
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];

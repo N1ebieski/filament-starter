@@ -2,16 +2,16 @@
 
 namespace App\View\Components\Topbar\SpotlightButton;
 
-use Filament\Actions\Action;
 use App\View\Components\Component;
-use Illuminate\Support\Facades\View;
-use Filament\Forms\Contracts\HasForms;
+use Filament\Actions\Action;
+use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
 use Filament\Forms\Concerns\InteractsWithForms;
-use Filament\Actions\Concerns\InteractsWithActions;
+use Filament\Forms\Contracts\HasForms;
 use Illuminate\Contracts\View\View as ViewContract;
+use Illuminate\Support\Facades\View;
 
-final class SpotlightButtonComponent extends Component implements HasForms, HasActions
+final class SpotlightButtonComponent extends Component implements HasActions, HasForms
 {
     use InteractsWithActions;
     use InteractsWithForms;

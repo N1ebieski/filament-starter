@@ -2,13 +2,13 @@
 
 namespace Tests\Feature\Listeners\Queue\Retry;
 
-use Tests\TestCase;
 use DG\BypassFinals;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
+use Tests\TestCase;
 
 class RetryListenerTest extends TestCase
 {
@@ -23,15 +23,12 @@ class RetryListenerTest extends TestCase
         Config::set('queue.default', 'database');
     }
 
-
     /**
      * Test that a job that implements RetryInterface, can make use of the retried method.
-     *
-     * @return void
      */
     public function test_job_with_retried(): void
     {
-        $job = new ExampleWithRetriedJob();
+        $job = new ExampleWithRetriedJob;
 
         $this->assertFalse(Cache::driver('testing')->get('retried'));
 

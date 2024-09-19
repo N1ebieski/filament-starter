@@ -3,5 +3,5 @@
 return [
     'navigation' => 'nawigacja',
     'back' => 'cofnij',
-    'enable' => 'wł./wył.'
+    'enable' => 'wł./wył.',
 ];

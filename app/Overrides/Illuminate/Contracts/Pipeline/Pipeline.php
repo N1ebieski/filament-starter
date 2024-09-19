@@ -15,7 +15,6 @@ interface Pipeline
     public function through(...$pipes);
 
     /**
-     * @param mixed $traveler
      * @return mixed
      */
     public function process(mixed $traveler);

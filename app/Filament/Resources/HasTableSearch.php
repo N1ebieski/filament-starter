@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
-use Override;
-use App\Scopes\SearchScopesInterface;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
-use Filament\Tables\Concerns\InteractsWithTable;
 use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatchFactory;
+use App\Scopes\SearchScopesInterface;
+use Filament\Tables\Concerns\InteractsWithTable;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Override;
 
 /**
  * @mixin InteractsWithTable
@@ -17,7 +17,7 @@ use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatchFactory;
 trait HasTableSearch
 {
     /**
-     * @param Builder&SearchScopesInterface $query
+     * @param  Builder&SearchScopesInterface  $query
      */
     #[Override]
     protected function applyGlobalSearchToTableQuery(Builder $query): Builder

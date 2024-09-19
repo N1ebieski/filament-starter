@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace App\Scopes\User;
 
 use App\Models\Role\Role;
-use App\Models\User\User;
 use App\Models\Tenant\Tenant;
+use App\Models\User\User;
 use App\Scopes\HasFiltersScopes;
-use Illuminate\Support\Collection;
 use App\ValueObjects\User\StatusEmail\StatusEmail;
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 
 /**
  * @mixin User
@@ -21,7 +21,7 @@ trait HasUserScopes
 
     public function scopeFilterStatusEmail(Builder $builder, ?StatusEmail $status): Builder
     {
-        return $builder->when(!is_null($status), function (Builder $builder) use ($status): Builder {
+        return $builder->when(! is_null($status), function (Builder $builder) use ($status): Builder {
             /** @var StatusEmail $status */
 
             return $builder->when($status->isEquals(StatusEmail::Verified), function (Builder $builder): Builder {

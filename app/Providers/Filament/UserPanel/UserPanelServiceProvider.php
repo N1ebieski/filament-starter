@@ -4,23 +4,21 @@ declare(strict_types=1);
 
 namespace App\Providers\Filament\UserPanel;
 
-use Filament\Panel;
-use App\Models\Tenant\Tenant;
-use Filament\View\PanelsRenderHook;
-use Filament\Widgets\AccountWidget;
-use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Vite;
-use Illuminate\Support\Facades\Blade;
-use Filament\Widgets\FilamentInfoWidget;
-use App\Providers\Filament\PanelServiceProvider;
-use App\Filament\Pages\User\Tenancy\Edit\EditTenantPage;
-use App\Overrides\Jeffgreco13\FilamentBreezy\BreezyCore;
 use App\Filament\Pages\User\Tenancy\Create\CreateTenantPage;
-use App\Http\Middleware\ApplyUserScope\ApplyUserScopeMiddleware;
-use App\Http\Middleware\Filament\VerifyEmail\VerifyEmailMiddleware;
+use App\Filament\Pages\User\Tenancy\Edit\EditTenantPage;
 use App\Http\Middleware\ApplyTenantScope\ApplyTenantScopeMiddleware;
 use App\Http\Middleware\Filament\Authenticate\AuthenticateMiddleware;
 use App\Http\Middleware\Filament\MustTwoFactor\MustTwoFactorMiddleware;
+use App\Http\Middleware\Filament\VerifyEmail\VerifyEmailMiddleware;
+use App\Models\Tenant\Tenant;
+use App\Overrides\Jeffgreco13\FilamentBreezy\BreezyCore;
+use App\Providers\Filament\PanelServiceProvider;
+use Filament\Panel;
+use Filament\View\PanelsRenderHook;
+use Filament\Widgets\AccountWidget;
+use Filament\Widgets\FilamentInfoWidget;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Vite;
 
 final class UserPanelServiceProvider extends PanelServiceProvider
 {
@@ -31,7 +29,7 @@ final class UserPanelServiceProvider extends PanelServiceProvider
         return parent::panel($panel)
             ->id(self::ID)
             ->path(self::ID)
-            ->homeUrl('/' . self::ID)
+            ->homeUrl('/'.self::ID)
             ->brandName(Lang::get('user.pages.panel.title')) //@phpstan-ignore-line
             ->discoverResources(in: app_path('Filament/Resources/User'), for: 'App\\Filament\\Resources\\User')
             ->discoverPages(in: app_path('Filament/Pages/User'), for: 'App\\Filament\\Pages\\User')
@@ -48,7 +46,7 @@ final class UserPanelServiceProvider extends PanelServiceProvider
                 // ApplyUserScope::class
             ], isPersistent: true)
             ->tenantMiddleware([
-                ApplyTenantScopeMiddleware::class
+                ApplyTenantScopeMiddleware::class,
             ], isPersistent: true)
             ->tenant(Tenant::class)
             ->tenantRegistration(CreateTenantPage::class)
@@ -62,7 +60,7 @@ final class UserPanelServiceProvider extends PanelServiceProvider
                         shouldRegisterNavigation: false,
                         slug: 'profile',
                     )
-                    ->enableTwoFactorAuthentication()
+                    ->enableTwoFactorAuthentication(),
             ])
             ->spa()
             ->renderHook(

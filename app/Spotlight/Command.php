@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Spotlight;
 
-use LivewireUI\Spotlight\SpotlightCommand;
 use Illuminate\Contracts\Support\Arrayable;
+use LivewireUI\Spotlight\SpotlightCommand;
 use Override;
 
 abstract class Command extends SpotlightCommand implements Arrayable
@@ -26,7 +26,7 @@ abstract class Command extends SpotlightCommand implements Arrayable
             'description' => $this->getDescription(),
             'synonyms' => $this->getSynonyms(),
             'dependencies' => $this->dependencies()?->toArray() ?? [],
-            'default' => $this->getDefault()
+            'default' => $this->getDefault(),
         ];
     }
 }

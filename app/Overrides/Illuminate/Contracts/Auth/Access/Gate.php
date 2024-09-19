@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Overrides\Illuminate\Contracts\Auth\Access;
 
-use Illuminate\Contracts\Auth\Access\Gate as BaseGate;
-
 interface Gate
 {
     /**

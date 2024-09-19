@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware\Filament\MustTwoFactor;
 
-use Closure;
-use App\Models\User\User;
-use Illuminate\Http\Request;
-use Filament\Facades\Filament;
 use App\Http\Middleware\Middleware;
+use App\Models\User\User;
+use Closure;
+use Filament\Facades\Filament;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response as HttpResponse;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Response;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
-use Illuminate\Http\Response as HttpResponse;
 
 final class MustTwoFactorMiddleware extends Middleware
 {
@@ -26,7 +26,7 @@ final class MustTwoFactorMiddleware extends Middleware
 
         if (
             $user && ($user->hasConfirmedTwoFactor() || $breezy->shouldForceTwoFactor())
-            && !$user->hasValidTwoFactorSession()
+            && ! $user->hasValidTwoFactorSession()
         ) {
             return $request->expectsJson() ?
                 App::abort(
@@ -42,7 +42,7 @@ final class MustTwoFactorMiddleware extends Middleware
     protected function redirectTo(Request $request): string
     {
         return Filament::getDefaultPanel()->route('auth.two-factor', [
-            'next' => $request->getRequestUri()
+            'next' => $request->getRequestUri(),
         ]);
     }
 }

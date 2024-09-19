@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace App\Overrides\Spatie\Permission\Traits;
 
-use Override;
+use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Spatie\Permission\PermissionRegistrar;
-use Illuminate\Contracts\Database\Eloquent\Builder;
 use Spatie\Permission\Traits\HasRoles as BaseHasRoles;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use App\Overrides\Spatie\Permission\Traits\HasPermissions;
 
 trait HasRoles
 {
@@ -24,7 +22,7 @@ trait HasRoles
         /** @var PermissionRegistrar */
         $permissionRegistrar = App::make(PermissionRegistrar::class);
 
-        return Config::get('permission.table_names.model_has_roles') . '.' . $permissionRegistrar->teamsKey;
+        return Config::get('permission.table_names.model_has_roles').'.'.$permissionRegistrar->teamsKey;
     }
 
     private function getTeamField(): string
@@ -32,7 +30,7 @@ trait HasRoles
         /** @var PermissionRegistrar */
         $permissionRegistrar = App::make(PermissionRegistrar::class);
 
-        return Config::get('permission.table_names.roles') . '.' . $permissionRegistrar->teamsKey;
+        return Config::get('permission.table_names.roles').'.'.$permissionRegistrar->teamsKey;
     }
 
     public function roles(): BelongsToMany
@@ -48,7 +46,7 @@ trait HasRoles
             $permissionRegistrar->pivotRole
         );
 
-        if (!$permissionRegistrar->teams) {
+        if (! $permissionRegistrar->teams) {
             return $relation;
         }
 
@@ -56,10 +54,10 @@ trait HasRoles
             return $query->where($this->getRolePivotTeamField(), $permissionRegistrar->getPermissionsTeamId())
                 ->orWhereNull($this->getRolePivotTeamField());
         })
-        ->where(function (Builder $query) use ($permissionRegistrar): Builder {
-            return $query->whereNull($this->getTeamField())
-                ->orWhere($this->getTeamField(), $permissionRegistrar->getPermissionsTeamId());
-        });
+            ->where(function (Builder $query) use ($permissionRegistrar): Builder {
+                return $query->whereNull($this->getTeamField())
+                    ->orWhere($this->getTeamField(), $permissionRegistrar->getPermissionsTeamId());
+            });
     }
 
     public function tenantRoles(): BelongsToMany

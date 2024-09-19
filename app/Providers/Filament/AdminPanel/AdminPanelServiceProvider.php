@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace App\Providers\Filament\AdminPanel;
 
+use App\Http\Middleware\Filament\Authenticate\AuthenticateMiddleware;
+use App\Http\Middleware\Filament\MustTwoFactor\MustTwoFactorMiddleware;
+use App\Http\Middleware\Filament\VerifyEmail\VerifyEmailMiddleware;
+use App\Overrides\Jeffgreco13\FilamentBreezy\BreezyCore;
+use App\Providers\Filament\PanelServiceProvider;
 use Filament\Panel;
 use Filament\View\PanelsRenderHook;
 use Filament\Widgets\AccountWidget;
+use Filament\Widgets\FilamentInfoWidget;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Vite;
-use Filament\Widgets\FilamentInfoWidget;
-use App\Providers\Filament\PanelServiceProvider;
-use App\Overrides\Jeffgreco13\FilamentBreezy\BreezyCore;
-use App\Http\Middleware\Filament\VerifyEmail\VerifyEmailMiddleware;
-use App\Http\Middleware\Filament\Authenticate\AuthenticateMiddleware;
-use App\Http\Middleware\Filament\MustTwoFactor\MustTwoFactorMiddleware;
 
 final class AdminPanelServiceProvider extends PanelServiceProvider
 {
@@ -25,7 +25,7 @@ final class AdminPanelServiceProvider extends PanelServiceProvider
         return parent::panel($panel)
             ->id(self::ID)
             ->path(self::ID)
-            ->homeUrl('/' . self::ID)
+            ->homeUrl('/'.self::ID)
             ->brandName(Lang::get('admin.pages.panel.title')) //@phpstan-ignore-line
             ->discoverResources(in: app_path('Filament/Resources/Admin'), for: 'App\\Filament\\Resources\\Admin')
             ->discoverPages(in: app_path('Filament/Pages/Admin'), for: 'App\\Filament\\Pages\\Admin')
@@ -38,7 +38,7 @@ final class AdminPanelServiceProvider extends PanelServiceProvider
             ->authMiddleware([
                 AuthenticateMiddleware::class,
                 MustTwoFactorMiddleware::class,
-                VerifyEmailMiddleware::class
+                VerifyEmailMiddleware::class,
             ], isPersistent: true)
             ->plugins([
                 BreezyCore::make()
@@ -48,7 +48,7 @@ final class AdminPanelServiceProvider extends PanelServiceProvider
                         shouldRegisterNavigation: false,
                         slug: 'profile'
                     )
-                    ->enableTwoFactorAuthentication()
+                    ->enableTwoFactorAuthentication(),
             ])
             ->databaseNotifications()
             ->databaseNotificationsPolling(null)

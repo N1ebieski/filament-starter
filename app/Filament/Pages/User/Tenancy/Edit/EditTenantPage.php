@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace App\Filament\Pages\User\Tenancy\Edit;
 
-use Override;
-use Filament\Forms\Form;
-use App\Models\Tenant\Tenant;
-use Filament\Facades\Filament;
-use Illuminate\Support\Facades\Lang;
 use App\Commands\CommandBusInterface;
-use Illuminate\Database\Eloquent\Model;
-use Filament\Forms\Components\TextInput;
 use App\Commands\Tenant\Edit\EditCommand;
-use Filament\Pages\Tenancy\EditTenantProfile;
 use App\Filament\Actions\User\Tenancy\Delete\DeleteTenantAction;
 use App\Filament\Resources\User\Tenant\RelationManagers\Users\UsersRelationManager;
+use App\Models\Tenant\Tenant;
+use Filament\Facades\Filament;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Form;
+use Filament\Pages\Tenancy\EditTenantProfile;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Lang;
+use Override;
 
 /**
  * @property-read Tenant $tenant
@@ -38,14 +38,14 @@ class EditTenantPage extends EditTenantProfile
 
         //@phpstan-ignore-next-line
         return Lang::get('tenant.pages.edit.title', [
-            'name' => $tenant->name->value
+            'name' => $tenant->name->value,
         ]);
     }
 
     protected function getHeaderActions(): array
     {
         return [
-            DeleteTenantAction::make($this->tenant)
+            DeleteTenantAction::make($this->tenant),
         ];
     }
 
@@ -70,16 +70,15 @@ class EditTenantPage extends EditTenantProfile
     }
 
     /**
-     * @param Tenant $record
-     * @param array<string, mixed> $data
-     * @return Tenant
+     * @param  Tenant  $record
+     * @param  array<string, mixed>  $data
      */
     protected function handleRecordUpdate(Model $record, array $data): Tenant
     {
         /** @var Tenant */
         $tenant = $this->commandBus->execute(EditCommand::from([
             ...$data,
-            'tenant' => $record
+            'tenant' => $record,
         ]));
 
         return $tenant;
@@ -89,14 +88,14 @@ class EditTenantPage extends EditTenantProfile
     {
         //@phpstan-ignore-next-line
         return Lang::get('tenant.messages.edit.success', [
-            'name' => $this->tenant->name
+            'name' => $this->tenant->name,
         ]);
     }
 
     public static function getRelations(): array
     {
         return [
-            UsersRelationManager::class
+            UsersRelationManager::class,
         ];
     }
 }

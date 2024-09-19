@@ -2,9 +2,9 @@
 
 namespace App\Filament\Pages\Web\Offline;
 
+use App\Support\PWA\PWACacheInterface;
 use Filament\Pages\SimplePage;
 use Illuminate\Support\Facades\Lang;
-use App\Support\PWA\PWACacheInterface;
 
 class OfflinePage extends SimplePage implements PWACacheInterface
 {

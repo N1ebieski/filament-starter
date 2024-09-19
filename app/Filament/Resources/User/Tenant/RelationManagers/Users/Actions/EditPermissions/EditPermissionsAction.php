@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\EditPermissions;
 
-use App\Models\User\User;
-use App\Models\Tenant\Tenant;
-use App\Filament\Actions\Action;
-use App\Queries\QueryBusInterface;
-use Illuminate\Support\Facades\App;
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Support\Facades\Lang;
 use App\Commands\CommandBusInterface;
+use App\Commands\User\Tenants\EditPermissions\EditPermissionsCommand;
+use App\Filament\Actions\Action;
+use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\HasPermissions;
 use App\Models\Permission\Permission;
+use App\Models\Tenant\Tenant;
+use App\Models\User\User;
+use App\Queries\QueryBusInterface;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Actions\EditAction;
-use Illuminate\Validation\Rules\Exists;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Database\Query\Builder;
-use App\Commands\User\Tenants\EditPermissions\EditPermissionsCommand;
-use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\HasPermissions;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Validation\Rules\Exists;
 
 final class EditPermissionsAction extends Action
 {
@@ -28,13 +28,12 @@ final class EditPermissionsAction extends Action
         private readonly CommandBusInterface $commandBus,
         private readonly QueryBusInterface $queryBus,
         private readonly Permission $permission
-    ) {
-    }
+    ) {}
 
     public static function make(Tenant $tenant): EditAction
     {
         /** @var static */
-        $static = App::make(static::class);
+        $static = App::make(self::class);
 
         return $static->makeAction($tenant);
     }
@@ -46,12 +45,12 @@ final class EditPermissionsAction extends Action
                 /** @var User|null */
                 $user = $guard->user();
 
-                return !$user?->can('tenantUpdatePermissions', [$record, $tenant]);
+                return ! $user?->can('tenantUpdatePermissions', [$record, $tenant]);
             })
             ->icon('heroicon-s-shield-check')
             ->label(Lang::get('user.permissions.label'))
             ->modalHeading(fn (User $record): string => Lang::get('tenant.pages.users.edit_permissions.title', [
-                'name' => $record->name
+                'name' => $record->name,
             ]))
             ->mutateRecordDataUsing(function (array $data, User $record): array {
                 $data['permissions'] = $record->tenantPermissions->pluck('id')->toArray();
@@ -72,7 +71,7 @@ final class EditPermissionsAction extends Action
                                 return $builder->where('name', 'like', 'tenant.%');
                             });
                         }
-                    )
+                    ),
             ])
             ->stickyModalFooter()
             ->closeModalByClickingAway(false)
@@ -80,12 +79,12 @@ final class EditPermissionsAction extends Action
                 return $this->commandBus->execute(EditPermissionsCommand::from([
                     ...$data,
                     'tenant' => $tenant,
-                    'user' => $record
+                    'user' => $record,
                 ]));
             })
             ->successNotificationTitle(function (User $record): string {
                 return Lang::get('tenant.messages.users.edit_permissions.success', [
-                    'name' => $record->name
+                    'name' => $record->name,
                 ]);
             });
     }

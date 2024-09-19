@@ -11,8 +11,7 @@ final class UserSeeder extends Seeder
 {
     public function __construct(
         private User $user,
-    ) {
-    }
+    ) {}
 
     /**
      * Run the database seeds.

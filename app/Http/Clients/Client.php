@@ -6,6 +6,4 @@ namespace App\Http\Clients;
 
 use App\Data\Data\Data;
 
-abstract class Client extends Data
-{
-}
+abstract class Client extends Data {}

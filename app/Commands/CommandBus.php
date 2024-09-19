@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Commands;
 
-use Illuminate\Container\Container;
 use App\Support\Handler\HandlerHelper;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Container\Container;
 use Illuminate\Contracts\Bus\Dispatcher as BusDispatcher;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 final class CommandBus implements CommandBusInterface
 {
@@ -16,8 +16,7 @@ final class CommandBus implements CommandBusInterface
         private readonly BusDispatcher $busDispatcher,
         private readonly JobFactory $jobFactory,
         private readonly HandlerHelper $handlerHelper
-    ) {
-    }
+    ) {}
 
     /**
      * @return mixed
@@ -26,7 +25,7 @@ final class CommandBus implements CommandBusInterface
     {
         $handler = $this->resolveHandler($command);
 
-        if (!$handler instanceof ShouldQueue) {
+        if (! $handler instanceof ShouldQueue) {
             return $handler->handle($command);
         }
 

@@ -12,6 +12,4 @@ namespace App\Scopes;
  * @method \Illuminate\Database\Eloquent\Builder&SearchScopesInterface filterSearchAttributesByDatabaseMatch(\App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatch $databaseMatch)
  * @method \Illuminate\Database\Eloquent\Builder&SearchScopesInterface filterOrderByDatabaseMatch(\App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatch $databaseMatch)
  */
-interface SearchScopesInterface
-{
-}
+interface SearchScopesInterface {}

@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Api\User\Index;
 
-use App\Models\User\User;
 use App\Http\Requests\Request;
-use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Config;
+use App\Models\User\User;
+use App\Rules\AllowedSelect\AllowedSelectRule;
 use App\Rules\AllowedSort\AllowedSortRule;
 use App\Rules\AllowedWith\AllowedWithRule;
-use App\Rules\AllowedSelect\AllowedSelectRule;
 use App\ValueObjects\User\StatusEmail\StatusEmail;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Validation\Rule;
 
 final class IndexRequest extends Request
 {
@@ -55,37 +55,37 @@ final class IndexRequest extends Request
             'with.*' => [
                 'bail',
                 'string',
-                new AllowedWithRule($user)
+                new AllowedWithRule($user),
             ],
             'status_email' => [
                 'bail',
                 'string',
-                Rule::enum(StatusEmail::class)
+                Rule::enum(StatusEmail::class),
             ],
             'roles' => 'bail|nullable|array',
             'roles.*' => [
                 'bail',
                 'int',
-                Rule::exists('roles', 'id')
+                Rule::exists('roles', 'id'),
             ],
             'tenants' => 'bail|nullable|array',
             'tenants.*' => [
                 'bail',
                 'int',
-                Rule::exists('tenants', 'id')
+                Rule::exists('tenants', 'id'),
             ],
             'orderby' => [
                 'bail',
                 'string',
                 'nullable',
-                new AllowedSortRule($user)
+                new AllowedSortRule($user),
             ],
             'paginate' => [
                 'bail',
                 'nullable',
                 'integer',
-                Rule::in([$paginate, ($paginate * 2), ($paginate * 4)])
-            ]
+                Rule::in([$paginate, ($paginate * 2), ($paginate * 4)]),
+            ],
         ];
     }
 }

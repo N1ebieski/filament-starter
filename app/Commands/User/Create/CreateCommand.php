@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Commands\User\Create;
 
 use App\Commands\Command;
+use App\Data\Casts\CollectionOfModels\CollectionOfModelsCast;
+use App\Data\Pipelines\ObjectDefaultsDataPipe\ObjectDefaultsInterface;
 use App\Models\Role\Role;
 use App\Models\User\User;
-use Illuminate\Support\Collection;
 use App\Support\Attributes\Handler\Handler;
-use App\Data\Pipelines\ObjectDefaultsDataPipe\ObjectDefaultsInterface;
+use Illuminate\Support\Collection;
 use Spatie\LaravelData\Attributes\WithCast;
-use App\Data\Casts\CollectionOfModels\CollectionOfModelsCast;
 
 #[Handler(\App\Commands\User\Create\CreateHandler::class)]
 final class CreateCommand extends Command implements ObjectDefaultsInterface
@@ -20,9 +20,8 @@ final class CreateCommand extends Command implements ObjectDefaultsInterface
         public readonly string $name,
         public readonly string $email,
         public readonly string $password,
-        public readonly User $user = new User(),
+        public readonly User $user = new User,
         #[WithCast(CollectionOfModelsCast::class, Role::class)]
-        public readonly Collection $roles = new Collection()
-    ) {
-    }
+        public readonly Collection $roles = new Collection
+    ) {}
 }

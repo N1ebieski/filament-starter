@@ -4,27 +4,26 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\Detach;
 
-use App\Models\User\User;
-use App\Models\Tenant\Tenant;
-use App\Filament\Actions\Action;
-use Illuminate\Support\Facades\App;
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Support\Facades\Lang;
 use App\Commands\CommandBusInterface;
-use Filament\Tables\Actions\DetachAction;
 use App\Commands\User\Tenants\Detach\DetachCommand;
+use App\Filament\Actions\Action;
+use App\Models\Tenant\Tenant;
+use App\Models\User\User;
+use Filament\Tables\Actions\DetachAction;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Lang;
 
 final class DetachUserAction extends Action
 {
     public function __construct(
         private readonly CommandBusInterface $commandBus
-    ) {
-    }
+    ) {}
 
     public static function make(Tenant $tenant): DetachAction
     {
         /** @var static */
-        $static = App::make(static::class);
+        $static = App::make(self::class);
 
         return $static->makeAction($tenant);
     }
@@ -36,11 +35,11 @@ final class DetachUserAction extends Action
                 /** @var User|null */
                 $user = $guard->user();
 
-                return !$user?->can('tenantDetach', [$record, $tenant]);
+                return ! $user?->can('tenantDetach', [$record, $tenant]);
             })
             ->modalHeading(function (User $record): string {
                 return Lang::get('tenant.pages.users.detach.title', [
-                    'name' => $record->name
+                    'name' => $record->name,
                 ]);
             })
             ->using(function (User $record) use ($tenant): bool {
@@ -51,7 +50,7 @@ final class DetachUserAction extends Action
             })
             ->successNotificationTitle(function (User $record): string {
                 return Lang::get('tenant.messages.users.detach.success', [
-                    'name' => $record->name
+                    'name' => $record->name,
                 ]);
             });
     }

@@ -32,7 +32,7 @@ final class ColumnsHelper
 
         return (new Collection($names))
             ->map(function (string $name) {
-                return '`' . $name . '`';
+                return '`'.$name.'`';
             })
             ->implode('.');
     }

@@ -6,6 +6,4 @@ namespace App\Support\Attributes;
 
 use App\Exceptions\Exception;
 
-final class ClassNotExistException extends Exception
-{
-}
+final class ClassNotExistException extends Exception {}

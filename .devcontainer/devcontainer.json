@@ -30,7 +30,6 @@
                 "recca0120.vscode-phpunit",
                 "redhat.vscode-yaml",
                 "Tyriar.lorem-ipsum",
-                "valeryanm.vscode-phpsab",
                 "xdebug.php-debug",
                 "amirmarmul.laravel-blade-vscode",
                 "sanderronde.phpstan-vscode",
@@ -42,7 +41,8 @@
                 "ms-vscode.test-adapter-converter",
                 "hbenl.vscode-test-explorer",
                 "bradlc.vscode-tailwindcss",
-                "Gruntfuggly.triggertaskonsave"
+                "Gruntfuggly.triggertaskonsave",
+                "open-southeners.laravel-pint"
             ]
         }
     }  

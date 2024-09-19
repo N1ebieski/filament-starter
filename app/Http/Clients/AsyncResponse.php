@@ -11,6 +11,5 @@ final class AsyncResponse
     public function __construct(
         public readonly PromiseInterface $promise,
         public ?Response $response = null
-    ) {
-    }
+    ) {}
 }

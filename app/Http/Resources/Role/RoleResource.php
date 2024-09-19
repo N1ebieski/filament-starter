@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Resources\Role;
 
-use DateTime;
-use App\Models\Role\Role;
-use App\Http\Resources\Resource;
-use Spatie\LaravelData\Lazy as BaseLazy;
-use App\Overrides\Spatie\LaravelData\Lazy;
 use App\Data\Pipelines\ModelDataPipe\PrepareFromModelInterface;
+use App\Http\Resources\Resource;
+use App\Models\Role\Role;
+use App\Overrides\Spatie\LaravelData\Lazy;
+use DateTime;
+use Spatie\LaravelData\Lazy as BaseLazy;
 
 final class RoleResource extends Resource implements PrepareFromModelInterface
 {
@@ -18,8 +18,7 @@ final class RoleResource extends Resource implements PrepareFromModelInterface
         public readonly BaseLazy|string $name,
         public readonly BaseLazy|DateTime|null $created_at,
         public readonly BaseLazy|DateTime|null $updated_at
-    ) {
-    }
+    ) {}
 
     public static function prepareFromModel(Role $role, array $properties): array
     {

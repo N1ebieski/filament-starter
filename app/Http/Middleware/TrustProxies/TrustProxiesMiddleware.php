@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Http\Middleware\TrustProxies;
 
 use Closure;
+use Illuminate\Http\Middleware\TrustProxies;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Http\Middleware\TrustProxies;
 
 final class TrustProxiesMiddleware extends TrustProxies
 {
@@ -33,9 +33,6 @@ final class TrustProxiesMiddleware extends TrustProxies
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
      *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */

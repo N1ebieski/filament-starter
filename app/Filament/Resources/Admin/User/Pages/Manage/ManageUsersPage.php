@@ -4,44 +4,44 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Admin\User\Pages\Manage;
 
-use Override;
-use App\Queries\Order;
-use App\Queries\OrderBy;
-use App\Models\Role\Role;
-use App\Models\User\User;
-use Filament\Tables\Table;
-use App\Filament\Pages\HasMeta;
-use App\View\Metas\MetaInterface;
-use App\Queries\QueryBusInterface;
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Support\Facades\Lang;
 use App\Commands\CommandBusInterface;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Notifications\Notification;
-use Filament\Tables\Columns\ToggleColumn;
-use Filament\Tables\Filters\SelectFilter;
-use Illuminate\Database\Eloquent\Builder;
-use App\Filament\Resources\HasTableSearch;
-use App\ValueObjects\Role\Name\DefaultName;
-use Filament\Resources\Pages\ManageRecords;
-use App\Filament\Resources\HasTablePaginate;
-use Filament\Tables\Actions\BulkActionGroup;
-use App\Queries\User\GetByFilter\GetByFilterQuery;
-use App\ValueObjects\User\StatusEmail\StatusEmail;
-use App\Filament\Resources\Admin\Role\RoleResource;
-use App\View\Metas\Admin\User\Index\IndexMetaFactory;
-use App\Filament\Pages\MetaInterface as PageMetaInterface;
 use App\Commands\User\EditStatusEmail\EditStatusEmailCommand;
-use App\Filament\Resources\Admin\User\Actions\Edit\EditUserAction;
+use App\Filament\Pages\HasMeta;
+use App\Filament\Pages\MetaInterface as PageMetaInterface;
+use App\Filament\Resources\Admin\Role\RoleResource;
 use App\Filament\Resources\Admin\User\Actions\Create\CreateUserAction;
 use App\Filament\Resources\Admin\User\Actions\Delete\DeleteUserAction;
 use App\Filament\Resources\Admin\User\Actions\DeleteMany\DeleteUsersAction;
+use App\Filament\Resources\Admin\User\Actions\Edit\EditUserAction;
+use App\Filament\Resources\HasTablePaginate;
+use App\Filament\Resources\HasTableSearch;
+use App\Models\Role\Role;
+use App\Models\User\User;
+use App\Queries\Order;
+use App\Queries\OrderBy;
+use App\Queries\QueryBusInterface;
+use App\Queries\User\GetByFilter\GetByFilterQuery;
+use App\ValueObjects\Role\Name\DefaultName;
+use App\ValueObjects\User\StatusEmail\StatusEmail;
+use App\View\Metas\Admin\User\Index\IndexMetaFactory;
+use App\View\Metas\MetaInterface;
+use Filament\Notifications\Notification;
+use Filament\Resources\Pages\ManageRecords;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Table;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Lang;
+use Override;
 
 final class ManageUsersPage extends ManageRecords implements PageMetaInterface
 {
     use HasMeta;
-    use HasTableSearch;
     use HasTablePaginate;
+    use HasTableSearch;
 
     protected static string $resource = RoleResource::class;
 
@@ -87,12 +87,12 @@ final class ManageUsersPage extends ManageRecords implements PageMetaInterface
             CreateUserAction::make(
                 $this->role->newQuery()
                     ->where('name', DefaultName::User->value)
-                    ->when(!empty($this->getTableFilterState('roles')['values']), function (Builder $query): Builder {
+                    ->when(! empty($this->getTableFilterState('roles')['values']), function (Builder $query): Builder {
                         //@phpstan-ignore-next-line
                         return $query->orWhereIn('id', $this->getTableFilterState('roles')['values']);
                     })
                     ->get()
-            )
+            ),
         ];
     }
 
@@ -103,7 +103,7 @@ final class ManageUsersPage extends ManageRecords implements PageMetaInterface
             ->query(function (): Builder {
                 return $this->queryBus->execute(GetByFilterQuery::from([
                     'select' => ['id', 'name', 'email', 'email_verified_at', 'created_at', 'updated_at'],
-                    'with' => ['roles:name']
+                    'with' => ['roles:name'],
                 ]));
             })
             ->columns([
@@ -150,7 +150,7 @@ final class ManageUsersPage extends ManageRecords implements PageMetaInterface
                         /** @var User|null */
                         $user = $guard->user();
 
-                        return !$user?->can('toggleStatusEmail', $record);
+                        return ! $user?->can('toggleStatusEmail', $record);
                     })
                     ->getStateUsing(fn (User $record): bool => $record->status_email->getAsBool())
                     ->updateStateUsing(function (User $record): User {
@@ -160,18 +160,18 @@ final class ManageUsersPage extends ManageRecords implements PageMetaInterface
                         ));
                     })
                     ->afterStateUpdated(function (User $record, bool $state): void {
-                        if (!$state) {
+                        if (! $state) {
                             return;
                         }
 
                         Notification::make()
                             ->title(Lang::get('user.messages.toggle_status_email.verified.success', [
                                 'email' => $record->email,
-                                'name' => $record->name
+                                'name' => $record->name,
                             ]))
                             ->success()
                             ->send();
-                    })
+                    }),
             ])
             ->filters([
                 SelectFilter::make('status_email')
@@ -189,15 +189,15 @@ final class ManageUsersPage extends ManageRecords implements PageMetaInterface
                     ->getOptionLabelFromRecordUsing(fn (Role $record) => $record->name->value)
                     ->query(function (Builder|User $query, array $data): Builder {
                         return $query->filterRoles($this->role->newQuery()->findMany($data['values']));
-                    })
+                    }),
             ])
             ->actions([
                 EditUserAction::make(),
-                DeleteUserAction::make()
+                DeleteUserAction::make(),
             ])
             ->bulkActions([
                 BulkActionGroup::make([
-                    DeleteUsersAction::make()
+                    DeleteUsersAction::make(),
                 ]),
             ])
             ->recordUrl(null)

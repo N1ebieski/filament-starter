@@ -12,7 +12,7 @@ final class SortsHelper
 
         foreach ($sorts as $attribute) {
             foreach (['asc', 'desc'] as $order) {
-                $attributesWithOrder[] = $attribute . '|' . $order;
+                $attributesWithOrder[] = $attribute.'|'.$order;
             }
         }
 

@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace App\Console\Commands\User\MakeSuperAdmin;
 
-use Override;
+use App\Commands\CommandBusInterface;
+use App\Commands\User\Create\CreateCommand;
 use App\Models\Role\Role;
 use App\Models\User\User;
-use Filament\Facades\Filament;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Lang;
-use App\Commands\CommandBusInterface;
-use Filament\Commands\MakeUserCommand;
-use App\Commands\User\Create\CreateCommand;
 use App\ValueObjects\Role\Name\DefaultName;
+use Filament\Commands\MakeUserCommand;
+use Filament\Facades\Filament;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Lang;
+use Override;
 
 final class MakeSuperAdminCommand extends MakeUserCommand
 {
@@ -41,10 +41,10 @@ final class MakeSuperAdminCommand extends MakeUserCommand
         $this->role = $role;
         $this->commandBus = $commandBus;
 
-        if (!$this->authorize()) {
+        if (! $this->authorize()) {
             $this->components->error(Lang::get('superadmin.exist'));
 
-            return static::INVALID;
+            return self::INVALID;
         }
 
         return parent::handle();
@@ -63,7 +63,7 @@ final class MakeSuperAdminCommand extends MakeUserCommand
     {
         return $this->commandBus->execute(CreateCommand::from([
             ...$this->getUserData(),
-            'roles' => $this->role->all()
+            'roles' => $this->role->all(),
         ]));
     }
 
@@ -75,7 +75,7 @@ final class MakeSuperAdminCommand extends MakeUserCommand
     }
 
     /**
-     * @param User $user
+     * @param  User  $user
      */
     protected function sendSuccessMessage(Authenticatable $user): void
     {
@@ -83,7 +83,7 @@ final class MakeSuperAdminCommand extends MakeUserCommand
 
         $this->components->info(Lang::get('superadmin.messages.create.success', [
             'user' => ($user->getAttribute('email') ?? $user->getAttribute('username')),
-            'login_url' => $loginUrl
+            'login_url' => $loginUrl,
         ]));
     }
 }

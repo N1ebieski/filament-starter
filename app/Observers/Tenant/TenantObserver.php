@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Observers\Tenant;
 
-use App\Models\User\User;
 use App\Models\Tenant\Tenant;
+use App\Models\User\User;
 
 class TenantObserver
 {

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Overrides\Pxlrbt\FilamentSpotlight;
 
-use Override;
-use Filament\Panel;
-use pxlrbt\FilamentSpotlight\Actions\RegisterUserMenu;
 use App\Overrides\Pxlrbt\FilamentSpotlight\Actions\RegisterPages;
-use pxlrbt\FilamentSpotlight\SpotlightPlugin as BaseSpotlightPlugin;
 use App\Overrides\Pxlrbt\FilamentSpotlight\Actions\RegisterResources;
+use Filament\Panel;
+use Override;
+use pxlrbt\FilamentSpotlight\Actions\RegisterUserMenu;
+use pxlrbt\FilamentSpotlight\SpotlightPlugin as BaseSpotlightPlugin;
 
 final class SpotlightPlugin extends BaseSpotlightPlugin
 {
@@ -25,7 +25,7 @@ final class SpotlightPlugin extends BaseSpotlightPlugin
     }
 
     /**
-     * @param Panel $panel
+     * @param  Panel  $panel
      */
     #[Override]
     public static function registerNavigation($panel)

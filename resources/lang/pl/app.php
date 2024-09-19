@@ -7,7 +7,7 @@ return [
         'panel' => [
             'title' => Config::get('app.name'),
             'description' => '',
-            'keywords' => ''
-        ]
+            'keywords' => '',
+        ],
     ],
 ];

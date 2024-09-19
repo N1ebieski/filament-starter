@@ -8,7 +8,7 @@ use App\Spotlight\SpotlightInterface;
 use App\Support\PWA\PWACacheInterface;
 use Filament\Pages\Dashboard as BaseDashboard;
 
-final class DashboardPage extends BaseDashboard implements SpotlightInterface, PWACacheInterface
+final class DashboardPage extends BaseDashboard implements PWACacheInterface, SpotlightInterface
 {
     protected static bool $shouldRegisterNavigation = false;
 

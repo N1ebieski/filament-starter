@@ -2,6 +2,6 @@
 
 return [
     'groups' => [
-        'settings' => 'Settings'
-    ]
+        'settings' => 'Settings',
+    ],
 ];

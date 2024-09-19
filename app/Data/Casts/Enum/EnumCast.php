@@ -4,20 +4,18 @@ declare(strict_types=1);
 
 namespace App\Data\Casts\Enum;
 
-use Spatie\LaravelData\Casts\Cast;
 use App\Support\Enum\EnumInterface;
 use App\Support\Enum\FromBoolInterface;
-use Spatie\LaravelData\Support\DataProperty;
+use Spatie\LaravelData\Casts\Cast;
 use Spatie\LaravelData\Support\Creation\CreationContext;
+use Spatie\LaravelData\Support\DataProperty;
 
 class EnumCast implements Cast
 {
-    public function __construct(private readonly string $enumName)
-    {
-    }
+    public function __construct(private readonly string $enumName) {}
 
     /**
-     * @param EnumInterface|string|bool|null $value
+     * @param  EnumInterface|string|bool|null  $value
      */
     public function cast(DataProperty $property, mixed $value, array $properties, CreationContext $context): mixed
     {

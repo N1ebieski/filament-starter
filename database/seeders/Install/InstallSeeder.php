@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Database\Seeders\Install;
 
-use Illuminate\Database\Seeder;
-use Database\Seeders\Install\Role\RoleSeeder;
 use Database\Seeders\Install\Permission\PermissionSeeder;
+use Database\Seeders\Install\Role\RoleSeeder;
+use Illuminate\Database\Seeder;
 
 final class InstallSeeder extends Seeder
 {

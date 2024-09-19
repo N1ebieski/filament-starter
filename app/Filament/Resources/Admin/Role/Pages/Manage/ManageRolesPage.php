@@ -4,35 +4,35 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Admin\Role\Pages\Manage;
 
-use Override;
-use App\Queries\Order;
-use App\Queries\OrderBy;
-use App\Models\Role\Role;
-use Filament\Tables\Table;
 use App\Filament\Pages\HasMeta;
-use App\View\Metas\MetaInterface;
-use App\Queries\QueryBusInterface;
-use Illuminate\Support\Facades\Lang;
-use Filament\Tables\Columns\TextColumn;
-use Illuminate\Database\Eloquent\Builder;
-use App\Filament\Resources\HasTableSearch;
-use Filament\Resources\Pages\ManageRecords;
-use App\Filament\Resources\HasTablePaginate;
-use Filament\Tables\Actions\BulkActionGroup;
-use App\Queries\Role\GetByFilter\GetByFilterQuery;
-use App\Filament\Resources\Admin\Role\RoleResource;
-use App\View\Metas\Admin\Role\Index\IndexMetaFactory;
 use App\Filament\Pages\MetaInterface as PageMetaInterface;
-use App\Filament\Resources\Admin\Role\Actions\Edit\EditRoleAction;
 use App\Filament\Resources\Admin\Role\Actions\Create\CreateRoleAction;
 use App\Filament\Resources\Admin\Role\Actions\Delete\DeleteRoleAction;
 use App\Filament\Resources\Admin\Role\Actions\DeleteMany\DeleteRolesAction;
+use App\Filament\Resources\Admin\Role\Actions\Edit\EditRoleAction;
+use App\Filament\Resources\Admin\Role\RoleResource;
+use App\Filament\Resources\HasTablePaginate;
+use App\Filament\Resources\HasTableSearch;
+use App\Models\Role\Role;
+use App\Queries\Order;
+use App\Queries\OrderBy;
+use App\Queries\QueryBusInterface;
+use App\Queries\Role\GetByFilter\GetByFilterQuery;
+use App\View\Metas\Admin\Role\Index\IndexMetaFactory;
+use App\View\Metas\MetaInterface;
+use Filament\Resources\Pages\ManageRecords;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Lang;
+use Override;
 
 final class ManageRolesPage extends ManageRecords implements PageMetaInterface
 {
     use HasMeta;
-    use HasTableSearch;
     use HasTablePaginate;
+    use HasTableSearch;
 
     protected static string $resource = RoleResource::class;
 
@@ -68,7 +68,7 @@ final class ManageRolesPage extends ManageRecords implements PageMetaInterface
     protected function getHeaderActions(): array
     {
         return [
-            CreateRoleAction::make()
+            CreateRoleAction::make(),
         ];
     }
 
@@ -108,11 +108,11 @@ final class ManageRolesPage extends ManageRecords implements PageMetaInterface
             ])
             ->actions([
                 EditRoleAction::make(),
-                DeleteRoleAction::make()
+                DeleteRoleAction::make(),
             ])
             ->bulkActions([
                 BulkActionGroup::make([
-                    DeleteRolesAction::make()
+                    DeleteRolesAction::make(),
                 ]),
             ])
             ->recordUrl(null)

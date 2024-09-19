@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace App\Overrides\Illuminate\Auth\Access;
 
-use Illuminate\Auth\Access\Gate as BaseGate;
 use App\Overrides\Illuminate\Contracts\Auth\Access\Gate as ContractsGate;
+use Illuminate\Auth\Access\Gate as BaseGate;
 
 final class Gate implements ContractsGate
 {
-    public function __construct(private readonly BaseGate $gate)
-    {
-    }
+    public function __construct(private readonly BaseGate $gate) {}
 
     /**
      * Laravel doesn't define allowIf method in Contract.

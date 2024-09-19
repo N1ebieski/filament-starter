@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace App\Overrides\Illuminate\Bus;
 
-use Illuminate\Foundation\Bus\PendingDispatch;
-use Illuminate\Bus\Dispatcher as BaseDispatcher;
 use App\Overrides\Illuminate\Contracts\Bus\Dispatcher as ContractsDispatcher;
+use Illuminate\Bus\Dispatcher as BaseDispatcher;
+use Illuminate\Foundation\Bus\PendingDispatch;
 
 final class Dispatcher implements ContractsDispatcher
 {
-    public function __construct(private readonly BaseDispatcher $dispatcher)
-    {
-    }
+    public function __construct(private readonly BaseDispatcher $dispatcher) {}
 
     /**
      * Laravel doesn't define chain method in Contract.

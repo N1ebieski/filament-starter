@@ -15,28 +15,28 @@ return [
             [
                 'path' => '/images/icons/pwa-64x64.png',
                 'sizes' => '64x64',
-                'purpose' => 'any'
+                'purpose' => 'any',
             ],
             [
                 'path' => '/images/icons/pwa-192x192.png',
                 'sizes' => '192x192',
-                'purpose' => 'any'
+                'purpose' => 'any',
             ],
             [
                 'path' => '/images/icons/pwa-512x512.png',
                 'sizes' => '512x512',
-                'purpose' => 'any'
+                'purpose' => 'any',
             ],
             [
                 'path' => '/images/icons/maskable-icon-512x512.png',
                 'sizes' => '512x512',
-                'purpose' => 'maskable'
+                'purpose' => 'maskable',
             ],
             [
                 'path' => '/images/icons/apple-touch-icon-180x180.png',
                 'sizes' => '180x180',
-                'purpose' => 'any'
-            ]
+                'purpose' => 'any',
+            ],
         ],
         'splash' => [
             '1136x640' => '/images/splash/apple-splash-landscape-1136x640.png',
@@ -73,20 +73,20 @@ return [
         ],
         'shortcuts' => [],
         'custom' => [
-            "screenshots" => [
+            'screenshots' => [
                 [
-                    "src" => "/images/screenshots/screenshot-540x720.png",
-                    "type" => "image/png",
-                    "sizes" => "540x720",
-                    "form_factor" => "narrow"
+                    'src' => '/images/screenshots/screenshot-540x720.png',
+                    'type' => 'image/png',
+                    'sizes' => '540x720',
+                    'form_factor' => 'narrow',
                 ],
                 [
-                    "src" => "/images/screenshots/screenshot-720x540.png",
-                    "type" => "image/png",
-                    "sizes" => "720x540",
-                    "form_factor" => "wide"
-                ]
-            ]
-        ]
-    ]
+                    'src' => '/images/screenshots/screenshot-720x540.png',
+                    'type' => 'image/png',
+                    'sizes' => '720x540',
+                    'form_factor' => 'wide',
+                ],
+            ],
+        ],
+    ],
 ];

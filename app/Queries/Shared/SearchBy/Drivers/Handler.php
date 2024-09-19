@@ -9,6 +9,4 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 /**
  * @method Builder handle(\App\Queries\Shared\SearchBy\SearchByInterface $searchBy)
  */
-abstract class Handler
-{
-}
+abstract class Handler {}

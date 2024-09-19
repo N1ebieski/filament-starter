@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Support\Handler;
 
-use ReflectionClass;
-use Illuminate\Support\Str;
-use Illuminate\Support\Collection;
 use App\Support\Attributes\Handler\Handler;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
+use ReflectionClass;
 
 final class HandlerHelper
 {
@@ -17,7 +17,7 @@ final class HandlerHelper
         'CacheQuery',
         'Command',
         'Client',
-        'Action'
+        'Action',
     ];
 
     /**
@@ -47,21 +47,21 @@ final class HandlerHelper
 
         $handlerNamespace = Str::beforeLast($classNamespace, '\\');
 
-        $names = Collection::make(static::NAMES)
+        $names = Collection::make(self::NAMES)
             ->map(function (string $name): string {
                 return preg_quote($name);
             })
             ->implode('|');
 
-        $handlerName = $classBasename . 'Handler';
+        $handlerName = $classBasename.'Handler';
 
-        $lastOccurance = Str::match('/(' . $names . ')$/', $classBasename);
+        $lastOccurance = Str::match('/('.$names.')$/', $classBasename);
 
-        if (!empty($lastOccurance)) {
+        if (! empty($lastOccurance)) {
             $handlerName = Str::replaceLast($lastOccurance, 'Handler', $classBasename);
         }
 
-        $handlerNamespace = $handlerNamespace . '\\' . $handlerName;
+        $handlerNamespace = $handlerNamespace.'\\'.$handlerName;
 
         return $handlerNamespace;
     }

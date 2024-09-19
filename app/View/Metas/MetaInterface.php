@@ -10,8 +10,5 @@ namespace App\View\Metas;
  * @property-read string $keywords
  * @property-read string $url
  * @property-read OpenGraphInterface|null $openGraph
- *
  */
-interface MetaInterface
-{
-}
+interface MetaInterface {}

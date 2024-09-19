@@ -6,17 +6,15 @@ namespace App\Commands\Tenant\Create;
 
 use App\Commands\Handler;
 use App\Models\Tenant\Tenant;
-use Spatie\Permission\PermissionRegistrar;
-use App\Commands\Tenant\Create\CreateCommand;
 use Illuminate\Database\ConnectionInterface as DB;
+use Spatie\Permission\PermissionRegistrar;
 
 final class CreateHandler extends Handler
 {
     public function __construct(
         private readonly DB $db,
         private readonly PermissionRegistrar $permissionRegistrar
-    ) {
-    }
+    ) {}
 
     public function handle(CreateCommand $command): Tenant
     {

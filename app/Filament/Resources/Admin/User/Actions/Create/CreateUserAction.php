@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Admin\User\Actions\Create;
 
+use App\Commands\CommandBusInterface;
+use App\Commands\User\Create\CreateCommand;
+use App\Filament\Actions\Action;
 use App\Models\Role\Role;
 use App\Models\User\User;
-use App\Filament\Actions\Action;
+use App\ValueObjects\Role\Name\DefaultName;
 use Filament\Actions\CreateAction;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
-use App\Commands\CommandBusInterface;
-use Filament\Forms\Components\Select;
 use Illuminate\Validation\Rules\Exists;
-use Filament\Forms\Components\TextInput;
-use App\Commands\User\Create\CreateCommand;
-use App\ValueObjects\Role\Name\DefaultName;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Contracts\Database\Eloquent\Builder;
 
 final class CreateUserAction extends Action
 {
@@ -25,18 +25,17 @@ final class CreateUserAction extends Action
         private readonly User $user,
         private readonly Role $role,
         private readonly CommandBusInterface $commandBus
-    ) {
-    }
+    ) {}
 
-    public static function make(Collection $roles = new Collection()): CreateAction
+    public static function make(Collection $roles = new Collection): CreateAction
     {
         /** @var static */
-        $static = App::make(static::class);
+        $static = App::make(self::class);
 
         return $static->makeAction(roles: $roles);
     }
 
-    public function makeAction(Collection $roles = new Collection()): CreateAction
+    public function makeAction(Collection $roles = new Collection): CreateAction
     {
         return CreateAction::make()
             ->model($this->user::class)
@@ -59,7 +58,7 @@ final class CreateUserAction extends Action
                 TextInput::make('email')
                     ->label(Lang::get('user.email.label'))
                     ->extraInputAttributes([
-                        'autocomplete' => 'new-password'
+                        'autocomplete' => 'new-password',
                     ])
                     ->required()
                     ->string()
@@ -71,7 +70,7 @@ final class CreateUserAction extends Action
                     ->label(Lang::get('user.password.label'))
                     ->password()
                     ->extraInputAttributes([
-                        'autocomplete' => 'new-password'
+                        'autocomplete' => 'new-password',
                     ])
                     ->revealable()
                     ->required()
@@ -84,7 +83,7 @@ final class CreateUserAction extends Action
                     ->label(Lang::get('user.password_confirmation.label'))
                     ->password()
                     ->extraInputAttributes([
-                        'autocomplete' => 'new-password'
+                        'autocomplete' => 'new-password',
                     ])
                     ->revealable()
                     ->required()
@@ -104,7 +103,7 @@ final class CreateUserAction extends Action
                     ->getOptionLabelFromRecordUsing(fn (Role $record) => $record->name->value)
                     ->exists($this->role->getTable(), 'id', function (Exists $rule) {
                         return $rule->whereNot('name', DefaultName::SuperAdmin);
-                    })
+                    }),
             ])
             ->stickyModalFooter()
             ->closeModalByClickingAway(false)
@@ -112,7 +111,7 @@ final class CreateUserAction extends Action
                 return $this->commandBus->execute(CreateCommand::from($data));
             })
             ->successNotificationTitle(fn (User $record): string => Lang::get('user.messages.create.success', [
-                'name' => $record->name
+                'name' => $record->name,
             ]));
     }
 }

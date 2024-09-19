@@ -4,26 +4,26 @@ declare(strict_types=1);
 
 namespace App\Providers\Filament;
 
-use Filament\Panel;
 use App\Models\User\User;
+use App\Overrides\Pxlrbt\FilamentSpotlight\SpotlightPlugin;
 use Filament\Facades\Filament;
-use Filament\Navigation\MenuItem;
-use Filament\Support\Colors\Color;
-use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\View;
-use Illuminate\Session\Middleware\StartSession;
-use Filament\PanelProvider as BasePanelProvider;
-use Illuminate\Cookie\Middleware\EncryptCookies;
-use Jeffgreco13\FilamentBreezy\Pages\MyProfilePage;
-use Illuminate\Contracts\View\View as ContractsView;
-use Illuminate\Routing\Middleware\SubstituteBindings;
-use Illuminate\Session\Middleware\AuthenticateSession;
-use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
-use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
-use App\Overrides\Pxlrbt\FilamentSpotlight\SpotlightPlugin;
+use Filament\Navigation\MenuItem;
+use Filament\Panel;
+use Filament\PanelProvider as BasePanelProvider;
+use Filament\Support\Colors\Color;
+use Illuminate\Contracts\View\View as ContractsView;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
+use Illuminate\Cookie\Middleware\EncryptCookies;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
+use Illuminate\Routing\Middleware\SubstituteBindings;
+use Illuminate\Session\Middleware\AuthenticateSession;
+use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\View;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Jeffgreco13\FilamentBreezy\Pages\MyProfilePage;
 
 abstract class PanelServiceProvider extends BasePanelProvider
 {
@@ -80,7 +80,7 @@ abstract class PanelServiceProvider extends BasePanelProvider
                         }
 
                         return '';
-                    })->label(Lang::get('filament-breezy::default.profile.my_profile'))
+                    })->label(Lang::get('filament-breezy::default.profile.my_profile')),
                 ]);
             })
             ->brandLogo(fn (): ContractsView => View::make('filament.logo.logo'))

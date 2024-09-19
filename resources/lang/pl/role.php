@@ -7,23 +7,23 @@ return [
         'index' => [
             'title' => 'Role i uprawnienia',
             'description' => 'Role i uprawnienia',
-            'keywords' => 'Role i uprawnienia'
+            'keywords' => 'Role i uprawnienia',
         ],
         'create' => [
-            'title' => 'Utwórz role'
+            'title' => 'Utwórz role',
         ],
         'edit' => [
-            'title' => 'Edycja roli: :name'
+            'title' => 'Edycja roli: :name',
         ],
         'delete' => [
-            'title' => 'Usuń rolę :name'
+            'title' => 'Usuń rolę :name',
         ],
         'delete_multi' => [
-            'title' => '{1} Usuń :number zaznaczoną rolę|{2,4} Usuń :number zaznaczone role|{5,*} Usuń :number zaznaczonych ról'
+            'title' => '{1} Usuń :number zaznaczoną rolę|{2,4} Usuń :number zaznaczone role|{5,*} Usuń :number zaznaczonych ról',
         ],
         'search' => [
-            'title' => 'Szukaj roli'
-        ]
+            'title' => 'Szukaj roli',
+        ],
     ],
     'messages' => [
         'delete_multi' => [
@@ -37,12 +37,12 @@ return [
         ],
         'edit' => [
             'success' => 'Pomyślnie edytowano rolę :name',
-        ]
+        ],
     ],
     'name' => [
-        'label' => 'Nazwa'
+        'label' => 'Nazwa',
     ],
     'permissions' => [
-        'label' => 'Uprawnienia'
-    ]
+        'label' => 'Uprawnienia',
+    ],
 ];

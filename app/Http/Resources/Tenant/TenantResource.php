@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Http\Resources\Tenant;
 
-use DateTime;
-use App\Models\Tenant\Tenant;
-use App\Http\Resources\Resource;
-use Spatie\LaravelData\Lazy as BaseLazy;
-use App\Http\Resources\User\UserResource;
-use App\Overrides\Spatie\LaravelData\Lazy;
 use App\Data\Pipelines\ModelDataPipe\PrepareFromModelInterface;
+use App\Http\Resources\Resource;
+use App\Http\Resources\User\UserResource;
+use App\Models\Tenant\Tenant;
+use App\Overrides\Spatie\LaravelData\Lazy;
+use DateTime;
+use Spatie\LaravelData\Lazy as BaseLazy;
 
 final class TenantResource extends Resource implements PrepareFromModelInterface
 {
@@ -20,8 +20,7 @@ final class TenantResource extends Resource implements PrepareFromModelInterface
         public readonly BaseLazy|DateTime|null $created_at,
         public readonly BaseLazy|DateTime|null $updated_at,
         public readonly BaseLazy|UserResource $user
-    ) {
-    }
+    ) {}
 
     public static function prepareFromModel(Tenant $tenant, array $properties): array
     {

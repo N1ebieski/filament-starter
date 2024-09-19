@@ -4,31 +4,30 @@ declare(strict_types=1);
 
 namespace App\Filament\Actions\User\Tenancy\Delete;
 
-use App\Models\User\User;
-use Filament\Actions\Action;
-use App\Models\Tenant\Tenant;
-use Filament\Facades\Filament;
-use Filament\Actions\DeleteAction;
-use Illuminate\Support\Facades\App;
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Support\Facades\Lang;
 use App\Commands\CommandBusInterface;
-use Filament\Forms\Components\TextInput;
-use Filament\Notifications\Notification;
 use App\Commands\Tenant\Delete\DeleteCommand;
 use App\Filament\Actions\Action as BaseAction;
+use App\Models\Tenant\Tenant;
+use App\Models\User\User;
+use Filament\Actions\Action;
+use Filament\Actions\DeleteAction;
+use Filament\Facades\Filament;
+use Filament\Forms\Components\TextInput;
+use Filament\Notifications\Notification;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Lang;
 
 final class DeleteTenantAction extends BaseAction
 {
     public function __construct(
         private readonly CommandBusInterface $commandBus
-    ) {
-    }
+    ) {}
 
     public static function make(Tenant $tenant): DeleteAction
     {
         /** @var static */
-        $static = App::make(static::class);
+        $static = App::make(self::class);
 
         return $static->makeAction($tenant);
     }
@@ -42,7 +41,7 @@ final class DeleteTenantAction extends BaseAction
                 /** @var User|null */
                 $user = $guard->user();
 
-                return !$user?->can('delete', $record);
+                return ! $user?->can('delete', $record);
             })
             ->form([
                 TextInput::make('name')
@@ -53,7 +52,7 @@ final class DeleteTenantAction extends BaseAction
                     ->maxLength(255),
             ])
             ->modalHeading(fn (Tenant $record): string => Lang::get('tenant.pages.delete.title', [ //@phpstan-ignore-line
-                'name' => $record->name
+                'name' => $record->name,
             ]))
             ->action(function (Tenant $record, array $data, Action $action): void {
                 if ($data['name'] !== $record->name->value) {
@@ -68,7 +67,7 @@ final class DeleteTenantAction extends BaseAction
                 /** @var bool */
                 $result = $this->commandBus->execute(new DeleteCommand($record));
 
-                if (!$result) {
+                if (! $result) {
                     $action->failure();
 
                     return;
@@ -77,7 +76,7 @@ final class DeleteTenantAction extends BaseAction
                 $action->success();
             })
             ->successNotificationTitle(fn (Tenant $record): string => Lang::get('tenant.messages.delete.success', [ //@phpstan-ignore-line
-                'name' => $record->name
+                'name' => $record->name,
             ]))
             ->successRedirectUrl(Filament::getCurrentPanel()->getHomeUrl()); //@phpstan-ignore-line
     }

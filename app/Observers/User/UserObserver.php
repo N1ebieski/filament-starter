@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Observers\User;
 
-use App\Models\User\User;
 use App\Models\Permission\Permission;
+use App\Models\User\User;
 
 class UserObserver
 {

@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Filament\Pages\User\Tenancy\Create;
 
-use Filament\Forms\Form;
-use App\Models\Tenant\Tenant;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Lang;
 use App\Commands\CommandBusInterface;
+use App\Commands\Tenant\Create\CreateCommand;
+use App\Models\Tenant\Tenant;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Tenancy\RegisterTenant;
-use App\Commands\Tenant\Create\CreateCommand;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Lang;
 
 /**
  * @property-read Tenant $tenant
@@ -61,7 +61,7 @@ class CreateTenantPage extends RegisterTenant
     {
         Notification::make()
             ->title(Lang::get('tenant.messages.create.success', [ //@phpstan-ignore-line
-                'name' => $this->tenant->name->value
+                'name' => $this->tenant->name->value,
             ]))
             ->success()
             ->send();

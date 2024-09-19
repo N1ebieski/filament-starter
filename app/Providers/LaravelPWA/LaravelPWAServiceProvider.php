@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Providers\LaravelPWA;
 
+use App\Http\Controllers\Api\PWA\Manifest\ManifestController;
 use Filament\Facades\Filament;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use App\Http\Controllers\Api\PWA\Manifest\ManifestController;
 
 final class LaravelPWAServiceProvider extends ServiceProvider
 {

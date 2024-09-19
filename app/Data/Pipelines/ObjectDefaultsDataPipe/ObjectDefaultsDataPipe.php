@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace App\Data\Pipelines\ObjectDefaultsDataPipe;
 
-use App\Data\Pipelines\ObjectDefaultsDataPipe\ObjectDefaultsInterface;
-use Spatie\LaravelData\Support\DataClass;
 use Spatie\LaravelData\DataPipes\DataPipe;
 use Spatie\LaravelData\Support\Creation\CreationContext;
+use Spatie\LaravelData\Support\DataClass;
 
 final class ObjectDefaultsDataPipe implements DataPipe
 {
     /**
-     * @param class-string $className
+     * @param  class-string  $className
      */
     private function getConstructorDefaults(string $className): array
     {

@@ -5,10 +5,10 @@ return [
         'panel' => [
             'title' => 'Panel administracyjny',
             'description' => '',
-            'keywords' => ''
-        ]
+            'keywords' => '',
+        ],
     ],
     'groups' => [
-        'user' => 'Użytkownicy'
-    ]
+        'user' => 'Użytkownicy',
+    ],
 ];

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\ValueObjects\User\StatusEmail;
 
 use App\Support\Enum\Enum;
-use Illuminate\Support\Facades\Lang;
 use Filament\Support\Contracts\HasLabel;
+use Illuminate\Support\Facades\Lang;
 
 enum StatusEmail: string implements HasLabel
 {

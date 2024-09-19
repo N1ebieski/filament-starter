@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\Splits\SplitRelations;
 
-use Closure;
-use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\Splits\Splits;
-use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\Splits\HasSymbol;
 use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\Splits\HandlerInterface;
+use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\Splits\HasSymbol;
+use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\Splits\Splits;
+use Closure;
 
 final class SplitRelationsHandler implements HandlerInterface
 {
@@ -18,7 +18,7 @@ final class SplitRelationsHandler implements HandlerInterface
         if ($splits->model) {
             $searchableRelations = implode('|', $splits->model->searchableRelations ?? []);
 
-            preg_match_all('/rel:(' . $searchableRelations . '):\"(.*?)\"/', $splits->term, $matches);
+            preg_match_all('/rel:('.$searchableRelations.'):\"(.*?)\"/', $splits->term, $matches);
 
             $relations = [];
 
@@ -30,13 +30,13 @@ final class SplitRelationsHandler implements HandlerInterface
                 foreach ($looseMatches as $match) {
                     if (strlen($match) >= 3) {
                         $match = $this->isContainsSymbol($match) ?
-                            '"' . str_replace('"', '', $match) . '"' : $match;
+                            '"'.str_replace('"', '', $match).'"' : $match;
 
                         if ($match === end($looseMatches)) {
                             $match .= '*';
                         }
 
-                        $looses[] = '+' . $match;
+                        $looses[] = '+'.$match;
                     }
                 }
 
@@ -45,7 +45,7 @@ final class SplitRelationsHandler implements HandlerInterface
                 $splits->term = trim(str_replace($value, '', $splits->term));
             }
 
-            $splits->relations = !empty($relations) ? $relations : null;
+            $splits->relations = ! empty($relations) ? $relations : null;
         }
 
         return $next($splits);

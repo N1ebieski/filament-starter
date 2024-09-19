@@ -6,6 +6,4 @@ namespace App\Queries;
 
 use App\Data\Data\Data;
 
-abstract class Query extends Data
-{
-}
+abstract class Query extends Data {}

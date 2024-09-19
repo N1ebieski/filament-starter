@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read array|null $selectable
  * @property-read array|null $withable
  * @property-read array|null $sortable
+ *
  * @mixin Model
  */
 trait HasAttributes

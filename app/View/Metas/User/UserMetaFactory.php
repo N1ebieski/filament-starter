@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace App\View\Metas\User;
 
 use App\View\Metas\Meta;
-use Illuminate\Http\Request;
 use App\View\Metas\MetaInterface;
 use App\View\Metas\OpenGraphInterface;
-use Illuminate\Support\Collection as Collect;
-use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Contracts\Config\Repository as Config;
+use Illuminate\Contracts\Translation\Translator;
+use Illuminate\Http\Request;
+use Illuminate\Support\Collection as Collect;
 
 final class UserMetaFactory
 {
@@ -19,8 +19,7 @@ final class UserMetaFactory
         private readonly Translator $translator,
         private readonly Collect $collect,
         private readonly Request $request
-    ) {
-    }
+    ) {}
 
     public function makeMeta(
         ?string $title = null,
@@ -35,20 +34,20 @@ final class UserMetaFactory
                 $title,
                 $page > 1 ? $this->translator->get('pagination.page', ['page' => $page]) : '',
                 $this->translator->get('user.title'),
-                $this->translator->get('app.title')
+                $this->translator->get('app.title'),
             ])->filter()->implode(' - '),
             description: $this->collect->make([
                 $description,
                 $page > 1 ? $this->translator->get('pagination.page', ['page' => $page]) : '',
                 $this->translator->get('user.title'),
-                $this->translator->get('app.description')
+                $this->translator->get('app.description'),
             ])->filter()->implode('. '),
             keywords: mb_strtolower($this->collect->make([
                 $keywords,
                 $this->translator->get('user.title'),
-                $this->translator->get('app.keywords')
+                $this->translator->get('app.keywords'),
             ])->filter()->implode(', ')),
-            url: $url ?? $this->config->get('app.url') . $this->request->getRequestUri(),
+            url: $url ?? $this->config->get('app.url').$this->request->getRequestUri(),
             openGraph: $openGraph
         );
     }

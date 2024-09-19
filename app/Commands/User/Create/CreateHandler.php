@@ -7,7 +7,6 @@ namespace App\Commands\User\Create;
 use App\Commands\Handler;
 use App\Models\Role\Role;
 use App\Models\User\User;
-use App\Commands\User\Create\CreateCommand;
 use App\ValueObjects\Role\Name\DefaultName;
 use Illuminate\Database\ConnectionInterface as DB;
 
@@ -15,8 +14,7 @@ final class CreateHandler extends Handler
 {
     public function __construct(
         private readonly DB $db,
-    ) {
-    }
+    ) {}
 
     public function handle(CreateCommand $command): User
     {
@@ -31,7 +29,7 @@ final class CreateHandler extends Handler
 
             $user->assignRole([
                 DefaultName::User->value,
-                ...$command->roles->map(fn (Role $role) => $role->name->value)->toArray()
+                ...$command->roles->map(fn (Role $role) => $role->name->value)->toArray(),
             ]);
         } catch (\Exception $e) {
             $this->db->rollBack();

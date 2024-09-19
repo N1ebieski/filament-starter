@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\CacheQueries\PWA\GetAssets;
 
-use App\CacheQueries\Time;
+use App\Actions\PWA\GetAssets\GetAssetsAction;
 use App\CacheQueries\CacheQuery;
+use App\CacheQueries\Time;
 use App\Data\Casts\Time\TimeCast;
 use Spatie\LaravelData\Attributes\WithCast;
-use App\Actions\PWA\GetAssets\GetAssetsAction;
 
 final class GetAssetsCacheQuery extends CacheQuery
 {
@@ -16,11 +16,10 @@ final class GetAssetsCacheQuery extends CacheQuery
         public readonly GetAssetsAction $action,
         #[WithCast(TimeCast::class)]
         public readonly Time $time
-    ) {
-    }
+    ) {}
 
     public function getKey(): string
     {
-        return "pwa.assets";
+        return 'pwa.assets';
     }
 }

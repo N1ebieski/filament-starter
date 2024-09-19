@@ -6,6 +6,4 @@ namespace App\Http\Requests;
 
 use App\Data\Data\Data;
 
-abstract class Request extends Data
-{
-}
+abstract class Request extends Data {}

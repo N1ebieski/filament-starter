@@ -6,8 +6,8 @@ namespace App\Queries\Permission\GetAvailableForAdmin;
 
 use App\Queries\Handler;
 use App\ValueObjects\Role\Name\DefaultName;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 
 final class GetAvailableForAdminHandler extends Handler
 {

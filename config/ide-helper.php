@@ -11,7 +11,7 @@ return [
     |
     */
 
-    'filename'  => '_ide_helper.php',
+    'filename' => '_ide_helper.php',
 
     /*
     |--------------------------------------------------------------------------
@@ -122,7 +122,7 @@ return [
     'include_helpers' => false,
 
     'helper_files' => [
-        base_path() . '/vendor/laravel/framework/src/Illuminate/Support/helpers.php',
+        base_path().'/vendor/laravel/framework/src/Illuminate/Support/helpers.php',
     ],
 
     /*
@@ -168,7 +168,7 @@ return [
 
     'model_hooks' => [
         \App\Overrides\Barryvdh\LaravelIdeHelper\Hooks\PaginateHook::class,
-        \App\Overrides\Barryvdh\LaravelIdeHelper\Hooks\ValueObjectHook::class
+        \App\Overrides\Barryvdh\LaravelIdeHelper\Hooks\ValueObjectHook::class,
         // App\Support\IdeHelper\MyModelHook::class
     ],
 

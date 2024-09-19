@@ -7,7 +7,6 @@ namespace App\Overrides\Illuminate\Contracts\Chain;
 interface Chain
 {
     /**
-     * @param mixed $traveler
      * @return mixed
      */
     public function process(mixed $traveler);

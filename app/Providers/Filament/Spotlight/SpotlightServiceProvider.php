@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Providers\Filament\Spotlight;
 
-use Filament\Panel;
+use App\Overrides\Pxlrbt\FilamentSpotlight\SpotlightPlugin;
 use Filament\Events\TenantSet;
 use Filament\Facades\Filament;
-use Illuminate\Support\Facades\Event;
+use Filament\Panel;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
-use App\Overrides\Pxlrbt\FilamentSpotlight\SpotlightPlugin;
 
 final class SpotlightServiceProvider extends ServiceProvider
 {

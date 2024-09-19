@@ -6,6 +6,4 @@ namespace App\Filament\Pages;
 
 use Filament\Pages\Page as BasePage;
 
-abstract class Page extends BasePage
-{
-}
+abstract class Page extends BasePage {}

@@ -6,6 +6,4 @@ namespace App\View\Components;
 
 use Illuminate\View\Component as BaseComponent;
 
-abstract class Component extends BaseComponent
-{
-}
+abstract class Component extends BaseComponent {}

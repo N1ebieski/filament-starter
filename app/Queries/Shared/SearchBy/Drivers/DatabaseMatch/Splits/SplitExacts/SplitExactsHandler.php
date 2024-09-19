@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\Splits\SplitExacts;
 
-use Closure;
-use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\Splits\Splits;
 use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\Splits\HandlerInterface;
+use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\Splits\Splits;
+use Closure;
 
 final class SplitExactsHandler implements HandlerInterface
 {
@@ -15,12 +15,12 @@ final class SplitExactsHandler implements HandlerInterface
         preg_match_all('/"(.*?)"/', $splits->term, $matches);
 
         foreach ($matches[0] as $match) {
-            $exacts[] = '+' . $match;
+            $exacts[] = '+'.$match;
 
             $splits->term = trim(str_replace($match, '', $splits->term));
         }
 
-        $splits->exacts = !empty($exacts) ? $exacts : null;
+        $splits->exacts = ! empty($exacts) ? $exacts : null;
 
         return $next($splits);
     }

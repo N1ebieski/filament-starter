@@ -7,13 +7,13 @@ namespace App\Data\Casts\OrderBy;
 use App\Queries\Order;
 use App\Queries\OrderBy;
 use Spatie\LaravelData\Casts\Cast;
-use Spatie\LaravelData\Support\DataProperty;
 use Spatie\LaravelData\Support\Creation\CreationContext;
+use Spatie\LaravelData\Support\DataProperty;
 
 class OrderByCast implements Cast
 {
     /**
-     * @param OrderBy|string|false|null $value
+     * @param  OrderBy|string|false|null  $value
      */
     public function cast(DataProperty $property, mixed $value, array $properties, CreationContext $context): mixed
     {

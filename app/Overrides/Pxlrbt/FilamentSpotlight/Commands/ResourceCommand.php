@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace App\Overrides\Pxlrbt\FilamentSpotlight\Commands;
 
-use Override;
-use Illuminate\Support\Collection;
-use LivewireUI\Spotlight\Spotlight;
+use App\Filament\Resources\GlobalSearchInterface;
 use App\Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
+use LivewireUI\Spotlight\Spotlight;
 use LivewireUI\Spotlight\SpotlightSearchResult;
-use App\Filament\Resources\GlobalSearchInterface;
+use Override;
 use pxlrbt\FilamentSpotlight\Commands\ResourceCommand as BaseResourceCommand;
 
 /**
- * @property-read GlobalSearchInterface&Resource $resource
+ * @property-read GlobalSearchInterface&resource $resource
  */
 final class ResourceCommand extends BaseResourceCommand
 {
@@ -23,7 +23,7 @@ final class ResourceCommand extends BaseResourceCommand
     {
         $hasDependencies = parent::hasDependencies();
 
-        if ($hasDependencies && !($this->resource instanceof GlobalSearchInterface)) {
+        if ($hasDependencies && ! ($this->resource instanceof GlobalSearchInterface)) {
             throw new \Exception('The resource with dependencies must implement GlobalSearchInterface.');
         }
 
@@ -31,7 +31,7 @@ final class ResourceCommand extends BaseResourceCommand
     }
 
     /**
-     * @param string $query
+     * @param  string  $query
      */
     #[Override]
     public function searchRecord($query): Collection
@@ -49,13 +49,13 @@ final class ResourceCommand extends BaseResourceCommand
                 $record->getKey(),
                 $this->resource::getGlobalSearchResultTitle($record), //@phpstan-ignore-line
                 collect($this->resource::getGlobalSearchResultDetails($record))
-                    ->map(fn ($value, $key) => $key . ': ' . $value)
+                    ->map(fn ($value, $key) => $key.': '.$value)
                     ->join(' – ')
             ));
     }
 
     /**
-     * @param null|int|string $record
+     * @param  null|int|string  $record
      */
     #[Override]
     public function execute(Spotlight $spotlight, $record = null): void

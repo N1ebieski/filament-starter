@@ -10,8 +10,5 @@ namespace App\View\Metas;
  * @property-read string $type
  * @property-read string $image
  * @property-read string $url
- *
  */
-interface OpenGraphInterface
-{
-}
+interface OpenGraphInterface {}
