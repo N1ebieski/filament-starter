@@ -9,6 +9,7 @@
     <div 
         x-data="spotlight({
             componentId: '{{ $this->id() }}',
+            dependencyQueryResults: @entangle('dependencyQueryResults'),
             placeholder: '{{ trans('livewire-ui-spotlight::spotlight.placeholder') }}',
             commands: @js($commands),
             showResultsWithoutInput: '{{ config('livewire-ui-spotlight.show_results_without_input') }}',

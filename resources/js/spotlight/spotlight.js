@@ -13,6 +13,8 @@ delete window.LivewireUISpotlight;
 
 window.spotlight = (data) => {
     return {
+        dependencyQueryResults: data.dependencyQueryResults,
+
         ...baseSpotlight(data),
 
         _init() {
@@ -122,10 +124,7 @@ window.spotlight = (data) => {
             this.requiredDependencies = [];
             this.dependencySearch.setCollection([]);
             this.$refs.input.focus();
-            window.Livewire.find(data.componentId).$set(
-                "dependencyQueryResults",
-                []
-            );
+            this.$wire.$set("dependencyQueryResults", []);
         },
     };
 };
