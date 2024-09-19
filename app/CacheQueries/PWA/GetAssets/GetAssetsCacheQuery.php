@@ -15,7 +15,7 @@ final class GetAssetsCacheQuery extends CacheQuery
     public function __construct(
         public readonly GetAssetsAction $action,
         #[WithCast(TimeCast::class)]
-        public readonly ?Time $time = null
+        public readonly Time $time
     ) {
     }
 

@@ -1,4 +1,3 @@
-const version = "1.0.1";
 const staticCacheName = "pwa-v" + new Date().getTime();
 
 const staticFilesToCache = [

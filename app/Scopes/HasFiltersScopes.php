@@ -7,7 +7,6 @@ namespace App\Scopes;
 use App\Queries\OrderBy;
 use App\Scopes\HasSearchScopes;
 use App\Models\HasAttributesInterface;
-use Illuminate\Support\Facades\Config;
 use App\Support\Query\Columns\ColumnsHelper;
 use Illuminate\Database\Eloquent\Collection;
 use App\Queries\Shared\Result\Drivers\Get\Get;
@@ -40,7 +39,7 @@ trait HasFiltersScopes
     public function scopeFilterPaginate(Builder $builder, Paginate $paginate): LengthAwarePaginator
     {
         return $builder->paginate(
-            perPage: $paginate->perPage ?? Config::get('database.paginate'),
+            perPage: $paginate->perPage,
             page: $paginate->page
         );
     }
