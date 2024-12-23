@@ -33,7 +33,7 @@
         "dg/bypass-finals": "^1.6",
         "fakerphp/faker": "^1.23",
         "itsgoingd/clockwork": "^5.2",
-        "larastan/larastan": "^2.9",
+        "larastan/larastan": "^3.0",
         "laravel-lang/common": "^6.2",
         "laravel/pint": "^1.17",
         "mockery/mockery": "^1.6",
@@ -70,7 +70,7 @@
             "php artisan migrate:fresh --env=testing",
             "php artisan db:seed --env=testing --class=\"Database\\Seeders\\Install\\InstallSeeder\"",
             "php artisan test > storage/logs/phpunit.log"
-        ],        
+        ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi",

@@ -3,9 +3,9 @@
 namespace App\Models\User;
 
 use App\Casts\ValueObject\ValueObjectCast;
+use App\Models\AttributesInterface;
 use App\Models\HasAttributes;
-use App\Models\HasAttributesInterface;
-use App\Models\HasDatabaseMatchSearchable;
+use App\Models\SearchableInterface;
 use App\Models\Tenant\Tenant;
 use App\Overrides\Spatie\Permission\Traits\HasRoles;
 use App\Scopes\User\HasUserScopes;
@@ -88,11 +88,10 @@ use Laravel\Sanctum\HasApiTokens;
  *
  * @mixin \Eloquent
  */
-class User extends Authenticatable implements FilamentUser, HasAttributesInterface, HasTenants, MustVerifyEmail
+class User extends Authenticatable implements FilamentUser, AttributesInterface, SearchableInterface, HasTenants, MustVerifyEmail
 {
     use HasApiTokens;
     use HasAttributes;
-    use HasDatabaseMatchSearchable;
     use HasFactory;
     use HasRoles;
     use HasUserScopes;
@@ -110,7 +109,7 @@ class User extends Authenticatable implements FilamentUser, HasAttributesInterfa
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var list<string>
      */
     protected $fillable = [
         'name',
@@ -122,7 +121,7 @@ class User extends Authenticatable implements FilamentUser, HasAttributesInterfa
     /**
      * The attributes that should be hidden for serialization.
      *
-     * @var array<int, string>
+     * @var list<string>
      */
     protected $hidden = [
         'password',
@@ -146,17 +145,17 @@ class User extends Authenticatable implements FilamentUser, HasAttributesInterfa
         'password' => 'hashed',
     ];
 
-    protected array $selectAlways = ['id'];
+    public protected(set) array $selectAlways = ['id'];
 
-    protected array $selectable = ['name', 'created_at', 'updated_at'];
+    public protected(set) array $selectable = ['name', 'created_at', 'updated_at'];
 
-    protected array $withable = ['roles', 'tenants', 'tenants.user'];
+    public protected(set) array $withable = ['roles', 'tenants', 'tenants.user'];
 
-    protected array $sortable = ['id', 'name', 'created_at', 'updated_at'];
+    public protected(set) array $sortable = ['id', 'name', 'created_at', 'updated_at'];
 
-    protected array $searchable = ['name', 'email'];
+    public protected(set) array $searchable = ['name', 'email'];
 
-    protected array $searchableAttributes = ['id'];
+    public protected(set) array $searchableAttributes = ['id'];
 
     public function getTenants(Panel $panel): array|Collection
     {

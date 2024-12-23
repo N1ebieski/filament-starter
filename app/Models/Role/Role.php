@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace App\Models\Role;
 
 use App\Casts\ValueObject\ValueObjectCast;
+use App\Models\AttributesInterface;
 use App\Models\HasAttributes;
-use App\Models\HasAttributesInterface;
 use App\Models\HasDatabaseMatchSearchable;
+use App\Models\SearchableInterface;
 use App\Scopes\Role\HasRoleScopes;
 use App\ValueObjects\Role\Name\Name;
 use Database\Factories\Role\RoleFactory;
@@ -52,10 +53,9 @@ use Spatie\Permission\PermissionRegistrar;
  *
  * @mixin \Eloquent
  */
-final class Role extends BaseRole implements HasAttributesInterface
+final class Role extends BaseRole implements AttributesInterface, SearchableInterface
 {
     use HasAttributes;
-    use HasDatabaseMatchSearchable;
     use HasFactory;
     use HasRoleScopes;
 
@@ -64,7 +64,7 @@ final class Role extends BaseRole implements HasAttributesInterface
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var list<string>
      */
     protected $fillable = [
         'name',
@@ -84,17 +84,17 @@ final class Role extends BaseRole implements HasAttributesInterface
         'updated_at' => 'datetime',
     ];
 
-    protected array $selectAlways = ['id', 'tenant_id'];
+    public protected(set) array $selectAlways = ['id', 'tenant_id'];
 
-    protected array $selectable = ['name', 'created_at', 'updated_at'];
+    public protected(set) array $selectable = ['name', 'created_at', 'updated_at'];
 
-    protected array $withable = ['permissions'];
+    public protected(set) array $withable = ['permissions'];
 
-    protected array $sortable = ['id', 'name', 'created_at', 'updated_at'];
+    public protected(set) array $sortable = ['id', 'name', 'created_at', 'updated_at'];
 
-    protected array $searchable = ['name'];
+    public protected(set) array $searchable = ['name'];
 
-    protected array $searchableAttributes = ['id'];
+    public protected(set) array $searchableAttributes = ['id'];
 
     /**
      * Create a new factory instance for the model.

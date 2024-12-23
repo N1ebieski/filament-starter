@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Clients;
 
-use App\Overrides\Illuminate\Contracts\Http\Client\Client as HttpClient;
 use App\Support\Handler\HandlerHelper;
 use GuzzleHttp\Promise\Utils;
 use Illuminate\Container\Container;
@@ -14,8 +13,7 @@ final class ClientBus implements ClientBusInterface
 {
     public function __construct(
         private readonly Container $container,
-        private readonly HandlerHelper $handlerHelper,
-        private readonly HttpClient $client
+        private readonly HandlerHelper $handlerHelper
     ) {}
 
     public function execute(Client $client): AsyncResponse|Response
@@ -46,8 +44,6 @@ final class ClientBus implements ClientBusInterface
 
     private function resolveHandler(Client $client): Handler
     {
-        return $this->container->make($this->handlerHelper->getNamespace($client), [
-            'client' => $this->client,
-        ]);
+        return $this->container->make($this->handlerHelper->getNamespace($client));
     }
 }

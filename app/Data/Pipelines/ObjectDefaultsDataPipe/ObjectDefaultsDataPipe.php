@@ -36,8 +36,7 @@ final class ObjectDefaultsDataPipe implements DataPipe
 
     public function handle(mixed $payload, DataClass $class, array $properties, CreationContext $creationContext): array
     {
-        /** @var array */
-        $interfaces = class_implements($class->name);
+        $interfaces = class_implements($class->name) ?: [];
 
         if (is_array($payload) && in_array(ObjectDefaultsInterface::class, $interfaces)) {
             $properties = array_merge(

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Scopes;
 
-use App\Models\HasAttributesInterface;
+use App\Models\AttributesInterface;
 use App\Queries\OrderBy;
 use App\Queries\Shared\Result\Drivers\DriverHandlerFactory;
 use App\Queries\Shared\Result\Drivers\Get\Get;
@@ -73,8 +73,8 @@ trait HasFiltersScopes
             /**
              * We need to select all foreign keys just in case
              */
-            if ($model instanceof HasAttributesInterface) {
-                $columnsAsCollection->push(...$model->getSelectAlways());
+            if ($model instanceof AttributesInterface) {
+                $columnsAsCollection->push(...$model->selectAlways);
             }
 
             $columnsWithTablePrefix = ColumnsHelper::getColumnsWithTablePrefix($columnsAsCollection->toArray(), $this->getTable());

@@ -2,14 +2,14 @@
 
 namespace App\Rules\AllowedSort;
 
-use App\Models\HasAttributesInterface;
+use App\Models\AttributesInterface;
 use App\Support\Query\Sorts\SortsHelper;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 
 class AllowedSortRule implements ValidationRule
 {
-    public function __construct(private readonly HasAttributesInterface $model) {}
+    public function __construct(private readonly AttributesInterface $model) {}
 
     /**
      * Run the validation rule.
@@ -19,7 +19,7 @@ class AllowedSortRule implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        $sorts = SortsHelper::getAttributesWithOrder($this->model->getSortable());
+        $sorts = SortsHelper::getAttributesWithOrder($this->model->sortable);
 
         if (! in_array($value, $sorts)) {
             $fail('validation.allowed_sort.in')->translate([

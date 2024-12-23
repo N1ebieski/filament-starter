@@ -39,7 +39,7 @@ class Tenant extends Model implements HasCurrentTenantLabel
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var list<string>
      */
     protected $fillable = [
         'name',
@@ -57,13 +57,13 @@ class Tenant extends Model implements HasCurrentTenantLabel
         'updated_at' => 'datetime',
     ];
 
-    protected array $selectAlways = ['id', 'user_id'];
+    public protected(set) array $selectAlways = ['id', 'user_id'];
 
-    protected array $selectable = ['name', 'created_at', 'updated_at'];
+    public protected(set) array $selectable = ['name', 'created_at', 'updated_at'];
 
-    protected array $withable = ['user'];
+    public protected(set) array $withable = ['user'];
 
-    protected array $sortable = ['id', 'name', 'created_at', 'updated_at'];
+    public protected(set) array $sortable = ['id', 'name', 'created_at', 'updated_at'];
 
     public function getCurrentTenantLabel(): string
     {

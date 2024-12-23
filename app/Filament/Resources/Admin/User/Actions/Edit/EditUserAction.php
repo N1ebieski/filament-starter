@@ -13,7 +13,7 @@ use App\ValueObjects\Role\Name\DefaultName;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Actions\EditAction;
-use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Validation\Rules\Exists;
@@ -98,8 +98,9 @@ final class EditUserAction extends Action
                 Select::make('roles')
                     ->label(Lang::get('user.roles.label'))
                     ->multiple()
-                    ->relationship($this->role->getTable(), 'name', function (Builder $query) {
-                        return $query->whereNot('name', DefaultName::SuperAdmin);
+                    ->relationship($this->role->getTable(), 'name', function (Builder $builder) {
+                        /** @var Builder<Role> $builder */
+                        return $builder->whereNot('name', DefaultName::SuperAdmin);
                     })
                     ->preload()
                     ->dehydrated(true)

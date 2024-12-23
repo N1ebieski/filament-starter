@@ -2,13 +2,13 @@
 
 namespace App\Rules\AllowedSelect;
 
-use App\Models\HasAttributesInterface;
+use App\Models\AttributesInterface;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 
 class AllowedSelectRule implements ValidationRule
 {
-    public function __construct(private readonly HasAttributesInterface $model) {}
+    public function __construct(private readonly AttributesInterface $model) {}
 
     /**
      * Run the validation rule.
@@ -18,7 +18,7 @@ class AllowedSelectRule implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        $selects = $this->model->getSelectable();
+        $selects = $this->model->selectable;
 
         if (! in_array($value, $selects)) {
             $fail('validation.allowed_select.in')->translate([

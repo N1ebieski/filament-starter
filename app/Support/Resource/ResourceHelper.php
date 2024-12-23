@@ -9,16 +9,19 @@ use Illuminate\Support\Str;
 
 final class ResourceHelper
 {
+    /**
+     * @return class-string
+     */
     public static function getResourceName(Model $model): string
     {
-        /** @var string */
+        /** @var class-string */
         $class = get_class($model);
 
-        /** @var string */
         $resourceName = Str::replace('Models', 'Http\\Resources', $class);
 
         $resourceName .= 'Resource';
 
+        /** @var class-string */
         return $resourceName;
     }
 }

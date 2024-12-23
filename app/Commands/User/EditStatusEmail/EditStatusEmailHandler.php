@@ -30,7 +30,7 @@ final class EditStatusEmailHandler extends Handler
 
             if (
                 $command->status->isEquals(StatusEmail::Unverified)
-                && $command->user instanceof MustVerifyEmail
+                && $command->user instanceof MustVerifyEmail //@phpstan-ignore-line
             ) {
                 $command->user->sendEmailVerificationNotification();
             }

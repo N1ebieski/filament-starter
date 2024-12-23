@@ -38,7 +38,7 @@ final class Spotlight extends BaseSpotlight
     public static function registerCommand(string $command): void
     {
         tap(App::make($command), function (Command $command) {
-            if ($command->getDefault() && ! method_exists($command, 'dependencies')) {
+            if ($command->getDefault() && is_null($command->dependencies())) {
                 throw new \Exception('A command without dependencies cannot be default.');
             }
 

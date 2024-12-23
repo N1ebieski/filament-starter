@@ -42,7 +42,7 @@ trait HasSearchScopes
             $attributes = $databaseMatch->attributes;
 
             return $builder->where(function (Builder $builder) use ($attributes) {
-                foreach ($this->getSearchableAttributes() as $attr) {
+                foreach ($this->searchableAttributes as $attr) {
                     $builder = $builder->when(array_key_exists($attr, $attributes), function (Builder $builder) use ($attr, $attributes) {
                         return $builder->where("{$this->getTable()}.{$attr}", $attributes[$attr]);
                     });
@@ -72,7 +72,7 @@ trait HasSearchScopes
         return $builder->when(! is_null($databaseMatch->getSearchAsString()), function (Builder $builder) use ($databaseMatch, $boolean): Builder {
             $table = $this->getTable();
 
-            $columns = ColumnsHelper::getColumnsWithTablePrefix($this->getSearchable(), $table);
+            $columns = ColumnsHelper::getColumnsWithTablePrefix($this->searchable, $table);
 
             $columnsAsString = ColumnsHelper::getColumnsAsString($columns);
 
@@ -102,7 +102,7 @@ trait HasSearchScopes
         return $builder->when(! is_null($databaseMatch->getSearchAsString()), function (Builder $builder): Builder {
             $table = $this->getTable();
 
-            $columns = ColumnsHelper::getColumnsWithTablePrefix($this->getSearchable(), $table);
+            $columns = ColumnsHelper::getColumnsWithTablePrefix($this->searchable, $table);
 
             foreach ($columns as $column) {
                 $columnWithSnakes = ColumnsHelper::getColumnWithSnakes($column.'_relevance');

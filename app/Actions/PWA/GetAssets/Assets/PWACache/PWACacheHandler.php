@@ -15,7 +15,7 @@ final class PWACacheHandler extends Handler
     {
         foreach (get_declared_classes() as $class) {
             if (in_array(PWACacheInterface::class, class_implements($class))) {
-                /** @var PWACacheInterface $class */
+                /** @var class-string<PWACacheInterface> $class */
                 $assets->value->push($class::getUrlForPWA());
             }
         }

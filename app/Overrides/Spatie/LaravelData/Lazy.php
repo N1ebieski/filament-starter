@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Overrides\Spatie\LaravelData;
 
-use App\Models\HasAttributesInterface;
+use App\Models\AttributesInterface;
 use Closure;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\LaravelData\Lazy as BaseLazy;
@@ -14,9 +14,9 @@ use Spatie\LaravelData\Support\Lazy\RelationalLazy;
 
 abstract class Lazy
 {
-    public static function whenAttributeLoaded(string $attribute, HasAttributesInterface $model, Closure $value): ConditionalLazy
+    public static function whenAttributeLoaded(string $attribute, AttributesInterface $model, Closure $value): ConditionalLazy
     {
-        return self::when($model->attributeLoaded($attribute), $value);
+        return self::when($model->isAttributeLoaded($attribute), $value);
     }
 
     public static function whenLoaded(string $item, Model $model, Closure $value): RelationalLazy|ConditionalLazy|DefaultLazy
@@ -25,7 +25,7 @@ abstract class Lazy
             return BaseLazy::whenLoaded($item, $model, $value);
         }
 
-        if ($model instanceof HasAttributesInterface) {
+        if ($model instanceof AttributesInterface) {
             return self::whenAttributeLoaded($item, $model, $value);
         }
 

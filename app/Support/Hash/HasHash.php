@@ -8,7 +8,7 @@ trait HasHash
 {
     protected function hash(string|array $key): string
     {
-        /** @var string */
+        /** @var non-empty-string */
         $json = json_encode($key);
 
         return md5($json);

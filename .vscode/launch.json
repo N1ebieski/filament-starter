@@ -11,7 +11,7 @@
             "ignore": [
                 "**/vendor/**/*.php"
             ],
-            "hostname": "localhost",
+            "hostname": "127.0.0.1",
             "port": 49280,
             "pathMappings": {
                 "/var/www/filament-starter.test": "${workspaceFolder}"
@@ -21,7 +21,7 @@
                 "max_data": 512,
                 "max_depth": 4,
                 "show_hidden": 1
-            },             
+            },
         },
         {
             "name": "Listen for Firefox",
@@ -33,12 +33,12 @@
                 "**/node_modules/**"
             ],
             "pathMappings": [
-                { 
-                    "url": "http://localhost:49154/", 
+                {
+                    "url": "http://localhost:49154/",
                     "path": "${webRoot}/"
                 }
             ],
-            "tabFilter": "https://filament-starter.test/*",                  
+            "tabFilter": "https://filament-starter.test/*",
         },
     ]
 }

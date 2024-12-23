@@ -4,6 +4,8 @@
 /public/hot
 /public/storage
 /public/serviceworker*
+/public/js
+/public/css
 /storage/*.key
 /vendor
 .env

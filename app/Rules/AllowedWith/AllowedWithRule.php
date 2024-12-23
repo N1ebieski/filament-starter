@@ -2,14 +2,14 @@
 
 namespace App\Rules\AllowedWith;
 
-use App\Models\HasAttributesInterface;
+use App\Models\AttributesInterface;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Support\Collection;
 
 class AllowedWithRule implements ValidationRule
 {
-    public function __construct(private readonly HasAttributesInterface $model) {}
+    public function __construct(private readonly AttributesInterface $model) {}
 
     /**
      * Run the validation rule.
@@ -22,7 +22,7 @@ class AllowedWithRule implements ValidationRule
         /** @var string $baseRelation */
         [$baseRelation, $attributes] = explode(':', $value) + [null, null];
 
-        $withs = $this->model->getWithable();
+        $withs = $this->model->withable;
 
         if (! in_array($baseRelation, $withs)) {
             $fail('validation.allowed_with.with_in')->translate([
@@ -41,11 +41,11 @@ class AllowedWithRule implements ValidationRule
                     $model = $this->model;
 
                     foreach ($relations as $relation) {
-                        /** @var HasAttributesInterface */
+                        /** @var AttributesInterface */
                         $model = $model->{$relation}()->make();
                     }
 
-                    $selects = $model->getSelectable();
+                    $selects = $model->selectable;
 
                     if (! in_array($attribute, $selects)) {
                         $fail('validation.allowed_with.select_in')->translate([

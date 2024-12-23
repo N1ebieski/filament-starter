@@ -55,7 +55,7 @@ final class RoleResource extends Resource implements GlobalSearchInterface
         return self::getModelLabel();
     }
 
-    public static function getNavigationGroup(): ?string
+    public static function getNavigationGroup(): string
     {
         return Lang::get('admin.groups.user'); //@phpstan-ignore-line
     }

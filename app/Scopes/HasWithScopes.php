@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Scopes;
 
-use App\Models\HasAttributesInterface;
+use App\Models\AttributesInterface;
 use App\Support\Query\Columns\ColumnsHelper;
 use App\Support\Query\Include\IncludeHelper;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -44,8 +44,8 @@ trait HasWithScopes
                         /**
                          * We need to select all foreign keys just in case
                          */
-                        if ($model instanceof HasAttributesInterface) {
-                            $columnsAsCollection->push(...$model->getSelectAlways());
+                        if ($model instanceof AttributesInterface) {
+                            $columnsAsCollection->push(...$model->selectAlways);
                         }
 
                         return $builder->select(ColumnsHelper::getColumnsWithTablePrefix($columnsAsCollection->toArray(), $model->getTable()));

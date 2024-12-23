@@ -22,7 +22,7 @@ final class ResourceFactory
 {
     public static function makeResource(Model $model): Resource
     {
-        /** @var \App\Http\Resources\Resource */
+        /** @var class-string<\App\Http\Resources\Resource> */
         $resourceName = ResourceHelper::getResourceName($model);
 
         return $resourceName::from($model);
@@ -37,7 +37,7 @@ final class ResourceFactory
             //@phpstan-ignore-next-line
             $model = $collection[0];
 
-            /** @var \App\Http\Resources\Resource */
+            /** @var class-string<\App\Http\Resources\Resource> */
             $resourceName = ResourceHelper::getResourceName($model);
 
             return $resourceName::collect($collection, $into);

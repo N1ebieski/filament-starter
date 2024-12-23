@@ -26,6 +26,8 @@ final class HandlerHelper
      * Firstly checks if objact has a Handler attribute.
      *
      * If not, it looks for a Handler with an identical namespace.
+     *
+     * @return class-string
      */
     public static function getNamespace(object $class): string
     {
@@ -40,6 +42,7 @@ final class HandlerHelper
             /** @var Handler */
             $handlerAttribute = $handlerAttributes[0]->newInstance();
 
+            /** @var class-string */
             return $handlerAttribute->class;
         }
 
@@ -61,6 +64,7 @@ final class HandlerHelper
             $handlerName = Str::replaceLast($lastOccurance, 'Handler', $classBasename);
         }
 
+        /** @var class-string */
         $handlerNamespace = $handlerNamespace.'\\'.$handlerName;
 
         return $handlerNamespace;

@@ -19,8 +19,7 @@ class EnumCast implements Cast
      */
     public function cast(DataProperty $property, mixed $value, array $properties, CreationContext $context): mixed
     {
-        /** @var array */
-        $interfaces = class_implements($this->enumName);
+        $interfaces = class_implements($this->enumName) ?: [];
 
         if (is_bool($value) && in_array(FromBoolInterface::class, $interfaces)) {
             return $this->enumName::fromBool($value);

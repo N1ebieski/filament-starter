@@ -6,16 +6,15 @@ namespace App\Models;
 
 /**
  * @mixin Model
+ * @mixin SearchableInterface
  */
 trait HasScoutSearchable
 {
-    use HasDatabaseMatchSearchable;
-
     public function toSearchableArray(): array
     {
         $searchable = [];
 
-        foreach ($this->getSearchable() as $key => $value) {
+        foreach ($this->searchable as $key => $value) {
             $searchable[$key] = $this->getRawOriginal($value);
         }
 
