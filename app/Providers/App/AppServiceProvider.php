@@ -101,8 +101,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(\App\Queries\QueryBusInterface::class, \App\Queries\QueryBus::class);
 
         $this->app->bind(\App\Scopes\Tenant\TenantScope::class, function (Application $app) {
-            /** @var \App\Tenant\CurrentTenantFactory */
-            $factory = $app->make(\App\Tenant\CurrentTenantFactory::class, [
+            /** @var \App\Tenant\CurrentTenantHelper */
+            $factory = $app->make(\App\Tenant\CurrentTenantHelper::class, [
                 'filamentManager' => $app->make('filament'),
             ]);
 

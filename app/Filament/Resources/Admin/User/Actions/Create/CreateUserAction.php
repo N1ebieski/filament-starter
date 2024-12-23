@@ -94,9 +94,9 @@ final class CreateUserAction extends Action
                 Select::make('roles')
                     ->label(Lang::get('user.roles.label'))
                     ->multiple()
-                    ->relationship($this->role->getTable(), 'name', function (Builder $builder) {
-                        /** @var Builder<Role> $builder */
-                        return $builder->whereNot('name', DefaultName::SuperAdmin);
+                    ->relationship($this->role->getTable(), 'name', function (Builder $query) {
+                        /** @var Builder<Role> $query */
+                        return $query->whereNot('name', DefaultName::SuperAdmin);
                     })
                     ->preload()
                     ->dehydrated(true)

@@ -8,7 +8,7 @@ use App\Models\Tenant\Tenant;
 use Filament\FilamentManager;
 use Illuminate\Http\Request;
 
-final class CurrentTenantFactory
+final class CurrentTenantHelper
 {
     public function __construct(
         private readonly FilamentManager $filamentManager,

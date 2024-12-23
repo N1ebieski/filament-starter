@@ -37,6 +37,11 @@ use Spatie\Permission\Models\Permission as BasePermission;
 final class Permission extends BasePermission
 {
     /**
+     * @var string
+     */
+    protected $guard_name = 'web';
+
+    /**
      * The attributes that should be cast.
      *
      * @var array<string, string>

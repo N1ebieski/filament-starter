@@ -7,7 +7,6 @@ namespace App\Models\Role;
 use App\Casts\ValueObject\ValueObjectCast;
 use App\Models\AttributesInterface;
 use App\Models\HasAttributes;
-use App\Models\HasDatabaseMatchSearchable;
 use App\Models\SearchableInterface;
 use App\Scopes\Role\HasRoleScopes;
 use App\ValueObjects\Role\Name\Name;
@@ -60,6 +59,11 @@ final class Role extends BaseRole implements AttributesInterface, SearchableInte
     use HasRoleScopes;
 
     // Configuration
+
+    /**
+     * @var string
+     */
+    protected $guard_name = 'web';
 
     /**
      * The attributes that are mass assignable.
