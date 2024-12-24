@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Overrides\Pxlrbt\FilamentSpotlight\Commands;
 
 use App\Filament\Resources\GlobalSearchInterface;
-use App\Filament\Resources\Resource;
+use App\Filament\Resources\Resource as FilamentResource;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use LivewireUI\Spotlight\Spotlight;
@@ -14,7 +14,7 @@ use Override;
 use pxlrbt\FilamentSpotlight\Commands\ResourceCommand as BaseResourceCommand;
 
 /**
- * @property-read GlobalSearchInterface&resource $resource
+ * @property-read FilamentResource&GlobalSearchInterface $resource
  */
 final class ResourceCommand extends BaseResourceCommand
 {
