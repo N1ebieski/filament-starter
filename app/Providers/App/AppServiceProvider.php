@@ -14,6 +14,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->app->bind(\Spatie\LaravelData\DataPipeline::class, \App\Overrides\Spatie\LaravelData\DataPipeline::class);
+
         $this->app->bind(\App\Actions\ActionBusInterface::class, \App\Actions\ActionBus::class);
 
         $this->app->bind(\App\Overrides\Illuminate\Contracts\Cache\Repository::class, function (Application $app) {
@@ -100,7 +102,7 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(\App\Queries\QueryBusInterface::class, \App\Queries\QueryBus::class);
 
-        $this->app->bind(\App\Scopes\Tenant\TenantScope::class, function (Application $app) {
+        $this->app->bind(\App\GlobalScopes\Tenant\TenantScope::class, function (Application $app) {
             /** @var \App\Tenant\CurrentTenantHelper */
             $factory = $app->make(\App\Tenant\CurrentTenantHelper::class, [
                 'filamentManager' => $app->make('filament'),
@@ -109,17 +111,17 @@ class AppServiceProvider extends ServiceProvider
             /** @var Tenant */
             $tenant = $factory->getTenant();
 
-            return new \App\Scopes\Tenant\TenantScope($tenant);
+            return new \App\GlobalScopes\Tenant\TenantScope($tenant);
         });
 
-        $this->app->bind(\App\Scopes\User\UserScope::class, function (Application $app) {
+        $this->app->bind(\App\GlobalScopes\User\UserScope::class, function (Application $app) {
             /** @var \Illuminate\Contracts\Auth\Guard */
             $guard = $app->make(\Illuminate\Contracts\Auth\Guard::class);
 
             /** @var User */
             $user = $guard->user();
 
-            return new \App\Scopes\User\UserScope($user);
+            return new \App\GlobalScopes\User\UserScope($user);
         });
     }
 }

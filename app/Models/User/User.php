@@ -3,15 +3,17 @@
 namespace App\Models\User;
 
 use App\Casts\ValueObject\ValueObjectCast;
-use App\Models\AttributesInterface;
-use App\Models\HasAttributes;
-use App\Models\SearchableInterface;
+use App\Models\Shared\Attributes\AttributesInterface;
+use App\Models\Shared\Attributes\HasAttributes;
+use App\Models\Shared\Attributes\HasCamelCaseAttributes;
+use App\Models\Shared\Searchable\SearchableInterface;
 use App\Models\Tenant\Tenant;
 use App\Overrides\Spatie\Permission\Traits\HasRoles;
-use App\Scopes\User\HasUserScopes;
+use App\QueryBuilders\User\UserQueryBuilder;
 use App\ValueObjects\User\Email\Email;
 use App\ValueObjects\User\Name\Name;
 use App\ValueObjects\User\StatusEmail\StatusEmail;
+use Database\Factories\User\UserFactory;
 use Fico7489\Laravel\Pivot\Traits\PivotEventTrait;
 use Filament\Facades\Filament;
 use Filament\Models\Contracts\FilamentUser;
@@ -20,73 +22,22 @@ use Filament\Notifications\Auth\VerifyEmail;
 use Filament\Panel;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Collection;
 use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
 use Laravel\Sanctum\HasApiTokens;
 
 /**
- * @property int $id
- * @property \App\ValueObjects\User\Name\Name $name
- * @property \App\ValueObjects\User\Email\Email $email
- * @property \Illuminate\Support\Carbon|null $email_verified_at
- * @property mixed $password
- * @property string|null $remember_token
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read mixed $breezy_session
- * @property-read Collection<int, \Jeffgreco13\FilamentBreezy\Models\BreezySession> $breezySessions
- * @property-read int|null $breezy_sessions_count
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
- * @property-read int|null $notifications_count
- * @property-read Collection<int, Tenant> $ownedTenants
- * @property-read int|null $owned_tenants_count
- * @property-read Collection<int, \App\Models\Permission\Permission> $permissions
- * @property-read int|null $permissions_count
- * @property-read Collection<int, \App\Models\Role\Role> $roles
- * @property-read int|null $roles_count
- * @property-read StatusEmail $status_email
- * @property-read Collection<int, \App\Models\Permission\Permission> $tenantPermissions
- * @property-read int|null $tenant_permissions_count
- * @property-read Collection<int, \App\Models\Role\Role> $tenantRoles
- * @property-read int|null $tenant_roles_count
- * @property-read Collection<int, Tenant> $tenants
- * @property-read int|null $tenants_count
- * @property-read Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
- * @property-read int|null $tokens_count
- * @property-read mixed $two_factor_recovery_codes
- * @property-read mixed $two_factor_secret
- *
- * @method static \Database\Factories\User\UserFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder|User filterGet(\App\Queries\Shared\Result\Drivers\Get\Get $get)
- * @method static \Illuminate\Database\Eloquent\Builder|User filterIgnore(?array $ignore)
- * @method static \Illuminate\Database\Eloquent\Builder|User filterOrderBy(?\App\Queries\OrderBy $orderBy)
- * @method static \Illuminate\Database\Eloquent\Builder|User filterOrderByDatabaseMatch(\App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatch $databaseMatch)
- * @method static \Illuminate\Contracts\Pagination\LengthAwarePaginator filterPaginate(\App\Queries\Shared\Result\Drivers\Paginate\Paginate $paginate)
- * @method static \Illuminate\Database\Eloquent\Builder|User filterResult(?\App\Queries\Shared\Result\ResultInterface $result)
- * @method static \Illuminate\Database\Eloquent\Builder|User filterRoles(\Illuminate\Database\Eloquent\Collection $roles)
- * @method static \Illuminate\Database\Eloquent\Builder|User filterSearchAttributesByDatabaseMatch(\App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatch $databaseMatch)
- * @method static \Illuminate\Database\Eloquent\Builder|User filterSearchBy(?\App\Queries\Shared\SearchBy\SearchByInterface $searchBy)
- * @method static \Illuminate\Database\Eloquent\Builder|User filterSearchByDatabaseMatch(\App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatch $databaseMatch, string $boolean = 'and')
- * @method static \Illuminate\Database\Eloquent\Builder|User filterSearchByScout(\App\Queries\Shared\SearchBy\Drivers\Scout\Scout $scout)
- * @method static \Illuminate\Database\Eloquent\Builder|User filterSelect(?array $select)
- * @method static \Illuminate\Database\Eloquent\Builder|User filterStatusEmail(?\App\ValueObjects\User\StatusEmail\StatusEmail $status)
- * @method static \Illuminate\Database\Eloquent\Builder|User filterTenants(\Illuminate\Database\Eloquent\Collection $tenants)
- * @method static \Illuminate\Database\Eloquent\Builder|User filterWith(?array $with)
- * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|User permission($permissions, $without = false)
- * @method static \Illuminate\Database\Eloquent\Builder|User query()
- * @method static \Illuminate\Database\Eloquent\Builder|User role($roles, $guard = null, $without = false)
- * @method static \Illuminate\Database\Eloquent\Builder|User withoutPermission($permissions)
- * @method static \Illuminate\Database\Eloquent\Builder|User withoutRole($roles, $guard = null)
- *
+ * @mixin UserData
  * @mixin \Eloquent
+ *
+ * @method static UserQueryBuilder query()
+ * @method static UserFactory factory($count = null, $state = [])
  */
 class User extends Authenticatable implements FilamentUser, AttributesInterface, SearchableInterface, HasTenants, MustVerifyEmail
 {
@@ -94,10 +45,10 @@ class User extends Authenticatable implements FilamentUser, AttributesInterface,
     use HasAttributes;
     use HasFactory;
     use HasRoles;
-    use HasUserScopes;
     use Notifiable;
     use PivotEventTrait;
     use TwoFactorAuthenticatable;
+    use HasCamelCaseAttributes;
 
     // Configuration
 
@@ -156,6 +107,10 @@ class User extends Authenticatable implements FilamentUser, AttributesInterface,
     public protected(set) array $searchable = ['name', 'email'];
 
     public protected(set) array $searchableAttributes = ['id'];
+
+    public UserData $data {
+        get => UserData::from($this);
+    }
 
     public function getTenants(Panel $panel): array|Collection
     {
@@ -226,5 +181,18 @@ class User extends Authenticatable implements FilamentUser, AttributesInterface,
     public function tenants(): MorphToMany
     {
         return $this->morphToMany(\App\Models\Tenant\Tenant::class, 'authenticatable', 'tenants_models');
+    }
+
+    // Factories
+
+    /**
+     * Create a new Eloquent query builder for the model.
+     *
+     * @param  \Illuminate\Database\Query\Builder  $query
+     */
+    public function newEloquentBuilder($query): UserQueryBuilder
+    {
+        /** @disregard */
+        return new UserQueryBuilder($query);
     }
 }

@@ -2,28 +2,24 @@
 
 declare(strict_types=1);
 
-namespace App\Scopes\User;
+namespace App\QueryBuilders\User;
 
 use App\Models\Role\Role;
 use App\Models\Tenant\Tenant;
 use App\Models\User\User;
-use App\Scopes\HasFiltersScopes;
+use App\QueryBuilders\Shared\Filters\HasFilters;
 use App\ValueObjects\User\StatusEmail\StatusEmail;
-use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
-/**
- * @mixin User
- */
-trait HasUserScopes
+final class UserQueryBuilder extends Builder
 {
-    use HasFiltersScopes;
+    use HasFilters;
 
-    public function scopeFilterStatusEmail(Builder $builder, ?StatusEmail $status): Builder
+    public function filterStatusEmail(?StatusEmail $status): self
     {
-        return $builder->when(! is_null($status), function (Builder $builder) use ($status): Builder {
+        return $this->when(! is_null($status), function (Builder $builder) use ($status): Builder {
             /** @var StatusEmail $status */
-
             return $builder->when($status->isEquals(StatusEmail::Verified), function (Builder $builder): Builder {
                 return $builder->whereNotNull('email_verified_at');
             }, function (Builder $builder): Builder {
@@ -32,36 +28,40 @@ trait HasUserScopes
         });
     }
 
-    public function scopeFilterRoles(Builder $builder, ?Collection $roles): Builder
+    public function filterRoles(?Collection $roles): self
     {
-        return $builder->when($roles?->isNotEmpty(), function (Builder $builder) use ($roles): Builder {
+        return $this->when($roles?->isNotEmpty(), function (Builder $builder) use ($roles): Builder {
             /** @var Collection $roles */
-
             return $builder->whereHas('roles', function (Builder $builder) use ($roles): Builder {
+                /** @var User */
+                $user = $this->getModel();
+
                 /** @var Role */
-                $role = $this->roles()->make();
+                $role = $user->roles()->make();
 
                 return $builder->whereIn("{$role->getTable()}.id", $roles->pluck('id'));
             });
         });
     }
 
-    public function scopeFilterTenants(Builder $builder, ?Collection $tenants): Builder
+    public function filterTenants(?Collection $tenants): self
     {
-        return $builder->when($tenants?->isNotEmpty(), function (Builder $builder) use ($tenants): Builder {
+        return $this->when($tenants?->isNotEmpty(), function (Builder $builder) use ($tenants): Builder {
             /** @var Collection $tenants */
-
             return $builder->whereHas('tenants', function (Builder $builder) use ($tenants): Builder {
+                /** @var User */
+                $user = $this->getModel();
+
                 /** @var Tenant */
-                $tenant = $this->tenants()->make();
+                $tenant = $user->tenants()->make();
 
                 return $builder->whereIn("{$tenant->getTable()}.id", $tenants->pluck('id'));
             });
         });
     }
 
-    public function scopeWithAll(Builder $builder): Builder
+    public function withAll(): self
     {
-        return $builder->with(['roles']);
+        return $this->with(['roles']);
     }
 }

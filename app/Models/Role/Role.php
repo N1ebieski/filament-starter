@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace App\Models\Role;
 
 use App\Casts\ValueObject\ValueObjectCast;
-use App\Models\AttributesInterface;
-use App\Models\HasAttributes;
-use App\Models\SearchableInterface;
-use App\Scopes\Role\HasRoleScopes;
+use App\Models\Shared\Attributes\AttributesInterface;
+use App\Models\Shared\Attributes\HasAttributes;
+use App\Models\Shared\Attributes\HasCamelCaseAttributes;
+use App\Models\Shared\Searchable\SearchableInterface;
+use App\QueryBuilders\Role\RoleQueryBuilder;
 use App\ValueObjects\Role\Name\Name;
 use Database\Factories\Role\RoleFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,43 +21,19 @@ use Spatie\Permission\Models\Role as BaseRole;
 use Spatie\Permission\PermissionRegistrar;
 
 /**
- * @property int $id
- * @property int|null $tenant_id
- * @property \App\ValueObjects\Role\Name\Name $name
- * @property string $guard_name
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Permission\Permission> $permissions
- * @property-read int|null $permissions_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User\User> $users
- * @property-read int|null $users_count
- *
- * @method static \Database\Factories\Role\RoleFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder|Role filterGet(\App\Queries\Shared\Result\Drivers\Get\Get $get)
- * @method static \Illuminate\Database\Eloquent\Builder|Role filterIgnore(?array $ignore)
- * @method static \Illuminate\Database\Eloquent\Builder|Role filterOrderBy(?\App\Queries\OrderBy $orderBy)
- * @method static \Illuminate\Database\Eloquent\Builder|Role filterOrderByDatabaseMatch(\App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatch $databaseMatch)
- * @method static \Illuminate\Contracts\Pagination\LengthAwarePaginator filterPaginate(\App\Queries\Shared\Result\Drivers\Paginate\Paginate $paginate)
- * @method static \Illuminate\Database\Eloquent\Builder|Role filterResult(?\App\Queries\Shared\Result\ResultInterface $result)
- * @method static \Illuminate\Database\Eloquent\Builder|Role filterSearchAttributesByDatabaseMatch(\App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatch $databaseMatch)
- * @method static \Illuminate\Database\Eloquent\Builder|Role filterSearchBy(?\App\Queries\Shared\SearchBy\SearchByInterface $searchBy)
- * @method static \Illuminate\Database\Eloquent\Builder|Role filterSearchByDatabaseMatch(\App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatch $databaseMatch, string $boolean = 'and')
- * @method static \Illuminate\Database\Eloquent\Builder|Role filterSearchByScout(\App\Queries\Shared\SearchBy\Drivers\Scout\Scout $scout)
- * @method static \Illuminate\Database\Eloquent\Builder|Role filterSelect(?array $select)
- * @method static \Illuminate\Database\Eloquent\Builder|Role filterWith(?array $with)
- * @method static \Illuminate\Database\Eloquent\Builder|Role newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Role newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Role permission($permissions, $without = false)
- * @method static \Illuminate\Database\Eloquent\Builder|Role query()
- * @method static \Illuminate\Database\Eloquent\Builder|Role withoutPermission($permissions)
- *
+ * @mixin RoleData
  * @mixin \Eloquent
+ * @property int $id
+ * @property \App\ValueObjects\Role\Name\Name $name
+ *
+ * @method static RoleQueryBuilder query()
+ * @method static RoleFactory factory($count = null, $state = [])
  */
 final class Role extends BaseRole implements AttributesInterface, SearchableInterface
 {
     use HasAttributes;
     use HasFactory;
-    use HasRoleScopes;
+    use HasCamelCaseAttributes;
 
     // Configuration
 
@@ -100,6 +77,10 @@ final class Role extends BaseRole implements AttributesInterface, SearchableInte
 
     public protected(set) array $searchableAttributes = ['id'];
 
+    public RoleData $data {
+        get => RoleData::from($this);
+    }
+
     /**
      * Create a new factory instance for the model.
      */
@@ -127,5 +108,18 @@ final class Role extends BaseRole implements AttributesInterface, SearchableInte
             $permissionRegistrar->pivotRole,
             Config::get('permission.column_names.model_morph_key')
         );
+    }
+
+    // Factories
+
+    /**
+     * Create a new Eloquent query builder for the model.
+     *
+     * @param  \Illuminate\Database\Query\Builder  $query
+     */
+    public function newEloquentBuilder($query): RoleQueryBuilder
+    {
+        /** @disregard */
+        return new RoleQueryBuilder($query);
     }
 }

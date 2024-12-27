@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware\ApplyTenantScope;
 
+use App\GlobalScopes\Tenant\TenantScope;
 use App\Http\Middleware\Middleware;
-use App\Scopes\Tenant\TenantScope;
 use Closure;
 use Illuminate\Http\Request;
 

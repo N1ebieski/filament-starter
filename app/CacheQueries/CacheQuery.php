@@ -11,7 +11,5 @@ abstract class CacheQuery extends Data
 {
     use HasHash;
 
-    abstract public ?Time $time { get; }
-
     abstract public function getKey(): string;
 }

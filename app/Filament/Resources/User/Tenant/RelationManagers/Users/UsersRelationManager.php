@@ -16,11 +16,12 @@ use App\Queries\Order;
 use App\Queries\OrderBy;
 use App\Queries\QueryBusInterface;
 use App\Queries\User\GetByFilter\GetByFilterQuery;
+use App\QueryBuilders\User\UserQueryBuilder;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -87,7 +88,7 @@ class UsersRelationManager extends RelationManager
             ])
             ->recordUrl(null)
             ->recordAction(null)
-            ->defaultSort(function (Builder|User $query): Builder {
+            ->defaultSort(function (UserQueryBuilder $query): Builder {
                 return $query->filterOrderBy(new OrderBy('id', Order::Desc));
             });
     }

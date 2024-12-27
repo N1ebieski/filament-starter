@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Scopes\Tenant;
+namespace App\GlobalScopes\Tenant;
 
 use App\Models\Tenant\Tenant;
 use Illuminate\Database\Eloquent\Builder;

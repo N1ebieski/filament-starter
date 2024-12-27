@@ -2,24 +2,23 @@
 
 declare(strict_types=1);
 
-namespace App\Scopes;
+namespace App\QueryBuilders\Shared\With;
 
-use App\Models\AttributesInterface;
+use App\Models\Shared\Attributes\AttributesInterface;
 use App\Support\Query\Columns\ColumnsHelper;
 use App\Support\Query\Include\IncludeHelper;
 use Illuminate\Contracts\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 /**
- * @mixin Model
+ * @mixin Builder
  */
-trait HasWithScopes
+trait HasWith
 {
-    public function scopeFilterWith(Builder $builder, ?array $with, bool $withAll = false): Builder
+    public function filterWith(?array $with, bool $withAll = false): self
     {
-        return $builder->when(! is_null($with), function (Builder $builder) use ($with): Builder {
+        return $this->when(! is_null($with), function (Builder $builder) use ($with): Builder {
             /** @var array<int, string> $with */
             foreach ($with as $baseRelation) {
                 $scopeName = IncludeHelper::getScopeRelationName($baseRelation);
@@ -56,15 +55,15 @@ trait HasWithScopes
             return $builder;
         }, function (Builder $builder) use ($withAll): Builder {
             if ($withAll) {
-                $builder = $this->scopeWithAll($builder);
+                $builder = $this->withAll();
             }
 
             return $builder;
         });
     }
 
-    public function scopeWithAll(Builder $builder): Builder
+    public function withAll(): self
     {
-        return $builder;
+        return $this;
     }
 }

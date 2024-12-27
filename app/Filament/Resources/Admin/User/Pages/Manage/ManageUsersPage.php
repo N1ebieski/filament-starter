@@ -21,6 +21,7 @@ use App\Queries\Order;
 use App\Queries\OrderBy;
 use App\Queries\QueryBusInterface;
 use App\Queries\User\GetByFilter\GetByFilterQuery;
+use App\QueryBuilders\User\UserQueryBuilder;
 use App\ValueObjects\Role\Name\DefaultName;
 use App\ValueObjects\User\StatusEmail\StatusEmail;
 use App\View\Metas\Admin\User\Index\IndexMetaFactory;
@@ -33,7 +34,7 @@ use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Lang;
 use Override;
 
@@ -109,7 +110,7 @@ final class ManageUsersPage extends ManageRecords implements PageMetaInterface
             ->columns([
                 TextColumn::make('id')
                     ->label('ID')
-                    ->sortable(query: function (Builder|User $query, string $direction): Builder {
+                    ->sortable(query: function (UserQueryBuilder $query, string $direction): Builder {
                         return $query->filterOrderBy(new OrderBy('id', Order::from($direction)));
                     }),
 
@@ -126,21 +127,21 @@ final class ManageUsersPage extends ManageRecords implements PageMetaInterface
                 TextColumn::make('email_verified_at')
                     ->label(Lang::get('user.email_verified_at.label'))
                     ->toggleable(isToggledHiddenByDefault: true)
-                    ->sortable(query: function (Builder|User $query, string $direction): Builder {
+                    ->sortable(query: function (UserQueryBuilder $query, string $direction): Builder {
                         return $query->filterOrderBy(new OrderBy('email_verified_at', Order::from($direction)));
                     }),
 
                 TextColumn::make('created_at')
                     ->label(Lang::get('default.created_at.label'))
                     ->toggleable(isToggledHiddenByDefault: true)
-                    ->sortable(query: function (Builder|User $query, string $direction): Builder {
+                    ->sortable(query: function (UserQueryBuilder $query, string $direction): Builder {
                         return $query->filterOrderBy(new OrderBy('created_at', Order::from($direction)));
                     }),
 
                 TextColumn::make('updated_at')
                     ->label(Lang::get('default.updated_at.label'))
                     ->toggleable(isToggledHiddenByDefault: true)
-                    ->sortable(query: function (Builder|User $query, string $direction): Builder {
+                    ->sortable(query: function (UserQueryBuilder $query, string $direction): Builder {
                         return $query->filterOrderBy(new OrderBy('updated_at', Order::from($direction)));
                     }),
 
@@ -152,11 +153,11 @@ final class ManageUsersPage extends ManageRecords implements PageMetaInterface
 
                         return ! $user?->can('toggleStatusEmail', $record);
                     })
-                    ->getStateUsing(fn (User $record): bool => $record->status_email->getAsBool())
+                    ->getStateUsing(fn (User $record): bool => $record->statusEmail->getAsBool())
                     ->updateStateUsing(function (User $record): User {
                         return $this->commandBus->execute(new EditStatusEmailCommand(
                             user: $record,
-                            status: $record->status_email->toggle()
+                            status: $record->statusEmail->toggle()
                         ));
                     })
                     ->afterStateUpdated(function (User $record, bool $state): void {
@@ -177,7 +178,7 @@ final class ManageUsersPage extends ManageRecords implements PageMetaInterface
                 SelectFilter::make('status_email')
                     ->label(Lang::get('user.status_email.label'))
                     ->options(StatusEmail::class)
-                    ->query(function (Builder|User $query, array $data): Builder {
+                    ->query(function (UserQueryBuilder $query, array $data): Builder {
                         return $query->filterStatusEmail(StatusEmail::tryFrom($data['value'] ?? ''));
                     }),
 
@@ -187,7 +188,7 @@ final class ManageUsersPage extends ManageRecords implements PageMetaInterface
                     ->preload()
                     ->multiple()
                     ->getOptionLabelFromRecordUsing(fn (Role $record) => $record->name->value)
-                    ->query(function (Builder|User $query, array $data): Builder {
+                    ->query(function (UserQueryBuilder $query, array $data): Builder {
                         return $query->filterRoles($this->role->newQuery()->findMany($data['values']));
                     }),
             ])
@@ -202,7 +203,7 @@ final class ManageUsersPage extends ManageRecords implements PageMetaInterface
             ])
             ->recordUrl(null)
             ->recordAction(null)
-            ->defaultSort(function (Builder|User $query): Builder {
+            ->defaultSort(function (UserQueryBuilder $query): Builder {
                 return $query->filterOrderBy(new OrderBy('id', Order::Desc));
             });
     }

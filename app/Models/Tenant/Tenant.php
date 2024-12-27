@@ -13,14 +13,7 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Facades\Lang;
 
 /**
- * @property int $id
- * @property \App\ValueObjects\Tenant\Name\Name $name
- * @property int $user_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\User\User|null $user
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User\User> $users
- * @property-read int|null $users_count
+ * @mixin TenantData
  *
  * @method static \Illuminate\Contracts\Pagination\LengthAwarePaginator filterPaginate(\App\Queries\Shared\Result\Drivers\Paginate\Paginate $paginate)
  * @method static \Illuminate\Database\Eloquent\Builder|Tenant newModelQuery()
@@ -64,6 +57,10 @@ class Tenant extends Model implements HasCurrentTenantLabel
     public protected(set) array $withable = ['user'];
 
     public protected(set) array $sortable = ['id', 'name', 'created_at', 'updated_at'];
+
+    public TenantData $data {
+        get => TenantData::from($this);
+    }
 
     public function getCurrentTenantLabel(): string
     {

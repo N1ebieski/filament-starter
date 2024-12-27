@@ -2,32 +2,28 @@
 
 declare(strict_types=1);
 
-namespace App\Scopes;
+namespace App\QueryBuilders\Shared\Search;
 
-use App\Models\HasDatabaseMatchSearchable;
-use App\Models\HasScoutSearchable;
+use App\Models\Model;
+use App\Models\Shared\Searchable\ScoutSearchableInterface;
+use App\Models\Shared\Searchable\SearchableInterface;
 use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatch;
 use App\Queries\Shared\SearchBy\Drivers\DriverHandlerFactory;
 use App\Queries\Shared\SearchBy\Drivers\Scout\Scout;
 use App\Queries\Shared\SearchBy\SearchByInterface;
 use App\Support\Query\Columns\ColumnsHelper;
 use Illuminate\Contracts\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Builder as ScoutBuilder;
-use Laravel\Scout\Searchable;
 
 /**
- * @mixin Model
- * @mixin Searchable
- * @mixin HasDatabaseMatchSearchable
- * @mixin HasScoutSearchable
- * @mixin SearchScopesInterface
+ * @mixin Builder
  */
-trait HasSearchScopes
+trait HasSearch
 {
-    public function scopeFilterSearchBy(Builder $builder, ?SearchByInterface $searchBy): Builder
+    public function filterSearchBy(?SearchByInterface $searchBy): self
     {
-        return $builder->when(! is_null($searchBy), function (Builder $builder) use ($searchBy): Builder {
+        /** @var self */
+        return $this->when(! is_null($searchBy), function (Builder $builder) use ($searchBy): Builder {
             /** @var SearchByInterface $searchBy */
             $handler = DriverHandlerFactory::makeHandler($searchBy, $builder);
 
@@ -35,16 +31,19 @@ trait HasSearchScopes
         });
     }
 
-    public function scopeFilterSearchAttributesByDatabaseMatch(Builder $builder, DatabaseMatch $databaseMatch): Builder
+    public function filterSearchAttributesByDatabaseMatch(DatabaseMatch $databaseMatch): self
     {
-        return $builder->when(! is_null($databaseMatch->attributes), function (Builder $builder) use ($databaseMatch): Builder {
+        return $this->when(! is_null($databaseMatch->attributes), function (Builder $builder) use ($databaseMatch): Builder {
             /** @var array */
             $attributes = $databaseMatch->attributes;
 
             return $builder->where(function (Builder $builder) use ($attributes) {
-                foreach ($this->searchableAttributes as $attr) {
-                    $builder = $builder->when(array_key_exists($attr, $attributes), function (Builder $builder) use ($attr, $attributes) {
-                        return $builder->where("{$this->getTable()}.{$attr}", $attributes[$attr]);
+                /** @var Model&SearchableInterface */
+                $model = $this->getModel();
+
+                foreach ($model->searchableAttributes as $attr) {
+                    $builder = $builder->when(array_key_exists($attr, $attributes), function (Builder $builder) use ($attr, $attributes, $model) {
+                        return $builder->where("{$model->getTable()}.{$attr}", $attributes[$attr]);
                     });
                 }
 
@@ -53,9 +52,12 @@ trait HasSearchScopes
         });
     }
 
-    public function scopeFilterSearchByScout(Builder $builder, Scout $scout): Builder
+    public function filterSearchByScout(Scout $scout): self
     {
-        $ids = $this->search($scout->query, $scout->callback)
+        /** @var Model&ScoutSearchableInterface */
+        $model = $this->getModel();
+
+        $ids = $model->search($scout->query, $scout->callback)
             ->when(! is_null($scout->get->take), function (ScoutBuilder $builder) use ($scout): ScoutBuilder {
                 /** @var int */
                 $take = $scout->get->take;
@@ -64,15 +66,18 @@ trait HasSearchScopes
             })
             ->keys();
 
-        return $builder->whereIn("{$this->getTable()}.{$this->getKeyName()}", $ids->toArray());
+        return $this->whereIn("{$model->getTable()}.{$model->getKeyName()}", $ids->toArray());
     }
 
-    public function scopeFilterSearchByDatabaseMatch(Builder $builder, DatabaseMatch $databaseMatch, string $boolean = 'and'): Builder
+    public function filterSearchByDatabaseMatch(DatabaseMatch $databaseMatch, string $boolean = 'and'): self
     {
-        return $builder->when(! is_null($databaseMatch->getSearchAsString()), function (Builder $builder) use ($databaseMatch, $boolean): Builder {
-            $table = $this->getTable();
+        return $this->when(! is_null($databaseMatch->getSearchAsString()), function (Builder $builder) use ($databaseMatch, $boolean): Builder {
+            /** @var Model&SearchableInterface */
+            $model = $builder->getModel();
 
-            $columns = ColumnsHelper::getColumnsWithTablePrefix($this->searchable, $table);
+            $table = $model->getTable();
+
+            $columns = ColumnsHelper::getColumnsWithTablePrefix($model->searchable, $table);
 
             $columnsAsString = ColumnsHelper::getColumnsAsString($columns);
 
@@ -97,12 +102,15 @@ trait HasSearchScopes
         });
     }
 
-    public function scopeFilterOrderByDatabaseMatch(Builder $builder, DatabaseMatch $databaseMatch): Builder
+    public function filterOrderByDatabaseMatch(DatabaseMatch $databaseMatch): self
     {
-        return $builder->when(! is_null($databaseMatch->getSearchAsString()), function (Builder $builder): Builder {
-            $table = $this->getTable();
+        return $this->when(! is_null($databaseMatch->getSearchAsString()), function (Builder $builder): Builder {
+            /** @var Model&SearchableInterface */
+            $model = $this->getModel();
 
-            $columns = ColumnsHelper::getColumnsWithTablePrefix($this->searchable, $table);
+            $table = $model->getTable();
+
+            $columns = ColumnsHelper::getColumnsWithTablePrefix($model->searchable, $table);
 
             foreach ($columns as $column) {
                 $columnWithSnakes = ColumnsHelper::getColumnWithSnakes($column.'_relevance');

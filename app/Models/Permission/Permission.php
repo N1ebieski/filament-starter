@@ -5,23 +5,14 @@ declare(strict_types=1);
 namespace App\Models\Permission;
 
 use App\Casts\ValueObject\ValueObjectCast;
+use App\Models\Shared\Attributes\HasCamelCaseAttributes;
 use App\ValueObjects\Permission\Name\Name;
 use Spatie\Permission\Models\Permission as BasePermission;
 
 /**
- * App\Models\Permission\Permission
- *
+ * @mixin PermissionData
  * @property int $id
  * @property \App\ValueObjects\Permission\Name\Name $name
- * @property string $guard_name
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, Permission> $permissions
- * @property-read int|null $permissions_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Role\Role> $roles
- * @property-read int|null $roles_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User\User> $users
- * @property-read int|null $users_count
  *
  * @method static \Illuminate\Contracts\Pagination\LengthAwarePaginator filterPaginate(\App\Queries\Shared\Result\Drivers\Paginate\Paginate $paginate)
  * @method static \Illuminate\Database\Eloquent\Builder|Permission newModelQuery()
@@ -36,6 +27,8 @@ use Spatie\Permission\Models\Permission as BasePermission;
  */
 final class Permission extends BasePermission
 {
+    use HasCamelCaseAttributes;
+
     /**
      * @var string
      */
@@ -52,4 +45,8 @@ final class Permission extends BasePermission
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    public PermissionData $data {
+        get => PermissionData::from($this);
+    }
 }

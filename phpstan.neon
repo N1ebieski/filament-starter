@@ -12,7 +12,7 @@ parameters:
 		- ./app/Overrides/Pxlrbt/FilamentSpotlight/SpotlightPlugin.php
 		- ./app/Overrides/Spatie/Permission/Traits/HasPermissions.php
 		- ./app/Overrides/Spatie/Permission/Traits/HasRoles.php
-		- ./app/Models/HasScoutSearchable.php #is used zero times and is not analysed.
+		- ./app/Models/Shared/Searchable/HasScoutSearchable.php #is used zero times and is not analysed.
 		- ./app/Overrides/Illuminate/Queue/SerializesModels.php #is used zero times and is not analysed.
 	treatPhpDocTypesAsCertain: false
 	noModelMake: true
@@ -29,7 +29,6 @@ parameters:
 		- '#^Parameter \#\d \$callback of method Illuminate\\(Support|Database\\Eloquent)\\Collection\<(int|\(int\|string\)),Illuminate\\Database\\Eloquent\\Model\>::(each|map|filter|when)\(\) expects#'
 		- '#^Parameter \#1 \$string of method Illuminate\\Console\\View\\Components\\Factory::(info|error)\(\) expects string, array\|string given.#'
 		- '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection.*expects callable.*: array<int, string>.*: non-empty-array<int, string> given.#'
-		- '#^Call to an undefined method [A-Za-z\d\\]+\|Illuminate\\Database\\Eloquent\\Builder::filter[A-Za-z\d\\]+\(\)#'
 		- '#^Return type of call to method PHPUnit\\Framework\\TestCase::createMock\(\) contains unresolvable type.#'
 		- '#^Anonymous function should return string but returns array\|string.#'
 		- '#^Parameter \#1 \$(label|title|heading) of method Filament\\[A-Za-z\d\\]+::(label|title|modalHeading)\(\) expects Closure(?:\|Illuminate\\Contracts\\Support\\Htmlable)?\|string\|null, array\|string given.#'

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Scopes\User;
+namespace App\GlobalScopes\User;
 
 use App\Models\User\User;
 use Illuminate\Database\Eloquent\Builder;

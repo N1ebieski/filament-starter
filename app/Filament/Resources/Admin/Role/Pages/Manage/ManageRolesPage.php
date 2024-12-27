@@ -13,11 +13,11 @@ use App\Filament\Resources\Admin\Role\Actions\Edit\EditRoleAction;
 use App\Filament\Resources\Admin\Role\RoleResource;
 use App\Filament\Resources\HasTablePaginate;
 use App\Filament\Resources\HasTableSearch;
-use App\Models\Role\Role;
 use App\Queries\Order;
 use App\Queries\OrderBy;
 use App\Queries\QueryBusInterface;
 use App\Queries\Role\GetByFilter\GetByFilterQuery;
+use App\QueryBuilders\Role\RoleQueryBuilder;
 use App\View\Metas\Admin\Role\Index\IndexMetaFactory;
 use App\View\Metas\MetaInterface;
 use Filament\Resources\Pages\ManageRecords;
@@ -84,7 +84,7 @@ final class ManageRolesPage extends ManageRecords implements PageMetaInterface
             ->columns([
                 TextColumn::make('id')
                     ->label('ID')
-                    ->sortable(query: function (Builder|Role $query, string $direction): Builder {
+                    ->sortable(query: function (RoleQueryBuilder $query, string $direction): Builder {
                         return $query->filterOrderBy(new OrderBy('id', Order::from($direction)));
                     }),
 
@@ -95,14 +95,14 @@ final class ManageRolesPage extends ManageRecords implements PageMetaInterface
                 TextColumn::make('created_at')
                     ->label(Lang::get('default.created_at.label'))
                     ->toggleable(isToggledHiddenByDefault: true)
-                    ->sortable(query: function (Builder|Role $query, string $direction): Builder {
+                    ->sortable(query: function (RoleQueryBuilder $query, string $direction): Builder {
                         return $query->filterOrderBy(new OrderBy('created_at', Order::from($direction)));
                     }),
 
                 TextColumn::make('updated_at')
                     ->label(Lang::get('default.updated_at.label'))
                     ->toggleable(isToggledHiddenByDefault: true)
-                    ->sortable(query: function (Builder|Role $query, string $direction): Builder {
+                    ->sortable(query: function (RoleQueryBuilder $query, string $direction): Builder {
                         return $query->filterOrderBy(new OrderBy('updated_at', Order::from($direction)));
                     }),
             ])
@@ -117,7 +117,7 @@ final class ManageRolesPage extends ManageRecords implements PageMetaInterface
             ])
             ->recordUrl(null)
             ->recordAction(null)
-            ->defaultSort(function (Builder|Role $query): Builder {
+            ->defaultSort(function (RoleQueryBuilder $query): Builder {
                 return $query->filterOrderBy(new OrderBy('id', Order::Desc));
             });
     }

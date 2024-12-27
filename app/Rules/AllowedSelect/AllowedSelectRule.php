@@ -2,7 +2,7 @@
 
 namespace App\Rules\AllowedSelect;
 
-use App\Models\AttributesInterface;
+use App\Models\Shared\Attributes\AttributesInterface;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 

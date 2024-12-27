@@ -2,7 +2,7 @@
 
 namespace App\Rules\AllowedSort;
 
-use App\Models\AttributesInterface;
+use App\Models\Shared\Attributes\AttributesInterface;
 use App\Support\Query\Sorts\SortsHelper;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;

@@ -14,7 +14,7 @@ final class GetByFilterHandler extends Handler
     public function handle(GetByFilterQuery $query): LengthAwarePaginator|Collection|Builder
     {
         /** @var LengthAwarePaginator|Collection|Builder */
-        $users = $query->user->newQuery()
+        $users = $query->user->query()
             ->filterSelect($query->select)
             ->filterSearchBy($query->searchBy)
             ->filterStatusEmail($query->status_email)

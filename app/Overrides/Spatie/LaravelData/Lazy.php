@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Overrides\Spatie\LaravelData;
 
-use App\Models\AttributesInterface;
+use App\Models\Shared\Attributes\AttributesInterface;
 use Closure;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\LaravelData\Lazy as BaseLazy;
