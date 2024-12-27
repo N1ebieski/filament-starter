@@ -14,12 +14,6 @@ use Illuminate\Support\Facades\Lang;
 
 /**
  * @mixin TenantData
- *
- * @method static \Illuminate\Contracts\Pagination\LengthAwarePaginator filterPaginate(\App\Queries\Shared\Result\Drivers\Paginate\Paginate $paginate)
- * @method static \Illuminate\Database\Eloquent\Builder|Tenant newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Tenant newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Tenant query()
- *
  * @mixin \Eloquent
  */
 class Tenant extends Model implements HasCurrentTenantLabel
@@ -58,9 +52,7 @@ class Tenant extends Model implements HasCurrentTenantLabel
 
     public protected(set) array $sortable = ['id', 'name', 'created_at', 'updated_at'];
 
-    public TenantData $data {
-        get => TenantData::from($this);
-    }
+    public TenantData $data { get => TenantData::from($this); }
 
     public function getCurrentTenantLabel(): string
     {

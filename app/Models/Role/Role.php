@@ -77,9 +77,7 @@ final class Role extends BaseRole implements AttributesInterface, SearchableInte
 
     public protected(set) array $searchableAttributes = ['id'];
 
-    public RoleData $data {
-        get => RoleData::from($this);
-    }
+    public RoleData $data { get => RoleData::from($this); }
 
     /**
      * Create a new factory instance for the model.

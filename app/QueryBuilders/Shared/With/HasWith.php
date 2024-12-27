@@ -21,7 +21,7 @@ trait HasWith
         return $this->when(! is_null($with), function (Builder $builder) use ($with): Builder {
             /** @var array<int, string> $with */
             foreach ($with as $baseRelation) {
-                $scopeName = IncludeHelper::getScopeRelationName($baseRelation);
+                $scopeName = IncludeHelper::getBuilderRelationName($baseRelation);
 
                 $realRelation = Str::beforeLast($baseRelation, ':');
 

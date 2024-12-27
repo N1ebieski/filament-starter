@@ -108,9 +108,7 @@ class User extends Authenticatable implements FilamentUser, AttributesInterface,
 
     public protected(set) array $searchableAttributes = ['id'];
 
-    public UserData $data {
-        get => UserData::from($this);
-    }
+    public UserData $data { get => UserData::from($this); }
 
     public function getTenants(Panel $panel): array|Collection
     {

@@ -8,9 +8,9 @@ use Illuminate\Support\Str;
 
 final class IncludeHelper
 {
-    public static function getScopeRelationName(string $name): string
+    public static function getBuilderRelationName(string $name): string
     {
-        $scopeName = 'scopeWith'.Str::of($name)
+        $scopeName = 'with'.Str::of($name)
             ->beforeLast(':')
             ->camel()
             ->ucfirst();
