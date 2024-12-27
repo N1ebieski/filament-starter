@@ -42,8 +42,8 @@ final class UserResource extends Resource implements PrepareFromModelInterface
         $properties = [
             ...$properties,
             'name' => Lazy::whenLoaded('name', $user, fn () => $user->name),
-            'createdAt' => Lazy::whenLoaded('createdAt', $user, fn () => $user->createdAt),
-            'updatedAt' => Lazy::whenLoaded('updatedAt', $user, fn () => $user->updatedAt),
+            'created_at' => Lazy::whenLoaded('created_at', $user, fn () => $user->createdAt),
+            'updated_at' => Lazy::whenLoaded('updated_at', $user, fn () => $user->updatedAt),
             'roles' => Lazy::whenLoaded('roles', $user, fn () => RoleResource::collect($user->roles)),
             'tenants' => Lazy::whenLoaded('tenants', $user, fn () => TenantResource::collect($user->tenants)),
         ];

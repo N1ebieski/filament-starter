@@ -12,9 +12,9 @@ use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\DetachMany
 use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\EditPermissions\EditPermissionsAction;
 use App\Models\Tenant\Tenant;
 use App\Models\User\User;
-use App\Queries\Order;
-use App\Queries\OrderBy;
 use App\Queries\QueryBusInterface;
+use App\Queries\Shared\OrderBy\Order;
+use App\Queries\Shared\OrderBy\OrderBy;
 use App\Queries\User\GetByFilter\GetByFilterQuery;
 use App\QueryBuilders\User\UserQueryBuilder;
 use Filament\Resources\RelationManagers\RelationManager;

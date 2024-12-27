@@ -36,8 +36,8 @@ final class TenantResource extends Resource implements PrepareFromModelInterface
         $properties = [
             ...$properties,
             'name' => Lazy::whenLoaded('name', $tenant, fn () => $tenant->name),
-            'createdAt' => Lazy::whenLoaded('createdAt', $tenant, fn () => $tenant->createdAt),
-            'updatedAt' => Lazy::whenLoaded('updatedAt', $tenant, fn () => $tenant->updatedAt),
+            'created_at' => Lazy::whenLoaded('created_at', $tenant, fn () => $tenant->createdAt),
+            'updated_at' => Lazy::whenLoaded('updated_at', $tenant, fn () => $tenant->updatedAt),
             'user' => Lazy::whenLoaded('user', $tenant, fn () => UserResource::from($tenant->user)),
         ];
 

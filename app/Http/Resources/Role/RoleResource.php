@@ -34,8 +34,8 @@ final class RoleResource extends Resource implements PrepareFromModelInterface
         $properties = [
             ...$properties,
             'name' => Lazy::whenLoaded('name', $role, fn () => $role->name),
-            'createdAt' => Lazy::whenLoaded('createdAt', $role, fn () => $role->createdAt),
-            'updatedAt' => Lazy::whenLoaded('updatedAt', $role, fn () => $role->updatedAt),
+            'created_at' => Lazy::whenLoaded('created_at', $role, fn () => $role->createdAt),
+            'updated_at' => Lazy::whenLoaded('updated_at', $role, fn () => $role->updatedAt),
         ];
 
         return $properties;

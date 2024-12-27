@@ -14,7 +14,7 @@ use App\Data\Pipelines\ObjectDefaultsDataPipe\ObjectDefaultsInterface;
 use App\Models\Role\Role;
 use App\Models\Tenant\Tenant;
 use App\Models\User\User;
-use App\Queries\OrderBy;
+use App\Queries\Shared\OrderBy\OrderBy;
 use App\Queries\Query;
 use App\Queries\Shared\Result\ResultInterface;
 use App\Queries\Shared\SearchBy\SearchByInterface;

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\QueryBuilders\Shared\Filters;
 
 use App\Models\Shared\Attributes\AttributesInterface;
-use App\Queries\OrderBy;
+use App\Queries\Shared\OrderBy\OrderBy;
 use App\Queries\Shared\Result\Drivers\DriverHandlerFactory;
 use App\Queries\Shared\Result\Drivers\Get\Get;
 use App\Queries\Shared\Result\Drivers\Paginate\Paginate;
