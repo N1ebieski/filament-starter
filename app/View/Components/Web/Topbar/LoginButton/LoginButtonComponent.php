@@ -26,7 +26,7 @@ final class LoginButtonComponent extends Component implements HasActions, HasFor
         return Action::make('login')
             ->url(URL::route('filament.web.auth.login'))
             ->label(Lang::get('filament-panels::pages/auth/login.form.actions.authenticate.label'))
-            ->visible(fn (): bool => ! Auth::check())
+            ->visible(fn (): bool => Auth::guest())
             ->button()
             ->outlined();
     }

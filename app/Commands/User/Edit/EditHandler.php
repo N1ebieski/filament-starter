@@ -30,7 +30,7 @@ final class EditHandler extends Handler
                 ! ($command->email instanceof Optional)
                 && $command->user->getOriginal('email') !== $command->email
             ) {
-                $user->email_verified_at = null;
+                $user->setAttribute('email_verified_at', null);
             }
 
             $user->save();

@@ -8,8 +8,7 @@ use App\Data\Data\Data;
 use App\Overrides\Spatie\LaravelData\Lazy;
 use App\ValueObjects\Permission\Name\Name;
 use DateTime;
-use Spatie\LaravelData\Attributes\MapInputName;
-use Spatie\LaravelData\Attributes\MapOutputName;
+use Spatie\LaravelData\Attributes\MapName;
 use Spatie\LaravelData\Lazy as BaseLazy;
 use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 
@@ -19,8 +18,7 @@ use Spatie\LaravelData\Mappers\SnakeCaseMapper;
  * @property-read DateTime|null $createdAt
  * @property-read DateTime|null $updatedAt
  */
-#[MapInputName(SnakeCaseMapper::class)]
-#[MapOutputName(SnakeCaseMapper::class)]
+#[MapName(SnakeCaseMapper::class)]
 final class PermissionData extends Data
 {
     public function __construct(

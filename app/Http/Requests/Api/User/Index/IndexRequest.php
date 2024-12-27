@@ -12,7 +12,10 @@ use App\Rules\AllowedWith\AllowedWithRule;
 use App\ValueObjects\User\StatusEmail\StatusEmail;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Validation\Rule;
+use Spatie\LaravelData\Attributes\MapName;
+use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 
+#[MapName(SnakeCaseMapper::class)]
 final class IndexRequest extends Request
 {
     public int $page = 1;
@@ -23,7 +26,7 @@ final class IndexRequest extends Request
 
     public ?array $with = null;
 
-    public ?string $status_email = null;
+    public ?string $statusEmail = null;
 
     public ?array $roles = null;
 

@@ -11,14 +11,12 @@ use App\Models\Role\Role;
 use App\Overrides\Spatie\LaravelData\Lazy;
 use App\ValueObjects\Role\Name\Name;
 use DateTime;
-use Spatie\LaravelData\Attributes\MapInputName;
-use Spatie\LaravelData\Attributes\MapOutputName;
+use Spatie\LaravelData\Attributes\MapName;
 use Spatie\LaravelData\Attributes\WithTransformer;
 use Spatie\LaravelData\Lazy as BaseLazy;
 use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 
-#[MapInputName(SnakeCaseMapper::class)]
-#[MapOutputName(SnakeCaseMapper::class)]
+#[MapName(SnakeCaseMapper::class)]
 final class RoleResource extends Resource implements PrepareFromModelInterface
 {
     public function __construct(
