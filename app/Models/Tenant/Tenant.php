@@ -4,6 +4,7 @@ namespace App\Models\Tenant;
 
 use App\Casts\ValueObject\ValueObjectCast;
 use App\Models\Model;
+use App\Models\Shared\Data\DataInterface;
 use App\ValueObjects\Tenant\Name\Name;
 use Fico7489\Laravel\Pivot\Traits\PivotEventTrait;
 use Filament\Models\Contracts\HasCurrentTenantLabel;
@@ -16,7 +17,7 @@ use Illuminate\Support\Facades\Lang;
  * @mixin TenantData
  * @mixin \Eloquent
  */
-class Tenant extends Model implements HasCurrentTenantLabel
+class Tenant extends Model implements HasCurrentTenantLabel, DataInterface
 {
     use HasFactory;
     use PivotEventTrait;

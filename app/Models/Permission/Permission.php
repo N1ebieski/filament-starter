@@ -6,6 +6,7 @@ namespace App\Models\Permission;
 
 use App\Casts\ValueObject\ValueObjectCast;
 use App\Models\Shared\Attributes\HasCamelCaseAttributes;
+use App\Models\Shared\Data\DataInterface;
 use App\ValueObjects\Permission\Name\Name;
 use Spatie\Permission\Models\Permission as BasePermission;
 
@@ -15,7 +16,7 @@ use Spatie\Permission\Models\Permission as BasePermission;
  * @property int $id
  * @property \App\ValueObjects\Permission\Name\Name $name
  */
-final class Permission extends BasePermission
+final class Permission extends BasePermission implements DataInterface
 {
     use HasCamelCaseAttributes;
 

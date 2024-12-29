@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace App\Models\Permission;
 
-use App\Data\Data\Data;
-use App\Overrides\Spatie\LaravelData\Lazy;
+use App\Models\ModelData;
 use App\ValueObjects\Permission\Name\Name;
 use DateTime;
 use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Lazy as BaseLazy;
 use Spatie\LaravelData\Mappers\SnakeCaseMapper;
+use Spatie\LaravelData\Optional;
 
 /**
  * @property-read int $id
@@ -19,24 +18,12 @@ use Spatie\LaravelData\Mappers\SnakeCaseMapper;
  * @property-read DateTime|null $updatedAt
  */
 #[MapName(SnakeCaseMapper::class)]
-final class PermissionData extends Data
+final class PermissionData extends ModelData
 {
     public function __construct(
         public readonly int $id,
-        public readonly BaseLazy|Name $name,
-        public readonly BaseLazy|DateTime|null $createdAt,
-        public readonly BaseLazy|DateTime|null $updatedAt,
+        public readonly Optional|Name $name = new Optional,
+        public readonly Optional|DateTime|null $createdAt = new Optional,
+        public readonly Optional|DateTime|null $updatedAt = new Optional,
     ) {}
-
-    public static function prepareFromModel(Permission $permission, array $properties): array
-    {
-        $properties = [
-            ...$properties,
-            'name' => Lazy::whenLoaded('name', $permission, fn () => $permission->name),
-            'created_at' => Lazy::whenLoaded('created_at', $permission, fn () => $permission->createdAt),
-            'updated_at' => Lazy::whenLoaded('updated_at', $permission, fn () => $permission->updatedAt),
-        ];
-
-        return $properties;
-    }
 }

@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace App\Models\Role;
 
-use App\Data\Data\Data;
-use App\Overrides\Spatie\LaravelData\Lazy;
+use App\Models\ModelData;
 use App\ValueObjects\Role\Name\Name;
 use DateTime;
 use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Lazy as BaseLazy;
 use Spatie\LaravelData\Mappers\SnakeCaseMapper;
+use Spatie\LaravelData\Optional;
 
 /**
  * @property-read int $id
@@ -19,24 +18,12 @@ use Spatie\LaravelData\Mappers\SnakeCaseMapper;
  * @property-read DateTime|null $updatedAt
  */
 #[MapName(SnakeCaseMapper::class)]
-final class RoleData extends Data
+final class RoleData extends ModelData
 {
     public function __construct(
         public readonly int $id,
-        public readonly BaseLazy|Name $name,
-        public readonly BaseLazy|DateTime|null $createdAt,
-        public readonly BaseLazy|DateTime|null $updatedAt,
+        public readonly Optional|Name $name = new Optional,
+        public readonly Optional|DateTime|null $createdAt = new Optional,
+        public readonly Optional|DateTime|null $updatedAt = new Optional,
     ) {}
-
-    public static function prepareFromModel(Role $role, array $properties): array
-    {
-        $properties = [
-            ...$properties,
-            'name' => Lazy::whenLoaded('name', $role, fn () => $role->name),
-            'created_at' => Lazy::whenLoaded('created_at', $role, fn () => $role->createdAt),
-            'updated_at' => Lazy::whenLoaded('updated_at', $role, fn () => $role->updatedAt),
-        ];
-
-        return $properties;
-    }
 }

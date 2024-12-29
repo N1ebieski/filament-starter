@@ -4,41 +4,25 @@ declare(strict_types=1);
 
 namespace App\Http\Resources\Tenant;
 
-use App\Data\Pipelines\ModelDataPipe\PrepareFromModelInterface;
 use App\Data\Transformers\ValueObject\ValueObjectTransformer;
 use App\Http\Resources\Resource;
 use App\Http\Resources\User\UserResource;
-use App\Models\Tenant\Tenant;
-use App\Overrides\Spatie\LaravelData\Lazy;
 use App\ValueObjects\Tenant\Name\Name;
 use DateTime;
 use Spatie\LaravelData\Attributes\MapName;
 use Spatie\LaravelData\Attributes\WithTransformer;
-use Spatie\LaravelData\Lazy as BaseLazy;
 use Spatie\LaravelData\Mappers\SnakeCaseMapper;
+use Spatie\LaravelData\Optional;
 
 #[MapName(SnakeCaseMapper::class)]
-final class TenantResource extends Resource implements PrepareFromModelInterface
+final class TenantResource extends Resource
 {
     public function __construct(
         public readonly int $id,
         #[WithTransformer(ValueObjectTransformer::class)]
-        public readonly BaseLazy|Name $name,
-        public readonly BaseLazy|DateTime|null $createdAt,
-        public readonly BaseLazy|DateTime|null $updatedAt,
-        public readonly BaseLazy|UserResource $user
+        public readonly Optional|Name $name = new Optional,
+        public readonly Optional|DateTime|null $createdAt = new Optional,
+        public readonly Optional|DateTime|null $updatedAt = new Optional,
+        public readonly Optional|UserResource $user = new Optional
     ) {}
-
-    public static function prepareFromModel(Tenant $tenant, array $properties): array
-    {
-        $properties = [
-            ...$properties,
-            'name' => Lazy::whenLoaded('name', $tenant, fn () => $tenant->name),
-            'created_at' => Lazy::whenLoaded('created_at', $tenant, fn () => $tenant->createdAt),
-            'updated_at' => Lazy::whenLoaded('updated_at', $tenant, fn () => $tenant->updatedAt),
-            'user' => Lazy::whenLoaded('user', $tenant, fn () => UserResource::from($tenant->user)),
-        ];
-
-        return $properties;
-    }
 }

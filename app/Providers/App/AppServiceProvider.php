@@ -14,8 +14,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(\Spatie\LaravelData\DataPipeline::class, \App\Overrides\Spatie\LaravelData\DataPipeline::class);
-
         $this->app->bind(\App\Actions\ActionBusInterface::class, \App\Actions\ActionBus::class);
 
         $this->app->bind(\App\Overrides\Illuminate\Contracts\Cache\Repository::class, function (Application $app) {

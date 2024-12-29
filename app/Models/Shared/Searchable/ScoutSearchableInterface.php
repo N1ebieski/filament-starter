@@ -7,4 +7,7 @@ namespace App\Models\Shared\Searchable;
 /**
  * @method static \Laravel\Scout\Builder search($query = '', $callback = null)
  */
-interface ScoutSearchableInterface {}
+interface ScoutSearchableInterface
+{
+    public function toSearchableArray(): array;
+}

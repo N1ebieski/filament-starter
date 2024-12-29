@@ -6,6 +6,7 @@ use App\Casts\ValueObject\ValueObjectCast;
 use App\Models\Shared\Attributes\AttributesInterface;
 use App\Models\Shared\Attributes\HasAttributes;
 use App\Models\Shared\Attributes\HasCamelCaseAttributes;
+use App\Models\Shared\Data\DataInterface;
 use App\Models\Shared\Searchable\SearchableInterface;
 use App\Models\Tenant\Tenant;
 use App\Overrides\Spatie\Permission\Traits\HasRoles;
@@ -34,12 +35,10 @@ use Laravel\Sanctum\HasApiTokens;
 
 /**
  * @mixin UserData
- * @mixin \Eloquent
- *
  * @method static UserQueryBuilder query()
  * @method static UserFactory factory($count = null, $state = [])
  */
-class User extends Authenticatable implements FilamentUser, AttributesInterface, SearchableInterface, HasTenants, MustVerifyEmail
+class User extends Authenticatable implements FilamentUser, AttributesInterface, DataInterface, SearchableInterface, HasTenants, MustVerifyEmail
 {
     use HasApiTokens;
     use HasAttributes;

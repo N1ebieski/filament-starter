@@ -19,7 +19,7 @@
             "xdebugSettings": {
                 "max_children": 200,
                 "max_data": 512,
-                "max_depth": 4,
+                "max_depth": 6,
                 "show_hidden": 1
             },
         },

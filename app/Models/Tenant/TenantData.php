@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace App\Models\Tenant;
 
-use App\Data\Data\Data;
-use App\Data\Pipelines\ModelDataPipe\PrepareFromModelInterface;
+use App\Models\ModelData;
 use App\Models\User\UserData;
-use App\Overrides\Spatie\LaravelData\Lazy;
 use App\ValueObjects\Tenant\Name\Name;
 use DateTime;
 use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Lazy as BaseLazy;
 use Spatie\LaravelData\Mappers\SnakeCaseMapper;
+use Spatie\LaravelData\Optional;
 
 /**
  * @property-read int $id
@@ -22,26 +20,13 @@ use Spatie\LaravelData\Mappers\SnakeCaseMapper;
  * @property-read UserData|null $user
  */
 #[MapName(SnakeCaseMapper::class)]
-final class TenantData extends Data implements PrepareFromModelInterface
+final class TenantData extends ModelData
 {
     public function __construct(
         public readonly int $id,
-        public readonly BaseLazy|Name $name,
-        public readonly BaseLazy|DateTime|null $createdAt,
-        public readonly BaseLazy|DateTime|null $updatedAt,
-        public readonly BaseLazy|UserData|null $user
+        public readonly Optional|Name $name = new Optional,
+        public readonly Optional|DateTime|null $createdAt = new Optional,
+        public readonly Optional|DateTime|null $updatedAt = new Optional,
+        public readonly Optional|UserData|null $user = new Optional
     ) {}
-
-    public static function prepareFromModel(Tenant $tenant, array $properties): array
-    {
-        $properties = [
-            ...$properties,
-            'name' => Lazy::whenLoaded('name', $tenant, fn () => $tenant->name),
-            'created_at' => Lazy::whenLoaded('created_at', $tenant, fn () => $tenant->createdAt),
-            'updated_at' => Lazy::whenLoaded('updated_at', $tenant, fn () => $tenant->updatedAt),
-            'user' => Lazy::whenLoaded('user', $tenant, fn () => UserData::from($tenant->user)),
-        ];
-
-        return $properties;
-    }
 }

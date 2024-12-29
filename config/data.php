@@ -39,6 +39,8 @@ return [
      */
     'transformers' => [
         DateTimeInterface::class => \Spatie\LaravelData\Transformers\DateTimeInterfaceTransformer::class,
+        \Illuminate\Database\Eloquent\Collection::class => \App\Data\Transformers\Collection\CollectionTransformer::class,
+        \Illuminate\Support\Collection::class => \App\Data\Transformers\Collection\CollectionTransformer::class,
         \Illuminate\Contracts\Support\Arrayable::class => \Spatie\LaravelData\Transformers\ArrayableTransformer::class,
         BackedEnum::class => Spatie\LaravelData\Transformers\EnumTransformer::class,
     ],
@@ -72,7 +74,8 @@ return [
      * every data object, unless overridden in a specific data object class.
      */
     'normalizers' => [
-        Spatie\LaravelData\Normalizers\ModelNormalizer::class,
+        \App\Data\Normalizers\Model\ModelNormalizer::class,
+        // Spatie\LaravelData\Normalizers\ModelNormalizer::class,
         // Spatie\LaravelData\Normalizers\FormRequestNormalizer::class,
         Spatie\LaravelData\Normalizers\ArrayableNormalizer::class,
         Spatie\LaravelData\Normalizers\ObjectNormalizer::class,

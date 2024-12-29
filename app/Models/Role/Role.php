@@ -8,6 +8,7 @@ use App\Casts\ValueObject\ValueObjectCast;
 use App\Models\Shared\Attributes\AttributesInterface;
 use App\Models\Shared\Attributes\HasAttributes;
 use App\Models\Shared\Attributes\HasCamelCaseAttributes;
+use App\Models\Shared\Data\DataInterface;
 use App\Models\Shared\Searchable\SearchableInterface;
 use App\QueryBuilders\Role\RoleQueryBuilder;
 use App\ValueObjects\Role\Name\Name;
@@ -29,7 +30,7 @@ use Spatie\Permission\PermissionRegistrar;
  * @method static RoleQueryBuilder query()
  * @method static RoleFactory factory($count = null, $state = [])
  */
-final class Role extends BaseRole implements AttributesInterface, SearchableInterface
+final class Role extends BaseRole implements AttributesInterface, DataInterface, SearchableInterface
 {
     use HasAttributes;
     use HasFactory;
