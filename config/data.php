@@ -38,9 +38,10 @@ return [
      * types.
      */
     'transformers' => [
-        DateTimeInterface::class => \Spatie\LaravelData\Transformers\DateTimeInterfaceTransformer::class,
+        \App\ValueObjects\ValueObject::class => \App\Data\Transformers\ValueObject\ValueObjectTransformer::class,
         \Illuminate\Database\Eloquent\Collection::class => \App\Data\Transformers\Collection\CollectionTransformer::class,
         \Illuminate\Support\Collection::class => \App\Data\Transformers\Collection\CollectionTransformer::class,
+        DateTimeInterface::class => \Spatie\LaravelData\Transformers\DateTimeInterfaceTransformer::class,
         \Illuminate\Contracts\Support\Arrayable::class => \Spatie\LaravelData\Transformers\ArrayableTransformer::class,
         BackedEnum::class => Spatie\LaravelData\Transformers\EnumTransformer::class,
     ],
@@ -50,8 +51,11 @@ return [
      * object from simple types.
      */
     'casts' => [
+        \Illuminate\Database\Eloquent\Model::class => \App\Data\Casts\Model\ModelCast::class,
+        \App\Support\Enum\EnumInterface::class => \App\Data\Casts\Enum\EnumCast::class,
+        \App\ValueObjects\ValueObject::class => \App\Data\Casts\ValueObject\ValueObjectCast::class,
         DateTimeInterface::class => Spatie\LaravelData\Casts\DateTimeInterfaceCast::class,
-        BackedEnum::class => Spatie\LaravelData\Casts\EnumCast::class,
+        //BackedEnum::class => Spatie\LaravelData\Casts\EnumCast::class,
         //        Enumerable::class => Spatie\LaravelData\Casts\EnumerableCast::class,
     ],
 

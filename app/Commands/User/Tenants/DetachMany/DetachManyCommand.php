@@ -6,7 +6,6 @@ namespace App\Commands\User\Tenants\DetachMany;
 
 use App\Commands\Command;
 use App\Data\Casts\CollectionOfModels\CollectionOfModelsCast;
-use App\Data\Casts\Model\ModelCast;
 use App\Models\Tenant\Tenant;
 use App\Models\User\User;
 use App\Support\Attributes\Handler\Handler;
@@ -20,7 +19,6 @@ use Spatie\LaravelData\Attributes\WithCast;
 final class DetachManyCommand extends Command
 {
     public function __construct(
-        #[WithCast(ModelCast::class, Tenant::class)]
         public readonly Tenant $tenant,
         #[WithCast(CollectionOfModelsCast::class, User::class)]
         public readonly Collection $users

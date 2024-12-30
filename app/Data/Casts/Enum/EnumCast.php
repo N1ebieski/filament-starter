@@ -4,29 +4,35 @@ declare(strict_types=1);
 
 namespace App\Data\Casts\Enum;
 
+use App\Data\Casts\Cast as BaseCast;
 use App\Support\Enum\EnumInterface;
 use App\Support\Enum\FromBoolInterface;
 use Spatie\LaravelData\Casts\Cast;
 use Spatie\LaravelData\Support\Creation\CreationContext;
 use Spatie\LaravelData\Support\DataProperty;
 
-class EnumCast implements Cast
+class EnumCast extends BaseCast implements Cast
 {
-    public function __construct(private readonly string $enumName) {}
+    public function __construct(private readonly ?string $enumName = null) {}
 
     /**
      * @param  EnumInterface|string|bool|null  $value
      */
     public function cast(DataProperty $property, mixed $value, array $properties, CreationContext $context): mixed
     {
-        $interfaces = class_implements($this->enumName) ?: [];
+        /** @var \Spatie\LaravelData\Support\Types\NamedType */
+        $type = $property->type->type;
+
+        $enumName = $this->enumName ?? $type->name;
+
+        $interfaces = class_implements($enumName) ?: [];
 
         if (is_bool($value) && in_array(FromBoolInterface::class, $interfaces)) {
-            return $this->enumName::fromBool($value);
+            return $enumName::fromBool($value);
         }
 
         if (is_string($value)) {
-            return $this->enumName::from($value);
+            return $enumName::from($value);
         }
 
         return $value;

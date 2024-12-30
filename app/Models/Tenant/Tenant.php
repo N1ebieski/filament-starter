@@ -2,7 +2,6 @@
 
 namespace App\Models\Tenant;
 
-use App\Casts\ValueObject\ValueObjectCast;
 use App\Models\Model;
 use App\Models\Shared\Data\DataInterface;
 use App\ValueObjects\Tenant\Name\Name;
@@ -40,7 +39,7 @@ class Tenant extends Model implements HasCurrentTenantLabel, DataInterface
      */
     protected $casts = [
         'id' => 'integer',
-        'name' => ValueObjectCast::class.':'.Name::class,
+        'name' => Name::class,
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];

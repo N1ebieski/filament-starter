@@ -4,22 +4,28 @@ declare(strict_types=1);
 
 namespace App\Data\Casts\ValueObject;
 
+use App\Data\Casts\Cast as BaseCast;
 use App\ValueObjects\ValueObject;
 use Spatie\LaravelData\Casts\Cast;
 use Spatie\LaravelData\Support\Creation\CreationContext;
 use Spatie\LaravelData\Support\DataProperty;
 
-class ValueObjectCast implements Cast
+class ValueObjectCast extends BaseCast implements Cast
 {
-    public function __construct(private readonly string $valueObjectName) {}
+    public function __construct(private readonly ?string $valueObjectName = null) {}
 
     /**
      * @param  ValueObject|string|int|null  $value
      */
     public function cast(DataProperty $property, mixed $value, array $properties, CreationContext $context): mixed
     {
-        if (! is_null($value) && ! $value instanceof $this->valueObjectName) {
-            $value = new ($this->valueObjectName)($value);
+        /** @var \Spatie\LaravelData\Support\Types\NamedType */
+        $type = $property->type->type;
+
+        $valueObjectName = $this->valueObjectName ?? $type->name;
+
+        if (! is_null($value) && ! $value instanceof $valueObjectName) {
+            $value = new ($valueObjectName)($value);
         }
 
         return $value;

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models\Role;
 
-use App\Casts\ValueObject\ValueObjectCast;
 use App\Models\Shared\Attributes\AttributesInterface;
 use App\Models\Shared\Attributes\HasAttributes;
 use App\Models\Shared\Attributes\HasCamelCaseAttributes;
@@ -61,7 +60,7 @@ final class Role extends BaseRole implements AttributesInterface, DataInterface,
     protected $casts = [
         'id' => 'integer',
         'tenant_id' => 'integer',
-        'name' => ValueObjectCast::class.':'.Name::class,
+        'name' => Name::class,
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];

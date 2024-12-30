@@ -6,7 +6,6 @@ namespace App\Commands\User\Tenants\EditPermissions;
 
 use App\Commands\Command;
 use App\Data\Casts\CollectionOfModels\CollectionOfModelsCast;
-use App\Data\Casts\Model\ModelCast;
 use App\Models\Permission\Permission;
 use App\Models\Tenant\Tenant;
 use App\Models\User\User;
@@ -21,9 +20,7 @@ use Spatie\LaravelData\Attributes\WithCast;
 final class EditPermissionsCommand extends Command
 {
     public function __construct(
-        #[WithCast(ModelCast::class, Tenant::class)]
         public readonly Tenant $tenant,
-        #[WithCast(ModelCast::class, User::class)]
         public readonly User $user,
         #[WithCast(CollectionOfModelsCast::class, Permission::class)]
         public readonly Collection $permissions

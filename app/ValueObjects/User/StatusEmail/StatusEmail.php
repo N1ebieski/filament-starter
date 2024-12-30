@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace App\ValueObjects\User\StatusEmail;
 
 use App\Support\Enum\Enum;
+use App\Support\Enum\EnumInterface;
 use Filament\Support\Contracts\HasLabel;
 use Illuminate\Support\Facades\Lang;
 
-enum StatusEmail: string implements HasLabel
+enum StatusEmail: string implements EnumInterface, HasLabel
 {
     use Enum;
 

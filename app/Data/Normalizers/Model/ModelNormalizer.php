@@ -2,12 +2,13 @@
 
 namespace App\Data\Normalizers\Model;
 
+use App\Data\Normalizers\Normalizer as BaseNormalizer;
 use App\Overrides\Spatie\LaravelData\Normalizers\Normalized\NormalizedModel;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\LaravelData\Normalizers\Normalized\Normalized;
 use Spatie\LaravelData\Normalizers\Normalizer;
 
-class ModelNormalizer implements Normalizer
+class ModelNormalizer extends BaseNormalizer implements Normalizer
 {
     public function normalize(mixed $value): null|array|Normalized
     {

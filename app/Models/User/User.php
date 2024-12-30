@@ -2,7 +2,6 @@
 
 namespace App\Models\User;
 
-use App\Casts\ValueObject\ValueObjectCast;
 use App\Models\Shared\Attributes\AttributesInterface;
 use App\Models\Shared\Attributes\HasAttributes;
 use App\Models\Shared\Attributes\HasCamelCaseAttributes;
@@ -86,8 +85,8 @@ class User extends Authenticatable implements FilamentUser, AttributesInterface,
      */
     protected $casts = [
         'id' => 'integer',
-        'name' => ValueObjectCast::class.':'.Name::class,
-        'email' => ValueObjectCast::class.':'.Email::class,
+        'name' => Name::class,
+        'email' => Email::class,
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',

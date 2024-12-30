@@ -38,9 +38,9 @@ final class UserData extends ModelData implements ObjectDefaultsInterface, Prepa
 {
     public function __construct(
         public readonly int $id,
-        public readonly Lazy|StatusEmail $statusEmail,
         public readonly Optional|Name $name = new Optional,
         public readonly Optional|Email $email = new Optional,
+        public readonly Optional|Lazy|StatusEmail $statusEmail = new Optional,
         public readonly Optional|DateTime|null $createdAt = new Optional,
         public readonly Optional|DateTime|null $updatedAt = new Optional,
         public readonly Optional|DateTime|null $emailVerifiedAt = new Optional,

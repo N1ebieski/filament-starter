@@ -3,6 +3,7 @@
 namespace App\Data\Transformers\Collection;
 
 use App\Data\Data\Data;
+use App\Data\Transformers\Transformer as BaseTransformer;
 use Illuminate\Support\Collection;
 use Spatie\LaravelData\Support\DataProperty;
 use Spatie\LaravelData\Support\Partials\PartialsCollection;
@@ -12,7 +13,7 @@ use Spatie\LaravelData\Support\Transformation\TransformationContext;
 use Spatie\LaravelData\Transformers\ArrayableTransformer;
 use Spatie\LaravelData\Transformers\Transformer;
 
-class CollectionTransformer implements Transformer
+class CollectionTransformer extends BaseTransformer implements Transformer
 {
     public function __construct(private readonly ArrayableTransformer $arrayableTransformer) {}
 
@@ -50,7 +51,7 @@ class CollectionTransformer implements Transformer
      */
     public function transform(DataProperty $property, mixed $value, TransformationContext $context): array
     {
-        if (! ($value[0] instanceof Data)) {
+        if ($value->isEmpty() || ! ($value[0] instanceof Data)) {
             return $this->arrayableTransformer->transform($property, $value, $context);
         }
 

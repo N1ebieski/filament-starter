@@ -18,27 +18,20 @@ use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 #[MapName(SnakeCaseMapper::class)]
 final class IndexRequest extends Request
 {
-    public int $page = 1;
+    public readonly int $paginate;
 
-    public ?string $search = null;
-
-    public ?array $select = null;
-
-    public ?array $with = null;
-
-    public ?string $statusEmail = null;
-
-    public ?array $roles = null;
-
-    public ?array $tenants = null;
-
-    public ?string $orderby = null;
-
-    public int $paginate;
-
-    public function __construct()
-    {
-        $this->paginate = Config::get('database.paginate');
+    public function __construct(
+        public readonly int $page = 1,
+        public readonly ?string $search = null,
+        public readonly ?array $select = null,
+        public readonly ?array $with = null,
+        public readonly ?string $statusEmail = null,
+        public readonly ?array $roles = null,
+        public readonly ?array $tenants = null,
+        public readonly ?string $orderby = null,
+        ?int $paginate = null
+    ) {
+        $this->paginate = $paginate ?? Config::get('database.paginate');
     }
 
     public static function rules(User $user): array

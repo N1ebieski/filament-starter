@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Data\Casts\With;
 
+use App\Data\Casts\Cast as BaseCast;
 use Spatie\LaravelData\Casts\Cast;
 use Spatie\LaravelData\Support\Creation\CreationContext;
 use Spatie\LaravelData\Support\DataProperty;
 
-class WithCast implements Cast
+class WithCast extends BaseCast implements Cast
 {
     /**
      * @param  array<int, string>|string|null  $value

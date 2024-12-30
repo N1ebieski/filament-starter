@@ -14,8 +14,8 @@ use App\Data\Pipelines\ObjectDefaultsDataPipe\ObjectDefaultsInterface;
 use App\Models\Role\Role;
 use App\Models\Tenant\Tenant;
 use App\Models\User\User;
-use App\Queries\Shared\OrderBy\OrderBy;
 use App\Queries\Query;
+use App\Queries\Shared\OrderBy\OrderBy;
 use App\Queries\Shared\Result\ResultInterface;
 use App\Queries\Shared\SearchBy\SearchByInterface;
 use App\Support\Attributes\Handler\Handler;
@@ -23,7 +23,6 @@ use App\ValueObjects\User\StatusEmail\StatusEmail;
 use Illuminate\Support\Collection;
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Attributes\WithCast;
-use Spatie\LaravelData\Casts\EnumCast;
 
 #[Handler(\App\Queries\User\GetByFilter\GetByFilterHandler::class)]
 final class GetByFilterQuery extends Query implements ObjectDefaultsInterface
@@ -31,7 +30,6 @@ final class GetByFilterQuery extends Query implements ObjectDefaultsInterface
     public function __construct(
         #[WithCast(SelectCast::class)]
         public readonly ?array $select = null,
-        #[WithCast(EnumCast::class)]
         public readonly ?StatusEmail $status_email = null,
         #[WithCast(CollectionOfModelsCast::class, Role::class)]
         public readonly ?Collection $roles = null,

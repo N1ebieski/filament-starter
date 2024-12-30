@@ -5,14 +5,17 @@ declare(strict_types=1);
 namespace App\ValueObjects;
 
 use AllowDynamicProperties;
+use App\Casts\Cast;
+use App\Casts\ValueObject\ValueObjectCast;
 use App\Data\Data\Data;
+use Illuminate\Contracts\Database\Eloquent\Castable;
 use Stringable;
 
 /**
  * @property-read mixed $value
  */
 #[AllowDynamicProperties]
-abstract class ValueObject extends Data implements Stringable
+abstract class ValueObject extends Data implements Castable, Stringable
 {
     public function __toString(): string
     {
@@ -22,5 +25,10 @@ abstract class ValueObject extends Data implements Stringable
     public function isEquals(self $value): bool
     {
         return $this->value === $value->value;
+    }
+
+    public static function castUsing(array $arguments): Cast
+    {
+        return new ValueObjectCast(static::class, ...$arguments);
     }
 }

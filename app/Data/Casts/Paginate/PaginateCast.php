@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace App\Data\Casts\Paginate;
 
+use App\Data\Casts\Cast as BaseCast;
 use App\Queries\Shared\Result\Drivers\Paginate\Paginate;
 use Spatie\LaravelData\Casts\Cast;
 use Spatie\LaravelData\Support\Creation\CreationContext;
 use Spatie\LaravelData\Support\DataProperty;
 
-class PaginateCast implements Cast
+class PaginateCast extends BaseCast implements Cast
 {
     /**
      * @param  Paginate|int|null  $value

@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Data\Pipelines\OnlyParametersDataPipe;
 
+use App\Data\Pipelines\DataPipe as BaseDataPipe;
 use Spatie\LaravelData\DataPipes\DataPipe;
 use Spatie\LaravelData\Support\Creation\CreationContext;
 use Spatie\LaravelData\Support\DataClass;
 
-final class OnlyParametersDataPipe implements DataPipe
+final class OnlyParametersDataPipe extends BaseDataPipe implements DataPipe
 {
     /**
      * @param  class-string  $className

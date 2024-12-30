@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models\Permission;
 
-use App\Casts\ValueObject\ValueObjectCast;
 use App\Models\Shared\Attributes\HasCamelCaseAttributes;
 use App\Models\Shared\Data\DataInterface;
 use App\ValueObjects\Permission\Name\Name;
@@ -32,7 +31,7 @@ final class Permission extends BasePermission implements DataInterface
      */
     protected $casts = [
         'id' => 'integer',
-        'name' => ValueObjectCast::class.':'.Name::class,
+        'name' => Name::class,
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];

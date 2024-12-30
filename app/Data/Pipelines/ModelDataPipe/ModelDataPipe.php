@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace App\Data\Pipelines\ModelDataPipe;
 
+use App\Data\Pipelines\DataPipe as BaseDataPipe;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\LaravelData\DataPipes\DataPipe;
 use Spatie\LaravelData\Support\Creation\CreationContext;
 use Spatie\LaravelData\Support\DataClass;
 
-final class ModelDataPipe implements DataPipe
+final class ModelDataPipe extends BaseDataPipe implements DataPipe
 {
     public function handle(mixed $payload, DataClass $class, array $properties, CreationContext $creationContext): array
     {

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Data\Casts\SearchBy;
 
+use App\Data\Casts\Cast as BaseCast;
 use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatchFactory;
 use App\Queries\Shared\SearchBy\SearchByInterface;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +12,7 @@ use Spatie\LaravelData\Casts\Cast;
 use Spatie\LaravelData\Support\Creation\CreationContext;
 use Spatie\LaravelData\Support\DataProperty;
 
-class SearchByCast implements Cast
+class SearchByCast extends BaseCast implements Cast
 {
     private readonly Model $model;
 
