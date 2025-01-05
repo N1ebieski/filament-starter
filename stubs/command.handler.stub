@@ -1,0 +1,20 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use App\Commands\Handler;
+use Illuminate\Database\ConnectionInterface as DB;
+
+final class {{ class }} extends Handler
+{
+    public function __construct(
+        private readonly DB $db,
+    ) {}
+
+    public function handle({{ class_command }} $command)
+    {
+        //
+    }
+}

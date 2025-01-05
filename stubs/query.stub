@@ -1,0 +1,14 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use App\Queries\Query;
+use App\Support\Attributes\Handler\Handler;
+
+#[Handler(\{{ namespace }}\{{ class_handler }}::class)]
+final class {{ class }} extends Query
+{
+    public function __construct() {}
+}

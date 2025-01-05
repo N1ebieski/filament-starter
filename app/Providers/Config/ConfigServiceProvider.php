@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Providers\Config;
 
+use App\Console\Commands\Generators\GeneratorCommand;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
@@ -33,5 +34,7 @@ final class ConfigServiceProvider extends ServiceProvider
     {
         Model::shouldBeStrict();
         DB::prohibitDestructiveCommands($this->app->isProduction());
+
+        GeneratorCommand::prohibit($this->app->isProduction());
     }
 }

@@ -1,0 +1,17 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use App\Queries\Handler;
+
+final class {{ class }} extends Handler
+{
+    public function __construct() {}
+
+    public function handle({{ class_query }} $query)
+    {
+        //
+    }
+}

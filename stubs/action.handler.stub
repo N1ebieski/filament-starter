@@ -1,0 +1,17 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use App\Actions\Handler;
+
+final class {{ class }} extends Handler
+{
+    public function __construct() {}
+
+    public function handle({{ class_action }} $action)
+    {
+        //
+    }
+}
