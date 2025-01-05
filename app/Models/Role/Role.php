@@ -79,14 +79,6 @@ final class Role extends BaseRole implements AttributesInterface, DataInterface,
 
     public RoleData $data { get => RoleData::from($this); }
 
-    /**
-     * Create a new factory instance for the model.
-     */
-    protected static function newFactory(): RoleFactory
-    {
-        return RoleFactory::new();
-    }
-
     // Relations
 
     /**
@@ -119,5 +111,13 @@ final class Role extends BaseRole implements AttributesInterface, DataInterface,
     {
         /** @disregard */
         return new RoleQueryBuilder($query);
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     */
+    protected static function newFactory(): RoleFactory
+    {
+        return RoleFactory::new();
     }
 }

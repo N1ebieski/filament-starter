@@ -56,10 +56,7 @@ final class UserData extends ModelData implements ObjectDefaultsInterface, Prepa
 
     public static function prepareFromModel(User $user, array $properties): array
     {
-        $properties = [
-            ...$properties,
-            'status_email' => Lazy::when(fn () => $user->isAttributeLoaded('email_verified_at'), fn () => $user->statusEmail),
-        ];
+        $properties['status_email'] = Lazy::create(fn () => $user->statusEmail);
 
         return $properties;
     }
