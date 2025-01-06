@@ -72,7 +72,7 @@ final class MakeQueryCommand extends GeneratorCommand
     {
         $baseHandle = parent::handle();
 
-        $this->call('app:make:query:handler', ['name' => $this->getNameHandler()]);
+        $this->call(MakeHandlerCommand::class, ['name' => $this->getNameHandler()]);
 
         return $baseHandle;
     }
