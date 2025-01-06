@@ -11,20 +11,13 @@ use Illuminate\Database\Eloquent\Model;
 
 final class ValueObjectCast extends Cast implements CastsAttributes
 {
-    public function __construct(
-        private readonly string $valueObjectName,
-        private readonly bool $nullable = false
-    ) {}
+    public function __construct(private readonly string $valueObjectName) {}
 
     /**
      * Transform the attribute from the underlying model values.
      */
     public function get(Model $model, string $key, mixed $value, array $attributes): ?ValueObject
     {
-        if ($this->nullable && is_null($value)) {
-            return $value;
-        }
-
         $valueObject = $value;
 
         if (! $value instanceof $this->valueObjectName) {
@@ -42,10 +35,6 @@ final class ValueObjectCast extends Cast implements CastsAttributes
      */
     public function set(Model $model, string $key, mixed $value, array $attributes): ?string
     {
-        if ($this->nullable && is_null($value)) {
-            return $value;
-        }
-
         $valueObject = $value;
 
         if (! $value instanceof $this->valueObjectName) {
