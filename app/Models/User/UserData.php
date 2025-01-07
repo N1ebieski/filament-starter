@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models\User;
 
-use App\Data\Pipelines\ModelDataPipe\PrepareFromModelInterface;
 use App\Data\Pipelines\ObjectDefaultsDataPipe\ObjectDefaultsInterface;
 use App\Models\ModelData;
 use App\Models\Role\RoleData;
@@ -16,7 +15,6 @@ use DateTime;
 use Illuminate\Support\Collection;
 use Spatie\LaravelData\Attributes\DataCollectionOf;
 use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Lazy;
 use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 use Spatie\LaravelData\Optional;
 
@@ -34,13 +32,13 @@ use Spatie\LaravelData\Optional;
  * @property-read Collection<TenantData> $ownedTenants
  */
 #[MapName(SnakeCaseMapper::class)]
-final class UserData extends ModelData implements ObjectDefaultsInterface, PrepareFromModelInterface
+final class UserData extends ModelData implements ObjectDefaultsInterface
 {
     public function __construct(
         public readonly int $id,
         public readonly Optional|Name $name = new Optional,
         public readonly Optional|Email $email = new Optional,
-        public readonly Optional|Lazy|StatusEmail $statusEmail = new Optional,
+        public readonly Optional|StatusEmail $statusEmail = new Optional,
         public readonly Optional|DateTime|null $createdAt = new Optional,
         public readonly Optional|DateTime|null $updatedAt = new Optional,
         public readonly Optional|DateTime|null $emailVerifiedAt = new Optional,
@@ -53,11 +51,4 @@ final class UserData extends ModelData implements ObjectDefaultsInterface, Prepa
         #[DataCollectionOf(TenantData::class)]
         public readonly Optional|Collection $ownedTenants = new Optional,
     ) {}
-
-    public static function prepareFromModel(User $user, array $properties): array
-    {
-        $properties['status_email'] = Lazy::create(fn () => $user->statusEmail);
-
-        return $properties;
-    }
 }
