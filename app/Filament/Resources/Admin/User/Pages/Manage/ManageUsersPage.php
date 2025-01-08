@@ -89,7 +89,7 @@ final class ManageUsersPage extends ManageRecords implements PageMetaInterface
                 $this->role->newQuery()
                     ->where('name', DefaultName::User->value)
                     ->when(! empty($this->getTableFilterState('roles')['values']), function (Builder $query): Builder {
-                        //@phpstan-ignore-next-line
+                        // @phpstan-ignore-next-line
                         return $query->orWhereIn('id', $this->getTableFilterState('roles')['values']);
                     })
                     ->get()
@@ -153,11 +153,11 @@ final class ManageUsersPage extends ManageRecords implements PageMetaInterface
 
                         return ! $user?->can('toggleStatusEmail', $record);
                     })
-                    ->getStateUsing(fn (User $record): bool => $record->statusEmail->getAsBool())
+                    ->getStateUsing(fn (User $record): bool => $record->status_email->getAsBool())
                     ->updateStateUsing(function (User $record): User {
                         return $this->commandBus->execute(new EditStatusEmailCommand(
                             user: $record,
-                            status: $record->statusEmail->toggle()
+                            status: $record->status_email->toggle()
                         ));
                     })
                     ->afterStateUpdated(function (User $record, bool $state): void {

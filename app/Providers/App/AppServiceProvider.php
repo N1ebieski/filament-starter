@@ -123,4 +123,33 @@ class AppServiceProvider extends ServiceProvider implements DeferrableProvider
             return new \App\GlobalScopes\User\UserScope($user);
         });
     }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array<int, string>
+     */
+    public function provides(): array
+    {
+        return [
+            \App\Actions\ActionBusInterface::class,
+            \App\Overrides\Illuminate\Contracts\Cache\Repository::class,
+            \App\Overrides\Illuminate\Contracts\Http\Client\Client::class,
+            \App\Overrides\Illuminate\Contracts\Http\Client\Factory::class,
+            \Illuminate\Contracts\Pipeline\Pipeline::class,
+            \App\Overrides\Illuminate\Contracts\Auth\Access\Gate::class,
+            \App\Overrides\Illuminate\Contracts\Auth\Guard::class,
+            \App\Overrides\Illuminate\Contracts\Filesystem\Factory::class,
+            \App\Overrides\Illuminate\Contracts\Chain\Chain::class,
+            \App\Overrides\Illuminate\Contracts\Pipeline\Pipeline::class,
+            \App\Overrides\Illuminate\Contracts\Logger\LoggerInterface::class,
+            \App\Overrides\Illuminate\Contracts\Bus\Dispatcher::class,
+            \App\CacheQueries\CacheQueryBusInterface::class,
+            \App\Http\Clients\ClientBusInterface::class,
+            \App\Commands\CommandBusInterface::class,
+            \App\Queries\QueryBusInterface::class,
+            \App\GlobalScopes\Tenant\TenantScope::class,
+            \App\GlobalScopes\User\UserScope::class,
+        ];
+    }
 }

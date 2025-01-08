@@ -39,7 +39,6 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withProviders([
         \App\Providers\Config\ConfigServiceProvider::class,
-        \App\Providers\Mixin\MixinServiceProvider::class,
         \App\Providers\App\AppServiceProvider::class,
         \App\Providers\Auth\AuthServiceProvider::class,
         \App\Providers\Event\EventServiceProvider::class,

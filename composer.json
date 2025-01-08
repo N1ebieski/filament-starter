@@ -66,6 +66,10 @@
         "phpstan": [
             "vendor/bin/phpstan analyse --configuration=phpstan.neon > storage/logs/phpstan.log"
         ],
+        "ide-helper": [
+            "php artisan ide-helper:models --reset --write-mixin",
+            "vendor/bin/phpstan clear-result-cache"
+        ],
         "phpunit": [
             "php artisan migrate:fresh --env=testing",
             "php artisan db:seed --env=testing --class=\"Database\\Seeders\\Install\\InstallSeeder\"",

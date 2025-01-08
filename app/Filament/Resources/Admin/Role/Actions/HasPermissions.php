@@ -25,6 +25,7 @@ trait HasPermissions
         ));
 
         return $permissions->sortBy('name')
+            // @phpstan-ignore-next-line@
             ->mapWithKeys(function (Permission $permission): array {
                 return [$permission->id => $permission->name->value];
             })

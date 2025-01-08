@@ -12,6 +12,9 @@ use App\ValueObjects\User\StatusEmail\StatusEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
+/**
+ * @template TModel of \App\Models\User\User
+ */
 final class UserQueryBuilder extends Builder
 {
     use HasFilters;
@@ -60,7 +63,10 @@ final class UserQueryBuilder extends Builder
         });
     }
 
-    public function withAll(): self
+    /**
+     * @return UserQueryBuilder
+     */
+    public function withAll()
     {
         return $this->with(['roles']);
     }
