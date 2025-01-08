@@ -22,29 +22,32 @@ use App\Support\Attributes\Handler\Handler;
 use App\ValueObjects\User\StatusEmail\StatusEmail;
 use Illuminate\Support\Collection;
 use Spatie\LaravelData\Attributes\MapInputName;
+use Spatie\LaravelData\Attributes\MapName;
 use Spatie\LaravelData\Attributes\WithCast;
+use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 
 #[Handler(\App\Queries\User\GetByFilter\GetByFilterHandler::class)]
+#[MapName(SnakeCaseMapper::class)]
 final class GetByFilterQuery extends Query implements ObjectDefaultsInterface
 {
     public function __construct(
         #[WithCast(SelectCast::class)]
         public readonly ?array $select = null,
-        public readonly ?StatusEmail $status_email = null,
+        public readonly ?StatusEmail $statusEmail = null,
         #[WithCast(CollectionOfModelsCast::class, Role::class)]
         public readonly ?Collection $roles = null,
         #[WithCast(CollectionOfModelsCast::class, Tenant::class)]
         public readonly ?Collection $tenants = null,
         #[MapInputName('search')]
         #[WithCast(SearchByCast::class, User::class)]
-        public readonly ?SearchByInterface $searchBy = null,
+        public readonly ?SearchByInterface $searchby = null,
         public readonly ?array $ignore = null,
         #[WithCast(WithRelationCast::class)]
         public readonly ?array $with = null,
         public readonly User $user = new User,
         #[MapInputName('orderby')]
         #[WithCast(OrderByCast::class)]
-        public readonly ?OrderBy $orderBy = null,
+        public readonly ?OrderBy $orderby = null,
         #[MapInputName('paginate')]
         #[WithCast(PaginateCast::class)]
         public readonly ?ResultInterface $result = null

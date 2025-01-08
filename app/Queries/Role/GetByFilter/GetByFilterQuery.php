@@ -28,13 +28,13 @@ final class GetByFilterQuery extends Query implements ObjectDefaultsInterface
         public readonly Role $role = new Role,
         #[MapInputName('search')]
         #[WithCast(SearchByCast::class, Role::class)]
-        public readonly ?SearchByInterface $searchBy = null,
+        public readonly ?SearchByInterface $searchby = null,
         public readonly ?array $ignore = null,
         #[WithCast(WithRelationCast::class)]
         public readonly ?array $with = null,
         #[MapInputName('orderby')]
         #[WithCast(OrderByCast::class)]
-        public readonly ?OrderBy $orderBy = null,
+        public readonly ?OrderBy $orderby = null,
         #[MapInputName('paginate')]
         #[WithCast(PaginateCast::class)]
         public readonly ?ResultInterface $result = null
