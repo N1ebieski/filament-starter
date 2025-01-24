@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace {{ namespace }};
 
 use App\Queries\Query;
+use Spatie\LaravelData\Attributes\MapName;
 use App\Support\Attributes\Handler\Handler;
+use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 
 #[Handler(\{{ namespace }}\{{ class_handler }}::class)]
+#[MapName(SnakeCaseMapper::class)]
 final class {{ class }} extends Query
 {
     public function __construct() {}

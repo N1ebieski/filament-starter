@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace {{ namespace }};
 
-use App\Commands\Command;
-use Spatie\LaravelData\Attributes\MapName;
+use App\Http\Clients\Client;
 use App\Support\Attributes\Handler\Handler;
+use Spatie\LaravelData\Attributes\MapName;
 use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 
 #[Handler(\{{ namespace }}\{{ class_handler }}::class)]
 #[MapName(SnakeCaseMapper::class)]
-final class {{ class }} extends Command
+final class {{ class }} extends Client
 {
     public function __construct() {}
 }

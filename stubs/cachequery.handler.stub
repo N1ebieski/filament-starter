@@ -1,0 +1,20 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use App\CacheQueries\Handler;
+use Illuminate\Contracts\Cache\Repository as Cache;
+
+final class {{ class }} extends Handler
+{
+    public function __construct(
+        private readonly Cache $cache,
+    ) {}
+
+    public function handle({{ class_cachequery }} $query)
+    {
+        //
+    }
+}

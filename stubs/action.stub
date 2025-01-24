@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace {{ namespace }};
 
 use App\Actions\Action;
+use Spatie\LaravelData\Attributes\MapName;
 use App\Support\Attributes\Handler\Handler;
+use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 
 #[Handler(\{{ namespace }}\{{ class_handler }}::class)]
+#[MapName(SnakeCaseMapper::class)]
 final class {{ class }} extends Action
 {
     public function __construct() {}

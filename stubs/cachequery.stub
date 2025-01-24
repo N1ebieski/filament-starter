@@ -1,0 +1,34 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use App\CacheQueries\Time;
+use App\Data\Casts\Time\TimeCast;
+use App\CacheQueries\CacheQuery;
+use App\CacheQueries\CacheableInterface;
+use App\Support\Attributes\Handler\Handler;
+use Spatie\LaravelData\Attributes\MapName;
+use Spatie\LaravelData\Mappers\SnakeCaseMapper;
+
+#[Handler(\{{ namespace }}\{{ class_handler }}::class)]
+#[MapName(SnakeCaseMapper::class)]
+final class {{ class }} extends CacheQuery implements CacheableInterface
+{
+    public function __construct(
+        public readonly $query,
+        #[WithCast(TimeCast::class)]
+        public readonly Time $time
+    ) {}
+
+    public function isCache(): bool
+    {
+        //
+    }
+
+    public function getKey(): string
+    {
+        //
+    }
+}
