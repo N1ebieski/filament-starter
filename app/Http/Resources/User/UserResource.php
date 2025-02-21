@@ -8,6 +8,7 @@ use App\Http\Resources\Resource;
 use App\Http\Resources\Role\RoleResource;
 use App\Http\Resources\Tenant\TenantResource;
 use App\ValueObjects\User\Name\Name;
+use App\ValueObjects\User\StatusEmail\StatusEmail;
 use DateTime;
 use Illuminate\Database\Eloquent\Collection;
 use Spatie\LaravelData\Attributes\DataCollectionOf;
@@ -21,6 +22,7 @@ final class UserResource extends Resource
     public function __construct(
         public readonly int $id,
         public readonly Optional|Name $name = new Optional,
+        public readonly Optional|StatusEmail $statusEmail = new Optional,
         public readonly Optional|DateTime|null $createdAt = new Optional,
         public readonly Optional|DateTime|null $updatedAt = new Optional,
         #[DataCollectionOf(RoleResource::class)]
