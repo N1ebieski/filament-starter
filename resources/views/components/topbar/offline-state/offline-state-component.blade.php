@@ -7,7 +7,7 @@
                 window.addEventListener('offline', () => show = true);
             "
             x-tooltip="{
-                content: '{{ trans('offline.offline_mode') }}',
+                content: '{{ trans('offline.pages.offline.title') }}',
                 theme: $store.theme,
             }"
         >
