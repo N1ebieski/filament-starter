@@ -17,7 +17,7 @@ final class CurrentTenantHelper
 
     public function getTenant(): Tenant
     {
-        if ($this->filamentManager->getCurrentPanel()) {
+        if ($this->filamentManager->getCurrentPanel() instanceof \Filament\Panel) {
             /** @var Tenant */
             return $this->filamentManager->getTenant();
         }

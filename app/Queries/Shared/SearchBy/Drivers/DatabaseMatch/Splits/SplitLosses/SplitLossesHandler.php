@@ -34,7 +34,7 @@ final class SplitLossesHandler implements HandlerInterface
             }
         }
 
-        $splits->looses = ! empty($looses) ? $looses : null;
+        $splits->looses = $looses === [] ? null : $looses;
 
         return $next($splits);
     }

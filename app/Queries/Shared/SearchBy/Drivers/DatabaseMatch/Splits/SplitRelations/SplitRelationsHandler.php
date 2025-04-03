@@ -46,7 +46,7 @@ final class SplitRelationsHandler implements HandlerInterface
                 $splits->term = trim(str_replace($value, '', $splits->term));
             }
 
-            $splits->relations = ! empty($relations) ? $relations : null;
+            $splits->relations = $relations === [] ? null : $relations;
         }
 
         return $next($splits);

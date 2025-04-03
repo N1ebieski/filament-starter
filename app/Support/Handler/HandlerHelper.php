@@ -38,11 +38,10 @@ final class HandlerHelper
 
         $handlerAttributes = $reflectionClass->getAttributes(Handler::class);
 
-        if (count($handlerAttributes) > 0) {
+        if ($handlerAttributes !== []) {
             /** @var Handler */
             $handlerAttribute = $handlerAttributes[0]->newInstance();
 
-            /** @var class-string */
             return $handlerAttribute->class;
         }
 

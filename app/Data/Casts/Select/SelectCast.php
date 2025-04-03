@@ -17,9 +17,7 @@ class SelectCast extends BaseCast implements Cast
     public function cast(DataProperty $property, mixed $value, array $properties, CreationContext $context): mixed
     {
         if (is_string($value)) {
-            $valueAsArray = explode(', ', $value);
-
-            return $valueAsArray;
+            return explode(', ', $value);
         }
 
         return $value;

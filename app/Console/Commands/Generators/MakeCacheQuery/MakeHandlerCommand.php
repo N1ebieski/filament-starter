@@ -40,16 +40,12 @@ final class MakeHandlerCommand extends GeneratorCommand
 
     private function getClassCacheQuery(): string
     {
-        $classCacheQuery = Str::afterLast($this->getNameCacheQuery(), '/');
-
-        return $classCacheQuery;
+        return Str::afterLast($this->getNameCacheQuery(), '/');
     }
 
     private function getNameCacheQuery(): string
     {
-        $nameCacheQuery = Str::before($this->argument('name'), 'Handler').'CacheCacheQuery';
-
-        return $nameCacheQuery;
+        return Str::before($this->argument('name'), 'Handler').'CacheCacheQuery';
     }
 
     /**

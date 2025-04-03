@@ -40,16 +40,12 @@ final class MakeHandlerCommand extends GeneratorCommand
 
     private function getClassQuery(): string
     {
-        $classQuery = Str::afterLast($this->getNameQuery(), '/');
-
-        return $classQuery;
+        return Str::afterLast($this->getNameQuery(), '/');
     }
 
     private function getNameQuery(): string
     {
-        $nameQuery = Str::before($this->argument('name'), 'Handler').'Query';
-
-        return $nameQuery;
+        return Str::before($this->argument('name'), 'Handler').'Query';
     }
 
     /**

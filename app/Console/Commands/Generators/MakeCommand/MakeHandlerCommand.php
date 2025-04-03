@@ -40,16 +40,12 @@ final class MakeHandlerCommand extends GeneratorCommand
 
     private function getClassCommand(): string
     {
-        $classCommand = Str::afterLast($this->getNameCommand(), '/');
-
-        return $classCommand;
+        return Str::afterLast($this->getNameCommand(), '/');
     }
 
     private function getNameCommand(): string
     {
-        $nameCommand = Str::before($this->argument('name'), 'Handler').'Command';
-
-        return $nameCommand;
+        return Str::before($this->argument('name'), 'Handler').'Command';
     }
 
     /**

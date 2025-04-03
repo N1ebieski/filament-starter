@@ -19,9 +19,6 @@ final class ResourceHelper
 
         $resourceName = Str::replace('Models', 'Http\\Resources', $class);
 
-        $resourceName .= 'Resource';
-
-        /** @var class-string */
-        return $resourceName;
+        return $resourceName . 'Resource';
     }
 }

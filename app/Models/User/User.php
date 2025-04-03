@@ -188,8 +188,8 @@ class User extends Authenticatable implements FilamentUser, AttributesInterface,
 
     public function statusEmail(): Attribute
     {
-        return new Attribute(fn (): StatusEmail => ! is_null($this->email_verified_at) ?
-            StatusEmail::Verified : StatusEmail::Unverified);
+        return new Attribute(fn (): StatusEmail => is_null($this->email_verified_at) ?
+            StatusEmail::Unverified : StatusEmail::Verified);
     }
 
     // Policies

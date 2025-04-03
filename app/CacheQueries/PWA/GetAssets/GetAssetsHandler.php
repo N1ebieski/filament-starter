@@ -17,14 +17,12 @@ final class GetAssetsHandler extends Handler
 
     public function handle(GetAssetsCacheQuery $cacheQuery): array
     {
-        $assets = $this->cache->remember(
+        return $this->cache->remember(
             $cacheQuery->getKey(),
             $cacheQuery->time->minutes * 60,
             function () use ($cacheQuery): array {
                 return $this->actionBus->execute($cacheQuery->action);
             }
         );
-
-        return $assets;
     }
 }

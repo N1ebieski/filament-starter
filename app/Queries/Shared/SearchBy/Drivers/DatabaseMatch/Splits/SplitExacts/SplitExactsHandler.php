@@ -22,7 +22,7 @@ final class SplitExactsHandler implements HandlerInterface
             $splits->term = trim(str_replace($match, '', $splits->term));
         }
 
-        $splits->exacts = ! empty($exacts) ? $exacts : null;
+        $splits->exacts = $exacts === [] ? null : $exacts;
 
         return $next($splits);
     }

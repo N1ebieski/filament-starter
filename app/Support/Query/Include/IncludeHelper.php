@@ -10,11 +10,9 @@ final class IncludeHelper
 {
     public static function getBuilderRelationName(string $name): string
     {
-        $scopeName = 'with'.Str::of($name)
+        return 'with'.Str::of($name)
             ->beforeLast(':')
             ->camel()
             ->ucfirst();
-
-        return $scopeName;
     }
 }

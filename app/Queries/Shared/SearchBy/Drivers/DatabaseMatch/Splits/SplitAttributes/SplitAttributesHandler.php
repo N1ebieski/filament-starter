@@ -26,7 +26,7 @@ final class SplitAttributesHandler implements HandlerInterface
                 $splits->term = trim(str_replace($value, '', $splits->term));
             }
 
-            $splits->attributes = ! empty($attributes) ? $attributes : null;
+            $splits->attributes = $attributes === [] ? null : $attributes;
         }
 
         return $next($splits);

@@ -60,8 +60,8 @@ class CollectionTransformer extends BaseTransformer implements Transformer
 
         return $value->map(function (Data $data) use ($only, $except): array {
             return $data->toCollect()
-                ->when(! empty($only), fn (Collection $collection): Collection => $collection->only($only))
-                ->when(! empty($except), fn (Collection $collection): Collection => $collection->except($except))
+                ->when($only !== [], fn (Collection $collection): Collection => $collection->only($only))
+                ->when($except !== [], fn (Collection $collection): Collection => $collection->except($except))
                 ->toArray();
         })->toArray();
     }

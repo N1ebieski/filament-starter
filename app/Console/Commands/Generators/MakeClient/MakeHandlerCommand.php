@@ -40,30 +40,22 @@ final class MakeHandlerCommand extends GeneratorCommand
 
     private function getClassClient(): string
     {
-        $classClient = Str::afterLast($this->getNameClient(), '/');
-
-        return $classClient;
+        return Str::afterLast($this->getNameClient(), '/');
     }
 
     private function getClassResponse(): string
     {
-        $classResponse = Str::afterLast($this->getNameResponse(), '/');
-
-        return $classResponse;
+        return Str::afterLast($this->getNameResponse(), '/');
     }
 
     private function getNameClient(): string
     {
-        $nameClient = Str::before($this->argument('name'), 'Handler').'Client';
-
-        return $nameClient;
+        return Str::before($this->argument('name'), 'Handler').'Client';
     }
 
     private function getNameResponse(): string
     {
-        $nameResponse = Str::before($this->argument('name'), 'Handler').'Response';
-
-        return $nameResponse;
+        return Str::before($this->argument('name'), 'Handler').'Response';
     }
 
     /**
@@ -76,12 +68,10 @@ final class MakeHandlerCommand extends GeneratorCommand
     {
         $stub = parent::replaceClass($stub, $name);
 
-        $stub = Str::of($stub)
+        return Str::of($stub)
             ->replace(['DummyClassClient', '{{ class_client }}', '{{class_client}}'], $this->getClassClient())
             ->replace(['DummyClassResponse', '{{ class_response }}', '{{class_response}}'], $this->getClassResponse())
             ->toString();
-
-        return $stub;
     }
 
     /**

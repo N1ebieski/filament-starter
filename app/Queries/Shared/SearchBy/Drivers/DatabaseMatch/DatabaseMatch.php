@@ -26,8 +26,8 @@ final class DatabaseMatch extends Data implements SearchByInterface
         }
 
         return implode(' ', array_merge(
-            ! is_null($this->exacts) ? $this->exacts : [],
-            ! is_null($this->looses) ? $this->looses : []
+            is_null($this->exacts) ? [] : $this->exacts,
+            is_null($this->looses) ? [] : $this->looses
         ));
     }
 }
