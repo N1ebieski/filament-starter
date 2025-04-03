@@ -8,6 +8,7 @@ use App\Models\Role\Role;
 use App\Models\Tenant\Tenant;
 use App\Models\User\User;
 use App\QueryBuilders\Shared\Filters\HasFilters;
+use App\QueryBuilders\Shared\Search\SearchInterface;
 use App\ValueObjects\User\StatusEmail\StatusEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
@@ -15,7 +16,7 @@ use Illuminate\Support\Collection;
 /**
  * @template TModel of \App\Models\User\User
  */
-final class UserQueryBuilder extends Builder
+final class UserQueryBuilder extends Builder implements SearchInterface
 {
     use HasFilters;
 
