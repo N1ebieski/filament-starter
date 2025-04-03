@@ -39,7 +39,7 @@ final class DetachUsersAction extends Action
 
                 return ! $user?->can('tenantDetachAny', [$this->user::class, $tenant]);
             })
-            ->modalHeading(fn(Collection $records): string => Lang::choice('tenant.pages.users.detach_multi.title', $records->count(), [
+            ->modalHeading(fn (Collection $records): string => Lang::choice('tenant.pages.users.detach_multi.title', $records->count(), [
                 'number' => $records->count(),
             ]))
             ->using(function (Collection $records, Guard $guard) use ($tenant): int {
@@ -55,7 +55,7 @@ final class DetachUsersAction extends Action
                     users: $records
                 ));
             })
-            ->successNotificationTitle(fn(Collection $records): string => Lang::choice('tenant.messages.users.detach_multi.success', $records->count(), [
+            ->successNotificationTitle(fn (Collection $records): string => Lang::choice('tenant.messages.users.detach_multi.success', $records->count(), [
                 'number' => $records->count(),
             ]));
     }

@@ -29,7 +29,7 @@ class OfflinePage extends SimplePage implements PWACacheInterface
 
     public function getTitle(): string
     {
-        //@phpstan-ignore-next-line
+        // @phpstan-ignore-next-line
         return Lang::get('offline.pages.offline.title');
     }
 }

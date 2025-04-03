@@ -26,7 +26,7 @@ trait HasPermissions
 
         return $permissions->sortBy('name')
             // @phpstan-ignore-next-line@
-            ->mapWithKeys(fn(Permission $permission): array => [$permission->id => $permission->name->value])
+            ->mapWithKeys(fn (Permission $permission): array => [$permission->id => $permission->name->value])
             ->groupBy(function (string $item): string {
                 preg_match('/[^.]*?\.([a-z]+){1}\..*/', $item, $group);
 

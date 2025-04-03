@@ -46,16 +46,16 @@ abstract class PanelServiceProvider extends BasePanelProvider
             ])
             ->userMenuItems([
                 MenuItem::make()
-                    ->url(fn (): string => Filament::getPanel('web')->getHomeUrl()) //@phpstan-ignore-line
+                    ->url(fn (): string => Filament::getPanel('web')->getHomeUrl()) // @phpstan-ignore-line
                     ->label(Lang::get('home.pages.index.title'))
                     ->icon('heroicon-s-home'),
                 MenuItem::make()
-                    ->url(fn (): string => Filament::getPanel('user')->getHomeUrl()) //@phpstan-ignore-line
+                    ->url(fn (): string => Filament::getPanel('user')->getHomeUrl()) // @phpstan-ignore-line
                     ->visible(fn (Panel $panel): bool => $panel->auth()->check())
                     ->label(Lang::get('user.pages.panel.title'))
                     ->icon('heroicon-s-user'),
                 MenuItem::make()
-                    ->url(fn (): string => Filament::getPanel('admin')->getHomeUrl()) //@phpstan-ignore-line
+                    ->url(fn (): string => Filament::getPanel('admin')->getHomeUrl()) // @phpstan-ignore-line
                     ->visible(function (Panel $panel): bool {
                         /** @var User|null */
                         $user = $panel->auth()->user();

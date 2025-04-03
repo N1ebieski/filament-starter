@@ -6,6 +6,4 @@ namespace App\QueryBuilders;
 
 use Illuminate\Database\Eloquent\Builder;
 
-abstract class QueryBuilder extends Builder
-{
-}
+abstract class QueryBuilder extends Builder {}

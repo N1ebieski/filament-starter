@@ -36,7 +36,7 @@ class EditTenantPage extends EditTenantProfile
         /** @var Tenant */
         $tenant = Filament::getTenant();
 
-        //@phpstan-ignore-next-line
+        // @phpstan-ignore-next-line
         return Lang::get('tenant.pages.edit.title', [
             'name' => $tenant->name->value,
         ]);
@@ -86,7 +86,7 @@ class EditTenantPage extends EditTenantProfile
 
     protected function getSavedNotificationTitle(): string
     {
-        //@phpstan-ignore-next-line
+        // @phpstan-ignore-next-line
         return Lang::get('tenant.messages.edit.success', [
             'name' => $this->tenant->name,
         ]);

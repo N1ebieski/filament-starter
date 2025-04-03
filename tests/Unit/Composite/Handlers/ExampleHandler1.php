@@ -11,6 +11,6 @@ final class ExampleHandler1 implements ExampleHandlerInterface
     #[Override]
     public function handle(string $string): void
     {
-        //DO SOMETHING
+        // DO SOMETHING
     }
 }

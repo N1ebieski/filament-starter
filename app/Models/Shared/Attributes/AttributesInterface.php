@@ -6,13 +6,17 @@ namespace App\Models\Shared\Attributes;
 
 interface AttributesInterface
 {
-    public array $selectAlways { get; }
+    public array $selectAlways { get;
+    }
 
-    public array $selectable { get; }
+    public array $selectable { get;
+    }
 
-    public array $withable { get; }
+    public array $withable { get;
+    }
 
-    public array $sortable { get; }
+    public array $sortable { get;
+    }
 
     public function isAttributeLoaded(string $attribute): bool;
 }

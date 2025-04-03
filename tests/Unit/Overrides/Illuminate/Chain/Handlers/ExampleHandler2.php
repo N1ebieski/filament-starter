@@ -12,7 +12,7 @@ final class ExampleHandler2 implements ExampleHandlerInterface
     public function handle(string $string, \Closure $next): void
     {
         if ($string === 'Test2') {
-            //DO SOMETHING
+            // DO SOMETHING
 
             return;
         }

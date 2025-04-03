@@ -55,7 +55,7 @@ return [
         \App\Support\Enum\EnumInterface::class => \App\Data\Casts\Enum\EnumCast::class,
         \App\ValueObjects\ValueObject::class => \App\Data\Casts\ValueObject\ValueObjectCast::class,
         DateTimeInterface::class => Spatie\LaravelData\Casts\DateTimeInterfaceCast::class,
-        //BackedEnum::class => Spatie\LaravelData\Casts\EnumCast::class,
+        // BackedEnum::class => Spatie\LaravelData\Casts\EnumCast::class,
         //        Enumerable::class => Spatie\LaravelData\Casts\EnumerableCast::class,
     ],
 

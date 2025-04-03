@@ -30,7 +30,7 @@ class CreateTenantPage extends RegisterTenant
 
     public static function getLabel(): string
     {
-        //@phpstan-ignore-next-line
+        // @phpstan-ignore-next-line
         return Lang::get('tenant.pages.create.title');
     }
 
@@ -60,7 +60,7 @@ class CreateTenantPage extends RegisterTenant
     public function afterRegister(): void
     {
         Notification::make()
-            ->title(Lang::get('tenant.messages.create.success', [ //@phpstan-ignore-line
+            ->title(Lang::get('tenant.messages.create.success', [ // @phpstan-ignore-line
                 'name' => $this->tenant->name->value,
             ]))
             ->success()

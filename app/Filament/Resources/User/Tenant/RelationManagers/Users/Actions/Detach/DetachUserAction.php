@@ -37,14 +37,14 @@ final class DetachUserAction extends Action
 
                 return ! $user?->can('tenantDetach', [$record, $tenant]);
             })
-            ->modalHeading(fn(User $record): string => Lang::get('tenant.pages.users.detach.title', [
+            ->modalHeading(fn (User $record): string => Lang::get('tenant.pages.users.detach.title', [
                 'name' => $record->name,
             ]))
-            ->using(fn(User $record): bool => $this->commandBus->execute(new DetachCommand(
+            ->using(fn (User $record): bool => $this->commandBus->execute(new DetachCommand(
                 tenant: $tenant,
                 user: $record
             )))
-            ->successNotificationTitle(fn(User $record): string => Lang::get('tenant.messages.users.detach.success', [
+            ->successNotificationTitle(fn (User $record): string => Lang::get('tenant.messages.users.detach.success', [
                 'name' => $record->name,
             ]));
     }

@@ -34,7 +34,7 @@ final class ResourceFactory
     ): array|DataCollection|PaginatedDataCollection|CursorPaginatedDataCollection|Enumerable|AbstractPaginator|PaginatorContract|AbstractCursorPaginator|CursorPaginatorContract|LazyCollection|Collection {
         if ($collection->isNotEmpty()) {
             /** @var Model */
-            //@phpstan-ignore-next-line
+            // @phpstan-ignore-next-line
             $model = $collection[0];
 
             /** @var class-string<\App\Http\Resources\Resource> */

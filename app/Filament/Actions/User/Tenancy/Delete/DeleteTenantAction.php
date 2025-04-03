@@ -45,19 +45,19 @@ final class DeleteTenantAction extends BaseAction
             })
             ->form([
                 TextInput::make('name')
-                    ->label(Lang::get('tenant.name.label')) //@phpstan-ignore-line
+                    ->label(Lang::get('tenant.name.label')) // @phpstan-ignore-line
                     ->required()
                     ->string()
                     ->minLength(3)
                     ->maxLength(255),
             ])
-            ->modalHeading(fn (Tenant $record): string => Lang::get('tenant.pages.delete.title', [ //@phpstan-ignore-line
+            ->modalHeading(fn (Tenant $record): string => Lang::get('tenant.pages.delete.title', [ // @phpstan-ignore-line
                 'name' => $record->name,
             ]))
             ->action(function (Tenant $record, array $data, Action $action): void {
                 if ($data['name'] !== $record->name->value) {
                     Notification::make()
-                        ->title(Lang::get('tenant.messages.delete.wrong_name')) //@phpstan-ignore-line
+                        ->title(Lang::get('tenant.messages.delete.wrong_name')) // @phpstan-ignore-line
                         ->danger()
                         ->send();
 
@@ -75,9 +75,9 @@ final class DeleteTenantAction extends BaseAction
 
                 $action->success();
             })
-            ->successNotificationTitle(fn (Tenant $record): string => Lang::get('tenant.messages.delete.success', [ //@phpstan-ignore-line
+            ->successNotificationTitle(fn (Tenant $record): string => Lang::get('tenant.messages.delete.success', [ // @phpstan-ignore-line
                 'name' => $record->name,
             ]))
-            ->successRedirectUrl(Filament::getCurrentPanel()->getHomeUrl()); //@phpstan-ignore-line
+            ->successRedirectUrl(Filament::getCurrentPanel()->getHomeUrl()); // @phpstan-ignore-line
     }
 }
