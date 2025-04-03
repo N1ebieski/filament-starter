@@ -20,6 +20,7 @@ return \Rector\Config\RectorConfig::configure()
         //
     ])
     ->withSkip([
+        \Rector\Php81\Rector\Array_\FirstClassCallableRector::class,
         \RectorLaravel\Rector\PropertyFetch\ReplaceFakerInstanceWithHelperRector::class,
         \Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector::class,
         \Rector\DeadCode\Rector\ClassMethod\RemoveUnusedPromotedPropertyRector::class => [
@@ -27,6 +28,7 @@ return \Rector\Config\RectorConfig::configure()
             __DIR__.'/app/Http/Middleware/ApplyUserScope/ApplyUserScopeMiddleware.php',
         ],
     ])
+    ->withPhpSets()
     ->withSets([
         SetList::CODE_QUALITY,
         SetList::CODING_STYLE,
