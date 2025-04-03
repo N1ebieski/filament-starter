@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Rector\Set\ValueObject\SetList;
 use RectorLaravel\Set\LaravelLevelSetList;
+use RectorLaravel\Set\LaravelSetList;
 
 return \Rector\Config\RectorConfig::configure()
     ->withPaths([
@@ -25,7 +26,14 @@ return \Rector\Config\RectorConfig::configure()
         ],
     ])
     ->withSets([
-        LaravelLevelSetList::UP_TO_LARAVEL_110,
         SetList::CODE_QUALITY,
         SetList::DEAD_CODE,
+        LaravelLevelSetList::UP_TO_LARAVEL_110,
+        LaravelSetList::LARAVEL_ARRAYACCESS_TO_METHOD_CALL,
+        LaravelSetList::LARAVEL_ARRAY_STR_FUNCTION_TO_STATIC_CALL,
+        LaravelSetList::LARAVEL_CODE_QUALITY,
+        LaravelSetList::LARAVEL_COLLECTION,
+        LaravelSetList::LARAVEL_CONTAINER_STRING_TO_FULLY_QUALIFIED_NAME,
+        LaravelSetList::LARAVEL_ELOQUENT_MAGIC_METHOD_TO_QUERY_BUILDER,
+
     ]);
