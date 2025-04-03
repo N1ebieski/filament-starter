@@ -18,7 +18,7 @@ final readonly class Pipeline implements ContractsChain, ContractsPipeline
      * @param  array|mixed  $pipes
      * @return $this
      */
-    public function through(...$pipes)
+    public function through(...$pipes): self
     {
         $this->pipeline->through(...$pipes);
 
@@ -31,7 +31,7 @@ final readonly class Pipeline implements ContractsChain, ContractsPipeline
      * @param  array|mixed  $pipes
      * @return $this
      */
-    public function pipe(...$pipes)
+    public function pipe(...$pipes): self
     {
         $this->pipeline->pipe(...$pipes);
 

@@ -29,28 +29,28 @@ final class UserFactory extends Factory
      */
     public function unverified(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'email_verified_at' => null,
         ]);
     }
 
     public function user(): self
     {
-        return $this->afterCreating(function (User $user) {
+        return $this->afterCreating(function (User $user): void {
             $user->assignRole(DefaultName::User->value);
         });
     }
 
     public function admin(): self
     {
-        return $this->afterCreating(function (User $user) {
+        return $this->afterCreating(function (User $user): void {
             $user->assignRole(DefaultName::Admin->value);
         });
     }
 
     public function superAdmin(): self
     {
-        return $this->afterCreating(function (User $user) {
+        return $this->afterCreating(function (User $user): void {
             $user->assignRole(DefaultName::SuperAdmin->value);
         });
     }

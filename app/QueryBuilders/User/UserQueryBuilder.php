@@ -64,10 +64,7 @@ final class UserQueryBuilder extends Builder implements SearchInterface
         });
     }
 
-    /**
-     * @return UserQueryBuilder
-     */
-    public function withAll()
+    public function withAll(): self
     {
         return $this->with(['roles']);
     }

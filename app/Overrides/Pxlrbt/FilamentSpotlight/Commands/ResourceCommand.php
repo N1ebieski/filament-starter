@@ -45,11 +45,11 @@ final class ResourceCommand extends BaseResourceCommand
         return $globalSearchQuery
             ->limit(50)
             ->get()
-            ->map(fn (Model $record) => new SpotlightSearchResult(
+            ->map(fn (Model $record): SpotlightSearchResult => new SpotlightSearchResult(
                 $record->getKey(),
                 $this->resource::getGlobalSearchResultTitle($record), // @phpstan-ignore-line
                 collect($this->resource::getGlobalSearchResultDetails($record))
-                    ->map(fn ($value, $key) => $key.': '.$value)
+                    ->map(fn ($value, $key): string => $key.': '.$value)
                     ->join(' – ')
             ));
     }

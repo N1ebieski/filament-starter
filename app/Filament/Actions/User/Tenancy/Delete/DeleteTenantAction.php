@@ -37,7 +37,7 @@ final class DeleteTenantAction extends BaseAction
         return DeleteAction::make()
             ->record($tenant)
             ->icon('heroicon-m-trash')
-            ->hidden(function (Tenant $record, Guard $guard) {
+            ->hidden(function (Tenant $record, Guard $guard): bool {
                 /** @var User|null */
                 $user = $guard->user();
 

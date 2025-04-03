@@ -14,11 +14,11 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         channels: __DIR__.'/../routes/channels.php',
         health: '/up',
-        using: function () {
+        using: function (): void {
             Route::middleware('api')
                 ->prefix('api')
                 ->as('api.')
-                ->group(function () {
+                ->group(function (): void {
                     $filenames = File::allFiles(base_path('routes').'/api');
 
                     foreach ($filenames as $filename) {
@@ -31,7 +31,7 @@ return Application::configure(basePath: dirname(__DIR__))
                 });
         },
     )
-    ->withMiddleware(function (Middleware $middleware) {
+    ->withMiddleware(function (Middleware $middleware): void {
         $middleware->replace(
             \Illuminate\Http\Middleware\TrustProxies::class,
             \App\Http\Middleware\TrustProxies\TrustProxiesMiddleware::class
@@ -50,8 +50,8 @@ return Application::configure(basePath: dirname(__DIR__))
         \App\Providers\Spotlight\SpotlightServiceProvider::class,
         \App\Providers\LaravelPWA\LaravelPWAServiceProvider::class,
     ])
-    ->withExceptions(function (Exceptions $exceptions) {
-        $exceptions->render(function (Throwable $e) {
+    ->withExceptions(function (Exceptions $exceptions): void {
+        $exceptions->render(function (Throwable $e): void {
             if (! Config::get('app.debug') && $e->getPrevious() instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
                 App::abort(HttpResponse::HTTP_NOT_FOUND);
             }

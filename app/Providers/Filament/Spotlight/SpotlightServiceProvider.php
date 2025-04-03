@@ -16,14 +16,14 @@ final class SpotlightServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
-        Filament::serving(function () {
+        Filament::serving(function (): void {
             Config::set('livewire-ui-spotlight.include_js', false);
 
             /** @var Panel */
             $panel = Filament::getCurrentPanel();
 
             if (Filament::hasTenancy()) {
-                Event::listen(TenantSet::class, function () use ($panel) {
+                Event::listen(TenantSet::class, function () use ($panel): void {
                     SpotlightPlugin::registerNavigation($panel);
                 });
             } else {

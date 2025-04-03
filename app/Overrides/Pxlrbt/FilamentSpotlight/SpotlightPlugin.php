@@ -28,7 +28,7 @@ final class SpotlightPlugin extends BaseSpotlightPlugin
      * @param  Panel  $panel
      */
     #[Override]
-    public static function registerNavigation($panel)
+    public static function registerNavigation($panel): void
     {
         RegisterPages::boot($panel);
         RegisterResources::boot($panel);

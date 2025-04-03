@@ -33,7 +33,7 @@ class CollectionOfModelsCast extends BaseCast implements Cast
             return new Collection;
         }
 
-        if (is_array($value) && is_null(Arr::first($value, fn ($v) => $v instanceof Model))) {
+        if (is_array($value) && is_null(Arr::first($value, fn ($v): bool => $v instanceof Model))) {
             return $this->model->query()
                 ->whereIn($this->model->getKeyName(), $value)
                 ->get();

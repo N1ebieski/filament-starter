@@ -18,7 +18,7 @@ final readonly class PendingRequest implements PendingRequestContract
      * @param  string  $type
      * @return $this
      */
-    public function withToken($token, $type = 'Bearer')
+    public function withToken($token, $type = 'Bearer'): self
     {
         $this->request->withToken($token, $type);
 
@@ -30,7 +30,7 @@ final readonly class PendingRequest implements PendingRequestContract
      *
      * @return $this
      */
-    public function baseUrl(string $url)
+    public function baseUrl(string $url): self
     {
         $this->request->baseUrl($url);
 
@@ -42,7 +42,7 @@ final readonly class PendingRequest implements PendingRequestContract
      *
      * @return $this
      */
-    public function async(bool $async = true)
+    public function async(bool $async = true): self
     {
         $this->request->async($async);
 

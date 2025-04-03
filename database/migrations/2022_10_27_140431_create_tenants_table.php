@@ -8,19 +8,17 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('tenants', function (Blueprint $table) {
+        Schema::create('tenants', function (Blueprint $table): void {
             $table->id();
             $table->string('name');
             $table->bigInteger('user_id')->unsigned()->index();
             $table->timestamps();
         });
 
-        Schema::create('tenants_models', function (Blueprint $table) {
+        Schema::create('tenants_models', function (Blueprint $table): void {
             $table->bigInteger('tenant_id')->unsigned();
             $table->bigInteger('authenticatable_id')->unsigned();
             $table->string('authenticatable_type');
@@ -37,10 +35,8 @@ return new class extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('tenants');
         Schema::dropIfExists('tenants_models');

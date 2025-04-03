@@ -44,9 +44,8 @@ final readonly class Dispatcher implements ContractsDispatcher
      * Dispatch a command to its appropriate handler.
      *
      * @param  mixed  $command
-     * @return mixed
      */
-    public function dispatch($command)
+    public function dispatch($command): PendingDispatch
     {
         return new PendingDispatch($command);
     }

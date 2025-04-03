@@ -18,7 +18,7 @@ final class ColumnsHelper
     public static function getColumnsAsString(array $columns): string
     {
         return (new Collection($columns))
-            ->map(fn (string $column) => self::getColumnWithTicks($column))
+            ->map(fn (string $column): string => self::getColumnWithTicks($column))
             ->implode(',');
     }
 
@@ -27,7 +27,7 @@ final class ColumnsHelper
         $names = explode('.', $column);
 
         return (new Collection($names))
-            ->map(fn (string $name) => '`'.$name.'`')
+            ->map(fn (string $name): string => '`'.$name.'`')
             ->implode('.');
     }
 

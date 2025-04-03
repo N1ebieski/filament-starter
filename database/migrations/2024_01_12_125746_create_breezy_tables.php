@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('breezy_sessions', function (
             Blueprint $table
-        ) {
+        ): void {
             $table->id();
             $table->string('authenticatable_type');
             $table->unsignedBigInteger('authenticatable_id');

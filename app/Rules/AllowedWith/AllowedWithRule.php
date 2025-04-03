@@ -35,7 +35,7 @@ class AllowedWithRule implements ValidationRule
         if (! is_null($attributes)) {
             Collection::make(explode(',', $attributes))
                 ->map(fn (string $attribute): string => trim($attribute))
-                ->each(function (string $attribute) use ($baseRelation, $fail) {
+                ->each(function (string $attribute) use ($baseRelation, $fail): void {
                     $relations = explode('.', $baseRelation);
 
                     $model = $this->model;
