@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use Rector\Set\ValueObject\SetList;
 use RectorLaravel\Set\LaravelLevelSetList;
 use RectorLaravel\Set\LaravelSetList;
 
@@ -17,13 +16,15 @@ return \Rector\Config\RectorConfig::configure()
         __DIR__.'/database',
     ])
     ->withRules([
-        //
+        \App\Overrides\Rector\Php74\Rector\Closure\ClosureToArrowFunctionRector::class,
     ])
     ->withSkip([
+        \Rector\DeadCode\Rector\Node\RemoveNonExistingVarAnnotationRector::class,
         \Rector\Php81\Rector\Array_\FirstClassCallableRector::class,
         \RectorLaravel\Rector\PropertyFetch\ReplaceFakerInstanceWithHelperRector::class,
         \Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector::class,
-        \Rector\Php74\Rector\Closure\ClosureToArrowFunctionRector::class => [
+        \Rector\Php74\Rector\Closure\ClosureToArrowFunctionRector::class,
+        \App\Overrides\Rector\Php74\Rector\Closure\ClosureToArrowFunctionRector::class => [
             __DIR__.'/app/Providers/App/AppServiceProvider.php',
         ],
         \Rector\DeadCode\Rector\ClassMethod\RemoveUnusedPromotedPropertyRector::class => [
@@ -31,11 +32,14 @@ return \Rector\Config\RectorConfig::configure()
             __DIR__.'/app/Http/Middleware/ApplyUserScope/ApplyUserScopeMiddleware.php',
         ],
     ])
+    ->withPreparedSets(
+        deadCode: true,
+        codeQuality: true,
+        codingStyle: true,
+        typeDeclarations: true
+    )
     ->withPhpSets()
     ->withSets([
-        SetList::CODE_QUALITY,
-        SetList::CODING_STYLE,
-        SetList::DEAD_CODE,
         LaravelLevelSetList::UP_TO_LARAVEL_110,
         LaravelSetList::LARAVEL_ARRAYACCESS_TO_METHOD_CALL,
         LaravelSetList::LARAVEL_ARRAY_STR_FUNCTION_TO_STATIC_CALL,
