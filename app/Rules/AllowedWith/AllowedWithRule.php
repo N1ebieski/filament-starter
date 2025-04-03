@@ -32,7 +32,7 @@ class AllowedWithRule implements ValidationRule
             return;
         }
 
-        if (! empty($attributes)) {
+        if (! is_null($attributes)) {
             Collection::make(explode(',', $attributes))
                 ->map(fn (string $attribute): string => trim($attribute))
                 ->each(function (string $attribute) use ($baseRelation, $fail) {

@@ -7,12 +7,13 @@ namespace App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\Splits\SplitAttribut
 use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\Splits\HandlerInterface;
 use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\Splits\Splits;
 use Closure;
+use Illuminate\Database\Eloquent\Model;
 
 final class SplitAttributesHandler implements HandlerInterface
 {
     public function handle(Splits $splits, Closure $next): Splits
     {
-        if ($splits->model) {
+        if ($splits->model instanceof Model) {
             $searchableColumns = implode('|', $splits->model->searchableAttributes ?? []);
 
             preg_match_all('/attr:('.$searchableColumns.'):\"(.*?)\"/', $splits->term, $matches);

@@ -18,10 +18,7 @@ final class CommandBus implements CommandBusInterface
         private readonly HandlerHelper $handlerHelper
     ) {}
 
-    /**
-     * @return mixed
-     */
-    public function execute(Command $command)
+    public function execute(Command $command): mixed
     {
         $handler = $this->resolveHandler($command);
 
@@ -30,6 +27,8 @@ final class CommandBus implements CommandBusInterface
         }
 
         $this->dispatch($command);
+
+        return null;
     }
 
     public function dispatch(Command $command): void

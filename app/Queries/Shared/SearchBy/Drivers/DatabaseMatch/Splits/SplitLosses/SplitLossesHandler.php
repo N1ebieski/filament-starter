@@ -17,6 +17,8 @@ final class SplitLossesHandler implements HandlerInterface
     {
         $matches = explode(' ', $splits->term);
 
+        $looses = [];
+
         foreach ($matches as $match) {
             if (strlen($match) >= 3) {
                 $value = $this->isContainsSymbol($match) ?

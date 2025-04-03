@@ -14,6 +14,8 @@ final class SplitExactsHandler implements HandlerInterface
     {
         preg_match_all('/"(.*?)"/', $splits->term, $matches);
 
+        $exacts = [];
+
         foreach ($matches[0] as $match) {
             $exacts[] = '+'.$match;
 

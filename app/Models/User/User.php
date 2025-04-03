@@ -140,6 +140,8 @@ class User extends Authenticatable implements FilamentUser, AttributesInterface,
 
     public protected(set) array $searchableAttributes = ['id'];
 
+    public protected(set) array $searchableRelations = [];
+
     /**
      * The attributes that should be cast.
      *

@@ -40,16 +40,12 @@ final class EditUserAction extends Action
             ->modalHeading(fn (User $record): string => Lang::get('user.pages.edit.title', [
                 'name' => $record->name,
             ]))
-            ->mutateRecordDataUsing(function (array $data, User $record): array {
-                $data = [
-                    ...$data,
-                    'name' => $record->name->value,
-                    'roles' => $record->roles->pluck('id')->toArray(),
-                    'email' => $record->email->value,
-                ];
-
-                return $data;
-            })
+            ->mutateRecordDataUsing(fn (array $data, User $record): array => [
+                ...$data,
+                'name' => $record->name->value,
+                'roles' => $record->roles->pluck('id')->toArray(),
+                'email' => $record->email->value,
+            ])
             ->form([
                 TextInput::make('name')
                     ->label(Lang::get('user.name.label'))

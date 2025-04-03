@@ -25,7 +25,6 @@ trait SerializesModels
     public function restoreModel($value)
     {
         if (is_null($value->id)) {
-            /** @var \Illuminate\Database\Eloquent\Model */
             return new ($value->class)();
         }
 

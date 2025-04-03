@@ -21,8 +21,8 @@ class Exception extends BaseException
         public readonly array $context = []
     ) {
         parent::__construct(
-            ! empty($this->message) && empty($message) ? $this->message : $message,
-            ! empty($this->code) && empty($code) ? $this->code : $code,
+            ! empty($this->message) && strlen($message) > 0 ? $this->message : $message,
+            ! empty($this->code) && $code > 0 ? $this->code : $code,
             $previous
         );
     }

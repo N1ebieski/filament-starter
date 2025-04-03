@@ -87,6 +87,8 @@ final class Role extends BaseRole implements AttributesInterface, SearchableInte
 
     public protected(set) array $searchableAttributes = ['id'];
 
+    public protected(set) array $searchableRelations = [];
+
     /**
      * The attributes that should be cast.
      *

@@ -8,6 +8,7 @@ use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\Splits\HandlerInterface;
 use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\Splits\HasSymbol;
 use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\Splits\Splits;
 use Closure;
+use Illuminate\Database\Eloquent\Model;
 
 final class SplitRelationsHandler implements HandlerInterface
 {
@@ -15,7 +16,7 @@ final class SplitRelationsHandler implements HandlerInterface
 
     public function handle(Splits $splits, Closure $next): Splits
     {
-        if ($splits->model) {
+        if ($splits->model instanceof Model) {
             $searchableRelations = implode('|', $splits->model->searchableRelations ?? []);
 
             preg_match_all('/rel:('.$searchableRelations.'):\"(.*?)\"/', $splits->term, $matches);
