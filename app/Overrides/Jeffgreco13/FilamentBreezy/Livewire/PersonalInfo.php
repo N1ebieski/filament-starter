@@ -6,6 +6,7 @@ namespace App\Overrides\Jeffgreco13\FilamentBreezy\Livewire;
 
 use App\Models\User\User;
 use Jeffgreco13\FilamentBreezy\Livewire\PersonalInfo as BasePersonalInfo;
+use Override;
 
 /**
  * @property-read User $user
@@ -13,6 +14,7 @@ use Jeffgreco13\FilamentBreezy\Livewire\PersonalInfo as BasePersonalInfo;
  */
 final class PersonalInfo extends BasePersonalInfo
 {
+    #[Override]
     public function mount(): void
     {
         parent::mount();
