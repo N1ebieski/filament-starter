@@ -50,14 +50,12 @@ trait HasRoles
             return $relation;
         }
 
-        return $relation->where(function (Builder $query) use ($permissionRegistrar): Builder {
-            return $query->where($this->getRolePivotTeamField(), $permissionRegistrar->getPermissionsTeamId())
-                ->orWhereNull($this->getRolePivotTeamField());
-        })
-            ->where(function (Builder $query) use ($permissionRegistrar): Builder {
-                return $query->whereNull($this->getTeamField())
-                    ->orWhere($this->getTeamField(), $permissionRegistrar->getPermissionsTeamId());
-            });
+        return $relation->where(fn (Builder $query): Builder => $query
+            ->where($this->getRolePivotTeamField(), $permissionRegistrar->getPermissionsTeamId())
+            ->orWhereNull($this->getRolePivotTeamField()))
+            ->where(fn (Builder $query): Builder => $query->whereNull($this->getTeamField())
+                ->orWhere($this->getTeamField(), $permissionRegistrar->getPermissionsTeamId())
+            );
     }
 
     public function tenantRoles(): BelongsToMany

@@ -8,9 +8,9 @@ use App\Overrides\Illuminate\Contracts\Cache\Repository as CacheRepository;
 use Illuminate\Cache\Repository as BaseRepository;
 use Illuminate\Cache\TaggedCache;
 
-final class Repository implements CacheRepository
+final readonly class Repository implements CacheRepository
 {
-    public function __construct(private readonly BaseRepository $cache) {}
+    public function __construct(private BaseRepository $cache) {}
 
     /**
      * @param  array|mixed  $names

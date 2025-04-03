@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Queries\Shared\OrderBy;
 
-final class OrderBy
+final readonly class OrderBy
 {
     public function __construct(
-        public readonly string $attribute,
-        public readonly Order $order
+        public string $attribute,
+        public Order $order
     ) {}
 }

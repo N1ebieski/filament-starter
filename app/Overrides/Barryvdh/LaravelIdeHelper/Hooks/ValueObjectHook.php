@@ -15,6 +15,7 @@ final class ValueObjectHook implements ModelHookInterface
 {
     public function run(ModelsCommand $command, Model $model): void
     {
+        /** @var array<string, string> $casts */
         $casts = $model->getCasts();
 
         foreach ($casts as $name => $cast) {

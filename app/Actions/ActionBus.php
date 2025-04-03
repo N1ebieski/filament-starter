@@ -7,11 +7,11 @@ namespace App\Actions;
 use App\Support\Handler\HandlerHelper;
 use Illuminate\Container\Container;
 
-final class ActionBus implements ActionBusInterface
+final readonly class ActionBus implements ActionBusInterface
 {
     public function __construct(
-        private readonly Container $container,
-        private readonly HandlerHelper $handlerHelper
+        private Container $container,
+        private HandlerHelper $handlerHelper
     ) {}
 
     public function execute(Action $action): mixed

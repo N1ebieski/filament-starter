@@ -19,8 +19,8 @@ final class DatabaseMatchHandler extends Handler
     {
         return $this->builder->filterSearchByDatabaseMatch($databaseMatch)
             ->filterSearchAttributesByDatabaseMatch($databaseMatch)
-            ->when($databaseMatch->isOrderBy, function (Builder&SearchInterface $builder) use ($databaseMatch) {
-                return $builder->filterOrderByDatabaseMatch($databaseMatch);
-            });
+            ->when($databaseMatch->isOrderBy, fn (Builder&SearchInterface $builder) => $builder
+                ->filterOrderByDatabaseMatch($databaseMatch)
+            );
     }
 }

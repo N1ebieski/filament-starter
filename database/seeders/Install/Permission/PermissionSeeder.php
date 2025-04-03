@@ -11,8 +11,8 @@ use Spatie\Permission\PermissionRegistrar;
 final class PermissionSeeder extends Seeder
 {
     public function __construct(
-        private Permission $permission,
-        private PermissionRegistrar $permissionRegistrar
+        private readonly Permission $permission,
+        private readonly PermissionRegistrar $permissionRegistrar
     ) {}
 
     /**

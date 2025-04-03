@@ -94,23 +94,19 @@ final class CreateUserAction extends Action
                 Select::make('roles')
                     ->label(Lang::get('user.roles.label'))
                     ->multiple()
-                    ->relationship($this->role->getTable(), 'name', function (Builder $query) {
+                    ->relationship($this->role->getTable(), 'name', fn (Builder $query) =>
                         /** @var Builder<Role> $query */
-                        return $query->whereNot('name', DefaultName::SuperAdmin);
-                    })
+                        $query->whereNot('name', DefaultName::SuperAdmin)
+                    )
                     ->preload()
                     ->dehydrated(true)
                     ->required()
                     ->getOptionLabelFromRecordUsing(fn (Role $record) => $record->name->value)
-                    ->exists($this->role->getTable(), 'id', function (Exists $rule) {
-                        return $rule->whereNot('name', DefaultName::SuperAdmin);
-                    }),
+                    ->exists($this->role->getTable(), 'id', fn (Exists $rule) => $rule->whereNot('name', DefaultName::SuperAdmin)),
             ])
             ->stickyModalFooter()
             ->closeModalByClickingAway(false)
-            ->using(function (array $data): User {
-                return $this->commandBus->execute(CreateCommand::from($data));
-            })
+            ->using(fn (array $data): User => $this->commandBus->execute(CreateCommand::from($data)))
             ->successNotificationTitle(fn (User $record): string => Lang::get('user.messages.create.success', [
                 'name' => $record->name,
             ]));

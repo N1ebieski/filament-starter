@@ -7,9 +7,9 @@ namespace App\Commands;
 use App\Support\Handler\HandlerHelper;
 use Illuminate\Events\CallQueuedListener;
 
-final class JobFactory
+final readonly class JobFactory
 {
-    public function __construct(private readonly HandlerHelper $handlerHelper) {}
+    public function __construct(private HandlerHelper $handlerHelper) {}
 
     public function makeJob(Command $command): CallQueuedListener
     {

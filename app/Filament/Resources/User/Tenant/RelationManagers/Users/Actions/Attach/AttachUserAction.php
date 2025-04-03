@@ -64,26 +64,21 @@ final class AttachUserAction extends Action
                     ->exists(
                         $this->permission->getTable(),
                         'id',
-                        function (Exists $rule): Exists {
-                            return $rule->where(function (Builder $builder): Builder {
-                                return $builder->where('name', 'like', 'tenant.%');
-                            });
-                        }
+                        fn (Exists $rule): Exists => $rule
+                            ->where(fn (Builder $builder): Builder => $builder
+                                ->where('name', 'like', 'tenant.%')
+                            )
                     ),
             ])
             ->stickyModalFooter()
             ->closeModalByClickingAway(false)
-            ->using(function (array $data) use ($tenant): bool {
-                return $this->commandBus->execute(AttachCommand::from([
-                    ...$data,
-                    'tenant' => $tenant,
-                    'user' => $this->user->find($data['recordId']),
-                ]));
-            })
-            ->successNotificationTitle(function (User $record): string {
-                return Lang::get('tenant.messages.users.attach.success', [
-                    'name' => $record->name,
-                ]);
-            });
+            ->using(fn (array $data): bool => $this->commandBus->execute(AttachCommand::from([
+                ...$data,
+                'tenant' => $tenant,
+                'user' => $this->user->find($data['recordId']),
+            ])))
+            ->successNotificationTitle(fn (User $record): string => Lang::get('tenant.messages.users.attach.success', [
+                'name' => $record->name,
+            ]));
     }
 }

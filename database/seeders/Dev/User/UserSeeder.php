@@ -10,7 +10,7 @@ use Illuminate\Database\Seeder;
 final class UserSeeder extends Seeder
 {
     public function __construct(
-        private User $user,
+        private readonly User $user,
     ) {}
 
     /**

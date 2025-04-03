@@ -8,9 +8,9 @@ use App\Overrides\Illuminate\Contracts\Chain\Chain as ContractsChain;
 use App\Overrides\Illuminate\Contracts\Pipeline\Pipeline as ContractsPipeline;
 use Illuminate\Pipeline\Pipeline as BasePipeline;
 
-final class Pipeline implements ContractsChain, ContractsPipeline
+final readonly class Pipeline implements ContractsChain, ContractsPipeline
 {
-    public function __construct(private readonly BasePipeline $pipeline) {}
+    public function __construct(private BasePipeline $pipeline) {}
 
     /**
      * Set the array of pipes.

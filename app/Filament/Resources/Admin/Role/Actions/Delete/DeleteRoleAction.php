@@ -32,9 +32,7 @@ final class DeleteRoleAction extends Action
             ->modalHeading(fn (Role $record): string => Lang::get('role.pages.delete.title', [
                 'name' => $record->name,
             ]))
-            ->using(function (Role $record): bool {
-                return $this->commandBus->execute(new DeleteCommand($record));
-            })
+            ->using(fn(Role $record): bool => $this->commandBus->execute(new DeleteCommand($record)))
             ->successNotificationTitle(fn (Role $record): string => Lang::get('role.messages.delete.success', [
                 'name' => $record->name,
             ]));

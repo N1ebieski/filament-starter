@@ -8,9 +8,9 @@ use App\Listeners\Queue\JobFactory;
 use App\Support\Queue\RetryInterface;
 use Illuminate\Queue\Events\JobRetryRequested;
 
-final class RetryListener
+final readonly class RetryListener
 {
-    public function __construct(private readonly JobFactory $jobFactory) {}
+    public function __construct(private JobFactory $jobFactory) {}
 
     /**
      * Handle the event when a job retry is requested.

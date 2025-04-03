@@ -11,18 +11,14 @@ final class ColumnsHelper
     public static function getColumnsWithTablePrefix(array $columns, string $table): array
     {
         return (new Collection($columns))
-            ->map(function (string $column) use ($table): string {
-                return "{$table}.{$column}";
-            })
+            ->map(fn (string $column): string => "{$table}.{$column}")
             ->toArray();
     }
 
     public static function getColumnsAsString(array $columns): string
     {
         return (new Collection($columns))
-            ->map(function (string $column) {
-                return self::getColumnWithTicks($column);
-            })
+            ->map(fn (string $column) => self::getColumnWithTicks($column))
             ->implode(',');
     }
 
@@ -31,9 +27,7 @@ final class ColumnsHelper
         $names = explode('.', $column);
 
         return (new Collection($names))
-            ->map(function (string $name) {
-                return '`'.$name.'`';
-            })
+            ->map(fn (string $name) => '`'.$name.'`')
             ->implode('.');
     }
 

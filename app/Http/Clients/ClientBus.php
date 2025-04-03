@@ -9,11 +9,11 @@ use GuzzleHttp\Promise\Utils;
 use Illuminate\Container\Container;
 use Illuminate\Support\Collection;
 
-final class ClientBus implements ClientBusInterface
+final readonly class ClientBus implements ClientBusInterface
 {
     public function __construct(
-        private readonly Container $container,
-        private readonly HandlerHelper $handlerHelper
+        private Container $container,
+        private HandlerHelper $handlerHelper
     ) {}
 
     public function execute(Client $client): AsyncResponse|Response

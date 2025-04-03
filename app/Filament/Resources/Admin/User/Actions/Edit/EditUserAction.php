@@ -94,17 +94,14 @@ final class EditUserAction extends Action
                 Select::make('roles')
                     ->label(Lang::get('user.roles.label'))
                     ->multiple()
-                    ->relationship($this->role->getTable(), 'name', function (Builder $query) {
+                    ->relationship($this->role->getTable(), 'name', fn(Builder $query) =>
                         /** @var Builder<Role> $query */
-                        return $query->whereNot('name', DefaultName::SuperAdmin);
-                    })
+                        $query->whereNot('name', DefaultName::SuperAdmin))
                     ->preload()
                     ->dehydrated(true)
                     ->required()
                     ->getOptionLabelFromRecordUsing(fn (Role $record) => $record->name->value)
-                    ->exists($this->role->getTable(), 'id', function (Exists $rule) {
-                        return $rule->whereNot('name', DefaultName::SuperAdmin);
-                    }),
+                    ->exists($this->role->getTable(), 'id', fn(Exists $rule) => $rule->whereNot('name', DefaultName::SuperAdmin)),
             ])
             ->stickyModalFooter()
             ->closeModalByClickingAway(false)
@@ -115,12 +112,10 @@ final class EditUserAction extends Action
 
                 return $data;
             })
-            ->using(function (array $data, User $record): User {
-                return $this->commandBus->execute(EditCommand::from([
-                    ...$data,
-                    'user' => $record,
-                ]));
-            })
+            ->using(fn(array $data, User $record): User => $this->commandBus->execute(EditCommand::from([
+                ...$data,
+                'user' => $record,
+            ])))
             ->successNotificationTitle(fn (User $record): string => Lang::get('user.messages.edit.success', [
                 'name' => $record->name,
             ]));

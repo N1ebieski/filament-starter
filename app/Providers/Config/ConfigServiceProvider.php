@@ -24,7 +24,7 @@ final class ConfigServiceProvider extends ServiceProvider
         $url = Config::get('app.url');
 
         /** @var string */
-        $scheme = parse_url($url, PHP_URL_SCHEME);
+        $scheme = parse_url((string) $url, PHP_URL_SCHEME);
 
         URL::forceScheme($scheme);
         URL::forceRootUrl($url);

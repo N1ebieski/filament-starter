@@ -58,11 +58,10 @@ class CollectionTransformer extends BaseTransformer implements Transformer
         $only = $this->getFieldsFromPartials($property->name, $context->onlyPartials);
         $except = $this->getFieldsFromPartials($property->name, $context->exceptPartials);
 
-        return $value->map(function (Data $data) use ($only, $except): array {
-            return $data->toCollect()
-                ->when($only !== [], fn (Collection $collection): Collection => $collection->only($only))
-                ->when($except !== [], fn (Collection $collection): Collection => $collection->except($except))
-                ->toArray();
-        })->toArray();
+        return $value->map(fn (Data $data): array => $data->toCollect()
+            ->when($only !== [], fn (Collection $collection): Collection => $collection->only($only))
+            ->when($except !== [], fn (Collection $collection): Collection => $collection->except($except))
+            ->toArray()
+        )->toArray();
     }
 }

@@ -31,11 +31,9 @@ final class DeleteUsersAction extends Action
     public function makeAction(): DeleteBulkAction
     {
         return DeleteBulkAction::make()
-            ->modalHeading(function (Collection $records): string {
-                return Lang::choice('user.pages.delete_multi.title', $records->count(), [
-                    'number' => $records->count(),
-                ]);
-            })
+            ->modalHeading(fn(Collection $records): string => Lang::choice('user.pages.delete_multi.title', $records->count(), [
+                'number' => $records->count(),
+            ]))
             ->using(function (Collection $records, Guard $guard): int {
                 /** @var User|null */
                 $user = $guard->user();
@@ -44,10 +42,8 @@ final class DeleteUsersAction extends Action
 
                 return $this->commandBus->execute(new DeleteManyCommand($records));
             })
-            ->successNotificationTitle(function (Collection $records): string {
-                return Lang::choice('user.messages.delete_multi.success', $records->count(), [
-                    'number' => $records->count(),
-                ]);
-            });
+            ->successNotificationTitle(fn(Collection $records): string => Lang::choice('user.messages.delete_multi.success', $records->count(), [
+                'number' => $records->count(),
+            ]));
     }
 }

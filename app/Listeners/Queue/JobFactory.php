@@ -6,9 +6,9 @@ namespace App\Listeners\Queue;
 
 use Illuminate\Contracts\Encryption\Encrypter;
 
-final class JobFactory
+final readonly class JobFactory
 {
-    public function __construct(private readonly Encrypter $encrypter) {}
+    public function __construct(private Encrypter $encrypter) {}
 
     /**
      * Unserialize a command, decrypting it if necessary and returns the corresponding job.

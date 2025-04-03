@@ -12,8 +12,8 @@ use Spatie\Permission\PermissionRegistrar;
 final class RoleSeeder extends Seeder
 {
     public function __construct(
-        private Role $role,
-        private PermissionRegistrar $permissionRegistrar
+        private readonly Role $role,
+        private readonly PermissionRegistrar $permissionRegistrar
     ) {}
 
     /**

@@ -23,6 +23,9 @@ return \Rector\Config\RectorConfig::configure()
         \Rector\Php81\Rector\Array_\FirstClassCallableRector::class,
         \RectorLaravel\Rector\PropertyFetch\ReplaceFakerInstanceWithHelperRector::class,
         \Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector::class,
+        \Rector\Php74\Rector\Closure\ClosureToArrowFunctionRector::class => [
+            __DIR__.'/app/Providers/App/AppServiceProvider.php',
+        ],
         \Rector\DeadCode\Rector\ClassMethod\RemoveUnusedPromotedPropertyRector::class => [
             __DIR__.'/app/Http/Middleware/ApplyTenantScope/ApplyTenantScopeMiddleware.php',
             __DIR__.'/app/Http/Middleware/ApplyUserScope/ApplyUserScopeMiddleware.php',

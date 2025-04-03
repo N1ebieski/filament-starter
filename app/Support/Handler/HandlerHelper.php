@@ -32,7 +32,7 @@ final class HandlerHelper
     public static function getNamespace(object $class): string
     {
         /** @var class-string */
-        $classNamespace = get_class($class);
+        $classNamespace = $class::class;
 
         $reflectionClass = new ReflectionClass($classNamespace);
 
@@ -50,9 +50,7 @@ final class HandlerHelper
         $handlerNamespace = Str::beforeLast($classNamespace, '\\');
 
         $names = Collection::make(self::NAMES)
-            ->map(function (string $name): string {
-                return preg_quote($name);
-            })
+            ->map(fn (string $name): string => preg_quote($name))
             ->implode('|');
 
         $handlerName = $classBasename.'Handler';

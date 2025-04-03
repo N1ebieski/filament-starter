@@ -9,7 +9,7 @@ use App\Models\Shared\Searchable\SearchableInterface;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @property-read Model&SearchableInterface|null $model
+ * @property-read (Model&SearchableInterface)|null $model
  */
 final class Splits extends Data
 {

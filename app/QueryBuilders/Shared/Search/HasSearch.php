@@ -34,17 +34,17 @@ trait HasSearch
     public function filterSearchAttributesByDatabaseMatch(DatabaseMatch $databaseMatch): self
     {
         return $this->when(! is_null($databaseMatch->attributes), function (Builder $builder) use ($databaseMatch): Builder {
-            /** @var array */
+            /** @var array $attributes */
             $attributes = $databaseMatch->attributes;
 
             return $builder->where(function (Builder $builder) use ($attributes) {
-                /** @var Model&SearchableInterface */
+                /** @var Model&SearchableInterface $model */
                 $model = $this->getModel();
 
                 foreach ($model->searchableAttributes as $attr) {
-                    $builder = $builder->when(array_key_exists($attr, $attributes), function (Builder $builder) use ($attr, $attributes, $model) {
-                        return $builder->where("{$model->getTable()}.{$attr}", $attributes[$attr]);
-                    });
+                    $builder = $builder->when(array_key_exists($attr, $attributes), fn (Builder $builder) => $builder
+                        ->where("{$model->getTable()}.{$attr}", $attributes[$attr])
+                    );
                 }
 
                 return $builder;

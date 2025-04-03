@@ -24,7 +24,7 @@ trait HasTableSearch
     {
         $search = $this->getTableSearch();
 
-        if ($search && mb_strlen($search) > 2) {
+        if (! is_null($search) && mb_strlen($search) > 2) {
             /** @var Model */
             $model = new ($this->getTable()->getModel());
 

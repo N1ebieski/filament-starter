@@ -7,9 +7,9 @@ namespace App\Overrides\Illuminate\Http\Client;
 use App\Overrides\Illuminate\Contracts\Http\Client\Client as PendingRequestContract;
 use Illuminate\Http\Client\PendingRequest as BasePendingRequest;
 
-final class PendingRequest implements PendingRequestContract
+final readonly class PendingRequest implements PendingRequestContract
 {
-    public function __construct(private readonly BasePendingRequest $request) {}
+    public function __construct(private BasePendingRequest $request) {}
 
     /**
      * Specify an authorization token for the request.

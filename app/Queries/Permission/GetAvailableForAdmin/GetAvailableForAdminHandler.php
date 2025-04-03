@@ -15,20 +15,14 @@ final class GetAvailableForAdminHandler extends Handler
     {
         /** @var Collection */
         $permissions = $query->permission->newQuery()
-            ->when($query->role->exists, function (Builder $builder) use ($query) {
-                return $builder->when(
-                    $query->role->name->isEqualsDefault(DefaultName::User),
-                    function (Builder $builder) {
-                        return $builder->where('name', 'like', 'web.%')
-                            ->orWhere('name', 'like', 'api.%');
-                    }
-                )->when(
-                    $query->role->name->isEqualsDefault(DefaultName::Api),
-                    function (Builder $builder) {
-                        return $builder->where('name', 'like', 'api.%');
-                    }
-                );
-            })
+            ->when($query->role->exists, fn (Builder $builder) => $builder->when(
+                $query->role->name->isEqualsDefault(DefaultName::User),
+                fn (Builder $builder) => $builder->where('name', 'like', 'web.%')
+                    ->orWhere('name', 'like', 'api.%')
+            )->when(
+                $query->role->name->isEqualsDefault(DefaultName::Api),
+                fn (Builder $builder) => $builder->where('name', 'like', 'api.%')
+            ))
             ->get();
 
         return $permissions;

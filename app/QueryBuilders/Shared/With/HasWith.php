@@ -36,8 +36,8 @@ trait HasWith
                     continue;
                 }
 
-                $builder->with([$realRelation => function (Builder $builder) use ($columnsAsCollection) {
-                    return $builder->when($columnsAsCollection->isNotEmpty(), function (Builder $builder) use ($columnsAsCollection): Builder {
+                $builder->with([$realRelation => fn (Builder $builder) => $builder
+                    ->when($columnsAsCollection->isNotEmpty(), function (Builder $builder) use ($columnsAsCollection): Builder {
                         $model = $builder->getModel();
 
                         /**
@@ -47,9 +47,11 @@ trait HasWith
                             $columnsAsCollection->push(...$model->selectAlways);
                         }
 
-                        return $builder->select(ColumnsHelper::getColumnsWithTablePrefix($columnsAsCollection->toArray(), $model->getTable()));
-                    });
-                }]);
+                        return $builder->select(ColumnsHelper::getColumnsWithTablePrefix(
+                            $columnsAsCollection->toArray(), $model->getTable()
+                        ));
+                    }),
+                ]);
             }
 
             return $builder;

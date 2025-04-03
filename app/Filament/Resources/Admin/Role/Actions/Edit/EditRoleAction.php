@@ -70,35 +70,25 @@ final class EditRoleAction extends Action
                     ->exists(
                         $this->permission->getTable(),
                         'id',
-                        function (Exists $rule, Role $record): Exists {
-                            return $rule->when(
-                                $record->name->isEqualsDefault(DefaultName::User),
-                                function (Exists $rule): Exists {
-                                    return $rule->where(function (Builder $builder): Builder {
-                                        return $builder->where('name', 'like', 'web.%')
-                                            ->orWhere('name', 'like', 'api.%');
-                                    });
-                                }
+                        fn (Exists $rule, Role $record): Exists => $rule->when(
+                            $record->name->isEqualsDefault(DefaultName::User),
+                            fn (Exists $rule): Exists => $rule->where(fn (Builder $builder): Builder => $builder
+                                ->where('name', 'like', 'web.%')
+                                ->orWhere('name', 'like', 'api.%'))
+                        )
+                            ->when(
+                                $record->name->isEqualsDefault(DefaultName::Api),
+                                fn (Exists $rule): Exists => $rule->where(fn (Builder $builder): Builder => $builder
+                                    ->where('name', 'like', 'api.%'))
                             )
-                                ->when(
-                                    $record->name->isEqualsDefault(DefaultName::Api),
-                                    function (Exists $rule): Exists {
-                                        return $rule->where(function (Builder $builder): Builder {
-                                            return $builder->where('name', 'like', 'api.%');
-                                        });
-                                    }
-                                );
-                        }
                     ),
             ])
             ->stickyModalFooter()
             ->closeModalByClickingAway(false)
-            ->using(function (array $data, Role $record): Role {
-                return $this->commandBus->execute(EditCommand::from([
-                    ...$data,
-                    'role' => $record,
-                ]));
-            })
+            ->using(fn (array $data, Role $record): Role => $this->commandBus->execute(EditCommand::from([
+                ...$data,
+                'role' => $record,
+            ])))
             ->successNotificationTitle(fn (Role $record): string => Lang::get('role.messages.edit.success', [
                 'name' => $record->name,
             ]));

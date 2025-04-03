@@ -27,9 +27,8 @@ final class CreateHandler extends Handler
             $role->save();
 
             $role->givePermissionTo(
-                $command->permissions->map(function (Permission $permission) {
-                    return $permission->name->value;
-                })->toArray()
+                $command->permissions->map(
+                    fn (Permission $permission) => $permission->name->value)->toArray()
             );
         } catch (\Exception $exception) {
             $this->db->rollBack();

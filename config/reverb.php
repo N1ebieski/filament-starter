@@ -73,7 +73,7 @@ return [
                     'useTLS' => env('REVERB_SCHEME', 'https') === 'https',
                 ],
                 'allowed_origins' => [
-                    parse_url(env('APP_URL'), PHP_URL_HOST),
+                    parse_url((string) env('APP_URL'), PHP_URL_HOST),
                 ],
                 'ping_interval' => env('REVERB_APP_PING_INTERVAL', 60),
                 'max_message_size' => env('REVERB_APP_MAX_MESSAGE_SIZE', 10_000),

@@ -66,26 +66,20 @@ final class EditPermissionsAction extends Action
                     ->exists(
                         $this->permission->getTable(),
                         'id',
-                        function (Exists $rule): Exists {
-                            return $rule->where(function (Builder $builder): Builder {
-                                return $builder->where('name', 'like', 'tenant.%');
-                            });
-                        }
+                        fn (Exists $rule): Exists => $rule->where(fn (Builder $builder): Builder => $builder
+                            ->where('name', 'like', 'tenant.%')
+                        )
                     ),
             ])
             ->stickyModalFooter()
             ->closeModalByClickingAway(false)
-            ->using(function (array $data, User $record) use ($tenant): User {
-                return $this->commandBus->execute(EditPermissionsCommand::from([
-                    ...$data,
-                    'tenant' => $tenant,
-                    'user' => $record,
-                ]));
-            })
-            ->successNotificationTitle(function (User $record): string {
-                return Lang::get('tenant.messages.users.edit_permissions.success', [
-                    'name' => $record->name,
-                ]);
-            });
+            ->using(fn (array $data, User $record): User => $this->commandBus->execute(EditPermissionsCommand::from([
+                ...$data,
+                'tenant' => $tenant,
+                'user' => $record,
+            ])))
+            ->successNotificationTitle(fn (User $record): string => Lang::get('tenant.messages.users.edit_permissions.success', [
+                'name' => $record->name,
+            ]));
     }
 }

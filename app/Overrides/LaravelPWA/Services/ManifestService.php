@@ -7,11 +7,11 @@ namespace App\Overrides\LaravelPWA\Services;
 use Illuminate\Contracts\Config\Repository as Config;
 use LaravelPWA\Services\ManifestService as BaseManifestService;
 
-final class ManifestService
+final readonly class ManifestService
 {
     public function __construct(
-        private readonly BaseManifestService $manifestService,
-        private readonly Config $config
+        private BaseManifestService $manifestService,
+        private Config $config
     ) {}
 
     public function generate(): array
@@ -21,8 +21,8 @@ final class ManifestService
         $baseManifest['icons'] = [];
 
         foreach ($this->config->get('laravelpwa.manifest.icons') as $file) {
-            /** @var array{extension: string} */
-            $fileInfo = pathinfo($file['path']);
+            /** @var array{extension: string} $fileInfo */
+            $fileInfo = pathinfo((string) $file['path']);
 
             $baseManifest['icons'][] = [
                 'src' => $file['path'],

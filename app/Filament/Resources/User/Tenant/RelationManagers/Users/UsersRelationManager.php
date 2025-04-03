@@ -62,12 +62,10 @@ class UsersRelationManager extends RelationManager
 
         return $table
             ->searchable(true)
-            ->query(function () use ($tenant): Builder {
-                return $this->queryBus->execute(GetByFilterQuery::from([
-                    'select' => ['id', 'name'],
-                    'tenants' => new Collection([$tenant]),
-                ]));
-            })
+            ->query(fn(): Builder => $this->queryBus->execute(GetByFilterQuery::from([
+                'select' => ['id', 'name'],
+                'tenants' => new Collection([$tenant]),
+            ])))
             ->recordTitleAttribute('name')
             ->columns([
                 TextColumn::make('name')
@@ -88,8 +86,6 @@ class UsersRelationManager extends RelationManager
             ])
             ->recordUrl(null)
             ->recordAction(null)
-            ->defaultSort(function (UserQueryBuilder $query): Builder {
-                return $query->filterOrderBy(new OrderBy('id', Order::Desc));
-            });
+            ->defaultSort(fn(UserQueryBuilder $query): Builder => $query->filterOrderBy(new OrderBy('id', Order::Desc)));
     }
 }

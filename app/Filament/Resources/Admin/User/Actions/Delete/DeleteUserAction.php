@@ -32,9 +32,7 @@ final class DeleteUserAction extends Action
             ->modalHeading(fn (User $record): string => Lang::get('user.pages.delete.title', [
                 'name' => $record->name,
             ]))
-            ->using(function (User $record): bool {
-                return $this->commandBus->execute(new DeleteCommand($record));
-            })
+            ->using(fn(User $record): bool => $this->commandBus->execute(new DeleteCommand($record)))
             ->successNotificationTitle(fn (User $record): string => Lang::get('user.messages.delete.success', [
                 'name' => $record->name,
             ]));

@@ -20,9 +20,7 @@ final class GetAssetsHandler extends Handler
         return $this->cache->remember(
             $cacheQuery->getKey(),
             $cacheQuery->time->minutes * 60,
-            function () use ($cacheQuery): array {
-                return $this->actionBus->execute($cacheQuery->action);
-            }
+            fn(): array => $this->actionBus->execute($cacheQuery->action)
         );
     }
 }

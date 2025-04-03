@@ -22,21 +22,21 @@ final class UserQueryBuilder extends Builder implements SearchInterface
 
     public function filterStatusEmail(?StatusEmail $status): self
     {
-        return $this->unless(is_null($status), function (Builder $builder) use ($status): Builder {
+        return $this->unless(is_null($status), fn (Builder $builder): Builder =>
             /** @var StatusEmail $status */
-            return $builder->when($status->isEquals(StatusEmail::Verified), function (Builder $builder): Builder {
-                return $builder->whereNotNull('email_verified_at');
-            }, function (Builder $builder): Builder {
-                return $builder->whereNull('email_verified_at');
-            });
-        });
+            $builder->when(
+                $status->isEquals(StatusEmail::Verified),
+                fn (Builder $builder): Builder => $builder->whereNotNull('email_verified_at'),
+                fn (Builder $builder): Builder => $builder->whereNull('email_verified_at')
+            )
+        );
     }
 
     public function filterRoles(?Collection $roles): self
     {
-        return $this->when($roles?->isNotEmpty(), function (Builder $builder) use ($roles): Builder {
+        return $this->when($roles?->isNotEmpty(), fn (Builder $builder): Builder =>
             /** @var Collection $roles */
-            return $builder->whereHas('roles', function (Builder $builder) use ($roles): Builder {
+            $builder->whereHas('roles', function (Builder $builder) use ($roles): Builder {
                 /** @var User */
                 $user = $this->getModel();
 
@@ -44,15 +44,14 @@ final class UserQueryBuilder extends Builder implements SearchInterface
                 $role = $user->roles()->make();
 
                 return $builder->whereIn("{$role->getTable()}.id", $roles->pluck('id'));
-            });
-        });
+            }));
     }
 
     public function filterTenants(?Collection $tenants): self
     {
-        return $this->when($tenants?->isNotEmpty(), function (Builder $builder) use ($tenants): Builder {
+        return $this->when($tenants?->isNotEmpty(), fn (Builder $builder): Builder =>
             /** @var Collection $tenants */
-            return $builder->whereHas('tenants', function (Builder $builder) use ($tenants): Builder {
+            $builder->whereHas('tenants', function (Builder $builder) use ($tenants): Builder {
                 /** @var User */
                 $user = $this->getModel();
 
@@ -60,8 +59,7 @@ final class UserQueryBuilder extends Builder implements SearchInterface
                 $tenant = $user->tenants()->make();
 
                 return $builder->whereIn("{$tenant->getTable()}.id", $tenants->pluck('id'));
-            });
-        });
+            }));
     }
 
     /**
