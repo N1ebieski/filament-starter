@@ -9,7 +9,8 @@ use RectorLaravel\Set\LaravelSetList;
 return \Rector\Config\RectorConfig::configure()
     ->withPaths([
         __DIR__.'/app',
-        __DIR__.'/bootstrap',
+        __DIR__.'/bootstrap/app.php',
+        __DIR__.'/bootstrap/providers.php',
         __DIR__.'/routes',
         __DIR__.'/config',
         __DIR__.'/tests',
@@ -20,6 +21,7 @@ return \Rector\Config\RectorConfig::configure()
     ])
     ->withSkip([
         \RectorLaravel\Rector\PropertyFetch\ReplaceFakerInstanceWithHelperRector::class,
+        \Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector::class,
         \Rector\DeadCode\Rector\ClassMethod\RemoveUnusedPromotedPropertyRector::class => [
             __DIR__.'/app/Http/Middleware/ApplyTenantScope/ApplyTenantScopeMiddleware.php',
             __DIR__.'/app/Http/Middleware/ApplyUserScope/ApplyUserScopeMiddleware.php',
@@ -27,6 +29,7 @@ return \Rector\Config\RectorConfig::configure()
     ])
     ->withSets([
         SetList::CODE_QUALITY,
+        SetList::CODING_STYLE,
         SetList::DEAD_CODE,
         LaravelLevelSetList::UP_TO_LARAVEL_110,
         LaravelSetList::LARAVEL_ARRAYACCESS_TO_METHOD_CALL,
