@@ -24,8 +24,13 @@ return \Rector\Config\RectorConfig::configure()
         \RectorLaravel\Rector\PropertyFetch\ReplaceFakerInstanceWithHelperRector::class,
         \Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector::class,
         \Rector\Php74\Rector\Closure\ClosureToArrowFunctionRector::class,
-        \Rector\TypeDeclaration\Rector\Closure\ClosureReturnTypeRector::class => [
+        \Rector\TypeDeclaration\Rector\ClassMethod\ReturnTypeFromStrictConstantReturnRector::class => [
             __DIR__.'/app/Exceptions/Exception.php',
+        ],
+        \Rector\TypeDeclaration\Rector\ClassMethod\BoolReturnTypeFromBooleanConstReturnsRector::class => [
+            __DIR__.'/app/Exceptions/Exception.php',
+        ],
+        \Rector\TypeDeclaration\Rector\Closure\ClosureReturnTypeRector::class => [
             __DIR__.'/app/Providers/App/AppServiceProvider.php',
         ],
         \App\Overrides\Rector\Php74\Rector\Closure\ClosureToArrowFunctionRector::class => [
@@ -40,7 +45,8 @@ return \Rector\Config\RectorConfig::configure()
         deadCode: true,
         codeQuality: true,
         codingStyle: true,
-        typeDeclarations: true
+        typeDeclarations: true,
+        privatization: true
     )
     ->withPhpSets()
     ->withSets([

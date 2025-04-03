@@ -31,7 +31,7 @@ final class VerifyEmailMiddleware extends Middleware
         return $next($request);
     }
 
-    protected function redirectTo(): string
+    private function redirectTo(): string
     {
         /** @var string */
         return Filament::getDefaultPanel()->getEmailVerificationPromptUrl();

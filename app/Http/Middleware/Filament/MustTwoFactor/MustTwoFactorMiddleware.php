@@ -39,7 +39,7 @@ final class MustTwoFactorMiddleware extends Middleware
         return $next($request);
     }
 
-    protected function redirectTo(Request $request): string
+    private function redirectTo(Request $request): string
     {
         return Filament::getDefaultPanel()->route('auth.two-factor', [
             'next' => $request->getRequestUri(),

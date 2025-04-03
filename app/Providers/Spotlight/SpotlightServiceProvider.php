@@ -10,7 +10,7 @@ use Livewire\Livewire;
 
 final class SpotlightServiceProvider extends ServiceProvider
 {
-    protected array $commands = [];
+    private array $commands = [];
 
     public function boot(): void
     {
