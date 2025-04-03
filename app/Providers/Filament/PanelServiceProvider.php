@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Providers\Filament;
 
 use App\Models\User\User;
+use App\Overrides\Illuminate\Support\Facades\Lang;
 use App\Overrides\Pxlrbt\FilamentSpotlight\SpotlightPlugin;
 use Filament\Facades\Filament;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -20,7 +21,6 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
-use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\View;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Jeffgreco13\FilamentBreezy\Pages\MyProfilePage;
@@ -47,12 +47,12 @@ abstract class PanelServiceProvider extends BasePanelProvider
             ->userMenuItems([
                 MenuItem::make()
                     ->url(fn (): string => Filament::getPanel('web')->getHomeUrl()) // @phpstan-ignore-line
-                    ->label(Lang::get('home.pages.index.title'))
+                    ->label(Lang::string('home.pages.index.title'))
                     ->icon('heroicon-s-home'),
                 MenuItem::make()
                     ->url(fn (): string => Filament::getPanel('user')->getHomeUrl()) // @phpstan-ignore-line
                     ->visible(fn (Panel $panel): bool => $panel->auth()->check())
-                    ->label(Lang::get('user.pages.panel.title'))
+                    ->label(Lang::string('user.pages.panel.title'))
                     ->icon('heroicon-s-user'),
                 MenuItem::make()
                     ->url(fn (): string => Filament::getPanel('admin')->getHomeUrl()) // @phpstan-ignore-line
@@ -62,7 +62,7 @@ abstract class PanelServiceProvider extends BasePanelProvider
 
                         return $user?->can('admin.access') ?? false;
                     })
-                    ->label(Lang::get('admin.pages.panel.title'))
+                    ->label(Lang::string('admin.pages.panel.title'))
                     ->icon('heroicon-m-shield-exclamation'),
             ])
             ->authGuard('web')
@@ -80,7 +80,7 @@ abstract class PanelServiceProvider extends BasePanelProvider
                         }
 
                         return '';
-                    })->label(Lang::get('filament-breezy::default.profile.my_profile')),
+                    })->label(Lang::string('filament-breezy::default.profile.my_profile')),
                 ]);
             })
             ->brandLogo(fn (): ContractsView => View::make('filament.logo.logo'))

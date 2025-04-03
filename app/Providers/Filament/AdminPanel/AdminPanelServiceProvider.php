@@ -7,13 +7,13 @@ namespace App\Providers\Filament\AdminPanel;
 use App\Http\Middleware\Filament\Authenticate\AuthenticateMiddleware;
 use App\Http\Middleware\Filament\MustTwoFactor\MustTwoFactorMiddleware;
 use App\Http\Middleware\Filament\VerifyEmail\VerifyEmailMiddleware;
+use App\Overrides\Illuminate\Support\Facades\Lang;
 use App\Overrides\Jeffgreco13\FilamentBreezy\BreezyCore;
 use App\Providers\Filament\PanelServiceProvider;
 use Filament\Panel;
 use Filament\View\PanelsRenderHook;
 use Filament\Widgets\AccountWidget;
 use Filament\Widgets\FilamentInfoWidget;
-use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Vite;
 
 final class AdminPanelServiceProvider extends PanelServiceProvider
@@ -26,7 +26,7 @@ final class AdminPanelServiceProvider extends PanelServiceProvider
             ->id(self::ID)
             ->path(self::ID)
             ->homeUrl('/'.self::ID)
-            ->brandName(Lang::get('admin.pages.panel.title')) // @phpstan-ignore-line
+            ->brandName(Lang::string('admin.pages.panel.title')) // @phpstan-ignore-line
             ->discoverResources(in: app_path('Filament/Resources/Admin'), for: 'App\\Filament\\Resources\\Admin')
             ->discoverPages(in: app_path('Filament/Pages/Admin'), for: 'App\\Filament\\Pages\\Admin')
             ->pages([])

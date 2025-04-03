@@ -11,13 +11,13 @@ use App\Http\Middleware\Filament\Authenticate\AuthenticateMiddleware;
 use App\Http\Middleware\Filament\MustTwoFactor\MustTwoFactorMiddleware;
 use App\Http\Middleware\Filament\VerifyEmail\VerifyEmailMiddleware;
 use App\Models\Tenant\Tenant;
+use App\Overrides\Illuminate\Support\Facades\Lang;
 use App\Overrides\Jeffgreco13\FilamentBreezy\BreezyCore;
 use App\Providers\Filament\PanelServiceProvider;
 use Filament\Panel;
 use Filament\View\PanelsRenderHook;
 use Filament\Widgets\AccountWidget;
 use Filament\Widgets\FilamentInfoWidget;
-use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Vite;
 
 final class UserPanelServiceProvider extends PanelServiceProvider
@@ -30,7 +30,7 @@ final class UserPanelServiceProvider extends PanelServiceProvider
             ->id(self::ID)
             ->path(self::ID)
             ->homeUrl('/'.self::ID)
-            ->brandName(Lang::get('user.pages.panel.title')) // @phpstan-ignore-line
+            ->brandName(Lang::string('user.pages.panel.title')) // @phpstan-ignore-line
             ->discoverResources(in: app_path('Filament/Resources/User'), for: 'App\\Filament\\Resources\\User')
             ->discoverPages(in: app_path('Filament/Pages/User'), for: 'App\\Filament\\Pages\\User')
             ->pages([])

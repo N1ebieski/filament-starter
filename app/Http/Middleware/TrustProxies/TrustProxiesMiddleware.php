@@ -38,7 +38,7 @@ final class TrustProxiesMiddleware extends TrustProxies
      */
     public function handle(Request $request, Closure $next): mixed
     {
-        $this->proxies = Config::array('network.trusted_proxies');
+        $this->proxies = Config::string('network.trusted_proxies');
 
         return parent::handle($request, $next);
     }
