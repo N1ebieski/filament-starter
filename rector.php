@@ -25,6 +25,7 @@ return \Rector\Config\RectorConfig::configure()
         \Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector::class,
         \Rector\Php74\Rector\Closure\ClosureToArrowFunctionRector::class,
         \Rector\TypeDeclaration\Rector\Closure\ClosureReturnTypeRector::class => [
+            __DIR__.'/app/Exceptions/Exception.php',
             __DIR__.'/app/Providers/App/AppServiceProvider.php',
         ],
         \App\Overrides\Rector\Php74\Rector\Closure\ClosureToArrowFunctionRector::class => [

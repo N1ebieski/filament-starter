@@ -32,7 +32,7 @@ class Exception extends BaseException
      *
      * @return bool|void
      */
-    public function report(LoggerInterface $logger): bool
+    public function report(LoggerInterface $logger)
     {
         return false;
     }
@@ -40,7 +40,7 @@ class Exception extends BaseException
     /**
      * @return bool|void
      */
-    public function render(Request $request): bool
+    public function render(Request $request)
     {
         return false;
     }

@@ -9,6 +9,7 @@ parameters:
 		- ./routes
 		- ./tests
 	excludePaths:
+		- ./app/Overrides/Rector/Php74/Rector/Closure/ClosureToArrowFunctionRector.php
 		- ./app/Overrides/Pxlrbt/FilamentSpotlight/SpotlightPlugin.php
 		- ./app/Overrides/Spatie/Permission/Traits/HasPermissions.php
 		- ./app/Overrides/Spatie/Permission/Traits/HasRoles.php
