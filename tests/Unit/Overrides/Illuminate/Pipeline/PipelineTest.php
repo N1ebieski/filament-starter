@@ -20,7 +20,7 @@ final class PipelineTest extends TestCase
 
         $result = $pipeline->through(...$handlers)->process('Test');
 
-        $this->assertSame($result, 'Test12');
+        $this->assertSame('Test12', $result);
     }
 
     public function test_pipeline_with_namespaces(): void
@@ -34,6 +34,6 @@ final class PipelineTest extends TestCase
 
         $result = $pipeline->through(...$handlers)->process('Test');
 
-        $this->assertSame($result, 'Test12');
+        $this->assertSame('Test12', $result);
     }
 }
