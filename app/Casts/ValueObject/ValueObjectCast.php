@@ -24,6 +24,7 @@ final class ValueObjectCast extends Cast implements CastsAttributes
         if ($this->nullable && is_null($value)) {
             return $value;
         }
+
         if (! $value instanceof $this->valueObjectName) {
             return new ($this->valueObjectName)($value);
         }
