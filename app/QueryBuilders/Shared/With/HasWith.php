@@ -57,7 +57,7 @@ trait HasWith
             return $builder;
         }, function (Builder $builder) use ($withAll): Builder {
             if ($withAll) {
-                $builder = $this->withAll();
+                return $this->withAll();
             }
 
             return $builder;

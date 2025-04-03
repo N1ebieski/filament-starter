@@ -23,7 +23,11 @@ class RegisterResources
 
             foreach ($pages as $key => $page) {
                 /** @var PageRegistration $page */
-                if (blank($key) || blank($page->getPage())) {
+                if (blank($key)) {
+                    continue;
+                }
+
+                if (blank($page->getPage())) {
                     continue;
                 }
 

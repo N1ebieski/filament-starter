@@ -24,15 +24,11 @@ final class ValueObjectCast extends Cast implements CastsAttributes
         if ($this->nullable && is_null($value)) {
             return $value;
         }
-
-        $valueObject = $value;
-
         if (! $value instanceof $this->valueObjectName) {
-            /** @var ValueObject */
-            $valueObject = new ($this->valueObjectName)($value);
+            return new ($this->valueObjectName)($value);
         }
 
-        return $valueObject;
+        return $value;
     }
 
     /**

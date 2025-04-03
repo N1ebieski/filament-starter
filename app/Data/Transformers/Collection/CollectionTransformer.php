@@ -30,13 +30,19 @@ class CollectionTransformer extends BaseTransformer implements Transformer
 
             $last = end($segments);
             $previous = prev($segments);
+            if (! isset($previous)) {
+                continue;
+            }
 
-            if (
-                ! isset($previous)
-                || ! ($previous instanceof NestedPartialSegment)
-                || ! ($last instanceof FieldsPartialSegment)
-                || $previous->field !== $name
-            ) {
+            if (! ($previous instanceof NestedPartialSegment)) {
+                continue;
+            }
+
+            if (! ($last instanceof FieldsPartialSegment)) {
+                continue;
+            }
+
+            if ($previous->field !== $name) {
                 continue;
             }
 

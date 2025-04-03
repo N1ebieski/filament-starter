@@ -40,7 +40,7 @@ final class ObjectDefaultsDataPipe extends BaseDataPipe implements DataPipe
         $interfaces = class_implements($class->name) ?: [];
 
         if (is_array($payload) && in_array(ObjectDefaultsInterface::class, $interfaces)) {
-            $properties = array_merge(
+            return array_merge(
                 $this->getConstructorDefaults($class->name),
                 $properties
             );

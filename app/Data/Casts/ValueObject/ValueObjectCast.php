@@ -25,7 +25,7 @@ class ValueObjectCast extends BaseCast implements Cast
         $valueObjectName = $this->valueObjectName ?? $type->name;
 
         if (! is_null($value) && ! $value instanceof $valueObjectName) {
-            $value = new ($valueObjectName)($value);
+            return new ($valueObjectName)($value);
         }
 
         return $value;

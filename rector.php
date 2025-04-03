@@ -46,7 +46,10 @@ return \Rector\Config\RectorConfig::configure()
         codeQuality: true,
         codingStyle: true,
         typeDeclarations: true,
-        privatization: true
+        privatization: true,
+        instanceOf: true,
+        earlyReturn: true,
+        // strictBooleans: true
     )
     ->withPhpSets()
     ->withSets([
