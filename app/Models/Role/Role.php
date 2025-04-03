@@ -20,7 +20,7 @@ use Spatie\Permission\Models\Role as BaseRole;
 use Spatie\Permission\PermissionRegistrar;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int|null $tenant_id
@@ -75,19 +75,6 @@ final class Role extends BaseRole implements AttributesInterface, SearchableInte
         'guard_name',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'id' => 'integer',
-        'tenant_id' => 'integer',
-        'name' => Name::class,
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-    ];
-
     public protected(set) array $selectAlways = ['id', 'tenant_id'];
 
     public protected(set) array $selectable = ['name', 'created_at', 'updated_at'];
@@ -99,6 +86,22 @@ final class Role extends BaseRole implements AttributesInterface, SearchableInte
     public protected(set) array $searchable = ['name'];
 
     public protected(set) array $searchableAttributes = ['id'];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'id' => 'integer',
+            'tenant_id' => 'integer',
+            'name' => Name::class,
+            'created_at' => 'datetime',
+            'updated_at' => 'datetime',
+        ];
+    }
 
     // Relations
 

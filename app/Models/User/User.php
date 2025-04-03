@@ -128,22 +128,6 @@ class User extends Authenticatable implements FilamentUser, AttributesInterface,
         'email',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'id' => 'integer',
-        'name' => Name::class,
-        'email' => Email::class,
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-        'deleted_at' => 'datetime',
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
-    ];
-
     public protected(set) array $selectAlways = ['id'];
 
     public protected(set) array $selectable = ['name', 'created_at', 'updated_at'];
@@ -155,6 +139,25 @@ class User extends Authenticatable implements FilamentUser, AttributesInterface,
     public protected(set) array $searchable = ['name', 'email'];
 
     public protected(set) array $searchableAttributes = ['id'];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'id' => 'integer',
+            'name' => Name::class,
+            'email' => Email::class,
+            'created_at' => 'datetime',
+            'updated_at' => 'datetime',
+            'deleted_at' => 'datetime',
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
+    }
 
     public function getTenants(Panel $panel): array|Collection
     {

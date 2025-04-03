@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Facades\Lang;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property \App\ValueObjects\Tenant\Name\Name $name
@@ -45,18 +45,6 @@ class Tenant extends Model implements AttributesInterface, HasCurrentTenantLabel
         'name',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'id' => 'integer',
-        'name' => Name::class,
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-    ];
-
     public protected(set) array $selectAlways = ['id', 'user_id'];
 
     public protected(set) array $selectable = ['name', 'created_at', 'updated_at'];
@@ -64,6 +52,21 @@ class Tenant extends Model implements AttributesInterface, HasCurrentTenantLabel
     public protected(set) array $withable = ['user'];
 
     public protected(set) array $sortable = ['id', 'name', 'created_at', 'updated_at'];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'id' => 'integer',
+            'name' => Name::class,
+            'created_at' => 'datetime',
+            'updated_at' => 'datetime',
+        ];
+    }
 
     public function getCurrentTenantLabel(): string
     {
