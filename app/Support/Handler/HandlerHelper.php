@@ -31,7 +31,6 @@ final class HandlerHelper
      */
     public static function getNamespace(object $class): string
     {
-        /** @var class-string */
         $classNamespace = $class::class;
 
         $reflectionClass = new ReflectionClass($classNamespace);
@@ -42,6 +41,7 @@ final class HandlerHelper
             /** @var Handler */
             $handlerAttribute = $handlerAttributes[0]->newInstance();
 
+            /** @var class-string */
             return $handlerAttribute->class;
         }
 

@@ -14,11 +14,11 @@ final class ResourceHelper
      */
     public static function getResourceName(Model $model): string
     {
-        /** @var class-string */
         $class = $model::class;
 
         $resourceName = Str::replace('Models', 'Http\\Resources', $class);
 
+        /** @var class-string */
         return $resourceName.'Resource';
     }
 }

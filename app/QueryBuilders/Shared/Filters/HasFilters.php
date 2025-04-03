@@ -56,10 +56,10 @@ trait HasFilters
 
     public function filterOrderBy(?OrderBy $orderBy): self
     {
-        return $this->when(! is_null($orderBy), fn (Builder $builder): Builder =>
+        return $this->when(! is_null($orderBy), function (Builder $builder) use ($orderBy): Builder {
             /** @var OrderBy $orderBy */
-            $builder->orderBy($orderBy->attribute, $orderBy->order->value)
-        );
+            return $builder->orderBy($orderBy->attribute, $orderBy->order->value);
+        });
     }
 
     public function filterSelect(?array $select): self
