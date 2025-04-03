@@ -40,7 +40,7 @@ class AdminMetaFactory
                 Lang::get('admin.pages.panel.keywords'),
                 Lang::get('app.pages.panel.keywords'),
             ])->filter()->implode(', ')),
-            url: $url ?? Config::get('app.url').Request::getRequestUri(),
+            url: $url ?? Config::string('app.url').Request::getRequestUri(),
             openGraph: $openGraph
         );
     }

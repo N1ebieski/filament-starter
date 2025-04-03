@@ -35,6 +35,7 @@ final class ChainTest extends TestCase
     {
         $container = new Container;
 
+        /** @var array<int, \PHPUnit\Framework\MockObject\MockObject> $handlers */
         $handlers = [
             $this->createMock(ExampleHandler1::class),
             $this->createMock(ExampleHandler2::class),

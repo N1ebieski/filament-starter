@@ -118,11 +118,11 @@ final class Role extends BaseRole implements AttributesInterface, SearchableInte
 
         //@phpstan-ignore-next-line
         return $this->morphedByMany(
-            getModelForGuard($this->attributes['guard_name'] ?? Config::get('auth.defaults.guard')), //@phpstan-ignore-line
+            getModelForGuard($this->attributes['guard_name'] ?? Config::string('auth.defaults.guard')), //@phpstan-ignore-line
             'authenticatable',
-            Config::get('permission.table_names.model_has_roles'),
+            Config::string('permission.table_names.model_has_roles'),
             $permissionRegistrar->pivotRole,
-            Config::get('permission.column_names.model_morph_key')
+            Config::string('permission.column_names.model_morph_key')
         );
     }
 
@@ -133,7 +133,6 @@ final class Role extends BaseRole implements AttributesInterface, SearchableInte
      *
      * @param  \Illuminate\Database\Query\Builder&ConnectionInterface  $query
      */
-    #[Override]
     public function newEloquentBuilder($query): RoleQueryBuilder
     {
         return new RoleQueryBuilder($query);
@@ -142,7 +141,6 @@ final class Role extends BaseRole implements AttributesInterface, SearchableInte
     /**
      * Create a new factory instance for the model.
      */
-    #[Override]
     protected static function newFactory(): RoleFactory
     {
         return RoleFactory::new();

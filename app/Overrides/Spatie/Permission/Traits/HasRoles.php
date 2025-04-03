@@ -22,7 +22,7 @@ trait HasRoles
         /** @var PermissionRegistrar */
         $permissionRegistrar = App::make(PermissionRegistrar::class);
 
-        return Config::get('permission.table_names.model_has_roles').'.'.$permissionRegistrar->teamsKey;
+        return Config::string('permission.table_names.model_has_roles').'.'.$permissionRegistrar->teamsKey;
     }
 
     private function getTeamField(): string
@@ -30,7 +30,7 @@ trait HasRoles
         /** @var PermissionRegistrar */
         $permissionRegistrar = App::make(PermissionRegistrar::class);
 
-        return Config::get('permission.table_names.roles').'.'.$permissionRegistrar->teamsKey;
+        return Config::string('permission.table_names.roles').'.'.$permissionRegistrar->teamsKey;
     }
 
     public function roles(): BelongsToMany
@@ -39,10 +39,10 @@ trait HasRoles
         $permissionRegistrar = App::make(PermissionRegistrar::class);
 
         $relation = $this->morphToMany(
-            Config::get('permission.models.role'),
+            Config::string('permission.models.role'),
             'authenticatable',
-            Config::get('permission.table_names.model_has_roles'),
-            Config::get('permission.column_names.model_morph_key'),
+            Config::string('permission.table_names.model_has_roles'),
+            Config::string('permission.column_names.model_morph_key'),
             $permissionRegistrar->pivotRole
         );
 
@@ -64,10 +64,10 @@ trait HasRoles
         $permissionRegistrar = App::make(PermissionRegistrar::class);
 
         $relation = $this->morphToMany(
-            Config::get('permission.models.role'),
+            Config::string('permission.models.role'),
             'authenticatable',
-            Config::get('permission.table_names.model_has_roles'),
-            Config::get('permission.column_names.model_morph_key'),
+            Config::string('permission.table_names.model_has_roles'),
+            Config::string('permission.column_names.model_morph_key'),
             $permissionRegistrar->pivotRole
         );
 

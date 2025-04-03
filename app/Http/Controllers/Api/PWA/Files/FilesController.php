@@ -21,7 +21,7 @@ class FilesController extends Controller
         /** @var array<int, string> */
         $assets = $cacheQuery->execute(new GetAssetsCacheQuery(
             action: new GetAssetsAction,
-            time: new Time(Config::get('cache.minutes'))
+            time: new Time(Config::integer('cache.minutes'))
         ));
 
         return Response::json(['data' => $assets]);

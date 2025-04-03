@@ -21,7 +21,7 @@ final class ConfigServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $url = Config::get('app.url');
+        $url = Config::string('app.url');
 
         /** @var string */
         $scheme = parse_url((string) $url, PHP_URL_SCHEME);

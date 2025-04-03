@@ -21,7 +21,7 @@ trait HasPermissions
         /** @var PermissionRegistrar */
         $permissionRegistrar = App::make(PermissionRegistrar::class);
 
-        return Config::get('permission.table_names.model_has_permissions').'.'.$permissionRegistrar->teamsKey;
+        return Config::string('permission.table_names.model_has_permissions').'.'.$permissionRegistrar->teamsKey;
     }
 
     public function permissions(): BelongsToMany
@@ -30,10 +30,10 @@ trait HasPermissions
         $permissionRegistrar = App::make(PermissionRegistrar::class);
 
         $relation = $this->morphToMany(
-            Config::get('permission.models.permission'),
+            Config::string('permission.models.permission'),
             'authenticatable',
-            Config::get('permission.table_names.model_has_permissions'),
-            Config::get('permission.column_names.model_morph_key'),
+            Config::string('permission.table_names.model_has_permissions'),
+            Config::string('permission.column_names.model_morph_key'),
             $permissionRegistrar->pivotPermission
         );
 
@@ -51,10 +51,10 @@ trait HasPermissions
         $permissionRegistrar = App::make(PermissionRegistrar::class);
 
         $relation = $this->morphToMany(
-            Config::get('permission.models.permission'),
+            Config::string('permission.models.permission'),
             'authenticatable',
-            Config::get('permission.table_names.model_has_permissions'),
-            Config::get('permission.column_names.model_morph_key'),
+            Config::string('permission.table_names.model_has_permissions'),
+            Config::string('permission.column_names.model_morph_key'),
             $permissionRegistrar->pivotPermission
         );
 

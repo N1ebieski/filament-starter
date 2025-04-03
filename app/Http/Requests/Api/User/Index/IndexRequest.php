@@ -31,12 +31,12 @@ final class IndexRequest extends Request
         public readonly ?string $orderby = null,
         ?int $paginate = null
     ) {
-        $this->paginate = $paginate ?? Config::get('database.paginate');
+        $this->paginate = $paginate ?? Config::integer('database.paginate');
     }
 
     public static function rules(User $user): array
     {
-        $paginate = Config::get('database.paginate');
+        $paginate = Config::integer('database.paginate');
 
         return [
             'page' => 'bail|integer',
