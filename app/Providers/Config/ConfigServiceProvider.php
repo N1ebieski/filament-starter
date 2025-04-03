@@ -32,7 +32,7 @@ final class ConfigServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        Model::shouldBeStrict();
+        Model::shouldBeStrict(! $this->app->isProduction());
         DB::prohibitDestructiveCommands($this->app->isProduction());
 
         GeneratorCommand::prohibit($this->app->isProduction());
