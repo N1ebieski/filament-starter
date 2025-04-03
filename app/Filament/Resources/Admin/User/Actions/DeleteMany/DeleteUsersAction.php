@@ -14,10 +14,10 @@ use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\App;
 
-final readonly class DeleteUsersAction extends Action
+final class DeleteUsersAction extends Action
 {
     public function __construct(
-        private CommandBusInterface $commandBus
+        private readonly CommandBusInterface $commandBus
     ) {}
 
     public static function make(): DeleteBulkAction

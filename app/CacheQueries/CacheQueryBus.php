@@ -7,11 +7,11 @@ namespace App\CacheQueries;
 use App\Support\Handler\HandlerHelper;
 use Illuminate\Container\Container;
 
-final readonly class CacheQueryBus implements CacheQueryBusInterface
+final class CacheQueryBus implements CacheQueryBusInterface
 {
     public function __construct(
-        private Container $container,
-        private HandlerHelper $handlerHelper
+        private readonly Container $container,
+        private readonly HandlerHelper $handlerHelper
     ) {}
 
     public function execute(CacheQuery $query): mixed

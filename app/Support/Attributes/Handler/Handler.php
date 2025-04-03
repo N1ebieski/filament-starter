@@ -9,7 +9,7 @@ use App\Support\Attributes\ClassNotExistException;
 use Attribute;
 
 #[Attribute(Attribute::TARGET_CLASS)]
-final readonly class Handler extends BaseAttribute
+final class Handler extends BaseAttribute
 {
     public function __construct(public readonly string $class)
     {

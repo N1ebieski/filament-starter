@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Support\Query\Sorts;
 
-final readonly class SortsHelper
+final class SortsHelper
 {
     public static function getAttributesWithOrder(array $sorts): array
     {

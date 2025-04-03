@@ -7,4 +7,4 @@ namespace App\Queries;
 /**
  * @method mixed handle(Query $query)
  */
-abstract readonly class Handler {}
+abstract class Handler {}

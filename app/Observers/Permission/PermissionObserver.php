@@ -7,7 +7,7 @@ namespace App\Observers\Permission;
 use App\Models\Permission\Permission;
 use App\Observers\Observer;
 
-readonly class PermissionObserver extends Observer
+class PermissionObserver extends Observer
 {
     public function deleting(Permission $permission): void
     {

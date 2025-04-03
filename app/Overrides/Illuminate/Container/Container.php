@@ -9,9 +9,9 @@ use Illuminate\Contracts\Container\Container as BaseContainer;
 use Illuminate\Support\Collection;
 use Override;
 
-final readonly class Container implements ContainerContract
+final class Container implements ContainerContract
 {
-    public function __construct(private BaseContainer $baseContainer) {}
+    public function __construct(private readonly BaseContainer $baseContainer) {}
 
     #[Override]
     public function makeMany(array $abstracts, array $parameters = []): array

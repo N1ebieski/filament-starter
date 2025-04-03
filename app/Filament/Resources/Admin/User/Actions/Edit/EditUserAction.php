@@ -18,12 +18,12 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rules\Exists;
 
-final readonly class EditUserAction extends Action
+final class EditUserAction extends Action
 {
     public function __construct(
-        private User $user,
-        private Role $role,
-        private CommandBusInterface $commandBus
+        private readonly User $user,
+        private readonly Role $role,
+        private readonly CommandBusInterface $commandBus
     ) {}
 
     public static function make(): EditAction

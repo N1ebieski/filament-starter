@@ -7,4 +7,4 @@ namespace App\Http\Clients;
 /**
  * @method AsyncResponse|Response handle(Client $client)
  */
-abstract readonly class Handler {}
+abstract class Handler {}

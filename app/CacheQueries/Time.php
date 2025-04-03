@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\CacheQueries;
 
-final readonly class Time
+final class Time
 {
-    public function __construct(public int $minutes) {}
+    public function __construct(public readonly int $minutes) {}
 }

@@ -8,7 +8,7 @@ use App\Models\Permission\Permission;
 use App\Models\User\User;
 use App\Observers\Observer;
 
-readonly class UserObserver extends Observer
+class UserObserver extends Observer
 {
     public function pivotDetaching(User $user, string $relationName): void
     {

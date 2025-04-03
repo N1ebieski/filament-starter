@@ -9,10 +9,10 @@ use App\View\Metas\Admin\AdminMetaFactory;
 use App\View\Metas\Admin\MetaFactory;
 use App\View\Metas\MetaInterface;
 
-final readonly class IndexMetaFactory extends MetaFactory
+final class IndexMetaFactory extends MetaFactory
 {
     public function __construct(
-        private AdminMetaFactory $adminMetaFactory
+        private readonly AdminMetaFactory $adminMetaFactory
     ) {}
 
     public function makeMeta(?int $page = null): MetaInterface

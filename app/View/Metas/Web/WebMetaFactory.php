@@ -12,13 +12,13 @@ use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection as Collect;
 
-final readonly class WebMetaFactory
+final class WebMetaFactory
 {
     public function __construct(
-        private Config $config,
-        private Translator $translator,
-        private Collect $collect,
-        private Request $request
+        private readonly Config $config,
+        private readonly Translator $translator,
+        private readonly Collect $collect,
+        private readonly Request $request
     ) {}
 
     public function makeMeta(

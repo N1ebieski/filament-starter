@@ -10,7 +10,7 @@ use Spatie\LaravelData\Casts\Cast;
 use Spatie\LaravelData\Support\Creation\CreationContext;
 use Spatie\LaravelData\Support\DataProperty;
 
-final readonly class PaginateCast extends BaseCast implements Cast
+final class PaginateCast extends BaseCast implements Cast
 {
     /**
      * @param  Paginate|int|null  $value

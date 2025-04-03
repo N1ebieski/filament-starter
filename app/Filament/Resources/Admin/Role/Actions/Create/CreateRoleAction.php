@@ -17,7 +17,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Support\Facades\App;
 
-final readonly class CreateRoleAction extends Action
+final class CreateRoleAction extends Action
 {
     use HasPermissions;
 

@@ -8,11 +8,11 @@ use App\Actions\ActionBusInterface;
 use App\CacheQueries\Handler;
 use Illuminate\Contracts\Cache\Repository as Cache;
 
-final readonly class GetAssetsHandler extends Handler
+final class GetAssetsHandler extends Handler
 {
     public function __construct(
-        private Cache $cache,
-        private ActionBusInterface $actionBus
+        private readonly Cache $cache,
+        private readonly ActionBusInterface $actionBus
     ) {}
 
     public function handle(GetAssetsCacheQuery $cacheQuery): array

@@ -4,4 +4,4 @@ declare(strict_types=1);
 
 namespace App\Mixins;
 
-abstract readonly class Mixin {}
+abstract class Mixin {}

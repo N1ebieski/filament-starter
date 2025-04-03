@@ -8,7 +8,7 @@ use App\Models\Tenant\Tenant;
 use App\Models\User\User;
 use App\Observers\Observer;
 
-readonly class TenantObserver extends Observer
+class TenantObserver extends Observer
 {
     public function pivotDetaching(Tenant $tenant, string $relationName): void
     {

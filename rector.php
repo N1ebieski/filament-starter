@@ -19,6 +19,7 @@ return \Rector\Config\RectorConfig::configure()
         \App\Overrides\Rector\Php74\Rector\Closure\ClosureToArrowFunctionRector::class,
     ])
     ->withSkip([
+        \Rector\Php82\Rector\Class_\ReadOnlyClassRector::class,
         \Rector\DeadCode\Rector\Node\RemoveNonExistingVarAnnotationRector::class,
         \Rector\Php81\Rector\Array_\FirstClassCallableRector::class,
         \RectorLaravel\Rector\PropertyFetch\ReplaceFakerInstanceWithHelperRector::class,

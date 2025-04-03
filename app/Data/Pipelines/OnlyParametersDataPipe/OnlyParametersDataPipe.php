@@ -9,7 +9,7 @@ use Spatie\LaravelData\DataPipes\DataPipe;
 use Spatie\LaravelData\Support\Creation\CreationContext;
 use Spatie\LaravelData\Support\DataClass;
 
-final readonly class OnlyParametersDataPipe extends BaseDataPipe implements DataPipe
+final class OnlyParametersDataPipe extends BaseDataPipe implements DataPipe
 {
     /**
      * @param  class-string  $className

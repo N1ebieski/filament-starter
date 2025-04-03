@@ -9,7 +9,7 @@ use App\Models\User\User;
 use App\Policies\Policy;
 use App\ValueObjects\Role\Name\DefaultName;
 
-final readonly class RolePolicy extends Policy
+final class RolePolicy extends Policy
 {
     public function viewAny(User $user): bool
     {

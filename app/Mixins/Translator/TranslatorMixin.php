@@ -7,7 +7,7 @@ namespace App\Mixins\Translator;
 use App\Mixins\Mixin;
 use Illuminate\Support\Facades\App;
 
-final readonly class TranslatorMixin extends Mixin
+final class TranslatorMixin extends Mixin
 {
     public function string(): \Closure
     {

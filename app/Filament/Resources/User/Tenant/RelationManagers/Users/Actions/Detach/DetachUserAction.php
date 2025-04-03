@@ -14,10 +14,10 @@ use Filament\Tables\Actions\DetachAction;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\App;
 
-final readonly class DetachUserAction extends Action
+final class DetachUserAction extends Action
 {
     public function __construct(
-        private CommandBusInterface $commandBus
+        private readonly CommandBusInterface $commandBus
     ) {}
 
     public static function make(Tenant $tenant): DetachAction

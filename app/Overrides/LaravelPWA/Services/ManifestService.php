@@ -7,11 +7,11 @@ namespace App\Overrides\LaravelPWA\Services;
 use Illuminate\Contracts\Config\Repository as Config;
 use LaravelPWA\Services\ManifestService as BaseManifestService;
 
-final readonly class ManifestService
+final class ManifestService
 {
     public function __construct(
-        private BaseManifestService $manifestService,
-        private Config $config
+        private readonly BaseManifestService $manifestService,
+        private readonly Config $config
     ) {}
 
     public function generate(): array

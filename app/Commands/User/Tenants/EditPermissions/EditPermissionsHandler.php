@@ -9,10 +9,10 @@ use App\Models\Permission\Permission;
 use App\Models\User\User;
 use Illuminate\Database\ConnectionInterface as DB;
 
-final readonly class EditPermissionsHandler extends Handler
+final class EditPermissionsHandler extends Handler
 {
     public function __construct(
-        private DB $db,
+        private readonly DB $db,
     ) {}
 
     public function handle(EditPermissionsCommand $command): User

@@ -20,7 +20,7 @@ use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rules\Exists;
 
-final readonly class AttachUserAction extends Action
+final class AttachUserAction extends Action
 {
     use HasPermissions;
 

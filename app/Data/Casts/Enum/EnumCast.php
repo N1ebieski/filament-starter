@@ -11,9 +11,9 @@ use Spatie\LaravelData\Casts\Cast;
 use Spatie\LaravelData\Support\Creation\CreationContext;
 use Spatie\LaravelData\Support\DataProperty;
 
-final readonly class EnumCast extends BaseCast implements Cast
+final class EnumCast extends BaseCast implements Cast
 {
-    public function __construct(private ?string $enumName = null) {}
+    public function __construct(private readonly ?string $enumName = null) {}
 
     /**
      * @param  EnumInterface|string|bool|null  $value

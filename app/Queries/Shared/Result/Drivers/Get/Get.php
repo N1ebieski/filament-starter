@@ -8,7 +8,7 @@ use App\Queries\Shared\Result\ResultInterface;
 use App\Support\Attributes\Handler\Handler;
 
 #[Handler(GetHandler::class)]
-final readonly class Get implements ResultInterface
+final class Get implements ResultInterface
 {
     public function __construct(public ?int $take = null) {}
 }

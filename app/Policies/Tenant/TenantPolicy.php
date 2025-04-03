@@ -8,7 +8,7 @@ use App\Models\Tenant\Tenant;
 use App\Models\User\User;
 use App\Policies\Policy;
 
-final readonly class TenantPolicy extends Policy
+final class TenantPolicy extends Policy
 {
     public function create(): bool
     {

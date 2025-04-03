@@ -7,9 +7,9 @@ namespace App\Overrides\Illuminate\Translation;
 use App\Overrides\Illuminate\Contracts\Translation\Translator as TranslatorContract;
 use InvalidArgumentException;
 
-final readonly class Translator implements TranslatorContract
+final class Translator implements TranslatorContract
 {
-    public function __construct(private \Illuminate\Translation\Translator $baseTranslator) {}
+    public function __construct(private readonly \Illuminate\Translation\Translator $baseTranslator) {}
 
     /**
      * @param  string  $key

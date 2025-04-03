@@ -9,13 +9,13 @@ use Illuminate\Container\Container;
 use Illuminate\Contracts\Bus\Dispatcher as BusDispatcher;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-final readonly class CommandBus implements CommandBusInterface
+final class CommandBus implements CommandBusInterface
 {
     public function __construct(
-        private Container $container,
-        private BusDispatcher $busDispatcher,
-        private JobFactory $jobFactory,
-        private HandlerHelper $handlerHelper
+        private readonly Container $container,
+        private readonly BusDispatcher $busDispatcher,
+        private readonly JobFactory $jobFactory,
+        private readonly HandlerHelper $handlerHelper
     ) {}
 
     public function execute(Command $command): mixed

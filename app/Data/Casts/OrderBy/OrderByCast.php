@@ -11,7 +11,7 @@ use Spatie\LaravelData\Casts\Cast;
 use Spatie\LaravelData\Support\Creation\CreationContext;
 use Spatie\LaravelData\Support\DataProperty;
 
-final readonly class OrderByCast extends BaseCast implements Cast
+final class OrderByCast extends BaseCast implements Cast
 {
     /**
      * @param  OrderBy|string|false|null  $value

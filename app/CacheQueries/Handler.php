@@ -7,4 +7,4 @@ namespace App\CacheQueries;
 /**
  * @method mixed handle(CacheQuery $query)
  */
-abstract readonly class Handler {}
+abstract class Handler {}

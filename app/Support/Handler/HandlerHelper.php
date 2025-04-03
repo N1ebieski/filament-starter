@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use ReflectionClass;
 
-final readonly class HandlerHelper
+final class HandlerHelper
 {
     /** @var array */
     private const NAMES = [

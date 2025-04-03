@@ -8,9 +8,9 @@ use App\Overrides\Illuminate\Contracts\Http\Client\Client;
 use App\Overrides\Illuminate\Contracts\Http\Client\Factory as ClientFactory;
 use Illuminate\Http\Client\Factory as BaseFactory;
 
-final readonly class Factory implements ClientFactory
+final class Factory implements ClientFactory
 {
-    public function __construct(private BaseFactory $factory) {}
+    public function __construct(private readonly BaseFactory $factory) {}
 
     public function request(): Client
     {

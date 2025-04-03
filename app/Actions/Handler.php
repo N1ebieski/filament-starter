@@ -7,4 +7,4 @@ namespace App\Actions;
 /**
  * @method mixed handle(Action $action)
  */
-abstract readonly class Handler {}
+abstract class Handler {}

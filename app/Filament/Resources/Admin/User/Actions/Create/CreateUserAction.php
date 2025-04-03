@@ -19,12 +19,12 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rules\Exists;
 
-final readonly class CreateUserAction extends Action
+final class CreateUserAction extends Action
 {
     public function __construct(
-        private User $user,
-        private Role $role,
-        private CommandBusInterface $commandBus
+        private readonly User $user,
+        private readonly Role $role,
+        private readonly CommandBusInterface $commandBus
     ) {}
 
     public static function make(Collection $roles = new Collection): CreateAction

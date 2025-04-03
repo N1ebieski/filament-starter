@@ -9,10 +9,10 @@ use App\Models\Permission\Permission;
 use App\Models\Role\Role;
 use Illuminate\Database\ConnectionInterface as DB;
 
-final readonly class CreateHandler extends Handler
+final class CreateHandler extends Handler
 {
     public function __construct(
-        private DB $db,
+        private readonly DB $db,
     ) {}
 
     public function handle(CreateCommand $command): Role

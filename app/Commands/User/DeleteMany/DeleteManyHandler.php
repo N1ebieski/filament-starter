@@ -9,11 +9,11 @@ use App\Commands\Handler;
 use App\Commands\User\Delete\DeleteCommand;
 use Illuminate\Database\ConnectionInterface as DB;
 
-final readonly class DeleteManyHandler extends Handler
+final class DeleteManyHandler extends Handler
 {
     public function __construct(
-        private DB $db,
-        private CommandBusInterface $commandBus,
+        private readonly DB $db,
+        private readonly CommandBusInterface $commandBus,
     ) {}
 
     public function handle(DeleteManyCommand $command): int

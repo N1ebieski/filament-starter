@@ -13,7 +13,7 @@ use Spatie\LaravelData\Support\Transformation\TransformationContext;
 use Spatie\LaravelData\Transformers\ArrayableTransformer;
 use Spatie\LaravelData\Transformers\Transformer;
 
-final readonly class CollectionTransformer extends BaseTransformer implements Transformer
+final class CollectionTransformer extends BaseTransformer implements Transformer
 {
     public function __construct(private readonly ArrayableTransformer $arrayableTransformer) {}
 

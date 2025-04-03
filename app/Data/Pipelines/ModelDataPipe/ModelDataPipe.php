@@ -10,7 +10,7 @@ use Spatie\LaravelData\DataPipes\DataPipe;
 use Spatie\LaravelData\Support\Creation\CreationContext;
 use Spatie\LaravelData\Support\DataClass;
 
-final readonly class ModelDataPipe extends BaseDataPipe implements DataPipe
+final class ModelDataPipe extends BaseDataPipe implements DataPipe
 {
     public function handle(mixed $payload, DataClass $class, array $properties, CreationContext $creationContext): array
     {

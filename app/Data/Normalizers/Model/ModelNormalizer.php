@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\LaravelData\Normalizers\Normalized\Normalized;
 use Spatie\LaravelData\Normalizers\Normalizer;
 
-final readonly class ModelNormalizer extends BaseNormalizer implements Normalizer
+final class ModelNormalizer extends BaseNormalizer implements Normalizer
 {
     public function normalize(mixed $value): ?Normalized
     {

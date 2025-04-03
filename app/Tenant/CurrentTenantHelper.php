@@ -8,11 +8,11 @@ use App\Models\Tenant\Tenant;
 use Filament\FilamentManager;
 use Illuminate\Http\Request;
 
-final readonly class CurrentTenantHelper
+final class CurrentTenantHelper
 {
     public function __construct(
-        private FilamentManager $filamentManager,
-        private Request $request
+        private readonly FilamentManager $filamentManager,
+        private readonly Request $request
     ) {}
 
     public function getTenant(): Tenant

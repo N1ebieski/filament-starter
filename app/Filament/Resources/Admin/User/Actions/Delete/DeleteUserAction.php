@@ -12,10 +12,10 @@ use App\Overrides\Illuminate\Support\Facades\Lang;
 use Filament\Tables\Actions\DeleteAction;
 use Illuminate\Support\Facades\App;
 
-final readonly class DeleteUserAction extends Action
+final class DeleteUserAction extends Action
 {
     public function __construct(
-        private CommandBusInterface $commandBus
+        private readonly CommandBusInterface $commandBus
     ) {}
 
     public static function make(): DeleteAction

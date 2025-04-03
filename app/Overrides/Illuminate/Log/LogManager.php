@@ -7,9 +7,9 @@ namespace App\Overrides\Illuminate\Log;
 use App\Overrides\Illuminate\Contracts\Logger\LoggerInterface;
 use Illuminate\Log\LogManager as BaseLogManager;
 
-final readonly class LogManager implements LoggerInterface
+final class LogManager implements LoggerInterface
 {
-    public function __construct(private BaseLogManager $logManager) {}
+    public function __construct(private readonly BaseLogManager $logManager) {}
 
     /**
      * Laravel doesn't define channel method in Contract.

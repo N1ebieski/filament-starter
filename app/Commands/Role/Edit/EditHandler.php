@@ -10,10 +10,10 @@ use App\Models\Role\Role;
 use Illuminate\Database\ConnectionInterface as DB;
 use Spatie\LaravelData\Optional;
 
-final readonly class EditHandler extends Handler
+final class EditHandler extends Handler
 {
     public function __construct(
-        private DB $db,
+        private readonly DB $db,
     ) {}
 
     public function handle(EditCommand $command): Role

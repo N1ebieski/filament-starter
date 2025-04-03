@@ -15,11 +15,11 @@ use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\App;
 
-final readonly class DetachUsersAction extends Action
+final class DetachUsersAction extends Action
 {
     public function __construct(
-        private User $user,
-        private CommandBusInterface $commandBus
+        private readonly User $user,
+        private readonly CommandBusInterface $commandBus
     ) {}
 
     public static function make(Tenant $tenant): DetachBulkAction

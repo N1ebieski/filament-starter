@@ -8,7 +8,7 @@ use App\Queries\Shared\Result\ResultInterface;
 use App\Support\Attributes\Handler\Handler;
 
 #[Handler(PaginateHandler::class)]
-final readonly class Paginate implements ResultInterface
+final class Paginate implements ResultInterface
 {
     public function __construct(
         public int $perPage,

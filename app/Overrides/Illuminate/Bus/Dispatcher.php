@@ -8,9 +8,9 @@ use App\Overrides\Illuminate\Contracts\Bus\Dispatcher as ContractsDispatcher;
 use Illuminate\Bus\Dispatcher as BaseDispatcher;
 use Illuminate\Foundation\Bus\PendingDispatch;
 
-final readonly class Dispatcher implements ContractsDispatcher
+final class Dispatcher implements ContractsDispatcher
 {
-    public function __construct(private BaseDispatcher $dispatcher) {}
+    public function __construct(private readonly BaseDispatcher $dispatcher) {}
 
     /**
      * Laravel doesn't define chain method in Contract.

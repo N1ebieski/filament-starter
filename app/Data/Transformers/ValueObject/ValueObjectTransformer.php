@@ -10,7 +10,7 @@ use Spatie\LaravelData\Support\DataProperty;
 use Spatie\LaravelData\Support\Transformation\TransformationContext;
 use Spatie\LaravelData\Transformers\Transformer;
 
-final readonly class ValueObjectTransformer extends BaseTransformer implements Transformer
+final class ValueObjectTransformer extends BaseTransformer implements Transformer
 {
     /** @param ValueObject $value */
     public function transform(DataProperty $property, mixed $value, TransformationContext $context): mixed

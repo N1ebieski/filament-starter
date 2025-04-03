@@ -10,9 +10,9 @@ use Spatie\LaravelData\Casts\Cast;
 use Spatie\LaravelData\Support\Creation\CreationContext;
 use Spatie\LaravelData\Support\DataProperty;
 
-final readonly class ModelCast extends BaseCast implements Cast
+final class ModelCast extends BaseCast implements Cast
 {
-    public function __construct(private ?string $modelName = null) {}
+    public function __construct(private readonly ?string $modelName = null) {}
 
     /**
      * @param  Model|string|int|null  $value

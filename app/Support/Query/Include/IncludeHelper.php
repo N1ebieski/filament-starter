@@ -6,7 +6,7 @@ namespace App\Support\Query\Include;
 
 use Illuminate\Support\Str;
 
-final readonly class IncludeHelper
+final class IncludeHelper
 {
     public static function getBuilderRelationName(string $name): string
     {

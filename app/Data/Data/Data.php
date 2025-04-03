@@ -26,6 +26,11 @@ abstract class Data extends BaseData implements Arrayable
         return Collection::make($fields)->map(fn (string $field): string => Str::camel($field))->toArray();
     }
 
+    public function cloneWith(array $data): static
+    {
+        return static::from(array_merge($this->toArray(), $data));
+    }
+
     #[Override]
     public function only(string ...$only): static
     {

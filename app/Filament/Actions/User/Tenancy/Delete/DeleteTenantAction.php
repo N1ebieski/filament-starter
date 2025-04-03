@@ -18,10 +18,10 @@ use Filament\Notifications\Notification;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\App;
 
-final readonly class DeleteTenantAction extends BaseAction
+final class DeleteTenantAction extends BaseAction
 {
     public function __construct(
-        private CommandBusInterface $commandBus
+        private readonly CommandBusInterface $commandBus
     ) {}
 
     public static function make(Tenant $tenant): DeleteAction

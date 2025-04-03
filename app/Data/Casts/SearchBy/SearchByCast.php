@@ -12,7 +12,7 @@ use Spatie\LaravelData\Casts\Cast;
 use Spatie\LaravelData\Support\Creation\CreationContext;
 use Spatie\LaravelData\Support\DataProperty;
 
-final readonly class SearchByCast extends BaseCast implements Cast
+final class SearchByCast extends BaseCast implements Cast
 {
     private readonly Model $model;
 
