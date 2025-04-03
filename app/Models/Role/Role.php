@@ -133,6 +133,7 @@ final class Role extends BaseRole implements AttributesInterface, SearchableInte
      *
      * @param  \Illuminate\Database\Query\Builder&ConnectionInterface  $query
      */
+    #[Override]
     public function newEloquentBuilder($query): RoleQueryBuilder
     {
         return new RoleQueryBuilder($query);
@@ -141,6 +142,7 @@ final class Role extends BaseRole implements AttributesInterface, SearchableInte
     /**
      * Create a new factory instance for the model.
      */
+    #[Override]
     protected static function newFactory(): RoleFactory
     {
         return RoleFactory::new();
