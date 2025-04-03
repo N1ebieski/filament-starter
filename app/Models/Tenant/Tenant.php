@@ -4,13 +4,13 @@ namespace App\Models\Tenant;
 
 use App\Models\Model;
 use App\Models\Shared\Attributes\AttributesInterface;
+use App\Overrides\Illuminate\Support\Facades\Lang;
 use App\ValueObjects\Tenant\Name\Name;
 use Fico7489\Laravel\Pivot\Traits\PivotEventTrait;
 use Filament\Models\Contracts\HasCurrentTenantLabel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
-use Illuminate\Support\Facades\Lang;
 
 /**
  *
@@ -70,7 +70,7 @@ class Tenant extends Model implements AttributesInterface, HasCurrentTenantLabel
 
     public function getCurrentTenantLabel(): string
     {
-        return Lang::get('tenant.current'); //@phpstan-ignore-line
+        return Lang::string('tenant.current');
     }
 
     // Relations

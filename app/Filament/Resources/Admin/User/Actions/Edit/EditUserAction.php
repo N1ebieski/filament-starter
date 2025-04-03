@@ -15,7 +15,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Tables\Actions\EditAction;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Lang;
+use App\Overrides\Illuminate\Support\Facades\Lang;
 use Illuminate\Validation\Rules\Exists;
 
 final class EditUserAction extends Action
@@ -37,7 +37,7 @@ final class EditUserAction extends Action
     public function makeAction(): EditAction
     {
         return EditAction::make()
-            ->modalHeading(fn (User $record): string => Lang::get('user.pages.edit.title', [
+            ->modalHeading(fn (User $record): string => Lang::string('user.pages.edit.title', [
                 'name' => $record->name,
             ]))
             ->mutateRecordDataUsing(fn (array $data, User $record): array => [
@@ -48,7 +48,7 @@ final class EditUserAction extends Action
             ])
             ->form([
                 TextInput::make('name')
-                    ->label(Lang::get('user.name.label'))
+                    ->label(Lang::string('user.name.label'))
                     ->required()
                     ->string()
                     ->minLength(3)
@@ -56,7 +56,7 @@ final class EditUserAction extends Action
                     ->unique($this->user->getTable(), 'name', ignoreRecord: true),
 
                 TextInput::make('email')
-                    ->label(Lang::get('user.email.label'))
+                    ->label(Lang::string('user.email.label'))
                     ->required()
                     ->extraInputAttributes([
                         'autocomplete' => 'new-password',
@@ -67,7 +67,7 @@ final class EditUserAction extends Action
                     ->unique($this->user->getTable(), 'email', ignoreRecord: true),
 
                 TextInput::make('password')
-                    ->label(Lang::get('user.password.label'))
+                    ->label(Lang::string('user.password.label'))
                     ->password()
                     ->extraInputAttributes([
                         'autocomplete' => 'new-password',
@@ -80,7 +80,7 @@ final class EditUserAction extends Action
                     ->confirmed(),
 
                 TextInput::make('password_confirmation')
-                    ->label(Lang::get('user.password_confirmation.label'))
+                    ->label(Lang::string('user.password_confirmation.label'))
                     ->password()
                     ->extraInputAttributes([
                         'autocomplete' => 'new-password',
@@ -92,7 +92,7 @@ final class EditUserAction extends Action
                     ->maxLength(255),
 
                 Select::make('roles')
-                    ->label(Lang::get('user.roles.label'))
+                    ->label(Lang::string('user.roles.label'))
                     ->multiple()
                     ->relationship($this->role->getTable(), 'name', function (Builder $query) {
                         /** @var Builder<Role> $query */
@@ -117,7 +117,7 @@ final class EditUserAction extends Action
                 ...$data,
                 'user' => $record,
             ])))
-            ->successNotificationTitle(fn (User $record): string => Lang::get('user.messages.edit.success', [
+            ->successNotificationTitle(fn (User $record): string => Lang::string('user.messages.edit.success', [
                 'name' => $record->name,
             ]));
     }

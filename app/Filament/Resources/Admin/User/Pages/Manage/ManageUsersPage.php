@@ -35,7 +35,7 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Lang;
+use App\Overrides\Illuminate\Support\Facades\Lang;
 use Override;
 
 final class ManageUsersPage extends ManageRecords implements PageMetaInterface
@@ -68,7 +68,7 @@ final class ManageUsersPage extends ManageRecords implements PageMetaInterface
 
     public function getTitle(): string
     {
-        return Lang::get('user.pages.index.title');
+        return Lang::string('user.pages.index.title');
     }
 
     public static function getNavigationLabel(): string
@@ -110,38 +110,38 @@ final class ManageUsersPage extends ManageRecords implements PageMetaInterface
                     ->sortable(query: fn (UserQueryBuilder $query, string $direction): Builder => $query->filterOrderBy(new OrderBy('id', Order::from($direction)))),
 
                 TextColumn::make('name')
-                    ->label(Lang::get('user.name.label'))
+                    ->label(Lang::string('user.name.label'))
                     ->grow(),
 
                 TextColumn::make('email')
-                    ->label(Lang::get('user.email.label')),
+                    ->label(Lang::string('user.email.label')),
 
                 TextColumn::make('roles.name')
-                    ->label(Lang::get('user.roles.label')),
+                    ->label(Lang::string('user.roles.label')),
 
                 TextColumn::make('email_verified_at')
-                    ->label(Lang::get('user.email_verified_at.label'))
+                    ->label(Lang::string('user.email_verified_at.label'))
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->sortable(query: fn (UserQueryBuilder $query, string $direction): Builder => $query
                         ->filterOrderBy(new OrderBy('email_verified_at', Order::from($direction)))
                     ),
 
                 TextColumn::make('created_at')
-                    ->label(Lang::get('default.created_at.label'))
+                    ->label(Lang::string('default.created_at.label'))
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->sortable(query: fn (UserQueryBuilder $query, string $direction): Builder => $query
                         ->filterOrderBy(new OrderBy('created_at', Order::from($direction)))
                     ),
 
                 TextColumn::make('updated_at')
-                    ->label(Lang::get('default.updated_at.label'))
+                    ->label(Lang::string('default.updated_at.label'))
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->sortable(query: fn (UserQueryBuilder $query, string $direction): Builder => $query
                         ->filterOrderBy(new OrderBy('updated_at', Order::from($direction)))
                     ),
 
                 ToggleColumn::make('status_email')
-                    ->label(Lang::get('user.status_email.label'))
+                    ->label(Lang::string('user.status_email.label'))
                     ->disabled(function (User $record, Guard $guard): bool {
                         /** @var User|null */
                         $user = $guard->user();
@@ -159,7 +159,7 @@ final class ManageUsersPage extends ManageRecords implements PageMetaInterface
                         }
 
                         Notification::make()
-                            ->title(Lang::get('user.messages.toggle_status_email.verified.success', [
+                            ->title(Lang::string('user.messages.toggle_status_email.verified.success', [
                                 'email' => $record->email,
                                 'name' => $record->name,
                             ]))
@@ -169,14 +169,14 @@ final class ManageUsersPage extends ManageRecords implements PageMetaInterface
             ])
             ->filters([
                 SelectFilter::make('status_email')
-                    ->label(Lang::get('user.status_email.label'))
+                    ->label(Lang::string('user.status_email.label'))
                     ->options(StatusEmail::class)
                     ->query(fn (UserQueryBuilder $query, array $data): Builder => $query
                         ->filterStatusEmail(StatusEmail::tryFrom($data['value'] ?? ''))
                     ),
 
                 SelectFilter::make('roles')
-                    ->label(Lang::get('user.roles.label'))
+                    ->label(Lang::string('user.roles.label'))
                     ->relationship($this->role->getTable(), 'name')
                     ->preload()
                     ->multiple()

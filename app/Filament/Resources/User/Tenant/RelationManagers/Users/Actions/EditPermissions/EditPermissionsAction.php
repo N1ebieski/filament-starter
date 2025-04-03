@@ -11,13 +11,13 @@ use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\HasPermiss
 use App\Models\Permission\Permission;
 use App\Models\Tenant\Tenant;
 use App\Models\User\User;
+use App\Overrides\Illuminate\Support\Facades\Lang;
 use App\Queries\QueryBusInterface;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Actions\EditAction;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Lang;
 use Illuminate\Validation\Rules\Exists;
 
 final class EditPermissionsAction extends Action
@@ -48,8 +48,8 @@ final class EditPermissionsAction extends Action
                 return ! $user?->can('tenantUpdatePermissions', [$record, $tenant]);
             })
             ->icon('heroicon-s-shield-check')
-            ->label(Lang::get('user.permissions.label'))
-            ->modalHeading(fn (User $record): string => Lang::get('tenant.pages.users.edit_permissions.title', [
+            ->label(Lang::string('user.permissions.label'))
+            ->modalHeading(fn (User $record): string => Lang::string('tenant.pages.users.edit_permissions.title', [
                 'name' => $record->name,
             ]))
             ->mutateRecordDataUsing(function (array $data, User $record): array {
@@ -59,7 +59,7 @@ final class EditPermissionsAction extends Action
             })
             ->form([
                 Select::make('permissions')
-                    ->label(Lang::get('user.permissions.label'))
+                    ->label(Lang::string('user.permissions.label'))
                     ->options($this->getGroupedPermissions()->toArray())
                     ->searchable()
                     ->multiple()
@@ -78,7 +78,7 @@ final class EditPermissionsAction extends Action
                 'tenant' => $tenant,
                 'user' => $record,
             ])))
-            ->successNotificationTitle(fn (User $record): string => Lang::get('tenant.messages.users.edit_permissions.success', [
+            ->successNotificationTitle(fn (User $record): string => Lang::string('tenant.messages.users.edit_permissions.success', [
                 'name' => $record->name,
             ]));
     }

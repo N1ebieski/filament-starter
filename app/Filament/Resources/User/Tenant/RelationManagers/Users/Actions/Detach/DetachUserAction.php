@@ -9,10 +9,10 @@ use App\Commands\User\Tenants\Detach\DetachCommand;
 use App\Filament\Actions\Action;
 use App\Models\Tenant\Tenant;
 use App\Models\User\User;
+use App\Overrides\Illuminate\Support\Facades\Lang;
 use Filament\Tables\Actions\DetachAction;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Lang;
 
 final class DetachUserAction extends Action
 {
@@ -37,14 +37,14 @@ final class DetachUserAction extends Action
 
                 return ! $user?->can('tenantDetach', [$record, $tenant]);
             })
-            ->modalHeading(fn (User $record): string => Lang::get('tenant.pages.users.detach.title', [
+            ->modalHeading(fn (User $record): string => Lang::string('tenant.pages.users.detach.title', [
                 'name' => $record->name,
             ]))
             ->using(fn (User $record): bool => $this->commandBus->execute(new DetachCommand(
                 tenant: $tenant,
                 user: $record
             )))
-            ->successNotificationTitle(fn (User $record): string => Lang::get('tenant.messages.users.detach.success', [
+            ->successNotificationTitle(fn (User $record): string => Lang::string('tenant.messages.users.detach.success', [
                 'name' => $record->name,
             ]));
     }

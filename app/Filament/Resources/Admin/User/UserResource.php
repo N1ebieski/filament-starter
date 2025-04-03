@@ -12,7 +12,7 @@ use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatchFactory;
 use App\Queries\User\GetByFilter\GetByFilterQuery;
 use App\Support\Query\HasQueryBus;
 use Illuminate\Contracts\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Lang;
+use App\Overrides\Illuminate\Support\Facades\Lang;
 use Override;
 
 final class UserResource extends Resource implements GlobalSearchInterface
@@ -42,7 +42,7 @@ final class UserResource extends Resource implements GlobalSearchInterface
 
     public static function getModelLabel(): string
     {
-        return Lang::get('user.pages.index.title');
+        return Lang::string('user.pages.index.title');
     }
 
     public static function getPluralModelLabel(): string
@@ -57,7 +57,7 @@ final class UserResource extends Resource implements GlobalSearchInterface
 
     public static function getNavigationGroup(): string
     {
-        return Lang::get('admin.groups.user');
+        return Lang::string('admin.groups.user');
     }
 
     public static function getPages(): array

@@ -8,11 +8,11 @@ use App\Filament\Resources\Admin\Role\Pages\Manage\ManageRolesPage;
 use App\Filament\Resources\GlobalSearchInterface;
 use App\Filament\Resources\Resource;
 use App\Models\Role\Role;
+use App\Overrides\Illuminate\Support\Facades\Lang;
 use App\Queries\Role\GetByFilter\GetByFilterQuery;
 use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatchFactory;
 use App\Support\Query\HasQueryBus;
 use Illuminate\Contracts\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Lang;
 use Override;
 
 final class RoleResource extends Resource implements GlobalSearchInterface
@@ -42,7 +42,7 @@ final class RoleResource extends Resource implements GlobalSearchInterface
 
     public static function getModelLabel(): string
     {
-        return Lang::get('role.pages.index.title'); // @phpstan-ignore-line
+        return Lang::string('role.pages.index.title');
     }
 
     public static function getPluralModelLabel(): string
@@ -57,7 +57,7 @@ final class RoleResource extends Resource implements GlobalSearchInterface
 
     public static function getNavigationGroup(): string
     {
-        return Lang::get('admin.groups.user'); // @phpstan-ignore-line
+        return Lang::string('admin.groups.user');
     }
 
     public static function getPages(): array

@@ -7,12 +7,12 @@ namespace App\Filament\Pages\User\Tenancy\Create;
 use App\Commands\CommandBusInterface;
 use App\Commands\Tenant\Create\CreateCommand;
 use App\Models\Tenant\Tenant;
+use App\Overrides\Illuminate\Support\Facades\Lang;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Tenancy\RegisterTenant;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Lang;
 
 /**
  * @property-read Tenant $tenant
@@ -30,8 +30,7 @@ class CreateTenantPage extends RegisterTenant
 
     public static function getLabel(): string
     {
-        // @phpstan-ignore-next-line
-        return Lang::get('tenant.pages.create.title');
+        return Lang::string('tenant.pages.create.title');
     }
 
     public function form(Form $form): Form
@@ -60,7 +59,7 @@ class CreateTenantPage extends RegisterTenant
     public function afterRegister(): void
     {
         Notification::make()
-            ->title(Lang::get('tenant.messages.create.success', [ // @phpstan-ignore-line
+            ->title(Lang::string('tenant.messages.create.success', [
                 'name' => $this->tenant->name->value,
             ]))
             ->success()

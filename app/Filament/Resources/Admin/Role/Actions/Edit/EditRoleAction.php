@@ -17,7 +17,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Tables\Actions\EditAction;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Lang;
+use App\Overrides\Illuminate\Support\Facades\Lang;
 use Illuminate\Validation\Rules\Exists;
 
 final class EditRoleAction extends Action
@@ -42,7 +42,7 @@ final class EditRoleAction extends Action
     public function makeAction(): EditAction
     {
         return EditAction::make()
-            ->modalHeading(fn (Role $record): string => Lang::get('role.pages.edit.title', [
+            ->modalHeading(fn (Role $record): string => Lang::string('role.pages.edit.title', [
                 'name' => $record->name->value,
             ]))
             ->mutateRecordDataUsing(function (array $data, Role $record): array {
@@ -53,7 +53,7 @@ final class EditRoleAction extends Action
             })
             ->form([
                 TextInput::make('name')
-                    ->label(Lang::get('role.name.label'))
+                    ->label(Lang::string('role.name.label'))
                     ->required()
                     ->disabled(fn (Role $record): bool => $record->name->isDefault())
                     ->string()
@@ -62,7 +62,7 @@ final class EditRoleAction extends Action
                     ->unique($this->role->getTable(), 'name', ignoreRecord: true),
 
                 Select::make('permissions')
-                    ->label(Lang::get('role.permissions.label'))
+                    ->label(Lang::string('role.permissions.label'))
                     ->options(fn (Role $record): array => $this->getGroupedPermissions($record)->toArray())
                     ->searchable()
                     ->multiple()
@@ -89,7 +89,7 @@ final class EditRoleAction extends Action
                 ...$data,
                 'role' => $record,
             ])))
-            ->successNotificationTitle(fn (Role $record): string => Lang::get('role.messages.edit.success', [
+            ->successNotificationTitle(fn (Role $record): string => Lang::string('role.messages.edit.success', [
                 'name' => $record->name,
             ]));
     }

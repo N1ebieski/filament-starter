@@ -9,12 +9,12 @@ use App\Commands\Tenant\Edit\EditCommand;
 use App\Filament\Actions\User\Tenancy\Delete\DeleteTenantAction;
 use App\Filament\Resources\User\Tenant\RelationManagers\Users\UsersRelationManager;
 use App\Models\Tenant\Tenant;
+use App\Overrides\Illuminate\Support\Facades\Lang;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Pages\Tenancy\EditTenantProfile;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Lang;
 use Override;
 
 /**
@@ -36,8 +36,7 @@ class EditTenantPage extends EditTenantProfile
         /** @var Tenant */
         $tenant = Filament::getTenant();
 
-        // @phpstan-ignore-next-line
-        return Lang::get('tenant.pages.edit.title', [
+        return Lang::string('tenant.pages.edit.title', [
             'name' => $tenant->name->value,
         ]);
     }
@@ -86,8 +85,7 @@ class EditTenantPage extends EditTenantProfile
 
     protected function getSavedNotificationTitle(): string
     {
-        // @phpstan-ignore-next-line
-        return Lang::get('tenant.messages.edit.success', [
+        return Lang::string('tenant.messages.edit.success', [
             'name' => $this->tenant->name,
         ]);
     }

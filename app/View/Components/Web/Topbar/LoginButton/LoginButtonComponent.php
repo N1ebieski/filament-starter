@@ -12,7 +12,7 @@ use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Illuminate\Contracts\View\View as ViewContract;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Lang;
+use App\Overrides\Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 
@@ -25,7 +25,7 @@ final class LoginButtonComponent extends Component implements HasActions, HasFor
     {
         return Action::make('login')
             ->url(URL::route('filament.web.auth.login'))
-            ->label(Lang::get('filament-panels::pages/auth/login.form.actions.authenticate.label'))
+            ->label(Lang::string('filament-panels::pages/auth/login.form.actions.authenticate.label'))
             ->visible(fn (): bool => Auth::guest())
             ->button()
             ->outlined();

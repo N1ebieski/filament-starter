@@ -12,6 +12,7 @@ use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\DetachMany
 use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\EditPermissions\EditPermissionsAction;
 use App\Models\Tenant\Tenant;
 use App\Models\User\User;
+use App\Overrides\Illuminate\Support\Facades\Lang;
 use App\Queries\QueryBusInterface;
 use App\Queries\Shared\OrderBy\Order;
 use App\Queries\Shared\OrderBy\OrderBy;
@@ -25,7 +26,6 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Lang;
 
 class UsersRelationManager extends RelationManager
 {
@@ -52,7 +52,7 @@ class UsersRelationManager extends RelationManager
 
     public static function getTitle(Model $ownerRecord, string $pageClass): string
     {
-        return Lang::get('tenant.pages.users.index.title');
+        return Lang::string('tenant.pages.users.index.title');
     }
 
     public function table(Table $table): Table
@@ -69,7 +69,7 @@ class UsersRelationManager extends RelationManager
             ->recordTitleAttribute('name')
             ->columns([
                 TextColumn::make('name')
-                    ->label(Lang::get('user.name.label'))
+                    ->label(Lang::string('user.name.label'))
                     ->grow(),
             ])
             ->headerActions([

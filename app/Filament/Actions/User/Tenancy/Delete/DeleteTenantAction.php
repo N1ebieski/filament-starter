@@ -16,7 +16,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Lang;
+use App\Overrides\Illuminate\Support\Facades\Lang;
 
 final class DeleteTenantAction extends BaseAction
 {
@@ -45,19 +45,19 @@ final class DeleteTenantAction extends BaseAction
             })
             ->form([
                 TextInput::make('name')
-                    ->label(Lang::get('tenant.name.label')) // @phpstan-ignore-line
+                    ->label(Lang::string('tenant.name.label'))
                     ->required()
                     ->string()
                     ->minLength(3)
                     ->maxLength(255),
             ])
-            ->modalHeading(fn (Tenant $record): string => Lang::get('tenant.pages.delete.title', [ // @phpstan-ignore-line
+            ->modalHeading(fn (Tenant $record): string => Lang::string('tenant.pages.delete.title', [
                 'name' => $record->name,
             ]))
             ->action(function (Tenant $record, array $data, Action $action): void {
                 if ($data['name'] !== $record->name->value) {
                     Notification::make()
-                        ->title(Lang::get('tenant.messages.delete.wrong_name')) // @phpstan-ignore-line
+                        ->title(Lang::string('tenant.messages.delete.wrong_name'))
                         ->danger()
                         ->send();
 
@@ -75,7 +75,7 @@ final class DeleteTenantAction extends BaseAction
 
                 $action->success();
             })
-            ->successNotificationTitle(fn (Tenant $record): string => Lang::get('tenant.messages.delete.success', [ // @phpstan-ignore-line
+            ->successNotificationTitle(fn (Tenant $record): string => Lang::string('tenant.messages.delete.success', [
                 'name' => $record->name,
             ]))
             ->successRedirectUrl(Filament::getCurrentPanel()->getHomeUrl()); // @phpstan-ignore-line

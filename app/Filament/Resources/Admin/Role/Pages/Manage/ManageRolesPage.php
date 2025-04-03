@@ -13,6 +13,7 @@ use App\Filament\Resources\Admin\Role\Actions\Edit\EditRoleAction;
 use App\Filament\Resources\Admin\Role\RoleResource;
 use App\Filament\Resources\HasTablePaginate;
 use App\Filament\Resources\HasTableSearch;
+use App\Overrides\Illuminate\Support\Facades\Lang;
 use App\Queries\QueryBusInterface;
 use App\Queries\Role\GetByFilter\GetByFilterQuery;
 use App\Queries\Shared\OrderBy\Order;
@@ -25,7 +26,6 @@ use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Lang;
 use Override;
 
 final class ManageRolesPage extends ManageRecords implements PageMetaInterface
@@ -50,8 +50,7 @@ final class ManageRolesPage extends ManageRecords implements PageMetaInterface
 
     public function getTitle(): string
     {
-        // @phpstan-ignore-next-line
-        return Lang::get('role.pages.index.title');
+        return Lang::string('role.pages.index.title');
     }
 
     public static function getNavigationLabel(): string
@@ -87,18 +86,18 @@ final class ManageRolesPage extends ManageRecords implements PageMetaInterface
                     ),
 
                 TextColumn::make('name')
-                    ->label(Lang::get('role.name.label'))
+                    ->label(Lang::string('role.name.label'))
                     ->grow(),
 
                 TextColumn::make('created_at')
-                    ->label(Lang::get('default.created_at.label'))
+                    ->label(Lang::string('default.created_at.label'))
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->sortable(query: fn (RoleQueryBuilder $query, string $direction): Builder => $query
                         ->filterOrderBy(new OrderBy('created_at', Order::from($direction)))
                     ),
 
                 TextColumn::make('updated_at')
-                    ->label(Lang::get('default.updated_at.label'))
+                    ->label(Lang::string('default.updated_at.label'))
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->sortable(query: fn (RoleQueryBuilder $query, string $direction): Builder => $query
                         ->filterOrderBy(new OrderBy('updated_at', Order::from($direction)))

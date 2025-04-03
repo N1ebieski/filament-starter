@@ -10,7 +10,7 @@ use App\Filament\Actions\Action;
 use App\Models\User\User;
 use Filament\Tables\Actions\DeleteAction;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Lang;
+use App\Overrides\Illuminate\Support\Facades\Lang;
 
 final class DeleteUserAction extends Action
 {
@@ -29,11 +29,11 @@ final class DeleteUserAction extends Action
     public function makeAction(): DeleteAction
     {
         return DeleteAction::make()
-            ->modalHeading(fn (User $record): string => Lang::get('user.pages.delete.title', [
+            ->modalHeading(fn (User $record): string => Lang::string('user.pages.delete.title', [
                 'name' => $record->name,
             ]))
             ->using(fn (User $record): bool => $this->commandBus->execute(new DeleteCommand($record)))
-            ->successNotificationTitle(fn (User $record): string => Lang::get('user.messages.delete.success', [
+            ->successNotificationTitle(fn (User $record): string => Lang::string('user.messages.delete.success', [
                 'name' => $record->name,
             ]));
     }

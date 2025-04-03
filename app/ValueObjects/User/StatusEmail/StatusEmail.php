@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\ValueObjects\User\StatusEmail;
 
+use App\Overrides\Illuminate\Support\Facades\Lang;
 use App\Support\Enum\Enum;
 use App\Support\Enum\EnumInterface;
 use Filament\Support\Contracts\HasLabel;
-use Illuminate\Support\Facades\Lang;
 
 enum StatusEmail: string implements EnumInterface, HasLabel
 {
@@ -35,10 +35,9 @@ enum StatusEmail: string implements EnumInterface, HasLabel
 
     public function getLabel(): string
     {
-        // @phpstan-ignore-next-line
         return match ($this) {
-            self::Verified => Lang::get('user.status_email.verified'),
-            self::Unverified => Lang::get('user.status_email.unverified')
+            self::Verified => Lang::string('user.status_email.verified'),
+            self::Unverified => Lang::string('user.status_email.unverified')
         };
     }
 }

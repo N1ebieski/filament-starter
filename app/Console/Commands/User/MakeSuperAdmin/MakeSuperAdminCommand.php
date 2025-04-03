@@ -8,13 +8,13 @@ use App\Commands\CommandBusInterface;
 use App\Commands\User\Create\CreateCommand;
 use App\Models\Role\Role;
 use App\Models\User\User;
+use App\Overrides\Illuminate\Support\Facades\Lang;
 use App\ValueObjects\Role\Name\DefaultName;
 use Filament\Commands\MakeUserCommand;
 use Filament\Facades\Filament;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Lang;
 use Override;
 
 final class MakeSuperAdminCommand extends MakeUserCommand
@@ -42,7 +42,7 @@ final class MakeSuperAdminCommand extends MakeUserCommand
         $this->commandBus = $commandBus;
 
         if (! $this->authorize()) {
-            $this->components->error(Lang::get('superadmin.exist'));
+            $this->components->error(Lang::string('superadmin.exist'));
 
             return self::INVALID;
         }
@@ -80,7 +80,7 @@ final class MakeSuperAdminCommand extends MakeUserCommand
     {
         $loginUrl = Filament::getLoginUrl();
 
-        $this->components->info(Lang::get('superadmin.messages.create.success', [
+        $this->components->info(Lang::string('superadmin.messages.create.success', [
             'user' => ($user->getAttribute('email') ?? $user->getAttribute('username')),
             'login_url' => $loginUrl,
         ]));

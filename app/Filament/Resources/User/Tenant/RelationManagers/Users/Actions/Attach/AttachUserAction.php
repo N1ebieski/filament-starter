@@ -11,13 +11,13 @@ use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\HasPermiss
 use App\Models\Permission\Permission;
 use App\Models\Tenant\Tenant;
 use App\Models\User\User;
+use App\Overrides\Illuminate\Support\Facades\Lang;
 use App\Queries\QueryBusInterface;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Actions\AttachAction;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Lang;
 use Illuminate\Validation\Rules\Exists;
 
 final class AttachUserAction extends Action
@@ -49,15 +49,15 @@ final class AttachUserAction extends Action
                 return ! $user?->can('tenantAttach', [$this->user::class, $tenant]);
             })
             ->icon('heroicon-o-plus-circle')
-            ->modalHeading(Lang::get('tenant.pages.users.attach.title'))
+            ->modalHeading(Lang::string('tenant.pages.users.attach.title'))
             ->form(fn (AttachAction $action): array => [
                 $action->recordTitle(fn (User $record): string => $record->name->value)
                     ->getRecordSelect()
-                    ->label(Lang::get('user.name.label'))
+                    ->label(Lang::string('user.name.label'))
                     ->hiddenLabel(false),
 
                 Select::make('permissions')
-                    ->label(Lang::get('user.permissions.label'))
+                    ->label(Lang::string('user.permissions.label'))
                     ->options($this->getGroupedPermissions()->toArray())
                     ->searchable()
                     ->multiple()
@@ -77,7 +77,7 @@ final class AttachUserAction extends Action
                 'tenant' => $tenant,
                 'user' => $this->user->find($data['recordId']),
             ])))
-            ->successNotificationTitle(fn (User $record): string => Lang::get('tenant.messages.users.attach.success', [
+            ->successNotificationTitle(fn (User $record): string => Lang::string('tenant.messages.users.attach.success', [
                 'name' => $record->name,
             ]));
     }

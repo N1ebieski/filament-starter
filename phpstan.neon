@@ -28,9 +28,5 @@ parameters:
 		- identifier: missingType.generics
 		- '#^Parameter \#1 \$column of method Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\>::where\(\) expects#'
 		- '#^Parameter \#\d \$callback of method Illuminate\\(Support|Database\\Eloquent)\\Collection\<(int|\(int\|string\)),Illuminate\\Database\\Eloquent\\Model\>::(each|map|filter|when)\(\) expects#'
-		- '#^Parameter \#1 \$string of method Illuminate\\Console\\View\\Components\\Factory::(info|error)\(\) expects string, array\|string given.#'
 		- '#^Return type of call to method PHPUnit\\Framework\\TestCase::createMock\(\) contains unresolvable type.#'
-		- '#^Anonymous function should return string but returns array\|string.#'
 		- '#^Parameter \#1 \$(label|title|heading) of method Filament\\[A-Za-z\d\\]+::(label|title|modalHeading)\(\) expects Closure(?:\|Illuminate\\Contracts\\Support\\Htmlable)?\|string\|null, array\|string given.#'
-		- '#^Method App\\Filament\\[A-Za-z\d\\]+::(getTitle|getModelLabel|getNavigationGroup)\(\) should return string(?:\|null)? but returns array\|string.#'
-		- '#^Parameter \$(title|description|keywords) of method App\\View\\Metas\\[A-Za-z\d\\]+::makeMeta\(\) expects string\|null, array\|string given.#'

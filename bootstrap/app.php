@@ -42,6 +42,7 @@ return Application::configure(basePath: dirname(__DIR__))
         \App\Providers\App\AppServiceProvider::class,
         \App\Providers\Auth\AuthServiceProvider::class,
         \App\Providers\Event\EventServiceProvider::class,
+        \App\Providers\Translator\TranslatorServiceProvider::class,
         \App\Providers\Filament\Filament\FilamentServiceProvider::class,
         \App\Providers\Filament\WebPanel\WebPanelServiceProvider::class,
         \App\Providers\Filament\AdminPanel\AdminPanelServiceProvider::class,

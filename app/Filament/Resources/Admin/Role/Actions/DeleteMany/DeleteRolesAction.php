@@ -13,7 +13,7 @@ use Filament\Tables\Actions\DeleteBulkAction;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Lang;
+use App\Overrides\Illuminate\Support\Facades\Lang;
 
 final class DeleteRolesAction extends Action
 {

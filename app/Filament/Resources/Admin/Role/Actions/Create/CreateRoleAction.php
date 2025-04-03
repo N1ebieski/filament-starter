@@ -15,7 +15,7 @@ use Filament\Actions\CreateAction;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Lang;
+use App\Overrides\Illuminate\Support\Facades\Lang;
 
 final class CreateRoleAction extends Action
 {
@@ -40,10 +40,10 @@ final class CreateRoleAction extends Action
     {
         return CreateAction::make()
             ->icon('heroicon-o-plus-circle')
-            ->modalHeading(Lang::get('role.pages.create.title'))
+            ->modalHeading(Lang::string('role.pages.create.title'))
             ->form([
                 TextInput::make('name')
-                    ->label(Lang::get('role.name.label'))
+                    ->label(Lang::string('role.name.label'))
                     ->required()
                     ->string()
                     ->minLength(3)
@@ -51,7 +51,7 @@ final class CreateRoleAction extends Action
                     ->unique($this->role->getTable(), 'name'),
 
                 Select::make('permissions')
-                    ->label(Lang::get('role.permissions.label'))
+                    ->label(Lang::string('role.permissions.label'))
                     ->options($this->getGroupedPermissions()->toArray())
                     ->searchable()
                     ->multiple()
@@ -61,7 +61,7 @@ final class CreateRoleAction extends Action
             ->stickyModalFooter()
             ->closeModalByClickingAway(false)
             ->using(fn (array $data): Role => $this->commandBus->execute(CreateCommand::from($data)))
-            ->successNotificationTitle(fn (Role $record): string => Lang::get('role.messages.create.success', [
+            ->successNotificationTitle(fn (Role $record): string => Lang::string('role.messages.create.success', [
                 'name' => $record->name,
             ]));
     }

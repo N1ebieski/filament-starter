@@ -2,9 +2,9 @@
 
 namespace App\Filament\Pages\Web\Offline;
 
+use App\Overrides\Illuminate\Support\Facades\Lang;
 use App\Support\PWA\PWACacheInterface;
 use Filament\Pages\SimplePage;
-use Illuminate\Support\Facades\Lang;
 
 class OfflinePage extends SimplePage implements PWACacheInterface
 {
@@ -29,7 +29,6 @@ class OfflinePage extends SimplePage implements PWACacheInterface
 
     public function getTitle(): string
     {
-        // @phpstan-ignore-next-line
-        return Lang::get('offline.pages.offline.title');
+        return Lang::string('offline.pages.offline.title');
     }
 }

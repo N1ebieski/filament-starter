@@ -16,7 +16,7 @@ use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Lang;
+use App\Overrides\Illuminate\Support\Facades\Lang;
 use Illuminate\Validation\Rules\Exists;
 
 final class CreateUserAction extends Action
@@ -40,7 +40,7 @@ final class CreateUserAction extends Action
         return CreateAction::make()
             ->model($this->user::class)
             ->icon('heroicon-o-plus-circle')
-            ->modalHeading(Lang::get('user.pages.create.title'))
+            ->modalHeading(Lang::string('user.pages.create.title'))
             ->fillForm(function (array $data) use ($roles): array {
                 $data['roles'] = $roles->pluck('id')->toArray();
 
@@ -48,7 +48,7 @@ final class CreateUserAction extends Action
             })
             ->form([
                 TextInput::make('name')
-                    ->label(Lang::get('user.name.label'))
+                    ->label(Lang::string('user.name.label'))
                     ->required()
                     ->string()
                     ->minLength(3)
@@ -56,7 +56,7 @@ final class CreateUserAction extends Action
                     ->unique($this->user->getTable(), 'name'),
 
                 TextInput::make('email')
-                    ->label(Lang::get('user.email.label'))
+                    ->label(Lang::string('user.email.label'))
                     ->extraInputAttributes([
                         'autocomplete' => 'new-password',
                     ])
@@ -67,7 +67,7 @@ final class CreateUserAction extends Action
                     ->unique($this->user->getTable(), 'email'),
 
                 TextInput::make('password')
-                    ->label(Lang::get('user.password.label'))
+                    ->label(Lang::string('user.password.label'))
                     ->password()
                     ->extraInputAttributes([
                         'autocomplete' => 'new-password',
@@ -80,7 +80,7 @@ final class CreateUserAction extends Action
                     ->confirmed(),
 
                 TextInput::make('password_confirmation')
-                    ->label(Lang::get('user.password_confirmation.label'))
+                    ->label(Lang::string('user.password_confirmation.label'))
                     ->password()
                     ->extraInputAttributes([
                         'autocomplete' => 'new-password',
@@ -92,7 +92,7 @@ final class CreateUserAction extends Action
                     ->maxLength(255),
 
                 Select::make('roles')
-                    ->label(Lang::get('user.roles.label'))
+                    ->label(Lang::string('user.roles.label'))
                     ->multiple()
                     ->relationship($this->role->getTable(), 'name', function (Builder $query) {
                         /** @var Builder<Role> $query */
@@ -107,7 +107,7 @@ final class CreateUserAction extends Action
             ->stickyModalFooter()
             ->closeModalByClickingAway(false)
             ->using(fn (array $data): User => $this->commandBus->execute(CreateCommand::from($data)))
-            ->successNotificationTitle(fn (User $record): string => Lang::get('user.messages.create.success', [
+            ->successNotificationTitle(fn (User $record): string => Lang::string('user.messages.create.success', [
                 'name' => $record->name,
             ]));
     }

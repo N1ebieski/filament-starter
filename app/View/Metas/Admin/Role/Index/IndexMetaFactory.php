@@ -7,7 +7,7 @@ namespace App\View\Metas\Admin\Role\Index;
 use App\View\Metas\Admin\AdminMetaFactory;
 use App\View\Metas\Admin\MetaFactory;
 use App\View\Metas\MetaInterface;
-use Illuminate\Support\Facades\Lang;
+use App\Overrides\Illuminate\Support\Facades\Lang;
 
 final class IndexMetaFactory extends MetaFactory
 {
@@ -18,10 +18,10 @@ final class IndexMetaFactory extends MetaFactory
     public function makeMeta(?int $page = null): MetaInterface
     {
         return $this->adminMetaFactory->makeMeta(
-            title: Lang::get('role.pages.index.title'),
+            title: Lang::string('role.pages.index.title'),
             page: $page,
-            description: Lang::get('role.pages.index.description'),
-            keywords: Lang::get('role.pages.index.keywords'),
+            description: Lang::string('role.pages.index.description'),
+            keywords: Lang::string('role.pages.index.keywords'),
         );
     }
 }
