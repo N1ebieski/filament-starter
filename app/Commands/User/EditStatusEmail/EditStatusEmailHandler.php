@@ -11,11 +11,11 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\ConnectionInterface as DB;
 use Illuminate\Support\Carbon;
 
-final class EditStatusEmailHandler extends Handler
+final readonly class EditStatusEmailHandler extends Handler
 {
     public function __construct(
-        private readonly DB $db,
-        private readonly Carbon $carbon
+        private DB $db,
+        private Carbon $carbon
     ) {}
 
     public function handle(EditStatusEmailCommand $command): User

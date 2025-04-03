@@ -4,4 +4,4 @@ declare(strict_types=1);
 
 namespace App\Broadcasting;
 
-abstract class Channel {}
+abstract readonly class Channel {}

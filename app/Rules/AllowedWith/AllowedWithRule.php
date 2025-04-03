@@ -7,9 +7,9 @@ use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Support\Collection;
 
-class AllowedWithRule implements ValidationRule
+readonly class AllowedWithRule implements ValidationRule
 {
-    public function __construct(private readonly AttributesInterface $model) {}
+    public function __construct(private AttributesInterface $model) {}
 
     /**
      * Run the validation rule.

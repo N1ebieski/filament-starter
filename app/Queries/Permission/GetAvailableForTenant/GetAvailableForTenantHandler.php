@@ -7,7 +7,7 @@ namespace App\Queries\Permission\GetAvailableForTenant;
 use App\Queries\Handler;
 use Illuminate\Database\Eloquent\Collection;
 
-final class GetAvailableForTenantHandler extends Handler
+final readonly class GetAvailableForTenantHandler extends Handler
 {
     public function handle(GetAvailableForTenantQuery $query): Collection
     {

@@ -9,7 +9,7 @@ use App\ValueObjects\Role\Name\DefaultName;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
-final class GetAvailableForAdminHandler extends Handler
+final readonly class GetAvailableForAdminHandler extends Handler
 {
     public function handle(GetAvailableForAdminQuery $query): Collection
     {

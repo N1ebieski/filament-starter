@@ -9,6 +9,7 @@ use App\Commands\Tenant\Delete\DeleteCommand;
 use App\Filament\Actions\Action as BaseAction;
 use App\Models\Tenant\Tenant;
 use App\Models\User\User;
+use App\Overrides\Illuminate\Support\Facades\Lang;
 use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;
 use Filament\Facades\Filament;
@@ -16,12 +17,11 @@ use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\App;
-use App\Overrides\Illuminate\Support\Facades\Lang;
 
-final class DeleteTenantAction extends BaseAction
+final readonly class DeleteTenantAction extends BaseAction
 {
     public function __construct(
-        private readonly CommandBusInterface $commandBus
+        private CommandBusInterface $commandBus
     ) {}
 
     public static function make(Tenant $tenant): DeleteAction

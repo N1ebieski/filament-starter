@@ -7,10 +7,10 @@ namespace App\Commands\User\Tenants\Detach;
 use App\Commands\Handler;
 use Illuminate\Database\ConnectionInterface as DB;
 
-final class DetachHandler extends Handler
+final readonly class DetachHandler extends Handler
 {
     public function __construct(
-        private readonly DB $db,
+        private DB $db,
     ) {}
 
     public function handle(DetachCommand $command): bool

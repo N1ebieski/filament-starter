@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace App\Observers\Role;
 
 use App\Models\Role\Role;
+use App\Observers\Observer;
 
-class RoleObserver
+readonly class RoleObserver extends Observer
 {
     public function deleting(Role $role): void
     {

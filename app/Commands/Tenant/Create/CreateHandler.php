@@ -9,11 +9,11 @@ use App\Models\Tenant\Tenant;
 use Illuminate\Database\ConnectionInterface as DB;
 use Spatie\Permission\PermissionRegistrar;
 
-final class CreateHandler extends Handler
+final readonly class CreateHandler extends Handler
 {
     public function __construct(
-        private readonly DB $db,
-        private readonly PermissionRegistrar $permissionRegistrar
+        private DB $db,
+        private PermissionRegistrar $permissionRegistrar
     ) {}
 
     public function handle(CreateCommand $command): Tenant

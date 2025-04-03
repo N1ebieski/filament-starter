@@ -9,16 +9,16 @@ use App\Commands\Role\DeleteMany\DeleteManyCommand;
 use App\Filament\Actions\Action;
 use App\Models\Role\Role;
 use App\Models\User\User;
+use App\Overrides\Illuminate\Support\Facades\Lang;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\App;
-use App\Overrides\Illuminate\Support\Facades\Lang;
 
-final class DeleteRolesAction extends Action
+final readonly class DeleteRolesAction extends Action
 {
     public function __construct(
-        private readonly CommandBusInterface $commandBus
+        private CommandBusInterface $commandBus
     ) {}
 
     public static function make(): DeleteBulkAction

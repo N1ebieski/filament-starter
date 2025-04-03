@@ -6,8 +6,9 @@ namespace App\Observers\Tenant;
 
 use App\Models\Tenant\Tenant;
 use App\Models\User\User;
+use App\Observers\Observer;
 
-class TenantObserver
+readonly class TenantObserver extends Observer
 {
     public function pivotDetaching(Tenant $tenant, string $relationName): void
     {

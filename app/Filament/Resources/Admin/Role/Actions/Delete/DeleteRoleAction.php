@@ -8,14 +8,14 @@ use App\Commands\CommandBusInterface;
 use App\Commands\Role\Delete\DeleteCommand;
 use App\Filament\Actions\Action;
 use App\Models\Role\Role;
+use App\Overrides\Illuminate\Support\Facades\Lang;
 use Filament\Tables\Actions\DeleteAction;
 use Illuminate\Support\Facades\App;
-use App\Overrides\Illuminate\Support\Facades\Lang;
 
-final class DeleteRoleAction extends Action
+final readonly class DeleteRoleAction extends Action
 {
     public function __construct(
-        private readonly CommandBusInterface $commandBus
+        private CommandBusInterface $commandBus
     ) {}
 
     public static function make(): DeleteAction

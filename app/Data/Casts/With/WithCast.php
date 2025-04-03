@@ -9,7 +9,7 @@ use Spatie\LaravelData\Casts\Cast;
 use Spatie\LaravelData\Support\Creation\CreationContext;
 use Spatie\LaravelData\Support\DataProperty;
 
-class WithCast extends BaseCast implements Cast
+final readonly class WithCast extends BaseCast implements Cast
 {
     /**
      * @param  array<int, string>|string|null  $value

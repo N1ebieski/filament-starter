@@ -10,6 +10,7 @@ use App\Filament\Actions\Action;
 use App\Filament\Resources\Admin\Role\Actions\HasPermissions;
 use App\Models\Permission\Permission;
 use App\Models\Role\Role;
+use App\Overrides\Illuminate\Support\Facades\Lang;
 use App\Queries\QueryBusInterface;
 use App\ValueObjects\Role\Name\DefaultName;
 use Filament\Forms\Components\Select;
@@ -17,18 +18,17 @@ use Filament\Forms\Components\TextInput;
 use Filament\Tables\Actions\EditAction;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Support\Facades\App;
-use App\Overrides\Illuminate\Support\Facades\Lang;
 use Illuminate\Validation\Rules\Exists;
 
-final class EditRoleAction extends Action
+final readonly class EditRoleAction extends Action
 {
     use HasPermissions;
 
     public function __construct(
-        private readonly Role $role,
-        private readonly Permission $permission,
-        private readonly QueryBusInterface $queryBus,
-        private readonly CommandBusInterface $commandBus
+        private Role $role,
+        private Permission $permission,
+        private QueryBusInterface $queryBus,
+        private CommandBusInterface $commandBus
     ) {}
 
     public static function make(): EditAction

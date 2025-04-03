@@ -12,9 +12,9 @@ use Spatie\LaravelData\Casts\Cast;
 use Spatie\LaravelData\Support\Creation\CreationContext;
 use Spatie\LaravelData\Support\DataProperty;
 
-class CollectionOfModelsCast extends BaseCast implements Cast
+final readonly class CollectionOfModelsCast extends BaseCast implements Cast
 {
-    private readonly Model $model;
+    private Model $model;
 
     public function __construct(string $modelName)
     {

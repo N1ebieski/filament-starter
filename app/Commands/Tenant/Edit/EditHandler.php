@@ -9,10 +9,10 @@ use App\Models\Tenant\Tenant;
 use Illuminate\Database\ConnectionInterface as DB;
 use Spatie\LaravelData\Optional;
 
-final class EditHandler extends Handler
+final readonly class EditHandler extends Handler
 {
     public function __construct(
-        private readonly DB $db,
+        private DB $db,
     ) {}
 
     public function handle(EditCommand $command): Tenant

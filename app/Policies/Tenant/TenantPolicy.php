@@ -6,8 +6,9 @@ namespace App\Policies\Tenant;
 
 use App\Models\Tenant\Tenant;
 use App\Models\User\User;
+use App\Policies\Policy;
 
-final class TenantPolicy
+final readonly class TenantPolicy extends Policy
 {
     public function create(): bool
     {

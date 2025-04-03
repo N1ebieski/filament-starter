@@ -6,9 +6,10 @@ namespace App\Policies\User;
 
 use App\Models\Tenant\Tenant;
 use App\Models\User\User;
+use App\Policies\Policy;
 use App\ValueObjects\Role\Name\DefaultName;
 
-final class UserPolicy
+final readonly class UserPolicy extends Policy
 {
     public function viewAny(User $user): bool
     {

@@ -10,10 +10,10 @@ use App\Models\User\User;
 use App\ValueObjects\Role\Name\DefaultName;
 use Illuminate\Database\ConnectionInterface as DB;
 
-final class CreateHandler extends Handler
+final readonly class CreateHandler extends Handler
 {
     public function __construct(
-        private readonly DB $db,
+        private DB $db,
     ) {}
 
     public function handle(CreateCommand $command): User

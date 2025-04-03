@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Providers\Config;
 
 use App\Console\Commands\Generators\GeneratorCommand;
+use App\Providers\ServiceProvider;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
-use Illuminate\Support\ServiceProvider;
 
 /**
  * @property-read \Illuminate\Foundation\Application $app

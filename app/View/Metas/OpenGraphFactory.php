@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\View\Metas;
 
-abstract class OpenGraphFactory
+abstract readonly class OpenGraphFactory
 {
     abstract public function make(
         string $title,

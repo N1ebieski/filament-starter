@@ -9,10 +9,10 @@ use App\Models\Tenant\Tenant;
 use Filament\Events\TenantSet;
 use Spatie\Permission\PermissionRegistrar;
 
-class SetTeamIdListener extends Listener
+final readonly class SetTeamIdListener extends Listener
 {
     public function __construct(
-        private readonly PermissionRegistrar $permissionRegistrar
+        private PermissionRegistrar $permissionRegistrar
     ) {}
 
     public function handle(TenantSet $event): void

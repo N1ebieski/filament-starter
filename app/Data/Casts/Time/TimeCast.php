@@ -10,7 +10,7 @@ use Spatie\LaravelData\Casts\Cast;
 use Spatie\LaravelData\Support\Creation\CreationContext;
 use Spatie\LaravelData\Support\DataProperty;
 
-class TimeCast extends BaseCast implements Cast
+final readonly class TimeCast extends BaseCast implements Cast
 {
     /**
      * @param  Time|int|null  $value

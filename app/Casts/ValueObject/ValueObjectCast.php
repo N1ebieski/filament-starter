@@ -9,7 +9,7 @@ use App\ValueObjects\ValueObject;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;
 
-final class ValueObjectCast extends Cast implements CastsAttributes
+final readonly class ValueObjectCast extends Cast implements CastsAttributes
 {
     public function __construct(
         private readonly string $valueObjectName,

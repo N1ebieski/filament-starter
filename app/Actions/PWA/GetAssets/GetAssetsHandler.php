@@ -14,7 +14,7 @@ use App\Actions\PWA\GetAssets\Assets\Vite\ViteHandler;
 use App\Overrides\Illuminate\Contracts\Container\Container;
 use App\Overrides\Illuminate\Contracts\Pipeline\Pipeline;
 
-final class GetAssetsHandler extends Handler
+final readonly class GetAssetsHandler extends Handler
 {
     public function __construct(
         private readonly Pipeline $pipeline,

@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\Mixins\Translator;
 
+use App\Mixins\Mixin;
 use Illuminate\Support\Facades\App;
 
-final class TranslatorMixin
+final readonly class TranslatorMixin extends Mixin
 {
     public function string(): \Closure
     {

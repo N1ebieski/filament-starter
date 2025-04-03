@@ -9,21 +9,21 @@ use App\Commands\User\Edit\EditCommand;
 use App\Filament\Actions\Action;
 use App\Models\Role\Role;
 use App\Models\User\User;
+use App\Overrides\Illuminate\Support\Facades\Lang;
 use App\ValueObjects\Role\Name\DefaultName;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Actions\EditAction;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\App;
-use App\Overrides\Illuminate\Support\Facades\Lang;
 use Illuminate\Validation\Rules\Exists;
 
-final class EditUserAction extends Action
+final readonly class EditUserAction extends Action
 {
     public function __construct(
-        private readonly User $user,
-        private readonly Role $role,
-        private readonly CommandBusInterface $commandBus
+        private User $user,
+        private Role $role,
+        private CommandBusInterface $commandBus
     ) {}
 
     public static function make(): EditAction

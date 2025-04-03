@@ -6,7 +6,7 @@ namespace App\Support\Query\Columns;
 
 use Illuminate\Support\Collection;
 
-final class ColumnsHelper
+final readonly class ColumnsHelper
 {
     public static function getColumnsWithTablePrefix(array $columns, string $table): array
     {

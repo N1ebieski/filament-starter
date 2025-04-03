@@ -9,11 +9,11 @@ use App\View\Metas\User\MetaFactory;
 use App\View\Metas\User\UserMetaFactory;
 use Illuminate\Contracts\Translation\Translator;
 
-final class IndexMetaFactory extends MetaFactory
+final readonly class IndexMetaFactory extends MetaFactory
 {
     public function __construct(
-        private readonly UserMetaFactory $userMetaFactory,
-        private readonly Translator $translator
+        private UserMetaFactory $userMetaFactory,
+        private Translator $translator
     ) {}
 
     public function makeMeta(): MetaInterface

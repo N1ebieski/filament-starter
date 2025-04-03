@@ -7,9 +7,9 @@ use App\Support\Query\Sorts\SortsHelper;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 
-class AllowedSortRule implements ValidationRule
+readonly class AllowedSortRule implements ValidationRule
 {
-    public function __construct(private readonly AttributesInterface $model) {}
+    public function __construct(private AttributesInterface $model) {}
 
     /**
      * Run the validation rule.

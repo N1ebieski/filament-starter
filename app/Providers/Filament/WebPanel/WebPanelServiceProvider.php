@@ -47,6 +47,9 @@ final class WebPanelServiceProvider extends PanelServiceProvider
                         hasAvatars: false,
                         slug: 'profile'
                     )
+                    ->myProfileComponents([
+                        'personal_info' => \App\Overrides\Jeffgreco13\FilamentBreezy\Livewire\PersonalInfo::class,
+                    ])
                     ->customMyProfilePage(MyProfilePage::class)
                     ->enableTwoFactorAuthentication(),
             ])

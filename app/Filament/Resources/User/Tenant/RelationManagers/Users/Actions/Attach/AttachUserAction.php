@@ -20,15 +20,15 @@ use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Support\Facades\App;
 use Illuminate\Validation\Rules\Exists;
 
-final class AttachUserAction extends Action
+final readonly class AttachUserAction extends Action
 {
     use HasPermissions;
 
     public function __construct(
-        private readonly User $user,
-        private readonly CommandBusInterface $commandBus,
-        private readonly QueryBusInterface $queryBus,
-        private readonly Permission $permission
+        private User $user,
+        private CommandBusInterface $commandBus,
+        private QueryBusInterface $queryBus,
+        private Permission $permission
     ) {}
 
     public static function make(Tenant $tenant): AttachAction

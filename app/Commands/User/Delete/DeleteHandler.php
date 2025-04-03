@@ -7,10 +7,10 @@ namespace App\Commands\User\Delete;
 use App\Commands\Handler;
 use Illuminate\Database\ConnectionInterface as DB;
 
-final class DeleteHandler extends Handler
+final readonly class DeleteHandler extends Handler
 {
     public function __construct(
-        private readonly DB $db,
+        private DB $db,
     ) {}
 
     public function handle(DeleteCommand $command): bool

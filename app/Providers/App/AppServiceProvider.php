@@ -4,9 +4,9 @@ namespace App\Providers\App;
 
 use App\Models\Tenant\Tenant;
 use App\Models\User\User;
+use App\Providers\ServiceProvider;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\DeferrableProvider;
-use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider implements DeferrableProvider
 {

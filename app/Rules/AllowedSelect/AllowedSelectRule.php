@@ -6,9 +6,9 @@ use App\Models\Shared\Attributes\AttributesInterface;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 
-class AllowedSelectRule implements ValidationRule
+readonly class AllowedSelectRule implements ValidationRule
 {
-    public function __construct(private readonly AttributesInterface $model) {}
+    public function __construct(private AttributesInterface $model) {}
 
     /**
      * Run the validation rule.

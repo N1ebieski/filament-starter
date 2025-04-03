@@ -9,7 +9,7 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 
-final class GetByFilterHandler extends Handler
+final readonly class GetByFilterHandler extends Handler
 {
     public function handle(GetByFilterQuery $query): LengthAwarePaginator|Collection|Builder
     {

@@ -9,17 +9,17 @@ use App\Commands\User\Tenants\DetachMany\DetachManyCommand;
 use App\Filament\Actions\Action;
 use App\Models\Tenant\Tenant;
 use App\Models\User\User;
+use App\Overrides\Illuminate\Support\Facades\Lang;
 use Filament\Tables\Actions\DetachBulkAction;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\App;
-use App\Overrides\Illuminate\Support\Facades\Lang;
 
-final class DetachUsersAction extends Action
+final readonly class DetachUsersAction extends Action
 {
     public function __construct(
-        private readonly User $user,
-        private readonly CommandBusInterface $commandBus
+        private User $user,
+        private CommandBusInterface $commandBus
     ) {}
 
     public static function make(Tenant $tenant): DetachBulkAction

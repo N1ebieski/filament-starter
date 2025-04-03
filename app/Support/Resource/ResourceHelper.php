@@ -7,7 +7,7 @@ namespace App\Support\Resource;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-final class ResourceHelper
+final readonly class ResourceHelper
 {
     /**
      * @return class-string

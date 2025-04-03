@@ -9,6 +9,7 @@ use App\Commands\User\Create\CreateCommand;
 use App\Filament\Actions\Action;
 use App\Models\Role\Role;
 use App\Models\User\User;
+use App\Overrides\Illuminate\Support\Facades\Lang;
 use App\ValueObjects\Role\Name\DefaultName;
 use Filament\Actions\CreateAction;
 use Filament\Forms\Components\Select;
@@ -16,15 +17,14 @@ use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\App;
-use App\Overrides\Illuminate\Support\Facades\Lang;
 use Illuminate\Validation\Rules\Exists;
 
-final class CreateUserAction extends Action
+final readonly class CreateUserAction extends Action
 {
     public function __construct(
-        private readonly User $user,
-        private readonly Role $role,
-        private readonly CommandBusInterface $commandBus
+        private User $user,
+        private Role $role,
+        private CommandBusInterface $commandBus
     ) {}
 
     public static function make(Collection $roles = new Collection): CreateAction

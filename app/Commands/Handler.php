@@ -7,4 +7,4 @@ namespace App\Commands;
 /**
  * @method mixed handle(Command $command)
  */
-abstract class Handler {}
+abstract readonly class Handler {}

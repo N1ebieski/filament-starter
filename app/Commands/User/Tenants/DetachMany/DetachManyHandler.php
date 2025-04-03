@@ -9,11 +9,11 @@ use App\Commands\Handler;
 use App\Commands\User\Tenants\Detach\DetachCommand;
 use Illuminate\Database\ConnectionInterface as DB;
 
-final class DetachManyHandler extends Handler
+final readonly class DetachManyHandler extends Handler
 {
     public function __construct(
-        private readonly DB $db,
-        private readonly CommandBusInterface $commandBus,
+        private DB $db,
+        private CommandBusInterface $commandBus,
     ) {}
 
     public function handle(DetachManyCommand $command): int

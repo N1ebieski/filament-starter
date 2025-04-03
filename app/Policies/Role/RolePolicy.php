@@ -6,9 +6,10 @@ namespace App\Policies\Role;
 
 use App\Models\Role\Role;
 use App\Models\User\User;
+use App\Policies\Policy;
 use App\ValueObjects\Role\Name\DefaultName;
 
-final class RolePolicy
+final readonly class RolePolicy extends Policy
 {
     public function viewAny(User $user): bool
     {
