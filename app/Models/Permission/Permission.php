@@ -8,7 +8,7 @@ use App\ValueObjects\Permission\Name\Name;
 use Spatie\Permission\Models\Permission as BasePermission;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property \App\ValueObjects\Permission\Name\Name $name
@@ -29,7 +29,7 @@ use Spatie\Permission\Models\Permission as BasePermission;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Permission role($roles, $guard = null, $without = false)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Permission withoutPermission($permissions)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Permission withoutRole($roles, $guard = null)
- * @mixin \Eloquent
+ * @mixin \Illuminate\Database\Eloquent\Model
  */
 final class Permission extends BasePermission
 {

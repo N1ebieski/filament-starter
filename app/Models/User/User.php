@@ -86,7 +86,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @method static UserQueryBuilder<static>|User withAll()
  * @method static UserQueryBuilder<static>|User withoutPermission($permissions)
  * @method static UserQueryBuilder<static>|User withoutRole($roles, $guard = null)
- * @mixin \Eloquent
+ * @mixin \Illuminate\Database\Eloquent\Model
  */
 class User extends Authenticatable implements FilamentUser, AttributesInterface, SearchableInterface, HasTenants, MustVerifyEmail
 {
