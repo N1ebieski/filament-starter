@@ -33,7 +33,7 @@ final class MakeHandlerCommand extends GeneratorCommand
      *
      * @param  string  $rootNamespace
      */
-    public function getDefaultNamespace($rootNamespace): string
+    protected function getDefaultNamespace($rootNamespace): string
     {
         return $rootNamespace.'\Http\Clients';
     }
@@ -64,7 +64,7 @@ final class MakeHandlerCommand extends GeneratorCommand
      * @param  string  $stub
      * @param  string  $name
      */
-    public function replaceClass($stub, $name): string
+    protected function replaceClass($stub, $name): string
     {
         $stub = parent::replaceClass($stub, $name);
 

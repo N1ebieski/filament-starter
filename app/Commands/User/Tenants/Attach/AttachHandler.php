@@ -28,10 +28,10 @@ final class AttachHandler extends Handler
                     ->map(fn (Permission $permission): string => $permission->name->value)
                     ->toArray()
             );
-        } catch (\Exception $e) {
+        } catch (\Exception $exception) {
             $this->db->rollBack();
 
-            throw $e;
+            throw $exception;
         }
 
         $this->db->commit();

@@ -28,10 +28,10 @@ final class DeleteManyHandler extends Handler
 
                 $deleted++;
             }
-        } catch (\Exception $e) {
+        } catch (\Exception $exception) {
             $this->db->rollBack();
 
-            throw $e;
+            throw $exception;
         }
 
         $this->db->commit();

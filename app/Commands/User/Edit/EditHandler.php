@@ -41,10 +41,10 @@ final class EditHandler extends Handler
                     ...$command->roles->map(fn (Role $role) => $role->name->value)->toArray(),
                 ]);
             }
-        } catch (\Exception $e) {
+        } catch (\Exception $exception) {
             $this->db->rollBack();
 
-            throw $e;
+            throw $exception;
         }
 
         $this->db->commit();

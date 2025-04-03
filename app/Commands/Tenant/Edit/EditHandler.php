@@ -33,10 +33,10 @@ final class EditHandler extends Handler
             if (! ($command->users instanceof Optional)) {
                 $tenant->users()->sync($command->users);
             }
-        } catch (\Exception $e) {
+        } catch (\Exception $exception) {
             $this->db->rollBack();
 
-            throw $e;
+            throw $exception;
         }
 
         $this->db->commit();

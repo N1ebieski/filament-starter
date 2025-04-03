@@ -19,10 +19,10 @@ final class DeleteHandler extends Handler
 
         try {
             $command->user->delete();
-        } catch (\Exception $e) {
+        } catch (\Exception $exception) {
             $this->db->rollBack();
 
-            throw $e;
+            throw $exception;
         }
 
         $this->db->commit();

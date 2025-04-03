@@ -31,10 +31,10 @@ final class CreateHandler extends Handler
                 DefaultName::User->value,
                 ...$command->roles->map(fn (Role $role) => $role->name->value)->toArray(),
             ]);
-        } catch (\Exception $e) {
+        } catch (\Exception $exception) {
             $this->db->rollBack();
 
-            throw $e;
+            throw $exception;
         }
 
         $this->db->commit();

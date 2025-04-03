@@ -34,10 +34,10 @@ final class CreateHandler extends Handler
             $this->permissionRegistrar->setPermissionsTeamId($tenant->id);
 
             $command->user->givePermissionTo('tenant.*');
-        } catch (\Exception $e) {
+        } catch (\Exception $exception) {
             $this->db->rollBack();
 
-            throw $e;
+            throw $exception;
         }
 
         $this->db->commit();

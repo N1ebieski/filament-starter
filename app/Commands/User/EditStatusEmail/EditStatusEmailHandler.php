@@ -34,10 +34,10 @@ final class EditStatusEmailHandler extends Handler
             ) {
                 $command->user->sendEmailVerificationNotification();
             }
-        } catch (\Exception $e) {
+        } catch (\Exception $exception) {
             $this->db->rollBack();
 
-            throw $e;
+            throw $exception;
         }
 
         $this->db->commit();

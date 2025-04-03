@@ -32,7 +32,7 @@ final class MakeResponseCommand extends GeneratorCommand
      *
      * @param  string  $rootNamespace
      */
-    public function getDefaultNamespace($rootNamespace): string
+    protected function getDefaultNamespace($rootNamespace): string
     {
         return $rootNamespace.'\Http\Clients';
     }

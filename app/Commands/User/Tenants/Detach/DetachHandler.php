@@ -21,10 +21,10 @@ final class DetachHandler extends Handler
             $user = $command->user;
 
             $user->tenants()->detach($command->tenant);
-        } catch (\Exception $e) {
+        } catch (\Exception $exception) {
             $this->db->rollBack();
 
-            throw $e;
+            throw $exception;
         }
 
         $this->db->commit();
