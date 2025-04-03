@@ -31,10 +31,13 @@ return \Rector\Config\RectorConfig::configure()
             __DIR__.'/app/Exceptions/Exception.php',
         ],
         \Rector\TypeDeclaration\Rector\Closure\ClosureReturnTypeRector::class => [
-            __DIR__.'/app/Providers/App/AppServiceProvider.php',
+            __DIR__.'/app/Providers/**/*.php',
         ],
         \App\Overrides\Rector\Php74\Rector\Closure\ClosureToArrowFunctionRector::class => [
-            __DIR__.'/app/Providers/App/AppServiceProvider.php',
+            __DIR__.'/app/Providers/**/*.php',
+        ],
+        \Rector\TypeDeclaration\Rector\Closure\AddClosureVoidReturnTypeWhereNoReturnRector::class => [
+            __DIR__.'/app/Providers/**/*.php',
         ],
         \Rector\DeadCode\Rector\ClassMethod\RemoveUnusedPromotedPropertyRector::class => [
             __DIR__.'/app/Http/Middleware/ApplyTenantScope/ApplyTenantScopeMiddleware.php',
