@@ -49,7 +49,9 @@ return \Rector\Config\RectorConfig::configure()
         privatization: true,
         instanceOf: true,
         earlyReturn: true,
-        strictBooleans: true
+        strictBooleans: true,
+        carbon: true,
+        phpunitCodeQuality: true
     )
     ->withPhpSets()
     ->withSets([

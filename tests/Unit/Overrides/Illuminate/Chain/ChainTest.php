@@ -25,7 +25,7 @@ final class ChainTest extends TestCase
             $this->createMock(ExampleHandler2::class),
         ];
 
-        $handlers[0]->expects($this->once())->method('handle')->with($this->equalTo('Test1'));
+        $handlers[0]->expects($this->once())->method('handle')->with('Test1');
         $handlers[1]->expects($this->never())->method('handle');
 
         $chain->through(...$handlers)->process('Test1');
@@ -40,7 +40,7 @@ final class ChainTest extends TestCase
             $this->createMock(ExampleHandler2::class),
         ];
 
-        $handlers[0]->expects($this->once())->method('handle')->with($this->equalTo('Test1'));
+        $handlers[0]->expects($this->once())->method('handle')->with('Test1');
         $handlers[1]->expects($this->never())->method('handle');
 
         $container->instance(ExampleHandler1::class, $handlers[0]);

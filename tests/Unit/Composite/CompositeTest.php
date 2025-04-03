@@ -24,7 +24,7 @@ final class CompositeTest extends TestCase
         ];
 
         foreach ($handlers as $handler) {
-            $handler->expects($this->once())->method('handle')->with($this->equalTo('Test'));
+            $handler->expects($this->once())->method('handle')->with('Test');
         }
 
         $composite->through(...$handlers)->process('Test');
