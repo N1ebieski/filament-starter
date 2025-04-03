@@ -22,7 +22,7 @@ final class UserQueryBuilder extends Builder implements SearchInterface
 
     public function filterStatusEmail(?StatusEmail $status): self
     {
-        return $this->when(! is_null($status), function (Builder $builder) use ($status): Builder {
+        return $this->unless(is_null($status), function (Builder $builder) use ($status): Builder {
             /** @var StatusEmail $status */
             return $builder->when($status->isEquals(StatusEmail::Verified), function (Builder $builder): Builder {
                 return $builder->whereNotNull('email_verified_at');

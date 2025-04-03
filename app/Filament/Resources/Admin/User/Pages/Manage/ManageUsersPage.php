@@ -88,7 +88,7 @@ final class ManageUsersPage extends ManageRecords implements PageMetaInterface
             CreateUserAction::make(
                 $this->role->newQuery()
                     ->where('name', DefaultName::User->value)
-                    ->when(! empty($this->getTableFilterState('roles')['values']), function (Builder $query): Builder {
+                    ->unless(empty($this->getTableFilterState('roles')['values']), function (Builder $query): Builder {
                         // @phpstan-ignore-next-line@
                         return $query->orWhereIn('id', $this->getTableFilterState('roles')['values']);
                     })

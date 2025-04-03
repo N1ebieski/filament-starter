@@ -58,7 +58,7 @@ trait HasSearch
         $model = $this->getModel();
 
         $ids = $model->search($scout->query, $scout->callback)
-            ->when(! is_null($scout->get->take), function (ScoutBuilder $builder) use ($scout): ScoutBuilder {
+            ->unless(is_null($scout->get->take), function (ScoutBuilder $builder) use ($scout): ScoutBuilder {
                 /** @var int */
                 $take = $scout->get->take;
 
