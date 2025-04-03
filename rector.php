@@ -41,6 +41,7 @@ return \Rector\Config\RectorConfig::configure()
             __DIR__.'/app/Http/Middleware/ApplyUserScope/ApplyUserScopeMiddleware.php',
         ],
     ])
+    ->withComposerBased(phpunit: true)
     ->withPreparedSets(
         deadCode: true,
         codeQuality: true,
