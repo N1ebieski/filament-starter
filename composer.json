@@ -67,6 +67,9 @@
         "phpstan": [
             "vendor/bin/phpstan analyse --configuration=phpstan.neon > storage/logs/phpstan.log"
         ],
+        "rector": [
+            "vendor/bin/rector process"
+        ],
         "rector-dry": [
             "vendor/bin/rector process --dry-run > storage/logs/rector.log"
         ],
