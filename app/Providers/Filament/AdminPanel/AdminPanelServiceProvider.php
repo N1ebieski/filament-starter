@@ -26,7 +26,7 @@ final class AdminPanelServiceProvider extends PanelServiceProvider
             ->id(self::ID)
             ->path(self::ID)
             ->homeUrl('/'.self::ID)
-            ->brandName(Lang::string('admin.pages.panel.title')) // @phpstan-ignore-line
+            ->brandName(Lang::string('admin.pages.panel.title'))
             ->discoverResources(in: app_path('Filament/Resources/Admin'), for: 'App\\Filament\\Resources\\Admin')
             ->discoverPages(in: app_path('Filament/Pages/Admin'), for: 'App\\Filament\\Pages\\Admin')
             ->pages([])

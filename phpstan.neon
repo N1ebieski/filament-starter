@@ -29,4 +29,3 @@ parameters:
 		- '#^Parameter \#1 \$column of method Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\>::where\(\) expects#'
 		- '#^Parameter \#\d \$callback of method Illuminate\\(Support|Database\\Eloquent)\\Collection\<(int|\(int\|string\)),Illuminate\\Database\\Eloquent\\Model\>::(each|map|filter|when)\(\) expects#'
 		- '#^Return type of call to method PHPUnit\\Framework\\TestCase::createMock\(\) contains unresolvable type.#'
-		- '#^Parameter \#1 \$(label|title|heading) of method Filament\\[A-Za-z\d\\]+::(label|title|modalHeading)\(\) expects Closure(?:\|Illuminate\\Contracts\\Support\\Htmlable)?\|string\|null, array\|string given.#'
