@@ -26,9 +26,11 @@ final class ValueObjectCast extends Cast implements CastsAttributes
         }
 
         if (! $value instanceof $this->valueObjectName) {
+            /** @var ValueObject */
             return new ($this->valueObjectName)($value);
         }
 
+        /** @var ValueObject $value */
         return $value;
     }
 
