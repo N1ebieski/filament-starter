@@ -9,6 +9,7 @@ use Jeffgreco13\FilamentBreezy\Livewire\PersonalInfo as BasePersonalInfo;
 
 /**
  * @property-read User $user
+ * @property-read \Filament\Forms\Form $form
  */
 final class PersonalInfo extends BasePersonalInfo
 {
