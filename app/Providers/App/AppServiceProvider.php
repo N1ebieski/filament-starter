@@ -101,14 +101,15 @@ class AppServiceProvider extends ServiceProvider implements DeferrableProvider
 
         $this->app->bind(\App\Queries\QueryBusInterface::class, \App\Queries\QueryBus::class);
 
+        $this->app->when(\App\Actions\Tenant\GetCurrent\GetCurrentHandler::class)
+            ->needs(\Filament\FilamentManager::class)
+            ->give(fn (Application $app) => $app->make('filament'));
+
         $this->app->bind(\App\GlobalScopes\Tenant\TenantScope::class, function (Application $app) {
-            /** @var \App\Tenant\CurrentTenantHelper */
-            $factory = $app->make(\App\Tenant\CurrentTenantHelper::class, [
-                'filamentManager' => $app->make('filament'),
-            ]);
+            $handler = $app->make(\App\Actions\Tenant\GetCurrent\GetCurrentHandler::class);
 
             /** @var Tenant */
-            $tenant = $factory->getTenant();
+            $tenant = $handler->handle();
 
             return new \App\GlobalScopes\Tenant\TenantScope($tenant);
         });
