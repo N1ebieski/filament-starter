@@ -17,6 +17,7 @@ use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rules\Exists;
 
 final class CreateUserAction extends Action
@@ -38,6 +39,7 @@ final class CreateUserAction extends Action
     public function makeAction(Collection $roles = new Collection): CreateAction
     {
         return CreateAction::make()
+            ->authorize(fn (): bool => Gate::allows('adminCreate', $this->user::class))
             ->model($this->user::class)
             ->icon('heroicon-o-plus-circle')
             ->modalHeading(Lang::string('user.pages.create.title'))

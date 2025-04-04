@@ -18,6 +18,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Tables\Actions\EditAction;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rules\Exists;
 
 final class EditRoleAction extends Action
@@ -42,6 +43,7 @@ final class EditRoleAction extends Action
     public function makeAction(): EditAction
     {
         return EditAction::make()
+            ->authorize(fn (Role $role): bool => Gate::allows('adminUpdate', $role))
             ->modalHeading(fn (Role $record): string => Lang::string('role.pages.edit.title', [
                 'name' => $record->name->value,
             ]))

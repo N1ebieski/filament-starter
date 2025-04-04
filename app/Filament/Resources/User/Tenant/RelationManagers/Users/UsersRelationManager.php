@@ -11,7 +11,6 @@ use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\Detach\Det
 use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\DetachMany\DetachUsersAction;
 use App\Filament\Resources\User\Tenant\RelationManagers\Users\Actions\EditPermissions\EditPermissionsAction;
 use App\Models\Tenant\Tenant;
-use App\Models\User\User;
 use App\Overrides\Illuminate\Support\Facades\Lang;
 use App\Queries\QueryBusInterface;
 use App\Queries\Shared\OrderBy\Order;
@@ -25,7 +24,7 @@ use Filament\Tables\Table;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class UsersRelationManager extends RelationManager
 {
@@ -42,12 +41,12 @@ class UsersRelationManager extends RelationManager
         $this->queryBus = $queryBus;
     }
 
-    public static function canViewForRecord(Model $ownerRecord, string $pageClass): bool
+    /**
+     * @param  Tenant  $tenant
+     */
+    public static function canViewForRecord(Model $tenant, string $pageClass): bool
     {
-        /** @var User|null */
-        $user = Auth::user();
-
-        return $user?->can('usersViewAny', $ownerRecord) ?? false;
+        return Gate::allows('userUsersViewAny', $tenant);
     }
 
     public static function getTitle(Model $ownerRecord, string $pageClass): string

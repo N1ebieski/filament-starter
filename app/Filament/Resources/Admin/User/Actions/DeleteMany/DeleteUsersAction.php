@@ -13,6 +13,7 @@ use Filament\Tables\Actions\DeleteBulkAction;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Gate;
 
 final class DeleteUsersAction extends Action
 {
@@ -31,6 +32,7 @@ final class DeleteUsersAction extends Action
     public function makeAction(): DeleteBulkAction
     {
         return DeleteBulkAction::make()
+            ->authorize(fn (): bool => Gate::allows('adminDeleteAny', User::class))
             ->modalHeading(fn (Collection $records): string => Lang::choice('user.pages.delete_multi.title', $records->count(), [
                 'number' => $records->count(),
             ]))
@@ -38,7 +40,7 @@ final class DeleteUsersAction extends Action
                 /** @var User|null */
                 $user = $guard->user();
 
-                $records = $records->filter(fn (User $record): bool => $user?->can('delete', $record) ?? false);
+                $records = $records->filter(fn (User $user): bool => Gate::allows('adminDelete', $user));
 
                 return $this->commandBus->execute(new DeleteManyCommand($records));
             })

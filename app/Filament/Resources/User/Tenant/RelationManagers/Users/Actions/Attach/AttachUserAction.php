@@ -15,9 +15,9 @@ use App\Overrides\Illuminate\Support\Facades\Lang;
 use App\Queries\QueryBusInterface;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Actions\AttachAction;
-use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rules\Exists;
 
 final class AttachUserAction extends Action
@@ -42,12 +42,7 @@ final class AttachUserAction extends Action
     public function makeAction(Tenant $tenant): AttachAction
     {
         return AttachAction::make()
-            ->hidden(function (Guard $guard) use ($tenant): bool {
-                /** @var User|null */
-                $user = $guard->user();
-
-                return ! $user?->can('tenantAttach', [$this->user::class, $tenant]);
-            })
+            ->authorize(fn (): bool => Gate::allows('userTenantAttach', [$this->user::class, $tenant]))
             ->icon('heroicon-o-plus-circle')
             ->modalHeading(Lang::string('tenant.pages.users.attach.title'))
             ->form(fn (AttachAction $action): array => [

@@ -11,6 +11,7 @@ use App\Models\Role\Role;
 use App\Overrides\Illuminate\Support\Facades\Lang;
 use Filament\Tables\Actions\DeleteAction;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Gate;
 
 final class DeleteRoleAction extends Action
 {
@@ -29,6 +30,7 @@ final class DeleteRoleAction extends Action
     public function makeAction(): DeleteAction
     {
         return DeleteAction::make()
+            ->authorize(fn (Role $role): bool => Gate::allows('adminDelete', $role))
             ->modalHeading(fn (Role $record): string => Lang::string('role.pages.delete.title', [
                 'name' => $record->name,
             ]))

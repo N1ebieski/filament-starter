@@ -22,7 +22,7 @@ final class DetachManyHandler extends Handler
         return $this->db->transaction(function () use ($command): int {
             $detached = 0;
 
-            foreach ($command->users as $user) {
+            foreach ($command->users->load('tenantPermissions') as $user) {
                 $this->commandBus->execute(new DetachCommand(
                     tenant: $command->tenant,
                     user: $user

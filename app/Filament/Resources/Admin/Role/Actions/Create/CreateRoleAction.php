@@ -16,6 +16,7 @@ use Filament\Actions\CreateAction;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Gate;
 
 final class CreateRoleAction extends Action
 {
@@ -39,6 +40,7 @@ final class CreateRoleAction extends Action
     public function makeAction(): CreateAction
     {
         return CreateAction::make()
+            ->authorize(fn (): bool => Gate::allows('adminCreate', Role::class))
             ->icon('heroicon-o-plus-circle')
             ->modalHeading(Lang::string('role.pages.create.title'))
             ->form([

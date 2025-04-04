@@ -16,6 +16,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Tables\Actions\EditAction;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rules\Exists;
 
 final class EditUserAction extends Action
@@ -37,6 +38,7 @@ final class EditUserAction extends Action
     public function makeAction(): EditAction
     {
         return EditAction::make()
+            ->authorize(fn (User $user): bool => Gate::allows('adminUpdate', $user))
             ->modalHeading(fn (User $record): string => Lang::string('user.pages.edit.title', [
                 'name' => $record->name,
             ]))

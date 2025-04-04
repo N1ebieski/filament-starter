@@ -13,6 +13,7 @@ use App\Queries\Role\GetByFilter\GetByFilterQuery;
 use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatchFactory;
 use App\Support\Query\HasQueryBus;
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Gate;
 use Override;
 
 final class RoleResource extends Resource implements GlobalSearchInterface
@@ -28,6 +29,11 @@ final class RoleResource extends Resource implements GlobalSearchInterface
     protected static ?string $recordTitleAttribute = 'name';
 
     protected static ?string $slug = 'roles';
+
+    public static function canAccess(): bool
+    {
+        return Gate::allows('adminViewAny', Role::class);
+    }
 
     #[Override]
     public static function applyGlobalSearchAttributeConstraints(Builder $query, string $search): void

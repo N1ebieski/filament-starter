@@ -13,6 +13,7 @@ use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Tenancy\RegisterTenant;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 /**
  * @property-read Tenant $tenant
@@ -26,6 +27,16 @@ class CreateTenantPage extends RegisterTenant
     public function boot(CommandBusInterface $commandBus): void
     {
         $this->commandBus = $commandBus;
+    }
+
+    public static function canView(): bool
+    {
+        return Gate::allows('userCreate', Tenant::class);
+    }
+
+    public static function canAccess(): bool
+    {
+        return Gate::allows('userCreate', Tenant::class);
     }
 
     public static function getLabel(): string

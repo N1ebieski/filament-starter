@@ -8,15 +8,14 @@ use App\Commands\CommandBusInterface;
 use App\Commands\Tenant\Delete\DeleteCommand;
 use App\Filament\Actions\Action as BaseAction;
 use App\Models\Tenant\Tenant;
-use App\Models\User\User;
 use App\Overrides\Illuminate\Support\Facades\Lang;
 use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
-use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Gate;
 
 final class DeleteTenantAction extends BaseAction
 {
@@ -36,13 +35,8 @@ final class DeleteTenantAction extends BaseAction
     {
         return DeleteAction::make()
             ->record($tenant)
+            ->authorize(fn (Tenant $tenant): bool => Gate::allows('userDelete', $tenant))
             ->icon('heroicon-m-trash')
-            ->hidden(function (Tenant $record, Guard $guard): bool {
-                /** @var User|null */
-                $user = $guard->user();
-
-                return ! $user?->can('delete', $record);
-            })
             ->form([
                 TextInput::make('name')
                     ->label(Lang::string('tenant.name.label'))

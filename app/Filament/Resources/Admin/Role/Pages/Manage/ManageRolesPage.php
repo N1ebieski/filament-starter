@@ -13,6 +13,7 @@ use App\Filament\Resources\Admin\Role\Actions\Edit\EditRoleAction;
 use App\Filament\Resources\Admin\Role\RoleResource;
 use App\Filament\Resources\HasTablePaginate;
 use App\Filament\Resources\HasTableSearch;
+use App\Models\Role\Role;
 use App\Overrides\Illuminate\Support\Facades\Lang;
 use App\Queries\QueryBusInterface;
 use App\Queries\Role\GetByFilter\GetByFilterQuery;
@@ -26,6 +27,7 @@ use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Gate;
 use Override;
 
 final class ManageRolesPage extends ManageRecords implements PageMetaInterface
@@ -46,6 +48,11 @@ final class ManageRolesPage extends ManageRecords implements PageMetaInterface
     ): void {
         $this->queryBus = $queryBus;
         $this->metaFactory = $metaFactory;
+    }
+
+    public static function canAccess(array $parameters = []): bool
+    {
+        return Gate::allows('adminViewAny', Role::class);
     }
 
     public function getTitle(): string

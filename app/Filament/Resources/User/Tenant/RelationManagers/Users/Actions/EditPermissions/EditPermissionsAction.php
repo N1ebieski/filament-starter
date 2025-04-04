@@ -15,9 +15,9 @@ use App\Overrides\Illuminate\Support\Facades\Lang;
 use App\Queries\QueryBusInterface;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Actions\EditAction;
-use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rules\Exists;
 
 final class EditPermissionsAction extends Action
@@ -41,12 +41,7 @@ final class EditPermissionsAction extends Action
     public function makeAction(Tenant $tenant): EditAction
     {
         return EditAction::make()
-            ->hidden(function (User $record, Guard $guard) use ($tenant): bool {
-                /** @var User|null */
-                $user = $guard->user();
-
-                return ! $user?->can('tenantUpdatePermissions', [$record, $tenant]);
-            })
+            ->authorize(fn (User $user): bool => Gate::allows('userTenantUpdatePermissions', [$user, $tenant]))
             ->icon('heroicon-s-shield-check')
             ->label(Lang::string('user.permissions.label'))
             ->modalHeading(fn (User $record): string => Lang::string('tenant.pages.users.edit_permissions.title', [

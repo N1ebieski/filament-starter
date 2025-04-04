@@ -17,6 +17,7 @@ use App\Filament\Resources\HasTablePaginate;
 use App\Filament\Resources\HasTableSearch;
 use App\Models\Role\Role;
 use App\Models\User\User;
+use App\Overrides\Illuminate\Support\Facades\Lang;
 use App\Queries\QueryBusInterface;
 use App\Queries\Shared\OrderBy\Order;
 use App\Queries\Shared\OrderBy\OrderBy;
@@ -33,9 +34,8 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Database\Eloquent\Builder;
-use App\Overrides\Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Gate;
 use Override;
 
 final class ManageUsersPage extends ManageRecords implements PageMetaInterface
@@ -64,6 +64,11 @@ final class ManageUsersPage extends ManageRecords implements PageMetaInterface
         $this->commandBus = $commandBus;
         $this->queryBus = $queryBus;
         $this->metaFactory = $metaFactory;
+    }
+
+    public static function canAccess(array $parameters = []): bool
+    {
+        return Gate::allows('adminViewAny', User::class);
     }
 
     public function getTitle(): string
@@ -142,12 +147,7 @@ final class ManageUsersPage extends ManageRecords implements PageMetaInterface
 
                 ToggleColumn::make('status_email')
                     ->label(Lang::string('user.status_email.label'))
-                    ->disabled(function (User $record, Guard $guard): bool {
-                        /** @var User|null */
-                        $user = $guard->user();
-
-                        return ! $user?->can('toggleStatusEmail', $record);
-                    })
+                    ->disabled(fn (User $user): bool => Gate::denies('adminToggleStatusEmail', $user))
                     ->getStateUsing(fn (User $record): bool => $record->status_email->getAsBool())
                     ->updateStateUsing(fn (User $record): User => $this->commandBus->execute(new EditStatusEmailCommand(
                         user: $record,

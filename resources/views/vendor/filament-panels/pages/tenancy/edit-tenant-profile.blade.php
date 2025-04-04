@@ -20,5 +20,5 @@
         :owner-record="$tenant"
         :page-class="static::class"
    >
-   </x-filament-panels::resources.relation-managers>    
+   </x-filament-panels::resources.relation-managers>
 </x-filament-panels::page>

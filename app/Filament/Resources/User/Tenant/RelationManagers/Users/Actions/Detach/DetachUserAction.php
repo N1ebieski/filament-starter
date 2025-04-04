@@ -11,8 +11,8 @@ use App\Models\Tenant\Tenant;
 use App\Models\User\User;
 use App\Overrides\Illuminate\Support\Facades\Lang;
 use Filament\Tables\Actions\DetachAction;
-use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Gate;
 
 final class DetachUserAction extends Action
 {
@@ -31,12 +31,7 @@ final class DetachUserAction extends Action
     public function makeAction(Tenant $tenant): DetachAction
     {
         return DetachAction::make()
-            ->hidden(function (User $record, Guard $guard) use ($tenant): bool {
-                /** @var User|null */
-                $user = $guard->user();
-
-                return ! $user?->can('tenantDetach', [$record, $tenant]);
-            })
+            ->authorize(fn (User $user): bool => Gate::allows('userTenantDetach', [$user, $tenant]))
             ->modalHeading(fn (User $record): string => Lang::string('tenant.pages.users.detach.title', [
                 'name' => $record->name,
             ]))

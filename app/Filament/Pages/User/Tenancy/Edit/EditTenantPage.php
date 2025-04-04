@@ -14,7 +14,9 @@ use Filament\Facades\Filament;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Pages\Tenancy\EditTenantProfile;
+use Filament\Resources\Pages\Concerns\HasRelationManagers;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Gate;
 use Override;
 
 /**
@@ -22,6 +24,8 @@ use Override;
  */
 class EditTenantPage extends EditTenantProfile
 {
+    use HasRelationManagers;
+
     protected static ?string $slug = 'edit';
 
     private CommandBusInterface $commandBus;
@@ -29,6 +33,32 @@ class EditTenantPage extends EditTenantProfile
     public function boot(CommandBusInterface $commandBus): void
     {
         $this->commandBus = $commandBus;
+    }
+
+    /**
+     * @param  Tenant  $tenant
+     */
+    public static function canView(Model $tenant): bool
+    {
+        return Gate::allows('userUpdate', $tenant);
+    }
+
+    public static function canAccess(): bool
+    {
+        /** @var Tenant */
+        $tenant = Filament::getTenant();
+
+        return Gate::allows('userUpdate', $tenant);
+    }
+
+    protected function getAllRelationManagers(): array
+    {
+        return $this->getRelations();
+    }
+
+    protected function getRecord(): Tenant
+    {
+        return Filament::getTenant();
     }
 
     public static function getLabel(): string

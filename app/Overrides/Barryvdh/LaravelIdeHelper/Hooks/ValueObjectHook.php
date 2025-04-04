@@ -20,7 +20,7 @@ final class ValueObjectHook implements ModelHookInterface
 
         foreach ($casts as $name => $cast) {
             if (Str::startsWith($cast, ValueObjectCast::class)) {
-                [$realCast, $valueObject, $nullable] = explode(':', $cast) + [null, null, false];
+                [, $valueObject, $nullable] = explode(':', $cast) + [null, null, false];
 
                 $type = '\\'.$valueObject;
 

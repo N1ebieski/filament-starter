@@ -10,22 +10,22 @@ use App\Policies\Policy;
 
 final class TenantPolicy extends Policy
 {
-    public function create(): bool
+    public function userCreate(): bool
     {
         return true;
     }
 
-    public function update(User $user, Tenant $record): bool
+    public function userUpdate(User $user, Tenant $record): bool
     {
         return $user->id === $record->user?->id;
     }
 
-    public function delete(User $user, Tenant $record): bool
+    public function userDelete(User $user, Tenant $record): bool
     {
         return $user->id === $record->user?->id;
     }
 
-    public function usersViewAny(User $user, Tenant $record): bool
+    public function userUsersViewAny(User $user, Tenant $record): bool
     {
         return $user->id === $record->user?->id;
     }
