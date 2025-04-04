@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Overrides\Barryvdh\LaravelIdeHelper\Hooks;
 
 use App\Casts\ValueObject\ValueObjectCast;
-use App\ValueObjects\ValueObject;
+use App\Support\ValueObject\ValueObject;
 use Barryvdh\LaravelIdeHelper\Console\ModelsCommand;
 use Barryvdh\LaravelIdeHelper\Contracts\ModelHookInterface;
 use Illuminate\Database\Eloquent\Model;

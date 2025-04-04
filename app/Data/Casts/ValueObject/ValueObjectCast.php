@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Data\Casts\ValueObject;
 
 use App\Data\Casts\Cast as BaseCast;
-use App\ValueObjects\ValueObject;
+use App\Support\ValueObject\ValueObject;
 use Spatie\LaravelData\Casts\Cast;
 use Spatie\LaravelData\Support\Creation\CreationContext;
 use Spatie\LaravelData\Support\DataProperty;

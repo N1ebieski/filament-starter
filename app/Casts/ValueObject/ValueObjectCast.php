@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Casts\ValueObject;
 
 use App\Casts\Cast;
-use App\ValueObjects\ValueObject;
+use App\Support\ValueObject\ValueObject;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;
 

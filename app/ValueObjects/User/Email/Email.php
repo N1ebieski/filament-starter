@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\ValueObjects\User\Email;
 
-use App\ValueObjects\ValueObject;
+use App\Support\ValueObject\ValueObject;
 use Spatie\LaravelData\Attributes\Validation\Email as ValidationEmail;
 
 final class Email extends ValueObject

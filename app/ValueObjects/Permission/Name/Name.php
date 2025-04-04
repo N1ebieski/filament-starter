@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\ValueObjects\Permission\Name;
 
-use App\ValueObjects\ValueObject;
+use App\Support\ValueObject\ValueObject;
 use Spatie\LaravelData\Attributes\Validation\Max;
 
 final class Name extends ValueObject
