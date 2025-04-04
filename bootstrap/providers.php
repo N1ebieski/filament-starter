@@ -18,6 +18,7 @@ return [
     App\Providers\Tenant\TenantServiceProvider::class,
     App\Providers\Filament\Filament\FilamentServiceProvider::class,
     App\Providers\Filament\WebPanel\WebPanelServiceProvider::class,
+    App\Providers\Filament\UserPanel\UserPanelServiceProvider::class,
     App\Providers\Filament\AdminPanel\AdminPanelServiceProvider::class,
     App\Providers\Filament\Spotlight\SpotlightServiceProvider::class,
     App\Providers\Spotlight\SpotlightServiceProvider::class,
