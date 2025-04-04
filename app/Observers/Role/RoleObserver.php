@@ -6,13 +6,18 @@ namespace App\Observers\Role;
 
 use App\Models\Role\Role;
 use App\Observers\Observer;
+use Illuminate\Database\ConnectionInterface as DB;
 
 class RoleObserver extends Observer
 {
+    public function __construct(private readonly DB $db) {}
+
     public function deleting(Role $role): void
     {
-        $role->permissions()->detach();
+        $this->db->transaction(function () use ($role) {
+            $role->permissions()->detach();
 
-        $role->users()->detach();
+            $role->users()->detach();
+        });
     }
 }
