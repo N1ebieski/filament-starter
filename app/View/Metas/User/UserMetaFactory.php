@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace App\View\Metas\User;
 
+use App\Overrides\Illuminate\Contracts\Config\Repository as Config;
+use App\Overrides\Illuminate\Contracts\Translation\Translator;
 use App\View\Metas\Meta;
 use App\View\Metas\MetaInterface;
 use App\View\Metas\OpenGraphInterface;
-use Illuminate\Contracts\Config\Repository as Config;
-use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection as Collect;
+use Illuminate\Support\Collection;
 
 final class UserMetaFactory
 {
     public function __construct(
         private readonly Config $config,
         private readonly Translator $translator,
-        private readonly Collect $collect,
+        private readonly Collection $collection,
         private readonly Request $request
     ) {}
 
@@ -30,24 +30,24 @@ final class UserMetaFactory
         ?OpenGraphInterface $openGraph = null
     ): MetaInterface {
         return new Meta(
-            title: $this->collect->make([
+            title: $this->collection->make([
                 $title,
-                $page > 1 ? $this->translator->get('pagination.page', ['page' => $page]) : '',
-                $this->translator->get('user.title'),
-                $this->translator->get('app.title'),
+                $page > 1 ? $this->translator->string('pagination.page', ['page' => $page]) : '',
+                $this->translator->string('user.title'),
+                $this->translator->string('app.title'),
             ])->filter()->implode(' - '),
-            description: $this->collect->make([
+            description: $this->collection->make([
                 $description,
-                $page > 1 ? $this->translator->get('pagination.page', ['page' => $page]) : '',
-                $this->translator->get('user.title'),
-                $this->translator->get('app.description'),
+                $page > 1 ? $this->translator->string('pagination.page', ['page' => $page]) : '',
+                $this->translator->string('user.title'),
+                $this->translator->string('app.description'),
             ])->filter()->implode('. '),
-            keywords: mb_strtolower($this->collect->make([
+            keywords: mb_strtolower($this->collection->make([
                 $keywords,
-                $this->translator->get('user.title'),
-                $this->translator->get('app.keywords'),
+                $this->translator->string('user.title'),
+                $this->translator->string('app.keywords'),
             ])->filter()->implode(', ')),
-            url: $url ?? $this->config->get('app.url').$this->request->getRequestUri(),
+            url: $url ?? $this->config->string('app.url').$this->request->getRequestUri(),
             openGraph: $openGraph
         );
     }

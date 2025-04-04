@@ -21,9 +21,16 @@ final class ConfigServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->app->register(DeferrableServiceProvider::class);
+
+        $this->forceAppUrl();
+    }
+
+    private function forceAppUrl(): void
+    {
         $url = Config::string('app.url');
 
-        /** @var string */
+        /** @var string $scheme */
         $scheme = parse_url((string) $url, PHP_URL_SCHEME);
 
         URL::forceScheme($scheme);
