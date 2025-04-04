@@ -28,6 +28,7 @@ class TenantServiceProvider extends ServiceProvider implements DeferrableProvide
     public function provides(): array
     {
         return [
+            \App\Actions\Tenant\GetCurrent\GetCurrentHandler::class,
             \App\GlobalScopes\Tenant\TenantScope::class,
         ];
     }

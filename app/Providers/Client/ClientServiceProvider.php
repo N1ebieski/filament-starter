@@ -13,16 +13,16 @@ class ClientServiceProvider extends ServiceProvider implements DeferrableProvide
      */
     public function register(): void
     {
-        $this->app->bind(\App\Http\Clients\ClientBusInterface::class, \App\Http\Clients\ClientBus::class);
+        $this->app->scoped(\App\Http\Clients\ClientBusInterface::class, \App\Http\Clients\ClientBus::class);
 
-        $this->app->bind(\App\Overrides\Illuminate\Contracts\Http\Client\Client::class, function (Application $app) {
+        $this->app->scoped(\App\Overrides\Illuminate\Contracts\Http\Client\Client::class, function (Application $app) {
             /** @var \App\Overrides\Illuminate\Contracts\Http\Client\Factory */
             $factory = $app->make(\App\Overrides\Illuminate\Contracts\Http\Client\Factory::class);
 
             return $factory->request();
         });
 
-        $this->app->bind(\App\Overrides\Illuminate\Contracts\Http\Client\Factory::class, function (Application $app) {
+        $this->app->scoped(\App\Overrides\Illuminate\Contracts\Http\Client\Factory::class, function (Application $app) {
             /** @var \Illuminate\Http\Client\Factory */
             $factory = $app->make(\Illuminate\Http\Client\Factory::class);
 

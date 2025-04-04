@@ -9,7 +9,7 @@ class CommandServiceProvider extends ServiceProvider implements DeferrableProvid
 {
     public function register(): void
     {
-        $this->app->bind(\App\Commands\CommandBusInterface::class, \App\Commands\CommandBus::class);
+        $this->app->scoped(\App\Commands\CommandBusInterface::class, \App\Commands\CommandBus::class);
     }
 
     public function provides(): array

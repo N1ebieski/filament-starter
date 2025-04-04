@@ -10,7 +10,7 @@ class FilesystemServiceProvider extends ServiceProvider implements DeferrablePro
 {
     public function register(): void
     {
-        $this->app->bind(\App\Overrides\Illuminate\Contracts\Filesystem\Factory::class, function (Application $app) {
+        $this->app->scoped(\App\Overrides\Illuminate\Contracts\Filesystem\Factory::class, function (Application $app) {
             /** @var \Illuminate\Filesystem\FilesystemManager */
             $filesystemManager = $app->make(\Illuminate\Filesystem\FilesystemManager::class);
 

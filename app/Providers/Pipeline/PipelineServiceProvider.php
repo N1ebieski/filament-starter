@@ -10,16 +10,16 @@ class PipelineServiceProvider extends ServiceProvider implements DeferrableProvi
 {
     public function register(): void
     {
-        $this->app->bind(\Illuminate\Contracts\Pipeline\Pipeline::class, \Illuminate\Pipeline\Pipeline::class);
+        $this->app->scoped(\Illuminate\Contracts\Pipeline\Pipeline::class, \Illuminate\Pipeline\Pipeline::class);
 
-        $this->app->bind(\App\Overrides\Illuminate\Contracts\Chain\Chain::class, function (Application $app) {
+        $this->app->scoped(\App\Overrides\Illuminate\Contracts\Chain\Chain::class, function (Application $app) {
             /** @var \Illuminate\Pipeline\Pipeline */
             $pipeline = $app->make(\Illuminate\Contracts\Pipeline\Pipeline::class);
 
             return new \App\Overrides\Illuminate\Pipeline\Pipeline($pipeline);
         });
 
-        $this->app->bind(\App\Overrides\Illuminate\Contracts\Pipeline\Pipeline::class, function (Application $app) {
+        $this->app->scoped(\App\Overrides\Illuminate\Contracts\Pipeline\Pipeline::class, function (Application $app) {
             /** @var \Illuminate\Pipeline\Pipeline */
             $pipeline = $app->make(\Illuminate\Contracts\Pipeline\Pipeline::class);
 

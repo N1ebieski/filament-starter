@@ -10,7 +10,7 @@ class LoggerServiceProvider extends ServiceProvider implements DeferrableProvide
 {
     public function register(): void
     {
-        $this->app->bind(\App\Overrides\Illuminate\Contracts\Logger\LoggerInterface::class, function (Application $app) {
+        $this->app->scoped(\App\Overrides\Illuminate\Contracts\Logger\LoggerInterface::class, function (Application $app) {
             /** @var \Illuminate\Log\LogManager */
             $logManager = $app->make(\Psr\Log\LoggerInterface::class);
 

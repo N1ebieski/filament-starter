@@ -13,14 +13,14 @@ final class DeferrableServiceProvider extends ServiceProvider implements Deferra
 {
     public function register(): void
     {
-        $this->app->bind(\App\Overrides\Illuminate\Contracts\Auth\Access\Gate::class, function (Application $app) {
+        $this->app->scoped(\App\Overrides\Illuminate\Contracts\Auth\Access\Gate::class, function (Application $app) {
             /** @var \Illuminate\Auth\Access\Gate */
             $gate = $app->make(\Illuminate\Contracts\Auth\Access\Gate::class);
 
             return new \App\Overrides\Illuminate\Auth\Access\Gate($gate);
         });
 
-        $this->app->bind(\App\Overrides\Illuminate\Contracts\Auth\Guard::class, function (Application $app) {
+        $this->app->scoped(\App\Overrides\Illuminate\Contracts\Auth\Guard::class, function (Application $app) {
             /** @var \Illuminate\Contracts\Auth\Guard */
             $guard = $app->make(\Illuminate\Contracts\Auth\Guard::class);
 

@@ -10,7 +10,7 @@ class BusServiceProvider extends ServiceProvider implements DeferrableProvider
 {
     public function register(): void
     {
-        $this->app->bind(\App\Overrides\Illuminate\Contracts\Bus\Dispatcher::class, function (Application $app) {
+        $this->app->scoped(\App\Overrides\Illuminate\Contracts\Bus\Dispatcher::class, function (Application $app) {
             /** @var \Illuminate\Bus\Dispatcher */
             $baseDispatcher = $app->make(\Illuminate\Contracts\Bus\Dispatcher::class);
 

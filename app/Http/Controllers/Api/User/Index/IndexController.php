@@ -25,10 +25,10 @@ final class IndexController extends Controller
     ): JsonResponse {
         $data = $request->toArray();
 
-        /** @var LengthAwarePaginator */
+        /** @var LengthAwarePaginator $users */
         $users = $this->queryBus->execute(GetByFilterQuery::from($data));
 
-        /** @var PaginatedDataCollection */
+        /** @var PaginatedDataCollection $collection */
         $collection = UserResource::collect($users, PaginatedDataCollection::class);
 
         return Response::json($collection->toArray());

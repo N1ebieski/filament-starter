@@ -12,14 +12,14 @@ final class CacheServiceProvider extends ServiceProvider implements DeferrablePr
 {
     public function register(): void
     {
-        $this->app->bind(\App\Overrides\Illuminate\Contracts\Cache\Repository::class, function (Application $app) {
+        $this->app->scoped(\App\Overrides\Illuminate\Contracts\Cache\Repository::class, function (Application $app) {
             /** @var \Illuminate\Cache\Repository */
             $cache = $app->make(\Illuminate\Contracts\Cache\Repository::class);
 
             return new \App\Overrides\Illuminate\Cache\Repository($cache);
         });
 
-        $this->app->bind(\App\CacheQueries\CacheQueryBusInterface::class, \App\CacheQueries\CacheQueryBus::class);
+        $this->app->scoped(\App\CacheQueries\CacheQueryBusInterface::class, \App\CacheQueries\CacheQueryBus::class);
     }
 
     public function provides(): array

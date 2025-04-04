@@ -11,7 +11,7 @@ final class ActionServiceProvider extends ServiceProvider implements DeferrableP
 {
     public function register(): void
     {
-        $this->app->bind(\App\Actions\ActionBusInterface::class, \App\Actions\ActionBus::class);
+        $this->app->scoped(\App\Actions\ActionBusInterface::class, \App\Actions\ActionBus::class);
     }
 
     public function provides(): array

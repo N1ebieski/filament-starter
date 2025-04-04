@@ -9,7 +9,7 @@ class QueryServiceProvider extends ServiceProvider implements DeferrableProvider
 {
     public function register(): void
     {
-        $this->app->bind(\App\Queries\QueryBusInterface::class, \App\Queries\QueryBus::class);
+        $this->app->scoped(\App\Queries\QueryBusInterface::class, \App\Queries\QueryBus::class);
     }
 
     public function provides(): array

@@ -39,7 +39,10 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->render(function (Throwable $e): void {
-            if (! Config::get('app.debug') && $e->getPrevious() instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
+            if (
+                ! Config::get('app.debug')
+                && $e->getPrevious() instanceof \Illuminate\Database\Eloquent\ModelNotFoundException
+            ) {
                 App::abort(HttpResponse::HTTP_NOT_FOUND);
             }
         });
