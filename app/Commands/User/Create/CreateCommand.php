@@ -13,6 +13,7 @@ use App\Support\Attributes\Handler\Handler;
 use App\ValueObjects\User\Email\Email;
 use App\ValueObjects\User\Name\Name;
 use Illuminate\Support\Collection;
+use SensitiveParameter;
 use Spatie\LaravelData\Attributes\WithCast;
 
 #[Handler(\App\Commands\User\Create\CreateHandler::class)]
@@ -20,7 +21,9 @@ final class CreateCommand extends Command implements ObjectDefaultsInterface
 {
     public function __construct(
         public readonly Name $name,
+        #[SensitiveParameter]
         public readonly Email $email,
+        #[SensitiveParameter]
         public readonly string $password,
         public readonly User $user = new User,
         #[WithCast(CollectionOfModelsCast::class, Role::class)]

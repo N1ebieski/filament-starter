@@ -13,6 +13,7 @@ use App\Support\Attributes\Handler\Handler;
 use App\ValueObjects\User\Email\Email;
 use App\ValueObjects\User\Name\Name;
 use Illuminate\Database\Eloquent\Collection;
+use SensitiveParameter;
 use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Optional;
 
@@ -22,7 +23,9 @@ final class EditCommand extends Command implements ObjectDefaultsInterface
     public function __construct(
         public readonly User $user,
         public readonly Name|Optional $name = new Optional,
+        #[SensitiveParameter]
         public readonly Email|Optional $email = new Optional,
+        #[SensitiveParameter]
         public readonly string|Optional $password = new Optional,
         #[WithCast(CollectionOfModelsCast::class, Role::class)]
         public readonly Collection|Optional $roles = new Optional
