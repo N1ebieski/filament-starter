@@ -15,17 +15,7 @@ final class DeleteHandler extends Handler
 
     public function handle(DeleteCommand $command): bool
     {
-        $this->db->beginTransaction();
-
-        try {
-            $command->user->delete();
-        } catch (\Exception $exception) {
-            $this->db->rollBack();
-
-            throw $exception;
-        }
-
-        $this->db->commit();
+        $this->db->transaction(fn (): int => $command->user->delete());
 
         return true;
     }

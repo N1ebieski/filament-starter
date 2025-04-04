@@ -6,5 +6,12 @@ namespace App\CacheQueries;
 
 final class Time
 {
-    public function __construct(public readonly int $minutes) {}
+    public readonly int $staleMinutes;
+
+    public function __construct(
+        public readonly int $freshMinutes,
+        ?int $staleMinutes = null
+    ) {
+        $this->staleMinutes = $staleMinutes ?? ($freshMinutes * 2);
+    }
 }

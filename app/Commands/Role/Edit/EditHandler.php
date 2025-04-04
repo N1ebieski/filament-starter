@@ -18,9 +18,8 @@ final class EditHandler extends Handler
 
     public function handle(EditCommand $command): Role
     {
-        $this->db->beginTransaction();
-
-        try {
+        /** @var Role $role */
+        $role = $this->db->transaction(function () use ($command) {
             $role = $command->role->fill(
                 $command->only(...$command->role->getFillable())->toArray()
             );
@@ -33,15 +32,12 @@ final class EditHandler extends Handler
                         fn (Permission $permission) => $permission->name->value)->toArray()
                 );
             }
-        } catch (\Exception $exception) {
-            $this->db->rollBack();
 
-            throw $exception;
-        }
+            return $role;
+        });
 
-        $this->db->commit();
+        $role->refresh();
 
-        /** @var Role */
-        return $role->fresh();
+        return $role;
     }
 }

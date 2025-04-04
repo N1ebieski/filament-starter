@@ -18,9 +18,8 @@ final class CreateHandler extends Handler
 
     public function handle(CreateCommand $command): Tenant
     {
-        $this->db->beginTransaction();
-
-        try {
+        /** @var Tenant $tenant */
+        $tenant = $this->db->transaction(function () use ($command): Tenant {
             $tenant = $command->tenant->newInstance(
                 $command->only(...$command->tenant->getFillable())->toArray()
             );
@@ -34,15 +33,12 @@ final class CreateHandler extends Handler
             $this->permissionRegistrar->setPermissionsTeamId($tenant->id);
 
             $command->user->givePermissionTo('tenant.*');
-        } catch (\Exception $exception) {
-            $this->db->rollBack();
 
-            throw $exception;
-        }
+            return $tenant;
+        });
 
-        $this->db->commit();
+        $tenant->refresh();
 
-        /** @var Tenant */
-        return $tenant->fresh();
+        return $tenant;
     }
 }

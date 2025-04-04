@@ -15,7 +15,7 @@ class UserObserver extends Observer
 
     public function pivotDetaching(User $user, string $relationName): void
     {
-        $this->db->transaction(function () use ($user, $relationName) {
+        $this->db->transaction(function () use ($user, $relationName): void {
             if ($relationName === $user->tenants()->getRelationName()) {
                 $user->revokeTenantPermissionTo(
                     $user->tenantPermissions
@@ -28,7 +28,7 @@ class UserObserver extends Observer
 
     public function deleting(User $user): void
     {
-        $this->db->transaction(function () use ($user) {
+        $this->db->transaction(function () use ($user): void {
             $user->breezySessions()->delete();
 
             $user->notifications()->delete();

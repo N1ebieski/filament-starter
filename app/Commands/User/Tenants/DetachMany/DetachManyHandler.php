@@ -18,11 +18,10 @@ final class DetachManyHandler extends Handler
 
     public function handle(DetachManyCommand $command): int
     {
-        $this->db->beginTransaction();
+        /** @var int */
+        return $this->db->transaction(function () use ($command): int {
+            $detached = 0;
 
-        $detached = 0;
-
-        try {
             foreach ($command->users as $user) {
                 $this->commandBus->execute(new DetachCommand(
                     tenant: $command->tenant,
@@ -31,14 +30,8 @@ final class DetachManyHandler extends Handler
 
                 $detached++;
             }
-        } catch (\Exception $exception) {
-            $this->db->rollBack();
 
-            throw $exception;
-        }
-
-        $this->db->commit();
-
-        return $detached;
+            return $detached;
+        });
     }
 }

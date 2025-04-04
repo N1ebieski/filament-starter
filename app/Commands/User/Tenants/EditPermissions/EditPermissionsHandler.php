@@ -17,9 +17,8 @@ final class EditPermissionsHandler extends Handler
 
     public function handle(EditPermissionsCommand $command): User
     {
-        $this->db->beginTransaction();
-
-        try {
+        /** @var User $user */
+        $user = $this->db->transaction(function () use ($command): User {
             $user = $command->user;
 
             $user->revokeTenantPermissionTo(
@@ -33,15 +32,12 @@ final class EditPermissionsHandler extends Handler
                     ->map(fn (Permission $permission): string => $permission->name->value)
                     ->toArray()
             );
-        } catch (\Exception $exception) {
-            $this->db->rollBack();
 
-            throw $exception;
-        }
+            return $user;
+        });
 
-        $this->db->commit();
+        $user->refresh();
 
-        /** @var User */
-        return $user->fresh();
+        return $user;
     }
 }

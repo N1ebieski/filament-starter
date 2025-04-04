@@ -17,9 +17,8 @@ final class EditHandler extends Handler
 
     public function handle(EditCommand $command): Tenant
     {
-        $this->db->beginTransaction();
-
-        try {
+        /** @var Tenant $tenant */
+        $tenant = $this->db->transaction(function () use ($command) {
             $tenant = $command->tenant->fill(
                 $command->only(...$command->tenant->getFillable())->toArray()
             );
@@ -33,15 +32,12 @@ final class EditHandler extends Handler
             if (! ($command->users instanceof Optional)) {
                 $tenant->users()->sync($command->users);
             }
-        } catch (\Exception $exception) {
-            $this->db->rollBack();
 
-            throw $exception;
-        }
+            return $tenant;
+        });
 
-        $this->db->commit();
+        $tenant->refresh();
 
-        /** @var Tenant */
-        return $tenant->fresh();
+        return $tenant;
     }
 }

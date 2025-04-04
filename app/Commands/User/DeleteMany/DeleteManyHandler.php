@@ -18,24 +18,17 @@ final class DeleteManyHandler extends Handler
 
     public function handle(DeleteManyCommand $command): int
     {
-        $this->db->beginTransaction();
+        /** @var int */
+        return $this->db->transaction(function () use ($command): int {
+            $deleted = 0;
 
-        $deleted = 0;
-
-        try {
             foreach ($command->users as $user) {
                 $this->commandBus->execute(new DeleteCommand($user));
 
                 $deleted++;
             }
-        } catch (\Exception $exception) {
-            $this->db->rollBack();
 
-            throw $exception;
-        }
-
-        $this->db->commit();
-
-        return $deleted;
+            return $deleted;
+        });
     }
 }

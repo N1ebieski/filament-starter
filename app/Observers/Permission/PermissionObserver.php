@@ -14,7 +14,7 @@ class PermissionObserver extends Observer
 
     public function deleting(Permission $permission): void
     {
-        $this->db->transaction(function () use ($permission) {
+        $this->db->transaction(function () use ($permission): void {
             $permission->users()->detach();
         });
     }

@@ -15,7 +15,7 @@ class TenantObserver extends Observer
 
     public function pivotDetaching(Tenant $tenant, string $relationName): void
     {
-        $this->db->transaction(function () use ($tenant, $relationName) {
+        $this->db->transaction(function () use ($tenant, $relationName): void {
             if ($relationName === $tenant->users()->getRelationName()) {
                 /** @var array<User> */
                 $users = $tenant->users()->with('tenantPermissions')->get();
@@ -32,7 +32,7 @@ class TenantObserver extends Observer
 
     public function deleting(Tenant $tenant): void
     {
-        $this->db->transaction(function () use ($tenant) {
+        $this->db->transaction(function () use ($tenant): void {
             $tenant->users()->detach();
         });
     }

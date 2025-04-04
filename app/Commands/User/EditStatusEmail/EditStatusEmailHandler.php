@@ -20,9 +20,8 @@ final class EditStatusEmailHandler extends Handler
 
     public function handle(EditStatusEmailCommand $command): User
     {
-        $this->db->beginTransaction();
-
-        try {
+        /** @var User $user */
+        $user = $this->db->transaction(function () use ($command): User {
             $command->user->update([
                 'email_verified_at' => $command->status->isEquals(StatusEmail::Verified) ?
                     $this->carbon->now() : null,
@@ -34,15 +33,12 @@ final class EditStatusEmailHandler extends Handler
             ) {
                 $command->user->sendEmailVerificationNotification();
             }
-        } catch (\Exception $exception) {
-            $this->db->rollBack();
 
-            throw $exception;
-        }
+            return $command->user;
+        });
 
-        $this->db->commit();
+        $user->refresh();
 
-        /** @var User */
-        return $command->user->fresh();
+        return $user;
     }
 }

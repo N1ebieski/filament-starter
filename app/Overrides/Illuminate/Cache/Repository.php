@@ -12,6 +12,11 @@ final class Repository implements CacheRepository
 {
     public function __construct(private readonly BaseRepository $cache) {}
 
+    public function flexible(string $key, array $ttl, callable $callback, ?array $lock = null): mixed
+    {
+        return $this->cache->flexible($key, $ttl, $callback, $lock);
+    }
+
     /**
      * @param  array|mixed  $names
      * @return TaggedCache

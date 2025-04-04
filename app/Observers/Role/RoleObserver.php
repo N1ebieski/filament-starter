@@ -14,7 +14,7 @@ class RoleObserver extends Observer
 
     public function deleting(Role $role): void
     {
-        $this->db->transaction(function () use ($role) {
+        $this->db->transaction(function () use ($role): void {
             $role->permissions()->detach();
 
             $role->users()->detach();

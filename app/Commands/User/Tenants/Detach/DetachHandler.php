@@ -15,19 +15,7 @@ final class DetachHandler extends Handler
 
     public function handle(DetachCommand $command): bool
     {
-        $this->db->beginTransaction();
-
-        try {
-            $user = $command->user;
-
-            $user->tenants()->detach($command->tenant);
-        } catch (\Exception $exception) {
-            $this->db->rollBack();
-
-            throw $exception;
-        }
-
-        $this->db->commit();
+        $this->db->transaction(fn (): int => $command->user->tenants()->detach($command->tenant));
 
         return true;
     }

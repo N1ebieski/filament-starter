@@ -17,9 +17,8 @@ final class CreateHandler extends Handler
 
     public function handle(CreateCommand $command): Role
     {
-        $this->db->beginTransaction();
-
-        try {
+        /** @var Role $role */
+        $role = $this->db->transaction(function () use ($command): Role {
             $role = $command->role->newInstance(
                 $command->only(...$command->role->getFillable())->toArray()
             );
@@ -30,15 +29,12 @@ final class CreateHandler extends Handler
                 $command->permissions->map(
                     fn (Permission $permission) => $permission->name->value)->toArray()
             );
-        } catch (\Exception $exception) {
-            $this->db->rollBack();
 
-            throw $exception;
-        }
+            return $role;
+        });
 
-        $this->db->commit();
+        $role->refresh();
 
-        /** @var Role */
-        return $role->fresh();
+        return $role;
     }
 }

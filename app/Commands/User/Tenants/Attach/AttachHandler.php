@@ -16,9 +16,7 @@ final class AttachHandler extends Handler
 
     public function handle(AttachCommand $command): bool
     {
-        $this->db->beginTransaction();
-
-        try {
+        $this->db->transaction(function () use ($command): void {
             $user = $command->user;
 
             $user->tenants()->attach($command->tenant);
@@ -28,13 +26,7 @@ final class AttachHandler extends Handler
                     ->map(fn (Permission $permission): string => $permission->name->value)
                     ->toArray()
             );
-        } catch (\Exception $exception) {
-            $this->db->rollBack();
-
-            throw $exception;
-        }
-
-        $this->db->commit();
+        });
 
         return true;
     }

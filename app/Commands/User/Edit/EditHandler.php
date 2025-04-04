@@ -19,9 +19,8 @@ final class EditHandler extends Handler
 
     public function handle(EditCommand $command): User
     {
-        $this->db->beginTransaction();
-
-        try {
+        /** @var User $user */
+        $user = $this->db->transaction(function () use ($command) {
             $user = $command->user->fill(
                 $command->only(...$command->user->getFillable())->toArray()
             );
@@ -41,15 +40,12 @@ final class EditHandler extends Handler
                     ...$command->roles->map(fn (Role $role) => $role->name->value)->toArray(),
                 ]);
             }
-        } catch (\Exception $exception) {
-            $this->db->rollBack();
 
-            throw $exception;
-        }
+            return $user;
+        });
 
-        $this->db->commit();
+        $user->refresh();
 
-        /** @var User */
-        return $user->fresh();
+        return $user;
     }
 }
