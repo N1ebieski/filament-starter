@@ -13,10 +13,8 @@ final class DeleteHandler extends Handler
         private readonly DB $db,
     ) {}
 
-    public function handle(DeleteCommand $command): bool
+    public function handle(DeleteCommand $command): ?bool
     {
-        $this->db->transaction(fn (): int => $command->role->delete());
-
-        return true;
+        return $this->db->transaction(fn (): ?bool => $command->role->delete());
     }
 }

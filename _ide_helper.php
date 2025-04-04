@@ -27720,6 +27720,29 @@ namespace Livewire\Features\SupportTesting {
             }
     }
 
+namespace Illuminate\Translation {
+    /**
+     * 
+     *
+     */
+    class Translator {
+        /**
+         * 
+         *
+         * @see \App\Mixins\Translator\TranslatorMixin::string()
+         * @param string $key
+         * @param array $replace
+         * @param string|null $locale
+         * @static 
+         */
+        public static function string($key, $replace = [], $locale = null)
+        {
+            return \Illuminate\Translation\Translator::string($key, $replace, $locale);
+        }
+
+            }
+    }
+
 namespace Illuminate\View {
     /**
      * 

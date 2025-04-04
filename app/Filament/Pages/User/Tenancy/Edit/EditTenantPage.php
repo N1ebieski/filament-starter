@@ -53,11 +53,12 @@ class EditTenantPage extends EditTenantProfile
 
     protected function getAllRelationManagers(): array
     {
-        return $this->getRelations();
+        return static::getRelations();
     }
 
     protected function getRecord(): Tenant
     {
+        /** @var Tenant */
         return Filament::getTenant();
     }
 

@@ -30,7 +30,7 @@ use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
 use Laravel\Sanctum\HasApiTokens;
 
 /**
- *
+ * 
  *
  * @property int $id
  * @property \App\ValueObjects\User\Name\Name $name
@@ -86,7 +86,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @method static UserQueryBuilder<static>|User withAll()
  * @method static UserQueryBuilder<static>|User withoutPermission($permissions)
  * @method static UserQueryBuilder<static>|User withoutRole($roles, $guard = null)
- * @mixin \Illuminate\Database\Eloquent\Model
+ * @mixin \Eloquent
  */
 class User extends Authenticatable implements FilamentUser, AttributesInterface, SearchableInterface, HasTenants, MustVerifyEmail
 {

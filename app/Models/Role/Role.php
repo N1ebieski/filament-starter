@@ -20,7 +20,7 @@ use Spatie\Permission\Models\Role as BaseRole;
 use Spatie\Permission\PermissionRegistrar;
 
 /**
- *
+ * 
  *
  * @property int $id
  * @property int|null $tenant_id
@@ -51,7 +51,7 @@ use Spatie\Permission\PermissionRegistrar;
  * @method static RoleQueryBuilder<static>|Role query()
  * @method static RoleQueryBuilder<static>|Role withAll()
  * @method static \App\QueryBuilders\Role\RoleQueryBuilder<static>|Role withoutPermission($permissions)
- * @mixin \Illuminate\Database\Eloquent\Model
+ * @mixin \Eloquent
  */
 final class Role extends BaseRole implements AttributesInterface, SearchableInterface
 {
