@@ -37,20 +37,6 @@ return Application::configure(basePath: dirname(__DIR__))
             \App\Http\Middleware\TrustProxies\TrustProxiesMiddleware::class
         );
     })
-    ->withProviders([
-        \App\Providers\Config\ConfigServiceProvider::class,
-        \App\Providers\App\AppServiceProvider::class,
-        \App\Providers\Auth\AuthServiceProvider::class,
-        \App\Providers\Event\EventServiceProvider::class,
-        \App\Providers\Translator\TranslatorServiceProvider::class,
-        \App\Providers\Filament\Filament\FilamentServiceProvider::class,
-        \App\Providers\Filament\WebPanel\WebPanelServiceProvider::class,
-        \App\Providers\Filament\AdminPanel\AdminPanelServiceProvider::class,
-        \App\Providers\Filament\UserPanel\UserPanelServiceProvider::class,
-        \App\Providers\Filament\Spotlight\SpotlightServiceProvider::class,
-        \App\Providers\Spotlight\SpotlightServiceProvider::class,
-        \App\Providers\LaravelPWA\LaravelPWAServiceProvider::class,
-    ])
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->render(function (Throwable $e): void {
             if (! Config::get('app.debug') && $e->getPrevious() instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {

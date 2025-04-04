@@ -16,4 +16,11 @@ class AuthServiceProvider extends ServiceProvider
         \App\Models\User\User::class => \App\Policies\User\UserPolicy::class,
         \App\Models\Tenant\Tenant::class => \App\Policies\Tenant\TenantPolicy::class,
     ];
+
+    public function register(): void
+    {
+        $this->app->register(DeferrableServiceProvider::class);
+
+        parent::register();
+    }
 }
