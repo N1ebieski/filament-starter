@@ -26,7 +26,7 @@ final class GetAssetsHandler extends Handler
      *
      * @return array<string>
      */
-    public function handle(GetAssetsAction $action): array
+    public function handle(): array
     {
         $pipes = $this->container->makeMany([
             FilamentHandler::class,
