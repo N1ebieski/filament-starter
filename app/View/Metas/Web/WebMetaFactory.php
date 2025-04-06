@@ -17,7 +17,6 @@ final class WebMetaFactory
     public function __construct(
         private readonly Config $config,
         private readonly Translator $translator,
-        private readonly Collection $collection,
         private readonly Request $request
     ) {}
 
@@ -30,17 +29,17 @@ final class WebMetaFactory
         ?OpenGraphInterface $openGraph = null
     ): MetaInterface {
         return new Meta(
-            title: $this->collection->make([
+            title: Collection::make([
                 $title,
                 $page > 1 ? $this->translator->string('pagination.page', ['page' => $page]) : '',
                 $this->translator->string('app.title'),
             ])->filter()->implode(' - '),
-            description: $this->collection->make([
+            description: Collection::make([
                 $description,
                 $page > 1 ? $this->translator->string('pagination.page', ['page' => $page]) : '',
                 $this->translator->string('app.description'),
             ])->filter()->implode('. '),
-            keywords: mb_strtolower($this->collection->make([
+            keywords: mb_strtolower(Collection::make([
                 $keywords,
                 $this->translator->string('app.keywords'),
             ])->filter()->implode(', ')),
