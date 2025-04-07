@@ -30,7 +30,6 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
 use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
 use Laravel\Sanctum\HasApiTokens;
-use Laravel\Scout\Searchable;
 
 /**
  *
@@ -100,7 +99,7 @@ class User extends Authenticatable implements FilamentUser, AttributesInterface,
     use Notifiable;
     use PivotEventTrait;
     use TwoFactorAuthenticatable;
-    use Searchable;
+    use HasScoutSearchable;
 
     // Configuration
 
@@ -165,15 +164,6 @@ class User extends Authenticatable implements FilamentUser, AttributesInterface,
         ];
     }
 
-    public function toSearchableArray(): array
-    {
-        return [
-            'id' => (string) $this->getKey(),
-            'name' => $this->name->value,
-            'email' => $this->email->value,
-        ];
-    }
-
     public function getTenants(Panel $panel): array|Collection
     {
         return $this->tenants;
@@ -201,8 +191,10 @@ class User extends Authenticatable implements FilamentUser, AttributesInterface,
 
     public function statusEmail(): Attribute
     {
-        return new Attribute(fn (): StatusEmail => is_null($this->email_verified_at) ?
-            StatusEmail::Unverified : StatusEmail::Verified);
+        return new Attribute(fn (): StatusEmail => is_null($this->email_verified_at)
+            ? StatusEmail::Unverified
+            : StatusEmail::Verified
+        );
     }
 
     // Policies

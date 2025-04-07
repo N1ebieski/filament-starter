@@ -6,6 +6,8 @@ namespace App\Models\Role;
 
 use App\Models\Shared\Attributes\AttributesInterface;
 use App\Models\Shared\Attributes\HasAttributes;
+use App\Models\Shared\Searchable\HasScoutSearchable;
+use App\Models\Shared\Searchable\ScoutSearchableInterface;
 use App\Models\Shared\Searchable\SearchableInterface;
 use App\QueryBuilders\Role\RoleQueryBuilder;
 use App\ValueObjects\Role\Name\Name;
@@ -20,7 +22,7 @@ use Spatie\Permission\Models\Role as BaseRole;
 use Spatie\Permission\PermissionRegistrar;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int|null $tenant_id
@@ -53,10 +55,11 @@ use Spatie\Permission\PermissionRegistrar;
  * @method static \App\QueryBuilders\Role\RoleQueryBuilder<static>|Role withoutPermission($permissions)
  * @mixin \Eloquent
  */
-final class Role extends BaseRole implements AttributesInterface, SearchableInterface
+final class Role extends BaseRole implements AttributesInterface, SearchableInterface, ScoutSearchableInterface
 {
     use HasAttributes;
     use HasFactory;
+    use HasScoutSearchable;
 
     // Configuration
 

@@ -195,6 +195,23 @@ return [
                     'query_by' => 'name, email',
                 ],
             ],
+            \App\Models\Role\Role::class => [
+                'collection-schema' => [
+                    'fields' => [
+                        [
+                            'name' => 'id',
+                            'type' => 'string',
+                        ],
+                        [
+                            'name' => 'name',
+                            'type' => 'string',
+                        ],
+                    ],
+                ],
+                'search-parameters' => [
+                    'query_by' => 'name',
+                ],
+            ],
         ],
     ],
 
