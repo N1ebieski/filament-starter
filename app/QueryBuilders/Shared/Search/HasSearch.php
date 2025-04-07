@@ -54,19 +54,23 @@ trait HasSearch
 
     public function filterSearchByScout(Scout $scout): self
     {
-        /** @var Model&ScoutSearchableInterface */
+        /** @var Model&ScoutSearchableInterface $model */
         $model = $this->getModel();
 
         $ids = $model->search($scout->query, $scout->callback)
             ->unless(is_null($scout->get->take), function (ScoutBuilder $builder) use ($scout): ScoutBuilder {
-                /** @var int */
+                /** @var int $take */
                 $take = $scout->get->take;
 
                 return $builder->take($take);
             })
-            ->keys();
+            ->keys()
+            ->map(fn (string|int $id) => (int) $id);
 
-        return $this->whereIn("{$model->getTable()}.{$model->getKeyName()}", $ids->toArray());
+        return $this->whereIn("{$model->getTable()}.{$model->getKeyName()}", $ids->toArray())
+            ->when($scout->isOrderBy, fn (Builder $builder) => $builder
+                ->orderByRaw("FIELD(`{$model->getTable()}`.`{$model->getKeyName()}`, {$ids->implode(', ')})")
+            );
     }
 
     public function filterSearchByDatabaseMatch(DatabaseMatch $databaseMatch, string $boolean = 'and'): self

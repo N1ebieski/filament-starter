@@ -24,7 +24,8 @@
         "pxlrbt/filament-spotlight": "^1.2",
         "silviolleite/laravelpwa": "^2.0",
         "spatie/laravel-data": "^4.7",
-        "spatie/laravel-permission": "^6.6"
+        "spatie/laravel-permission": "^6.6",
+        "typesense/typesense-php": "^5.0"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.3",

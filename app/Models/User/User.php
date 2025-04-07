@@ -4,6 +4,8 @@ namespace App\Models\User;
 
 use App\Models\Shared\Attributes\AttributesInterface;
 use App\Models\Shared\Attributes\HasAttributes;
+use App\Models\Shared\Searchable\HasScoutSearchable;
+use App\Models\Shared\Searchable\ScoutSearchableInterface;
 use App\Models\Shared\Searchable\SearchableInterface;
 use App\Models\Tenant\Tenant;
 use App\Overrides\Spatie\Permission\Traits\HasRoles;
@@ -28,9 +30,10 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
 use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
 use Laravel\Sanctum\HasApiTokens;
+use Laravel\Scout\Searchable;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property \App\ValueObjects\User\Name\Name $name
@@ -88,7 +91,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @method static UserQueryBuilder<static>|User withoutRole($roles, $guard = null)
  * @mixin \Eloquent
  */
-class User extends Authenticatable implements FilamentUser, AttributesInterface, SearchableInterface, HasTenants, MustVerifyEmail
+class User extends Authenticatable implements FilamentUser, AttributesInterface, SearchableInterface, ScoutSearchableInterface, HasTenants, MustVerifyEmail
 {
     use HasApiTokens;
     use HasAttributes;
@@ -97,6 +100,7 @@ class User extends Authenticatable implements FilamentUser, AttributesInterface,
     use Notifiable;
     use PivotEventTrait;
     use TwoFactorAuthenticatable;
+    use Searchable;
 
     // Configuration
 
@@ -158,6 +162,15 @@ class User extends Authenticatable implements FilamentUser, AttributesInterface,
             'deleted_at' => 'datetime',
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+        ];
+    }
+
+    public function toSearchableArray(): array
+    {
+        return [
+            'id' => (string) $this->getKey(),
+            'name' => $this->name->value,
+            'email' => $this->email->value,
         ];
     }
 

@@ -15,6 +15,7 @@ final class Scout extends Data implements SearchByInterface
 {
     public function __construct(
         public readonly string $query,
+        public readonly bool $isOrderBy = true,
         public readonly ?Closure $callback = null,
         public readonly Get $get = new Get(take: 1000)
     ) {}

@@ -10,7 +10,7 @@ use App\Filament\Resources\Resource;
 use App\Models\Role\Role;
 use App\Overrides\Illuminate\Support\Facades\Lang;
 use App\Queries\Role\GetByFilter\GetByFilterQuery;
-use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatchFactory;
+use App\Queries\Shared\SearchBy\Drivers\Scout\Scout;
 use App\Support\Query\HasQueryBus;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Gate;
@@ -40,7 +40,7 @@ final class RoleResource extends Resource implements GlobalSearchInterface
     {
         /** @var Builder */
         $baseQuery = self::getQueryBus()->execute(GetByFilterQuery::from([
-            'search' => DatabaseMatchFactory::makeDatabaseMatch($search),
+            'search' => new Scout(query: $search, isOrderBy: true),
         ]));
 
         $query->setQuery($baseQuery->getQuery());

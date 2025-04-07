@@ -8,11 +8,11 @@ use App\Filament\Resources\Admin\User\Pages\Manage\ManageUsersPage;
 use App\Filament\Resources\GlobalSearchInterface;
 use App\Filament\Resources\Resource;
 use App\Models\User\User;
-use App\Queries\Shared\SearchBy\Drivers\DatabaseMatch\DatabaseMatchFactory;
+use App\Overrides\Illuminate\Support\Facades\Lang;
+use App\Queries\Shared\SearchBy\Drivers\Scout\Scout;
 use App\Queries\User\GetByFilter\GetByFilterQuery;
 use App\Support\Query\HasQueryBus;
 use Illuminate\Contracts\Database\Eloquent\Builder;
-use App\Overrides\Illuminate\Support\Facades\Lang;
 use Override;
 
 final class UserResource extends Resource implements GlobalSearchInterface
@@ -34,7 +34,7 @@ final class UserResource extends Resource implements GlobalSearchInterface
     {
         /** @var Builder */
         $baseQuery = self::getQueryBus()->execute(GetByFilterQuery::from([
-            'search' => DatabaseMatchFactory::makeDatabaseMatch($search),
+            'search' => new Scout(query: $search, isOrderBy: true),
         ]));
 
         $query->setQuery($baseQuery->getQuery());
