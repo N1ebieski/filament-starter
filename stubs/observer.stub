@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace {{ namespace }};
 
 use {{ namespacedModel }};
 
-class {{ class }}
+final class {{ class }}
 {
     /**
      * Handle the {{ model }} "created" event.

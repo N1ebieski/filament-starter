@@ -5,7 +5,7 @@ namespace {{ namespace }};
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Database\Eloquent\CastsInboundAttributes;
 
-class {{ class }} implements CastsInboundAttributes
+final class {{ class }} implements CastsInboundAttributes
 {
     /**
      * Prepare the given value for storage.

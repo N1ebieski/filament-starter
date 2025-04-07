@@ -37,10 +37,10 @@ final class UserQueryBuilder extends Builder implements SearchInterface
         return $this->when($roles?->isNotEmpty(), function (Builder $builder) use ($roles): Builder {
             /** @var Collection $roles */
             return $builder->whereHas('roles', function (Builder $builder) use ($roles): Builder {
-                /** @var User */
+                /** @var User $user */
                 $user = $this->getModel();
 
-                /** @var Role */
+                /** @var Role $role */
                 $role = $user->roles()->make();
 
                 return $builder->whereIn("{$role->getTable()}.id", $roles->pluck('id'));
@@ -53,10 +53,10 @@ final class UserQueryBuilder extends Builder implements SearchInterface
         return $this->when($tenants?->isNotEmpty(), function (Builder $builder) use ($tenants): Builder {
             /** @var Collection $tenants */
             return $builder->whereHas('tenants', function (Builder $builder) use ($tenants): Builder {
-                /** @var User */
+                /** @var User $user */
                 $user = $this->getModel();
 
-                /** @var Tenant */
+                /** @var Tenant $tenant */
                 $tenant = $user->tenants()->make();
 
                 return $builder->whereIn("{$tenant->getTable()}.id", $tenants->pluck('id'));

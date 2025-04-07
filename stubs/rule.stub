@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace {{ namespace }};
 
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 
-class {{ class }} implements ValidationRule
+final class {{ class }} implements ValidationRule
 {
     /**
      * Run the validation rule.

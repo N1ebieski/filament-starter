@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace {{ namespace }};
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class {{ class }}
+final class {{ class }}
 {
     /**
      * Create the event listener.

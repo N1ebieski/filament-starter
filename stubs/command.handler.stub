@@ -15,16 +15,8 @@ final class {{ class }} extends Handler
 
     public function handle({{ class_command }} $command)
     {
-        $this->db->beginTransaction();
-
-        try {
+        $this->db->transaction(function () use ($command): void {
             //
-        } catch (\Exception $e) {
-            $this->db->rollBack();
-
-            throw $e;
-        }
-
-        $this->db->commit();
+        });
     }
 }

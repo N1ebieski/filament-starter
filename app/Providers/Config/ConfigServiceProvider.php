@@ -4,44 +4,26 @@ declare(strict_types=1);
 
 namespace App\Providers\Config;
 
-use App\Console\Commands\Generators\GeneratorCommand;
 use App\Providers\ServiceProvider;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\URL;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Support\DeferrableProvider;
 
-/**
- * @property-read \Illuminate\Foundation\Application $app
- */
-final class ConfigServiceProvider extends ServiceProvider
+final class ConfigServiceProvider extends ServiceProvider implements DeferrableProvider
 {
-    /**
-     * Register services.
-     */
     public function register(): void
     {
-        $this->app->register(DeferrableServiceProvider::class);
+        $this->app->scoped(\App\Overrides\Illuminate\Contracts\Config\Repository::class, function (Application $app) {
+            /** @var \Illuminate\Config\Repository */
+            $config = $app->make(\Illuminate\Contracts\Config\Repository::class);
 
-        $this->forceAppUrl();
+            return new \App\Overrides\Illuminate\Config\Repository($config);
+        });
     }
 
-    private function forceAppUrl(): void
+    public function provides(): array
     {
-        $url = Config::string('app.url');
-
-        /** @var string $scheme */
-        $scheme = parse_url((string) $url, PHP_URL_SCHEME);
-
-        URL::forceScheme($scheme);
-        URL::forceRootUrl($url);
-    }
-
-    public function boot(): void
-    {
-        Model::shouldBeStrict(! $this->app->isProduction());
-        DB::prohibitDestructiveCommands($this->app->isProduction());
-
-        GeneratorCommand::prohibit($this->app->isProduction());
+        return [
+            \App\Overrides\Illuminate\Contracts\Config\Repository::class,
+        ];
     }
 }

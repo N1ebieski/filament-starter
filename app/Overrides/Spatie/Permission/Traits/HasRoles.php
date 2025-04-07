@@ -50,10 +50,13 @@ trait HasRoles
             return $relation;
         }
 
-        return $relation->where(fn (Builder $query): Builder => $query
-            ->where($this->getRolePivotTeamField(), $permissionRegistrar->getPermissionsTeamId())
-            ->orWhereNull($this->getRolePivotTeamField()))
-            ->where(fn (Builder $query): Builder => $query->whereNull($this->getTeamField())
+        return $relation
+            ->where(fn (Builder $query): Builder => $query
+                ->where($this->getRolePivotTeamField(), $permissionRegistrar->getPermissionsTeamId())
+                ->orWhereNull($this->getRolePivotTeamField())
+            )
+            ->where(fn (Builder $query): Builder => $query
+                ->whereNull($this->getTeamField())
                 ->orWhere($this->getTeamField(), $permissionRegistrar->getPermissionsTeamId())
             );
     }
@@ -71,7 +74,8 @@ trait HasRoles
             $permissionRegistrar->pivotRole
         );
 
-        return $relation->wherePivot($this->getRolePivotTeamField(), $permissionRegistrar->getPermissionsTeamId())
+        return $relation
+            ->wherePivot($this->getRolePivotTeamField(), $permissionRegistrar->getPermissionsTeamId())
             ->where($this->getTeamField(), $permissionRegistrar->getPermissionsTeamId());
     }
 }
