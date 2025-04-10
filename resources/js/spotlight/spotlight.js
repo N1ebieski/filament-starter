@@ -31,6 +31,9 @@ window.spotlight = (data) => {
             });
 
             this.$watch("isOpen", function (value) {
+                document.documentElement.style.overflow = value ? 'hidden' : '';
+                document.documentElement.style.paddingRight = value ? 0 : '';
+
                 if (value === false || el.selectedCommand !== null) {
                     setTimeout(() => el.reset(), 100);
 
