@@ -53,13 +53,10 @@ final class AdminPanelServiceProvider extends PanelServiceProvider
             ->databaseNotifications()
             ->databaseNotificationsPolling(null)
             ->spa()
+            ->viteTheme('resources/css/admin/admin.scss')
             ->renderHook(
                 PanelsRenderHook::HEAD_END,
                 fn (): string => Vite::withEntryPoints(['resources/js/admin/admin.js'])->toHtml()
-            )
-            ->renderHook(
-                PanelsRenderHook::STYLES_BEFORE,
-                fn (): string => Vite::withEntryPoints(['resources/css/admin/admin.scss'])->toHtml()
             );
     }
 }

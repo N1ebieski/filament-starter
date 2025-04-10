@@ -55,10 +55,7 @@ final class WebPanelServiceProvider extends PanelServiceProvider
             ])
             ->topNavigation()
             ->spa()
-            ->renderHook(
-                PanelsRenderHook::STYLES_BEFORE,
-                fn (): string => Vite::withEntryPoints(['resources/css/web/web.scss'])->toHtml()
-            )
+            ->viteTheme('resources/css/web/web.scss')
             ->renderHook(
                 PanelsRenderHook::HEAD_END,
                 fn (): string => Vite::withEntryPoints(['resources/js/web/web.js'])->toHtml()

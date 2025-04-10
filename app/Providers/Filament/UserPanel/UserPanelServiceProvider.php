@@ -15,10 +15,8 @@ use App\Overrides\Illuminate\Support\Facades\Lang;
 use App\Overrides\Jeffgreco13\FilamentBreezy\BreezyCore;
 use App\Providers\Filament\PanelServiceProvider;
 use Filament\Panel;
-use Filament\View\PanelsRenderHook;
 use Filament\Widgets\AccountWidget;
 use Filament\Widgets\FilamentInfoWidget;
-use Illuminate\Support\Facades\Vite;
 
 final class UserPanelServiceProvider extends PanelServiceProvider
 {
@@ -63,9 +61,6 @@ final class UserPanelServiceProvider extends PanelServiceProvider
                     ->enableTwoFactorAuthentication(),
             ])
             ->spa()
-            ->renderHook(
-                PanelsRenderHook::STYLES_BEFORE,
-                fn (): string => Vite::withEntryPoints(['resources/css/user/user.scss'])->toHtml()
-            );
+            ->viteTheme('resources/css/user/user.scss');
     }
 }
