@@ -62,15 +62,19 @@
             "php artisan reverb:start --debug"
         ],
         "pint": [
+            "Composer\\Config::disableProcessTimeout",
             "vendor/bin/pint"
         ],
         "phpstan": [
+            "Composer\\Config::disableProcessTimeout",
             "vendor/bin/phpstan analyse --configuration=phpstan.neon > storage/logs/phpstan.log"
         ],
         "rector": [
+            "Composer\\Config::disableProcessTimeout",
             "vendor/bin/rector process"
         ],
         "rector-dry": [
+            "Composer\\Config::disableProcessTimeout",
             "vendor/bin/rector process --dry-run > storage/logs/rector.log"
         ],
         "ide-helper": [
@@ -78,6 +82,7 @@
             "vendor/bin/phpstan clear-result-cache"
         ],
         "phpunit": [
+            "Composer\\Config::disableProcessTimeout",
             "php artisan migrate:fresh --env=testing",
             "php artisan db:seed --env=testing --class=\"Database\\Seeders\\Install\\InstallSeeder\"",
             "php artisan test > storage/logs/phpunit.log"
