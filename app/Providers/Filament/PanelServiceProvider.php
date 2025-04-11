@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\Web\MyProfile\MyProfilePage;
 use App\Models\User\User;
 use App\Overrides\Illuminate\Support\Facades\Lang;
 use App\Overrides\Pxlrbt\FilamentSpotlight\SpotlightPlugin;
@@ -23,7 +24,6 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Facades\View;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Jeffgreco13\FilamentBreezy\Pages\MyProfilePage;
 
 abstract class PanelServiceProvider extends BasePanelProvider
 {
@@ -80,7 +80,9 @@ abstract class PanelServiceProvider extends BasePanelProvider
                         }
 
                         return '';
-                    })->label(Lang::string('filament-breezy::default.profile.my_profile')),
+                    })
+                        ->icon(MyProfilePage::getNavigationIcon())
+                        ->label(Lang::string('filament-breezy::default.profile.my_profile')),
                 ]);
             })
             ->brandLogo(fn (): ContractsView => View::make('filament.logo.logo'))

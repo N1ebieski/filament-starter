@@ -19,6 +19,8 @@ final class MyProfilePage extends BaseMyProfilePage implements SpotlightInterfac
         AuthenticateMiddleware::class,
     ];
 
+    protected static ?string $navigationIcon = 'heroicon-c-user-circle';
+
     #[Override]
     public static function shouldRegisterSpotlight(): bool
     {

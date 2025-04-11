@@ -6,9 +6,9 @@ namespace App\Overrides\Pxlrbt\FilamentSpotlight;
 
 use App\Overrides\Pxlrbt\FilamentSpotlight\Actions\RegisterPages;
 use App\Overrides\Pxlrbt\FilamentSpotlight\Actions\RegisterResources;
+use App\Overrides\Pxlrbt\FilamentSpotlight\Actions\RegisterUserMenu;
 use Filament\Panel;
 use Override;
-use pxlrbt\FilamentSpotlight\Actions\RegisterUserMenu;
 use pxlrbt\FilamentSpotlight\SpotlightPlugin as BaseSpotlightPlugin;
 
 final class SpotlightPlugin extends BaseSpotlightPlugin

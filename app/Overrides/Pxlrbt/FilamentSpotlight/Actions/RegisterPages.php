@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Overrides\Pxlrbt\FilamentSpotlight\Actions;
 
 use App\Overrides\Pxlrbt\FilamentSpotlight\Commands\PageCommand;
@@ -14,7 +16,6 @@ class RegisterPages
         $pages = $panel->getPages();
 
         foreach ($pages as $pageClass) {
-
             /**
              * @var Page $page
              */
@@ -41,6 +42,7 @@ class RegisterPages
 
             $command = new PageCommand(
                 name: $name,
+                icon: $page::getNavigationIcon(),
                 url: $url
             );
 
