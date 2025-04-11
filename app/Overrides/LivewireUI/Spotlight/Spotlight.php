@@ -7,6 +7,7 @@ namespace App\Overrides\LivewireUI\Spotlight;
 use App\Spotlight\Command;
 use Illuminate\Contracts\Config\Repository as Config;
 use Illuminate\Contracts\Container\Container;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
@@ -72,7 +73,7 @@ final class Spotlight extends BaseSpotlight
                 })
                 ->values()
                 ->map(function (SpotlightCommand $command, int $key) use ($view) {
-                    if ($command instanceof Command) {
+                    if ($command instanceof Arrayable) {
                         return $command->toArray();
                     }
 

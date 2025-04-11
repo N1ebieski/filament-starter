@@ -137,25 +137,35 @@
                                     'dark:hover:bg-gray-800': selected !== i,
                                 }"
                             >
-                                <div
-                                    x-text="item[0].item.name"
-                                    x-bind:class="{
-                                        'text-gray-950': selected === i,
-                                        'text-gray-700': selected !== i,
-                                        'dark:text-white': selected === i,
-                                        'dark:text-gray-300': selected !== i,
-                                    }"
-                                ></div>
-                                <div
-                                    x-text="item[0].item.description"
-                                    class="text-sm"
-                                    x-bind:class="{
-                                        'text-gray-500': selected === i,
-                                        'text-gray-400': selected !== i,
-                                        'dark:text-gray-400': selected === i,
-                                        'dark:text-gray-500': selected !== i,
-                                    }"
-                                ></div>
+                                <div class="flex gap-2">
+                                    <template x-if="item[0].item.icon">
+                                        <div
+                                            x-html="item[0].item.icon"
+                                            class="h-6 w-6 text-gray-400 dark:text-gray-500"
+                                        ></div>
+                                    </template>
+                                    <div>
+                                        <div
+                                            x-text="item[0].item.name"
+                                            x-bind:class="{
+                                                'text-gray-950': selected === i,
+                                                'text-gray-700': selected !== i,
+                                                'dark:text-white': selected === i,
+                                                'dark:text-gray-300': selected !== i,
+                                            }"
+                                        ></div>
+                                        <div
+                                            x-text="item[0].item.description"
+                                            class="text-sm"
+                                            x-bind:class="{
+                                                'text-gray-500': selected === i,
+                                                'text-gray-400': selected !== i,
+                                                'dark:text-gray-400': selected === i,
+                                                'dark:text-gray-500': selected !== i,
+                                            }"
+                                        ></div>
+                                    </div>
+                                </div>
                             </button>
                         </li>
                     </template>

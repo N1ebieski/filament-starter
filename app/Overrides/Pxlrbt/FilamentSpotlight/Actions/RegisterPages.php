@@ -30,6 +30,7 @@ class RegisterPages
             ])->filter()->join(' / ');
 
             $url = $page::getUrl();
+
             if (blank($name)) {
                 continue;
             }

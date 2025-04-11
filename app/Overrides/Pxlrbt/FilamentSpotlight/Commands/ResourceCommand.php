@@ -6,8 +6,12 @@ namespace App\Overrides\Pxlrbt\FilamentSpotlight\Commands;
 
 use App\Filament\Resources\GlobalSearchInterface;
 use App\Filament\Resources\Resource as FilamentResource;
+use BladeUI\Icons\Factory;
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\App;
 use LivewireUI\Spotlight\Spotlight;
 use LivewireUI\Spotlight\SpotlightSearchResult;
 use Override;
@@ -16,8 +20,22 @@ use pxlrbt\FilamentSpotlight\Commands\ResourceCommand as BaseResourceCommand;
 /**
  * @property-read FilamentResource&GlobalSearchInterface $resource
  */
-final class ResourceCommand extends BaseResourceCommand
+final class ResourceCommand extends BaseResourceCommand implements Arrayable
 {
+    public function getIcon(): ?string
+    {
+        /** @var Factory $bladeUIFactory */
+        $bladeUIFactory = App::make(Factory::class);
+
+        $icon = $this->resource::getNavigationIcon();
+
+        if ($icon instanceof Htmlable) {
+            $icon = $icon->toHtml();
+        }
+
+        return $icon ? $bladeUIFactory->svg($this->resource::getNavigationIcon())->toHtml() : null;
+    }
+
     #[Override]
     protected function hasDependencies(): bool
     {
@@ -61,5 +79,17 @@ final class ResourceCommand extends BaseResourceCommand
     public function execute(Spotlight $spotlight, $record = null): void
     {
         $spotlight->redirect($this->getUrl($record), navigate: true);
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'icon' => $this->getIcon(),
+            'description' => $this->getDescription(),
+            'synonyms' => $this->getSynonyms(),
+            'dependencies' => $this->dependencies()?->toArray() ?? [],
+        ];
     }
 }
