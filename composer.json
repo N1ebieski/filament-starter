@@ -23,6 +23,7 @@
         "opcodesio/log-viewer": "^3.10",
         "pxlrbt/filament-spotlight": "^1.2",
         "silviolleite/laravelpwa": "^2.0",
+        "spatie/fork": "^1.2",
         "spatie/laravel-data": "^4.7",
         "spatie/laravel-permission": "^6.6",
         "typesense/typesense-php": "^5.0"
