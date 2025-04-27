@@ -37,6 +37,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Model::shouldBeStrict(! $this->app->isProduction());
+        Model::automaticallyEagerLoadRelationships($this->app->isProduction());
         DB::prohibitDestructiveCommands($this->app->isProduction());
         Date::use(CarbonImmutable::class);
 
