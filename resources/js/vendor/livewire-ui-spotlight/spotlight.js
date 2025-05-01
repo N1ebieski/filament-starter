@@ -18,8 +18,8 @@ window.LivewireUISpotlight = (config) => {
         showResultsWithoutInput: config.showResultsWithoutInput,
 
         init() {
-            this.commandSearch = new Fuse(this.commands, {threshold: 0.3, keys: ['name', 'description', 'synonyms']});
-            this.dependencySearch = new Fuse([], {threshold: 0.3, keys: ['name', 'description', 'synonyms']});
+            this.commandSearch = new Fuse(this.commands, { threshold: 0.3, keys: ['name', 'description', 'synonyms'] });
+            this.dependencySearch = new Fuse([], { threshold: 0.3, keys: ['name', 'description', 'synonyms'] });
 
             this.$watch('dependencyQueryResults', value => { this.dependencySearch.setCollection(value) });
 
@@ -27,7 +27,7 @@ window.LivewireUISpotlight = (config) => {
                 if (value.length === 0) {
                     this.selected = 0;
                 }
-                if(this.selectedCommand !== null && this.currentDependency !== null && this.currentDependency.type === 'search'){
+                if (this.selectedCommand !== null && this.currentDependency !== null && this.currentDependency.type === 'search') {
                     this.$wire.searchDependency(this.selectedCommand.id, this.currentDependency.id, value, this.resolvedDependencies);
                 }
             });
@@ -63,16 +63,16 @@ window.LivewireUISpotlight = (config) => {
         input: '',
         filteredItems() {
             if (this.searchEngine === 'commands') {
-                if (! this.input && this.showResultsWithoutInput) {
-                    return this.commandSearch.getIndex().docs.map((item, i) => [{item: item}, i]);
+                if (!this.input && this.showResultsWithoutInput) {
+                    return this.commandSearch.getIndex().docs.map((item, i) => [{ item: item }, i]);
                 }
 
                 return this.commandSearch.search(this.input).map((item, i) => [item, i])
             }
 
             if (this.searchEngine === 'search') {
-                if (! this.input && this.showResultsWithoutInput) {
-                    return this.dependencySearch.getIndex().docs.map((item, i) => [{item: item}, i]);
+                if (!this.input && this.showResultsWithoutInput) {
+                    return this.dependencySearch.getIndex().docs.map((item, i) => [{ item: item }, i]);
                 }
 
                 return this.dependencySearch.search(this.input).map((item, i) => [item, i])
@@ -101,15 +101,18 @@ window.LivewireUISpotlight = (config) => {
                 this.selectedCommand = this.commands.find((command) => {
                     return command.id === (id ? id : this.filteredItems()[this.selected][0].item.id);
                 });
-                this.requiredDependencies = JSON.parse(JSON.stringify(this.selectedCommand.dependencies));
+
+                if (Array.isArray(this.selectedCommand.dependencies)) {
+                    this.requiredDependencies = JSON.parse(JSON.stringify(this.selectedCommand.dependencies));
+                }
             }
 
             if (this.currentDependency !== null) {
                 let dependencyValue;
 
-                if(this.currentDependency.type === 'search') {
+                if (this.currentDependency.type === 'search') {
                     dependencyValue = id ? id : this.filteredItems()[this.selected][0].item.id;
-                }  else {
+                } else {
                     dependencyValue = this.input;
                 }
 
