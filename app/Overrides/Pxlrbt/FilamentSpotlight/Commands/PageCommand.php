@@ -21,8 +21,8 @@ final class PageCommand extends BasePageCommand implements Arrayable
     public function __construct(
         protected string $name,
         protected string $url,
-        protected string|Htmlable|null $icon = null,
         protected bool $shouldBeShown = true,
+        private readonly string|Htmlable|null $icon = null,
     ) {
         //
     }

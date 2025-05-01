@@ -85,7 +85,7 @@ abstract class PanelServiceProvider extends BasePanelProvider
                         $icon = MyProfilePage::getNavigationIcon();
 
                         if ($icon instanceof Htmlable) {
-                            $icon = $icon->toHtml();
+                            return $icon->toHtml();
                         }
 
                         return $icon;

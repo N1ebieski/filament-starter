@@ -23,8 +23,11 @@ final class RegisterUserMenu extends BaseRegisterUserMenu
         foreach ($items as $key => $item) {
             $name = $self->getName($key, $item);
             $url = $self->getUrl($key, $item);
+            if (blank($name)) {
+                continue;
+            }
 
-            if (blank($name) || blank($url)) {
+            if (blank($url)) {
                 continue;
             }
 

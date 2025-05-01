@@ -65,7 +65,7 @@ trait HasSearch
                 return $builder->take($take);
             })
             ->keys()
-            ->map(fn (string|int $id) => (int) $id);
+            ->map(fn (string|int $id): int => (int) $id);
 
         return $this->whereIn("{$model->getTable()}.{$model->getKeyName()}", $ids->toArray())
             ->when($scout->isOrderBy, fn (Builder $builder) => $builder
