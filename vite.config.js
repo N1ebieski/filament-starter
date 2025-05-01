@@ -16,6 +16,9 @@ export default defineConfig({
             host: "localhost",
             protocol: "ws",
         },
+        watch: {
+            interval: 1000,
+        },
     },
     plugins: [
         laravel({
