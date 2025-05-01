@@ -5,6 +5,7 @@
         "dev": "vite",
         "build": "vite build && vite build --config vite.spotlight.config.js && vite build --config vite.serviceworker.config.js",
         "watch": "vite build --watch",
+        "watch-spotlight": "./node_modules/.bin/vite build --watch --config=vite.spotlight.config.js",
         "watch-serviceworker": "./node_modules/.bin/vite build --watch --config=vite.serviceworker.config.js",
         "pwa-assets-generator": "./node_modules/.bin/pwa-assets-generator"
     },
