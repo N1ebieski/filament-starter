@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Overrides\Pxlrbt\FilamentSpotlight\Commands;
 
+use App\Models\Tenant\Tenant;
 use BladeUI\Icons\Factory;
 use Filament\Facades\Filament;
 use Illuminate\Contracts\Support\Arrayable;
@@ -33,29 +34,31 @@ final class PageCommand extends BasePageCommand implements Arrayable
 
         $icon = $this->icon;
 
-        if ($this->icon instanceof Htmlable) {
-            $icon = $this->icon->toHtml();
+        if ($icon instanceof Htmlable) {
+            $icon = $icon->toHtml();
         }
 
-        return $icon ? $bladeUIFactory->svg($this->icon)->toHtml() : null;
+        return $icon ? $bladeUIFactory->svg($icon)->toHtml() : null;
     }
 
     public function isActive(): bool
     {
         $currentPath = Uri::of(URL::current())->path();
         $urlPath = Uri::of($this->url)->path();
-        $panelHomePath = Uri::of(Filament::getCurrentPanel()->getHomeUrl())->path();
+        $panelHomePath = Uri::of(Filament::getCurrentPanel()?->getHomeUrl() ?? '')->path();
 
         // Override for Filament Panel Home Page with Tenancy. In this case, the urlPath is '/panel',
         // but the currentPath is '/panel/tenants/1'
         if ($panelHomePath === $urlPath && Filament::hasTenancy()) {
-            /** @var string $tenantRoutePrefix */
-            $tenantRoutePrefix = Filament::getCurrentPanel()->getTenantRoutePrefix();
+            /** @var string|null $tenantRoutePrefix */
+            $tenantRoutePrefix = Filament::getCurrentPanel()?->getTenantRoutePrefix();
 
-            /** @var Tenant $tenant */
-            $tenant = Filament::getTenant();
+            if ($tenantRoutePrefix !== null) {
+                /** @var Tenant $tenant */
+                $tenant = Filament::getTenant();
 
-            $urlPath = "{$urlPath}/{$tenantRoutePrefix}/{$tenant->id}";
+                $urlPath = "{$urlPath}/{$tenantRoutePrefix}/{$tenant->id}";
+            }
         }
 
         return $urlPath === $currentPath;

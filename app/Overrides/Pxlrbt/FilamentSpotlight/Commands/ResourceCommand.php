@@ -36,7 +36,7 @@ final class ResourceCommand extends BaseResourceCommand implements Arrayable
             $icon = $icon->toHtml();
         }
 
-        return $icon ? $bladeUIFactory->svg($this->resource::getNavigationIcon())->toHtml() : null;
+        return $icon ? $bladeUIFactory->svg($icon)->toHtml() : null;
     }
 
     public function isActive(): bool
@@ -44,7 +44,7 @@ final class ResourceCommand extends BaseResourceCommand implements Arrayable
         $currentPath = Uri::of(URL::current())->path();
         $urlPath = Uri::of($this->resource::getUrl())->path();
 
-        return Str::startsWith($currentPath, $urlPath);
+        return Str::startsWith($currentPath ?? '', $urlPath ?? '');
     }
 
     #[Override]

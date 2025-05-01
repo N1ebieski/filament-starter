@@ -12,7 +12,7 @@ use pxlrbt\FilamentSpotlight\Actions\RegisterUserMenu as BaseRegisterUserMenu;
 
 final class RegisterUserMenu extends BaseRegisterUserMenu
 {
-    public static function boot(Panel $panel)
+    public static function boot(Panel $panel): void
     {
         $self = new self;
         /**

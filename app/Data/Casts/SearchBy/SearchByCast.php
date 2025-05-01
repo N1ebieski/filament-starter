@@ -14,11 +14,12 @@ use Spatie\LaravelData\Support\DataProperty;
 
 final class SearchByCast extends BaseCast implements Cast
 {
+    //@phpstan-ignore-next-line
     private readonly Model $model;
 
     public function __construct(string $modelName)
     {
-        /** @var Model */
+        /** @var Model $model */
         $model = new $modelName;
 
         $this->model = $model;

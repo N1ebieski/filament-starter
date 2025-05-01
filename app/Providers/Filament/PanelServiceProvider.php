@@ -15,6 +15,7 @@ use Filament\Navigation\MenuItem;
 use Filament\Panel;
 use Filament\PanelProvider as BasePanelProvider;
 use Filament\Support\Colors\Color;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\View\View as ContractsView;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -80,9 +81,15 @@ abstract class PanelServiceProvider extends BasePanelProvider
                         }
 
                         return '';
-                    })
-                        ->icon(MyProfilePage::getNavigationIcon())
-                        ->label(Lang::string('filament-breezy::default.profile.my_profile')),
+                    })->icon(function (): ?string {
+                        $icon = MyProfilePage::getNavigationIcon();
+
+                        if ($icon instanceof Htmlable) {
+                            $icon = $icon->toHtml();
+                        }
+
+                        return $icon;
+                    })->label(Lang::string('filament-breezy::default.profile.my_profile')),
                 ]);
             })
             ->brandLogo(fn (): ContractsView => View::make('filament.logo.logo'))
