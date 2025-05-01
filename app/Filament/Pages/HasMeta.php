@@ -15,7 +15,7 @@ trait HasMeta
     {
         FilamentView::registerRenderHook(
             'panels::head.start',
-            fn (): ContractView => View::make('meta.meta', ['meta' => $this->getMeta()])
+            fn (): ContractView => View::make('filament.meta.meta', ['meta' => $this->getMeta()])
         );
     }
 
