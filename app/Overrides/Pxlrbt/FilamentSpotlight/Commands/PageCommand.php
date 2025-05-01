@@ -50,6 +50,8 @@ final class PageCommand extends BasePageCommand implements Arrayable
             'name' => $this->getName(),
             'icon' => $this->getIcon(),
             'description' => $this->getDescription(),
+            'synonyms' => $this->getSynonyms(),
+            'dependencies' => [],
         ];
     }
 }
