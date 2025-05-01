@@ -41,7 +41,7 @@ window.spotlight = (data) => {
                 }
 
                 const defaultCommand = el.commands.find(
-                    (command) => command.default
+                    (command) => command.isDefault
                 );
 
                 if (!defaultCommand) {

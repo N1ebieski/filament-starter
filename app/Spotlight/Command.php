@@ -10,11 +10,25 @@ use Override;
 
 abstract class Command extends SpotlightCommand implements Arrayable
 {
-    protected bool $default = false;
+    protected bool $isDefault = false;
 
-    public function getDefault(): bool
+    protected ?string $icon = null;
+
+    protected bool $isActive = false;
+
+    public function getIcon(): ?string
     {
-        return $this->default;
+        return $this->icon;
+    }
+
+    public function isDefault(): bool
+    {
+        return $this->isDefault;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->isActive;
     }
 
     #[Override]
@@ -22,11 +36,13 @@ abstract class Command extends SpotlightCommand implements Arrayable
     {
         return [
             'id' => $this->getId(),
+            'icon' => $this->getIcon(),
             'name' => $this->getName(),
             'description' => $this->getDescription(),
             'synonyms' => $this->getSynonyms(),
             'dependencies' => $this->dependencies()?->toArray() ?? [],
-            'default' => $this->getDefault(),
+            'isDefault' => $this->isDefault(),
+            'isActive' => $this->isActive(),
         ];
     }
 }

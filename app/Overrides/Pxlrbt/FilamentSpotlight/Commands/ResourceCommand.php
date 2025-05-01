@@ -12,6 +12,9 @@ use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Str;
+use Illuminate\Support\Uri;
 use LivewireUI\Spotlight\Spotlight;
 use LivewireUI\Spotlight\SpotlightSearchResult;
 use Override;
@@ -34,6 +37,14 @@ final class ResourceCommand extends BaseResourceCommand implements Arrayable
         }
 
         return $icon ? $bladeUIFactory->svg($this->resource::getNavigationIcon())->toHtml() : null;
+    }
+
+    public function isActive(): bool
+    {
+        $currentPath = Uri::of(URL::current())->path();
+        $urlPath = Uri::of($this->resource::getUrl())->path();
+
+        return Str::startsWith($currentPath, $urlPath);
     }
 
     #[Override]
@@ -90,6 +101,7 @@ final class ResourceCommand extends BaseResourceCommand implements Arrayable
             'description' => $this->getDescription(),
             'synonyms' => $this->getSynonyms(),
             'dependencies' => $this->dependencies()?->toArray() ?? [],
+            'isActive' => $this->isActive(),
         ];
     }
 }

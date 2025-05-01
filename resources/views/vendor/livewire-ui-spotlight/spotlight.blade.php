@@ -141,17 +141,22 @@
                                     <template x-if="item[0].item.icon">
                                         <div
                                             x-html="item[0].item.icon"
-                                            class="h-6 w-6 text-gray-400 dark:text-gray-500"
+                                            class="h-6 w-6"
+                                            x-bind:class="{
+                                                'text-gray-400 dark:text-gray-500': !item[0].item.isActive,
+                                                'text-primary-600 dark:text-primary-400': item[0].item.isActive,
+                                            }"
                                         ></div>
                                     </template>
                                     <div>
                                         <div
                                             x-text="item[0].item.name"
                                             x-bind:class="{
-                                                'text-gray-950': selected === i,
-                                                'text-gray-700': selected !== i,
-                                                'dark:text-white': selected === i,
-                                                'dark:text-gray-300': selected !== i,
+                                                'text-gray-950': selected === i && !item[0].item.isActive,
+                                                'text-gray-700': selected !== i && !item[0].item.isActive,
+                                                'dark:text-white': selected === i && !item[0].item.isActive,
+                                                'dark:text-gray-300': selected !== i && !item[0].item.isActive,
+                                                'text-primary-600 dark:text-primary-400': item[0].item.isActive,
                                             }"
                                         ></div>
                                         <div
