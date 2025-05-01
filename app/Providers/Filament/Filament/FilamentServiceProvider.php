@@ -20,6 +20,11 @@ final class FilamentServiceProvider extends ServiceProvider
     public function boot(): void
     {
         FilamentView::registerRenderHook(
+            PanelsRenderHook::FOOTER,
+            fn (): string => View::make('filament.footer.footer')->render()
+        );
+
+        FilamentView::registerRenderHook(
             PanelsRenderHook::SIDEBAR_NAV_START,
             fn (): string => View::make('filament.sidebar.close')->render()
         );
